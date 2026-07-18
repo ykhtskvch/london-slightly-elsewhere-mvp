@@ -81,7 +81,11 @@ function renderRoute(route, target) {
   };
   const routeFlow = route.stops.map(stop => flowLabels[stop.type] || stop.type).map(label => `<span>${e(label)}</span>`).join("");
   const mappedStops = route.stops.filter(stop => stop.mapQuery);
-  const wholeRouteUrl = navigation?.detailLevel === "anchor-by-anchor" && mappedStops.length > 0 && mappedStops.length <= 4
+  // Google's dir/?api=1 URL scheme accepts up to ~9 waypoints in addition to
+  // the destination. Shown on every route, prototype included: the pins
+  // themselves are real, and navigation.disclaimer already says how far to
+  // trust the sequence for routes that have not been field-checked.
+  const wholeRouteUrl = navigation?.arrival?.station && mappedStops.length > 0 && mappedStops.length <= 10
     ? mapsRoute(navigation.arrival.station, mappedStops)
     : null;
   const navigationBlock = navigation ? `
@@ -207,7 +211,7 @@ function mapsDirections(origin, destination) {
 function mapsRoute(origin, stops) {
   const destination = stops[stops.length - 1].mapQuery;
   const params = new URLSearchParams({ api: "1", origin, destination, travelmode: "walking" });
-  const waypoints = stops.slice(0, -1).map(stop => stop.mapQuery).slice(0, 3);
+  const waypoints = stops.slice(0, -1).map(stop => stop.mapQuery).slice(0, 9);
   if (waypoints.length) params.set("waypoints", waypoints.join("|"));
   return `https://www.google.com/maps/dir/?${params.toString()}`;
 }
