@@ -34,6 +34,7 @@ function renderRoute(route, target) {
   const facts = [
     ["Start", route.quickFacts.startStation],
     ["Time", route.quickFacts.duration],
+    ["Start by", route.quickFacts.startBy],
     ["Walk", route.quickFacts.walkingLevel],
     ["Budget", route.quickFacts.budget],
     ["Easy exit", route.filters.easyExit === "must-have" ? "Built in" : "Possible"]

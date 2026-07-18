@@ -339,7 +339,7 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
   .finder-layout { grid-template-columns: 18rem minmax(0, 1fr); }
   .filter-panel, .route-sidebar { position: sticky; top: 5rem; }
   .route-layout { grid-template-columns: minmax(0, 1fr) 18rem; gap: var(--space-6); }
-  .quick-facts { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .quick-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .navigation-start { padding: var(--space-4); }
   .navigation-grid { grid-template-columns: repeat(3, 1fr); }
   .fit-panels, .version-cards { grid-template-columns: repeat(2, 1fr); }
