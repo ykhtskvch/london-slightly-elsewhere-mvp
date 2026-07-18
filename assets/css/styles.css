@@ -181,6 +181,8 @@ h3 { font-size: var(--step-1); }
 .callout { display: grid; gap: var(--space-3); align-items: center; padding: var(--space-4); background: var(--surface-shift); border-radius: var(--radius-l) var(--radius-s); }
 .callout p { margin: var(--space-1) 0 0; color: var(--muted); }
 .fine-print { color: var(--muted); font-size: var(--step--1); }
+.status-legend { max-width: 44rem; margin: 0 0 var(--space-4); padding: var(--space-2) var(--space-3); background: var(--surface-shift); border-radius: var(--radius-s); color: var(--muted); font-size: var(--step--1); line-height: 1.6; }
+.status-legend strong { color: var(--ink); }
 
 .page-intro { padding-block: var(--space-8) var(--space-6); }
 .page-intro h1 { max-width: 15ch; font-size: var(--step-4); line-height: .98; }

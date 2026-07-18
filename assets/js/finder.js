@@ -101,7 +101,7 @@ function resultCard(item, index) {
     ? "Prototype · "
     : route.status === "field-checked"
       ? "Field-checked · "
-      : "";
+      : "Pilot · ";
   const reasonText = reasons.length
     ? `Good for ${reasons.slice(0, 3).join(", ")}${reasons.length > 3 ? " and more" : ""}.`
     : "A flexible place to start.";

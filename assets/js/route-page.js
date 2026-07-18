@@ -30,7 +30,7 @@ function renderRoute(route, target) {
       ? { label: "Field-checked route", detail: "Personally field-checked route — live details can still change" }
       : route.status === "prototype"
         ? { label: "Prototype route", detail: "Prototype route — not yet field-checked" }
-        : { label: "Pilot route", detail: "Pilot route — verify details before going" };
+        : { label: "Pilot route", detail: "Pilot route — walked once; verify live details before going" };
   const facts = [
     ["Start", route.quickFacts.startStation],
     ["Time", route.quickFacts.duration],
