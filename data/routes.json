@@ -2,10 +2,10 @@
   {
     "id": "putney-river-air-music-pub",
     "slug": "putney",
-    "status": "field-test",
+    "status": "field-checked",
     "access": "free",
     "title": "Putney for River Air and a Proper Music Pub",
-    "subtitle": "A low-key Thames evening that can stay as a walk and a pint, or turn into live music if the mood holds.",
+    "subtitle": "A Thames walk, a proper pub pause and an unfussy Italian dinner before a real music room — if the listing earns it.",
     "seo": {
       "title": "Putney for River Air and a Proper Music Pub",
       "description": "A walk-first Putney route with Thames air, an old-pub pause and an optional live-music ending."
@@ -13,14 +13,14 @@
     "quickFacts": {
       "startStation": "Putney Bridge Underground",
       "endStation": "Putney Bridge Underground or Putney rail",
-      "duration": "2–4 hours",
+      "duration": "3–5 hours",
       "walkingDistance": "Approx. 2–4 km, adjustable",
       "walkingLevel": "gentle",
       "noiseLevel": "moderate; loud if a gig is included",
       "budget": "under £30 without a gig",
       "bestTime": "Dry evening, spring to early autumn",
       "weather": ["sunny", "cold", "evening"],
-      "mainStops": 4
+      "mainStops": 5
     },
     "navigation": {
       "detailLevel": "anchor-by-anchor",
@@ -53,16 +53,16 @@
       "booking": "optional-booking"
     },
     "editorial": {
-      "vibeSummary": "Thames air, old rooms and the useful possibility that the evening might become a gig.",
+      "vibeSummary": "Thames air, an old pub, a no-fuss dinner and the useful possibility that the evening becomes a gig.",
       "bestFor": ["A second or third date", "Music-loving friends", "A southwest escape without Chelsea gloss"],
       "notIdealFor": ["A 45-minute first date", "Guaranteed seating", "Conversation once the band starts"],
-      "whyNow": "Best when there is enough light for a river walk but not enough appetite for a fully programmed night.",
-      "specialBecause": "It gives an evening shape without making the shape compulsory.",
+      "whyNow": "Best when there is enough light for a river walk and enough appetite for dinner before the music begins.",
+      "specialBecause": "It gives an evening shape without making the shape compulsory: each stage is a complete ending.",
       "whatNotToExpect": "More atmospheric than glamorous; the live-music version depends on the current listing.",
-      "practicalWarnings": ["Check opening hours, listings and tickets before setting off.", "The river can feel colder and windier than the rest of Putney.", "Do not assume a ticket, seat or quiet corner is available."],
+      "practicalWarnings": ["Check Al Forno’s opening hours and whether a booking helps on gig nights.", "Check the Half Moon’s current listing and tickets before setting off.", "The river can feel colder and windier than the rest of Putney.", "Do not assume a ticket, seat or quiet corner is available."],
       "tags": ["riverside", "old-pubs", "live-music", "good-for-talking"]
     },
-    "routeNarrative": "Start with the river so the evening has room to arrive. Take one proper pause in a pub, then decide whether the night should remain a conversation or become an event. The no-gig version is the route, not a consolation prize.",
+    "routeNarrative": "Start with the river so the evening has room to arrive. Take one proper pause in a pub, eat somewhere warm and straightforward, then decide whether the night should remain a conversation or become an event. The no-gig version is still the route, not a consolation prize.",
     "stops": [
       {
         "name": "Putney Bridge — south side",
@@ -98,32 +98,43 @@
         "officialUrl": null
       },
       {
+        "name": "Al Forno",
+        "type": "dinner",
+        "duration": "45–75 min",
+        "walkingToNext": "8–10 min",
+        "locationNote": "90 Putney High Street, London SW15 1SR",
+        "mapQuery": "Al Forno 90 Putney High Street London SW15 1SR",
+        "directionFromPrevious": "From The Duke’s Head, walk inland to Putney High Street and continue to number 90. Use the live route for the crossing rather than cutting through private riverside access.",
+        "description": "A warm, plain-dealing neighbourhood Italian that does not compete with the gig after it. This stop has been personally field-checked; confirm hours and booking expectations on gig nights.",
+        "officialUrl": null
+      },
+      {
         "name": "The Half Moon Putney",
         "type": "live-music",
         "duration": "45–120 min",
         "walkingToNext": "Finish",
         "locationNote": "93 Lower Richmond Road, Putney, London SW15 1EU",
         "mapQuery": "The Half Moon Putney 93 Lower Richmond Road SW15 1EU",
-        "directionFromPrevious": "Continue west along Lower Richmond Road from The Duke’s Head to number 93.",
-        "description": "The optional gig branch. Check the current listing and tickets before setting off; the no-gig river-and-pub version is complete without it.",
+        "directionFromPrevious": "Walk back from Al Forno to Lower Richmond Road, then continue to number 93.",
+        "description": "Personally field-checked as a proper pub at the front with a real music room at the back. The listing still decides the night: check bands and tickets before setting off.",
         "officialUrl": "https://www.halfmoon.co.uk/"
       }
     ],
     "versions": [
       {
         "id": "no-gig",
-        "label": "River + pub",
-        "description": "The default: a reversible, low-pressure evening.",
+        "label": "River + pub + dinner",
+        "description": "The default: a reversible, low-pressure evening with a proper meal before the easy exit.",
         "duration": "2–3 hours",
-        "budget": "under £30",
+        "budget": "£30–£70",
         "requiresTicketCheck": false
       },
       {
         "id": "gig",
-        "label": "River + pub + gig",
-        "description": "Take a shorter walk, eat or drink early, then go only if the listing and tickets work.",
-        "duration": "3–4 hours",
-        "budget": "£30–£70",
+        "label": "River + pub + dinner + gig",
+        "description": "Use the same shape, then go only if the listing and tickets work.",
+        "duration": "3–5 hours",
+        "budget": "£30–£70 plus ticket",
         "requiresTicketCheck": true
       }
     ],
@@ -131,14 +142,14 @@
       "dateNotes": "Good for a second or third date: walking removes some face-to-face pressure, and either person can leave after the first drink without turning it into a statement.",
       "friendGroupNotes": "Best for two to four people. For larger groups, verify seating before making the pub stop the plan.",
       "soloNotes": "The no-gig version works alone if you enjoy river walking and sitting somewhere with a book. The gig is a bonus, not a requirement.",
-      "foodDrinkNotes": "Think snack stop or early practical meal, not a destination dinner. Check kitchen hours before relying on food.",
-      "rainyDayBackup": "Reduce the walk to one brief river section, begin indoors and keep the gig branch only if weather, transport and tickets still make sense.",
+      "foodDrinkNotes": "Al Forno is the no-fuss dinner anchor between the pub pause and the gig. Check current kitchen hours and booking expectations before relying on it.",
+      "rainyDayBackup": "Reduce the walk to one brief river section, move to The Duke’s Head or Al Forno early, and keep the gig branch only if weather, transport and tickets still make sense.",
       "continueIfGoingWell": "Extend the river walk or take a second verified pub stop. Do not add a third venue just because the route has space.",
       "exitEarly": "Leave after the first drink or use Putney station as a practical exit.",
-      "finalEditorialNote": "River first, pub later, gig if it goes well."
+      "finalEditorialNote": "River first, pub later, dinner in the middle, gig if it goes well."
     },
     "logic": {
-      "fallbackIfClosed": "Keep the river walk and replace the named music stop with any currently open, verified pub room.",
+      "fallbackIfClosed": "Keep the river walk and pub pause; if Al Forno or the gig is unavailable, end after the first drink or use another currently open, verified room.",
       "conversationQuality": "good before music",
       "commitmentLevel": "low"
     },
@@ -147,11 +158,11 @@
       "mapQuery": "Putney Bridge to The Half Moon Putney"
     },
     "editorialControl": {
-      "fieldTested": false,
-      "lastChecked": null,
+      "fieldTested": true,
+      "lastChecked": "Personally field-checked — July 2026",
       "nextReview": null,
-      "feedbackStatus": "needs-field-test",
-      "updateNotes": "Venue information requires a field check before public promotion."
+      "feedbackStatus": "field-checked",
+      "updateNotes": "River sequence, The Duke’s Head, Al Forno and the Half Moon have been personally checked. Reconfirm hours, dinner bookings and gig listings before each use."
     }
   },
   {
@@ -781,5 +792,132 @@
       "feedbackStatus": "needs-field-test",
       "updateNotes": "Test the Camley Street access branch, timings, crossings and final pub noise before promotion."
     }
+  },
+  {
+    "id": "harringay-green-lanes-grill-gin-palace",
+    "slug": "harringay-green-lanes",
+    "status": "prototype",
+    "access": "free",
+    "title": "Harringay Green Lanes for the Grill and the Gin Palace",
+    "subtitle": "A Victorian pub, Turkish grills and a long, lively street that still behaves like a neighbourhood.",
+    "seo": {"title": "Harringay Green Lanes for the Grill and the Gin Palace", "description": "A prototype Green Lanes route for a grand pub interior, Turkish food and a local London evening."},
+    "quickFacts": {"startStation": "Harringay Green Lanes", "endStation": "Harringay Green Lanes or Manor House", "duration": "2–4 hours", "walkingDistance": "Approx. 2–3 km", "walkingLevel": "gentle", "noiseLevel": "lively", "budget": "under £30", "bestTime": "Early evening", "weather": ["cold", "rainy", "evening"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Harringay Green Lanes Overground", "stationExit": "Come out onto Green Lanes and set The Salisbury as the first pin.", "pinLabel": "The Salisbury Hotel", "pinQuery": "The Salisbury Hotel 1 Grand Parade Green Lanes London N4 1RN", "firstMove": "Walk south on Green Lanes; this is deliberately a no-central-London journey."}, "finish": {"label": "An ocakbaşı dinner on Green Lanes", "nearestStation": "Harringay Green Lanes or Manor House", "exitNote": "Return north for Harringay Green Lanes, or use Manor House at the north end for the Piccadilly line."}, "disclaimer": "Draft skeleton: confirm pub hours, restaurant booking policy and the final walk before following it as a fixed route."},
+    "filters": {"occasion": ["friend-catch-up", "second-date", "neighbourhood-escape"], "groupSize": ["2", "3-4"], "vibe": ["food", "old-pubs", "diaspora-london", "lively", "local-london"], "walking": "gentle", "noise": "lively", "budget": "under-30", "weather": ["cold", "rainy", "evening"], "duration": ["1-2h", "3-4h"], "socialPressure": "medium", "easyExit": "must-have", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "The Saperavi principle, translated into Turkish: generous, loud in the right way and nobody performing for a camera.", "bestFor": ["A food-first friend catch-up", "A second date that needs energy", "Anyone who wants a proper local street"], "notIdealFor": ["A quiet conversation from the first minute", "A wine-led dinner", "A guaranteed instant table"], "whyNow": "The dark wood and grill smoke make most sense after work, when a big local street can carry the evening.", "specialBecause": "It pairs one of north London’s great pub interiors with food that is expansive rather than precious.", "whatNotToExpect": "Not quiet, not polished and not a place to expect a table the second you want one.", "practicalWarnings": ["Verify pub hours and restaurant queue or booking policy.", "Green Lanes is busy and traffic-heavy; use crossings rather than cutting through.", "The route has not yet been field-checked."], "tags": ["food", "lively", "old-pubs", "diaspora-london"]},
+    "routeNarrative": "Start in a room grand enough to reset the tone, then let Green Lanes do the rest. The street itself is the walk; dinner is the anchor, not a reward for completing it.",
+    "stops": [
+      {"name": "Harringay Green Lanes station", "type": "start", "duration": "5–10 min", "walkingToNext": "5 min south", "locationNote": "Harringay Green Lanes Overground, London N4", "mapQuery": "Harringay Green Lanes station London N4", "directionFromPrevious": "Exit onto Green Lanes, then walk south towards Grand Parade.", "description": "A useful start because it avoids turning the evening into another trip through central London.", "officialUrl": null},
+      {"name": "The Salisbury Hotel", "type": "pub", "duration": "30–60 min", "walkingToNext": "10–15 min down Green Lanes", "locationNote": "1 Grand Parade, Green Lanes, London N4 1RN", "mapQuery": "The Salisbury Hotel 1 Grand Parade Green Lanes London N4 1RN", "directionFromPrevious": "Continue south on Green Lanes to Grand Parade.", "description": "A vast Victorian gin palace of etched glass, dark wood and tall ceilings. One first drink is enough; check hours before relying on it.", "officialUrl": null},
+      {"name": "Green Lanes — bakeries, grocers and grill smoke", "type": "walk", "duration": "20–35 min", "walkingToNext": "2–5 min", "locationNote": "Green Lanes, Harringay, London N4", "mapQuery": "Green Lanes Harringay London N4", "directionFromPrevious": "Continue south slowly, keeping the Turkish bakeries and grocers as the route rather than a distraction from it.", "description": "Walk the street rather than rushing through it; buy baklava for tomorrow if the moment presents itself.", "officialUrl": null},
+      {"name": "Gökyüzü — ocakbaşı dinner", "type": "dinner", "duration": "60–90 min", "walkingToNext": "Finish", "locationNote": "26–28 Grand Parade, Green Lanes, London N4 1LG", "mapQuery": "Gökyüzü 26-28 Grand Parade Green Lanes London N4 1LG", "directionFromPrevious": "Use the live pin for the restaurant entrance. If it is too busy, try Diyarbakır Kitchen further down Green Lanes instead.", "description": "The bright, generous default: order from the coals and share everything. Check current wait and booking policy before setting off.", "officialUrl": null}
+    ],
+    "versions": [{"id": "short", "label": "Gin palace + street", "description": "One drink and a shorter walk, with dinner left deliberately optional.", "duration": "1–2 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "full", "label": "Pub + Green Lanes + grill", "description": "The full food-first version.", "duration": "2–4 hours", "budget": "under £30", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Better for an established date than a tentative first meeting: it is loud, generous and easier when both people want to eat.", "friendGroupNotes": "Excellent for two to four people who enjoy sharing dishes and a busy street.", "soloNotes": "Possible, though the food rhythm is strongest with someone to share it.", "foodDrinkNotes": "Dinner is the point. Verify the queue or booking policy, then order over the coals and share.", "rainyDayBackup": "Make the Salisbury and restaurant the route; keep the street walk short and practical.", "continueIfGoingWell": "Stay on Green Lanes for dessert rather than crossing London for a second plan.", "exitEarly": "Leave after the first drink, or end after a bakery stop and return to the Overground.", "finalEditorialNote": "Big room first. Big food later."},
+    "logic": {"fallbackIfClosed": "Keep the pub-street-grill rhythm with another currently open ocakbaşı; do not replace the food anchor with a generic chain.", "conversationQuality": "moderate", "commitmentLevel": "medium"},
+    "links": {"officialSources": [], "mapQuery": "Harringay Green Lanes station to Gökyüzü Green Lanes"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Field-check crossings, pub hours, restaurant policy and the best station exit."}
+  },
+  {
+    "id": "brixton-market-windmill-later",
+    "slug": "brixton",
+    "status": "prototype",
+    "access": "free",
+    "title": "Brixton, Market First, Windmill Later",
+    "subtitle": "A district walk for grazing, local pubs and an unknown band worth taking a chance on.",
+    "seo": {"title": "Brixton, Market First, Windmill Later", "description": "A prototype Brixton route from market food through local pubs to a scrappy music room."},
+    "quickFacts": {"startStation": "Brixton Underground", "endStation": "Brixton Underground", "duration": "3–4 hours", "walkingDistance": "Approx. 3 km", "walkingLevel": "medium", "noiseLevel": "lively", "budget": "under £30 plus ticket", "bestTime": "Daytime into early evening", "weather": ["rainy", "evening"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Brixton Underground", "stationExit": "Come out onto Electric Avenue and set Brixton Village as the first food pin.", "pinLabel": "Brixton Village", "pinQuery": "Brixton Village London SW9", "firstMove": "Start in the noise on purpose, then use the covered arcades for the first food chapter."}, "finish": {"label": "The Windmill, 22 Blenheim Gardens", "nearestStation": "Brixton Underground", "exitNote": "Brixton is about fifteen minutes from the Windmill; night buses on Brixton Hill are the practical alternative."}, "disclaimer": "Draft skeleton: confirm market evening hours, music nights, tickets and the preferred walking route before following it as fixed."},
+    "filters": {"occasion": ["friend-catch-up", "second-date", "neighbourhood-escape"], "groupSize": ["2", "3-4"], "vibe": ["market-food", "live-music", "diaspora-london", "lively", "local-london"], "walking": "medium", "noise": "lively", "budget": "under-30", "weather": ["rainy", "evening"], "duration": ["3-4h"], "socialPressure": "medium", "easyExit": "must-have", "booking": "optional-booking"},
+    "editorial": {"vibeSummary": "District, food, pubs and a low-stakes punt on an unknown band.", "bestFor": ["A friend catch-up with appetite", "A date that gets better with movement", "Anyone who likes music without a big-ticket plan"], "notIdealFor": ["A quiet first hour", "A fixed dinner reservation", "People who dislike crowds"], "whyNow": "It works when the market is still alive and a gig listing can give the late part of the evening a shape.", "specialBecause": "It turns a known London district into a sequence rather than a list of places.", "whatNotToExpect": "Not quiet, not fully scheduled and not a route for sitting in one place all night.", "practicalWarnings": ["Verify market-unit evening hours.", "Check Effra Hall Tavern music nights and Windmill tickets.", "The route has not yet been field-checked."], "tags": ["market-food", "live-music", "lively", "south-london"]},
+    "routeNarrative": "Let Brixton set the tempo first, eat in fragments, then move into smaller rooms before deciding whether the night deserves a band.",
+    "stops": [
+      {"name": "Brixton station → Electric Avenue", "type": "start", "duration": "5–10 min", "walkingToNext": "2–5 min", "locationNote": "Brixton Underground, London SW9", "mapQuery": "Brixton Underground station London SW9", "directionFromPrevious": "Exit onto Electric Avenue and walk towards the covered market arcades.", "description": "The lively opening is intentional: arrive in the noise and let it set the tempo.", "officialUrl": null},
+      {"name": "Brixton Village + Market Row", "type": "market", "duration": "45–75 min", "walkingToNext": "10 min through back streets", "locationNote": "Brixton Village, London SW9 8PS", "mapQuery": "Brixton Village London SW9 8PS", "directionFromPrevious": "Use the covered arcades for grazing rather than a single committed dinner.", "description": "Caribbean, Colombian and Eritrean counters; graze, do not over-plan. Some units may close by early evening, so verify hours.", "officialUrl": null},
+      {"name": "The Effra Hall Tavern", "type": "pub", "duration": "30–60 min", "walkingToNext": "12 min", "locationNote": "38a Kellett Road, London SW2 1EB", "mapQuery": "The Effra Hall Tavern 38a Kellett Road London SW2 1EB", "directionFromPrevious": "Walk through the back streets to Kellett Road and use the pub as the local pause before the music branch.", "description": "A Jamaican-run local with jazz on some nights and dominoes as part of the room. Check current music nights first.", "officialUrl": null},
+      {"name": "The Windmill", "type": "live-music", "duration": "60–120 min", "walkingToNext": "Finish", "locationNote": "22 Blenheim Gardens, London SW2 5BZ", "mapQuery": "The Windmill 22 Blenheim Gardens London SW2 5BZ", "directionFromPrevious": "Continue to Blenheim Gardens and check the current listing before buying a ticket. If there is nothing on, use The Prince Albert on Coldharbour Lane instead.", "description": "A scrappy small room for unknown indie bands. The listing decides whether it is the finish or simply a reason to return another night.", "officialUrl": null}
+    ],
+    "versions": [{"id": "market-pub", "label": "Market + local pub", "description": "The daylight-to-drink version without a ticket.", "duration": "2–3 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "gig", "label": "Market + pub + gig", "description": "The full Brixton format when the listing is worth it.", "duration": "3–4 hours", "budget": "under £30 plus ticket", "requiresTicketCheck": true}],
+    "copy": {"dateNotes": "Good once a first date has survived: there is enough external stimulation that neither person has to carry the whole conversation.", "friendGroupNotes": "Strong for a small group that can agree on grazing and a late decision.", "soloNotes": "The market works alone; the gig branch is optional rather than required.", "foodDrinkNotes": "Eat standing up in fragments at the start, then treat the pub and gig as separate decisions.", "rainyDayBackup": "Stay within the covered arcades longer, then use the pub or a gig only after checking times.", "continueIfGoingWell": "Keep the band, or return to Brixton for one final drink rather than adding another neighbourhood.", "exitEarly": "Leave after the market or pub and return directly to Brixton station.", "finalEditorialNote": "Market first. Unknown bands later."},
+    "logic": {"fallbackIfClosed": "If the gig is not on, keep the market-and-pub version; do not force a different venue across London.", "conversationQuality": "moderate", "commitmentLevel": "medium"},
+    "links": {"officialSources": [], "mapQuery": "Brixton Village to The Windmill Brixton"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Field-check market hours, the quietest walking route, pub music and gig listings."}
+  },
+  {
+    "id": "kentish-town-shortlist-evening",
+    "slug": "kentish-town",
+    "status": "prototype",
+    "access": "free",
+    "title": "Kentish Town, Assembled from the Shortlist",
+    "subtitle": "Two backstreet pubs and a small music room, wired into one easy north London evening.",
+    "seo": {"title": "Kentish Town, Assembled from the Shortlist", "description": "A prototype Kentish Town route for hand-pulled pints, a residential pub and unknown bands."},
+    "quickFacts": {"startStation": "Kentish Town", "endStation": "Kentish Town or Camden Town", "duration": "2–4 hours", "walkingDistance": "Approx. 2–3 km", "walkingLevel": "gentle", "noiseLevel": "lively", "budget": "under £30 plus ticket", "bestTime": "Weekday or weekend evening", "weather": ["cold", "rainy", "evening"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Kentish Town Northern line or Kentish Town West", "stationExit": "Set The Southampton Arms as the first pin and make the initial five-minute walk.", "pinLabel": "The Southampton Arms", "pinQuery": "The Southampton Arms 139 Highgate Road London NW5 1LE", "firstMove": "Start with the first pint, then cut into the back streets for the local-pub chapter."}, "finish": {"label": "The Fiddler’s Elbow or The Dublin Castle", "nearestStation": "Kentish Town or Camden Town", "exitNote": "The entire route stays inside a roughly fifteen-minute station radius; choose the gig room that makes the exit simpler."}, "disclaimer": "Draft skeleton: verify cash policy, food service, listings and walking time to the selected music room before treating it as fixed."},
+    "filters": {"occasion": ["friend-catch-up", "second-date", "neighbourhood-escape"], "groupSize": ["2", "3-4"], "vibe": ["old-pubs", "live-music", "local-london", "not-polished"], "walking": "gentle", "noise": "lively", "budget": "under-30", "weather": ["cold", "rainy", "evening"], "duration": ["1-2h", "3-4h"], "socialPressure": "low", "easyExit": "must-have", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "A pub crawl with only two pubs, then a room small enough for an unknown band to still matter.", "bestFor": ["Friends who prefer hand pumps to cocktails", "A low-pressure evening date", "Music people without a big-ticket plan"], "notIdealFor": ["A proper dinner night", "Anyone who needs a reservation", "People who want quiet after the first pint"], "whyNow": "The neighbourhood is built for rainy and cold evenings: short walks, old rooms and no need to perform a big night out.", "specialBecause": "It turns a shortlist of good individual rooms into a coherent, walkable sequence.", "whatNotToExpect": "Not a dinner route and not a polished Camden nightlife itinerary.", "practicalWarnings": ["Verify cash policy and current food service at The Southampton Arms.", "Check The Pineapple kitchen and both gig listings.", "The route has not yet been field-checked."], "tags": ["old-pubs", "live-music", "north-london", "unfussy"]},
+    "routeNarrative": "Start with a full stop of a first pint, move through residential streets to a second local, then take the last decision from the listings rather than the plan.",
+    "stops": [
+      {"name": "Kentish Town station", "type": "start", "duration": "5 min", "walkingToNext": "5 min", "locationNote": "Kentish Town station, London NW5", "mapQuery": "Kentish Town station London NW5", "directionFromPrevious": "Arrive by Northern line or Kentish Town West, then set the first pub pin.", "description": "An easy station start: no central-London detour and no need to choose the evening at the platform.", "officialUrl": null},
+      {"name": "The Southampton Arms", "type": "pub", "duration": "30–60 min", "walkingToNext": "10 min into the back streets", "locationNote": "139 Highgate Road, London NW5 1LE", "mapQuery": "The Southampton Arms 139 Highgate Road London NW5 1LE", "directionFromPrevious": "Walk to Highgate Road and number 139. Verify payment policy and seating before going.", "description": "The first-pint anchor: hand pumps, no reservations and a deliberately narrow proposition. Treat any cash-only expectation as something to verify, not a promise.", "officialUrl": null},
+      {"name": "The Pineapple", "type": "pub", "duration": "30–60 min", "walkingToNext": "8–12 min to the selected gig", "locationNote": "51 Leverton Street, London NW5 2NX", "mapQuery": "The Pineapple 51 Leverton Street London NW5 2NX", "directionFromPrevious": "Turn into the residential streets and walk to Leverton Street. Check whether the Thai kitchen is currently operating before relying on food.", "description": "A Victorian local in the back streets, saved by its regulars: a second room that makes the later gig feel optional rather than obligatory.", "officialUrl": null},
+      {"name": "The Fiddler’s Elbow — gig branch", "type": "live-music", "duration": "60–120 min", "walkingToNext": "Finish", "locationNote": "1 Malden Road, London NW5 3HS", "mapQuery": "The Fiddler's Elbow 1 Malden Road London NW5 3HS", "directionFromPrevious": "Use the current listing and the live route to Malden Road. The Dublin Castle on Parkway is the more scene-led alternative if its listing is better.", "description": "A small, chaotic-in-a-good-way room for unknown bands. If neither listing works, finish after the second pub without apologising for it.", "officialUrl": null}
+    ],
+    "versions": [{"id": "pubs", "label": "Two pubs", "description": "The no-ticket version: enough shape for a full evening without a gig.", "duration": "1–2 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "gig", "label": "Pubs + gig", "description": "Go only when the listing makes the last walk worthwhile.", "duration": "2–4 hours", "budget": "under £30 plus ticket", "requiresTicketCheck": true}],
+    "copy": {"dateNotes": "Good for a second or third date if both people genuinely like pubs and a little looseness.", "friendGroupNotes": "Works for two to four; keep it small enough for pub seating and a small venue.", "soloNotes": "The pubs work alone, but the gig branch is more useful with a companion.", "foodDrinkNotes": "Do not promise dinner: treat food as a possible bar-kitchen bonus and eat before arrival if needed.", "rainyDayBackup": "Keep both pub stops and skip the gig if weather or listing makes the final leg feel pointless.", "continueIfGoingWell": "Choose the better current gig listing, not the longer walk by default.", "exitEarly": "End after either pub and return to Kentish Town.", "finalEditorialNote": "Book nothing. Wing only the final room."},
+    "logic": {"fallbackIfClosed": "Preserve the two-pub rhythm with verified local alternatives; do not turn it into a Camden chain crawl.", "conversationQuality": "good before the gig", "commitmentLevel": "low"},
+    "links": {"officialSources": [], "mapQuery": "Kentish Town station to The Fiddler's Elbow"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Field-check payment policy, kitchens, pub seating and both gig options."}
+  },
+  {
+    "id": "deptford-unpolished-high-street",
+    "slug": "deptford",
+    "status": "prototype",
+    "access": "free",
+    "title": "Deptford, the Unpolished High Street",
+    "subtitle": "A market-day walk for street voltage, an old churchyard and a Caribbean finish under the arches.",
+    "seo": {"title": "Deptford, the Unpolished High Street", "description": "A prototype Deptford route for market stalls, churchyard quiet and unfussy local bars."},
+    "quickFacts": {"startStation": "Deptford rail", "endStation": "Deptford rail or Deptford Bridge DLR", "duration": "2–4 hours", "walkingDistance": "Approx. 2–3 km", "walkingLevel": "gentle", "noiseLevel": "moderate", "budget": "under £30", "bestTime": "Market day, daytime into evening", "weather": ["sunny", "evening"], "mainStops": 5},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Deptford rail", "stationExit": "Time the visit to a market day, then walk directly to the high street.", "pinLabel": "Deptford Market Yard", "pinQuery": "Deptford Market Yard London SE8", "firstMove": "Walk the high street end to end before deciding where the first pause belongs."}, "finish": {"label": "Buster Mantis, Resolution Way", "nearestStation": "Deptford rail or Deptford Bridge DLR", "exitNote": "Deptford rail and the DLR are both close. Greenwich is one stop further if the evening still has room."}, "disclaimer": "Draft skeleton: verify market days, pub amenities, Buster Mantis hours and music before treating this as a fixed route."},
+    "filters": {"occasion": ["friend-catch-up", "neighbourhood-escape", "visitors", "solo-day"], "groupSize": ["1", "2", "3-4"], "vibe": ["market-food", "slightly-weird", "old-pubs", "diaspora-london", "not-polished"], "walking": "gentle", "noise": "moderate", "budget": "under-30", "weather": ["sunny", "evening"], "duration": ["1-2h", "3-4h"], "socialPressure": "low", "easyExit": "must-have", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "Strange edges, zone two edition: a high street that has not agreed to become a concept.", "bestFor": ["A market-day friend catch-up", "Visitors who want a less polished London", "A local afternoon with an easy exit"], "notIdealFor": ["A heavily curated date", "A non-market weekday", "Anyone seeking quiet from the first minute"], "whyNow": "The route only earns its keep when the high street has market voltage; otherwise half its reason disappears.", "specialBecause": "It combines a truly uncurated street with one graveyard footnote and a finish under railway arches.", "whatNotToExpect": "Not polished, not Instagram-first and not consistent on non-market days.", "practicalWarnings": ["Verify market days and hours before crossing London.", "Check Dog & Bell amenities and Buster Mantis hours or music.", "The route has not yet been field-checked."], "tags": ["market", "slightly-weird", "old-pubs", "south-east-london"]},
+    "routeNarrative": "Start with the market’s mess, take one quiet historical pause, then choose between a stubborn pub and a more lively Caribbean finish.",
+    "stops": [
+      {"name": "Deptford station", "type": "start", "duration": "5 min", "walkingToNext": "2–5 min", "locationNote": "Deptford rail station, London SE8", "mapQuery": "Deptford station London SE8", "directionFromPrevious": "Arrive from London Bridge, then walk directly to the market and high street.", "description": "A short rail trip that makes the district feel more separate than it is. Check that it is a market day before setting off.", "officialUrl": null},
+      {"name": "Deptford Market + high street", "type": "market", "duration": "40–60 min", "walkingToNext": "5 min", "locationNote": "Deptford High Street, London SE8", "mapQuery": "Deptford High Street London SE8", "directionFromPrevious": "Walk the length of the market and high street; stalls, fabric, fish and Vietnamese cafés are the opening chapter.", "description": "No curation required. Buy something useless if it feels right; if the market is not operating, use a different route rather than a weakened imitation.", "officialUrl": null},
+      {"name": "St Nicholas churchyard", "type": "walk", "duration": "15–25 min", "walkingToNext": "5 min", "locationNote": "St Nicholas Church, Deptford Green, London SE8", "mapQuery": "St Nicholas Church Deptford London SE8", "directionFromPrevious": "Move to the churchyard for the quiet pause; use the pin for the gate rather than approaching through private-looking service lanes.", "description": "Skull-and-bones gateposts and the Christopher Marlowe footnote: ten quiet minutes with a disproportionate amount of story.", "officialUrl": null},
+      {"name": "The Dog & Bell", "type": "pub", "duration": "30–60 min", "walkingToNext": "8 min back through the high street", "locationNote": "116 Prince Street, London SE8 3JD", "mapQuery": "The Dog & Bell 116 Prince Street London SE8 3JD", "directionFromPrevious": "Walk to Prince Street and number 116. Verify current hours and bar-billiards availability before relying on either.", "description": "Backstreet, stubborn and trend-resistant: a complete ending if a quieter pub is the right answer.", "officialUrl": null},
+      {"name": "Buster Mantis", "type": "cafe-or-pub", "duration": "45–90 min", "walkingToNext": "Finish", "locationNote": "3–4 Resolution Way, London SE8 4NT", "mapQuery": "Buster Mantis 3-4 Resolution Way London SE8 4NT", "directionFromPrevious": "Return through the high street to Resolution Way. If the later bar-kitchen branch is closed, stay at The Dog & Bell instead.", "description": "A Caribbean bar-kitchen under the railway arches for rum, curry goat and later music. Check current hours and programme first.", "officialUrl": null}
+    ],
+    "versions": [{"id": "market-pub", "label": "Market + Dog & Bell", "description": "The quieter daylight version.", "duration": "1–2 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "arches", "label": "Market + arches finish", "description": "The fuller version when Buster Mantis is confirmed open.", "duration": "2–4 hours", "budget": "under £30", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Better for someone who enjoys texture and surprise more than a polished itinerary.", "friendGroupNotes": "Good for a small group on a confirmed market day; the high street gives everyone something to react to.", "soloNotes": "The market and churchyard work especially well alone; the arches finish is optional.", "foodDrinkNotes": "Treat food as flexible until Buster Mantis is confirmed open; the Dog & Bell is a complete ending.", "rainyDayBackup": "Skip the long market browse, use one café or pub, and leave after the churchyard if weather makes the street feel punishing.", "continueIfGoingWell": "Continue one stop to Greenwich rather than forcing another venue in Deptford.", "exitEarly": "Leave from Deptford after the market, churchyard or Dog & Bell.", "finalEditorialNote": "The least Instagram high street in inner London, by design."},
+    "logic": {"fallbackIfClosed": "If market or arch hours do not work, downgrade to a short pub-and-churchyard visit or choose another route; do not pretend the full route survived intact.", "conversationQuality": "good", "commitmentLevel": "low"},
+    "links": {"officialSources": [], "mapQuery": "Deptford station to Buster Mantis"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Field-check market days, churchyard access, pub facilities and bar-kitchen programme."}
+  },
+  {
+    "id": "little-venice-kensal-green-home-stretch",
+    "slug": "little-venice-kensal-green",
+    "status": "prototype",
+    "access": "free",
+    "title": "Little Venice to Kensal Green, the Home Stretch",
+    "subtitle": "Painted boats, a quieter canal towpath and a cemetery finish that is deliberately more local than central.",
+    "seo": {"title": "Little Venice to Kensal Green, the Home Stretch", "description": "A prototype canal route from Warwick Avenue to Kensal Green for boats, cemetery air and a local finish."},
+    "quickFacts": {"startStation": "Warwick Avenue", "endStation": "Kensal Green or Kensal Rise", "duration": "3–4 hours", "walkingDistance": "Approx. 4–5 km", "walkingLevel": "medium", "noiseLevel": "quiet", "budget": "£30–£70", "bestTime": "Dry daytime", "weather": ["sunny", "cold"], "mainStops": 5},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Warwick Avenue Underground", "stationExit": "Walk two minutes to the canal basin and choose the first stop by mood before taking the towpath.", "pinLabel": "Little Venice", "pinQuery": "Little Venice London W2", "firstMove": "Choose the bakery-café or Prince Alfred branch, then head west on the canal in daylight."}, "finish": {"label": "A local NW10 finish", "nearestStation": "Kensal Green or Kensal Rise", "exitNote": "Kensal Green is the mid-route Bakerloo/Overground exit; Kensal Rise is the practical end-of-route exit."}, "disclaimer": "Draft skeleton: confirm towpath conditions, cemetery closing time and the current status of all local finish options before following this route."},
+    "filters": {"occasion": ["solo-day", "second-date", "neighbourhood-escape"], "groupSize": ["1", "2", "3-4"], "vibe": ["riverside", "old-pubs", "moody", "feels-elsewhere", "local-london"], "walking": "medium", "noise": "quiet", "budget": "30-70", "weather": ["sunny", "cold"], "duration": ["3-4h"], "socialPressure": "low", "easyExit": "helpful", "booking": "optional-booking"},
+    "editorial": {"vibeSummary": "A canal route that gets quieter and scruffier as it goes, then ends like a local rather than a tourist.", "bestFor": ["A dry-day solo reset", "A date that likes walking", "Anyone living near the western end"], "notIdealFor": ["A late-night canal walk", "Anyone who needs transit convenience at every stage", "Heavy rain"], "whyNow": "The towpath and cemetery are strongest in daylight, when the route’s quietness feels spacious rather than isolated.", "specialBecause": "It makes a route out of the journey home and admits that this is a local’s convenience, not universal logistics.", "whatNotToExpect": "Not transit-free convenience for everyone, and not a canal stretch to romanticise after dark.", "practicalWarnings": ["Use the towpath only in daylight; one railway-land section is less charming after dark.", "Verify Kensal Green Cemetery closing time.", "Verify the current status and hours of the local finish options.", "The route has not yet been field-checked."], "tags": ["canal", "cemetery", "quiet", "north-west-london"]},
+    "routeNarrative": "Start with a chosen mood, let the canal do the long middle, then use the cemetery and an unflashy local finish to make the route feel like it was always going somewhere.",
+    "stops": [
+      {"name": "Warwick Avenue → Little Venice", "type": "start", "duration": "10 min", "walkingToNext": "Choose a first stop, then join the towpath", "locationNote": "Warwick Avenue station and Little Venice basin, London W2", "mapQuery": "Little Venice London W2", "directionFromPrevious": "From Warwick Avenue, walk two minutes to the painted boats at the basin.", "description": "An immediate canal opening that tells you whether the day needs a bakery-café or a first pint.", "officialUrl": null},
+      {"name": "The Prince Alfred — pub branch", "type": "pub", "duration": "30–60 min", "walkingToNext": "35–45 min west on the towpath", "locationNote": "5a Formosa Street, London W9 1EE", "mapQuery": "The Prince Alfred 5a Formosa Street London W9 1EE", "directionFromPrevious": "Use the pub branch for the Victorian snob screens; for a daytime bakery-café opening, use Paulette instead and join the towpath afterwards.", "description": "Intact Victorian snob screens divide the bar into small compartments. Confirm current hours before making it the start; Paulette is the daytime alternative.", "officialUrl": null},
+      {"name": "Regent’s Canal towpath", "type": "walk", "duration": "35–45 min", "walkingToNext": "10 min", "locationNote": "Regent’s Canal towpath, Little Venice to Kensal", "mapQuery": "Regent's Canal towpath Little Venice to Kensal Green", "directionFromPrevious": "Follow the towpath west in daylight, keeping the canal as the main line and using the live map at each bridge or access change.", "description": "Boats, herons and the backs of things. The city grows quieter and scruffier in the right way; do not use the railway-land section as an after-dark romance.", "officialUrl": null},
+      {"name": "Kensal Green Cemetery", "type": "walk", "duration": "30–45 min", "walkingToNext": "10 min", "locationNote": "Kensal Green Cemetery, Harrow Road, London NW10", "mapQuery": "Kensal Green Cemetery London NW10", "directionFromPrevious": "Leave the canal for the cemetery entrance and check the gate time before committing to the interior.", "description": "The oldest of the Magnificent Seven: Brunel, Trollope, Wilkie Collins and acres of leaning angels. Treat it as the anchor, not a checklist.", "officialUrl": null},
+      {"name": "Parlour — local finish", "type": "dinner", "duration": "60–90 min", "walkingToNext": "Finish", "locationNote": "5 Regent Street, London NW10 5LG", "mapQuery": "Parlour 5 Regent Street London NW10 5LG", "directionFromPrevious": "Walk from the cemetery to Regent Street. Paradise on Kilburn Lane is only a fallback if its current status and format are verified.", "description": "The neighbourhood dining-room option. Confirm hours before relying on it; if the finish feels uncertain, leave from Kensal Green or Kensal Rise instead.", "officialUrl": null}
+    ],
+    "versions": [{"id": "canal", "label": "Canal + cemetery", "description": "The daylight walking version with a clean station exit.", "duration": "2–3 hours", "budget": "free-ish", "requiresTicketCheck": false}, {"id": "local-finish", "label": "Canal + cemetery + dinner", "description": "The full locals’ route once the finish is confirmed open.", "duration": "3–4 hours", "budget": "£30–£70", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Good for a second date if both people like a sustained walk and a route that gets quieter rather than busier.", "friendGroupNotes": "Best for a small group that will not resent the canal pace or a cemetery stop.", "soloNotes": "One of the strongest new solo prototypes in dry daylight.", "foodDrinkNotes": "Choose the first stop by mood, then treat Parlour as an optional finish until current hours are confirmed.", "rainyDayBackup": "Do not force the canal in heavy rain; use the first pub or café and choose another indoor route instead.", "continueIfGoingWell": "Keep the local dinner or return via Kensal Rise rather than crossing the city for a louder final act.", "exitEarly": "Use Kensal Green at the canal stage, or leave after the cemetery before dinner.", "finalEditorialNote": "A route that admits it is allowed to end near home."},
+    "logic": {"fallbackIfClosed": "If the cemetery or final dining room is unavailable, keep the daylight canal walk and take the nearest practical station; do not create a replacement finish from uncertain information.", "conversationQuality": "good", "commitmentLevel": "medium"},
+    "links": {"officialSources": [], "mapQuery": "Warwick Avenue to Kensal Green Cemetery via Regent's Canal"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Field-check towpath access, daylight comfort, cemetery gates, Paulette and the local finish options."}
   }
 ]

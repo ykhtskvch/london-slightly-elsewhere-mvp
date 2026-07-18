@@ -26,9 +26,11 @@ function renderRoute(route, target) {
   const navigation = route.navigation;
   const status = route.status === "published"
     ? { label: "Published route", detail: "Self-guided route" }
-    : route.status === "prototype"
-      ? { label: "Prototype route", detail: "Prototype route — not yet field-checked" }
-      : { label: "Pilot route", detail: "Pilot route — verify details before going" };
+    : route.status === "field-checked"
+      ? { label: "Field-checked route", detail: "Personally field-checked route — live details can still change" }
+      : route.status === "prototype"
+        ? { label: "Prototype route", detail: "Prototype route — not yet field-checked" }
+        : { label: "Pilot route", detail: "Pilot route — verify details before going" };
   const facts = [
     ["Start", route.quickFacts.startStation],
     ["Time", route.quickFacts.duration],
@@ -78,7 +80,7 @@ function renderRoute(route, target) {
   };
   const routeFlow = route.stops.map(stop => flowLabels[stop.type] || stop.type).map(label => `<span>${e(label)}</span>`).join("");
   const mappedStops = route.stops.filter(stop => stop.mapQuery);
-  const wholeRouteUrl = navigation?.detailLevel === "anchor-by-anchor" && mappedStops.length
+  const wholeRouteUrl = navigation?.detailLevel === "anchor-by-anchor" && mappedStops.length > 0 && mappedStops.length <= 4
     ? mapsRoute(navigation.arrival.station, mappedStops)
     : null;
   const navigationBlock = navigation ? `

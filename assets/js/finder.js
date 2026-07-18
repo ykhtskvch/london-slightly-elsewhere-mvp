@@ -37,7 +37,7 @@ function render(routes, prefs, target, meta) {
   const results = hasPreferences ? scored.slice(0, 3) : scored;
   meta.textContent = hasPreferences
     ? `Three routes, ranked for the shape of day you picked.`
-    : `Browse ten routes, or use the filters to make the choice more specific.`;
+    : `Browse fifteen routes, or use the filters to make the choice more specific.`;
   target.innerHTML = results.map((item, index) => resultCard(item, index)).join("");
 }
 
@@ -97,7 +97,11 @@ function isRelatedOccasion(occasions, selected) {
 function resultCard(item, index) {
   const { route, reasons } = item;
   const e = window.routeApp.escape;
-  const routeState = route.status === "prototype" ? "Prototype · " : "";
+  const routeState = route.status === "prototype"
+    ? "Prototype · "
+    : route.status === "field-checked"
+      ? "Field-checked · "
+      : "";
   const reasonText = reasons.length
     ? `Good for ${reasons.slice(0, 3).join(", ")}${reasons.length > 3 ? " and more" : ""}.`
     : "A flexible place to start.";
