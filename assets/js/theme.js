@@ -62,14 +62,36 @@
     toggle.innerHTML = "<span></span><span></span><span></span>";
     actions.appendChild(toggle);
 
+    // Appended to <body> rather than <header>: .site-header has a
+    // backdrop-filter, which makes it a containing block for
+    // position: fixed descendants and would confine the backdrop to the
+    // header's own box instead of the full viewport.
+    const backdrop = document.createElement("div");
+    backdrop.className = "nav-backdrop";
+    backdrop.setAttribute("aria-hidden", "true");
+    document.body.appendChild(backdrop);
+
+    const desktop = matchMedia("(min-width: 48rem)");
+
     const setOpen = open => {
+      const wasOpen = header.classList.contains("nav-open");
       header.classList.toggle("nav-open", open);
+      backdrop.classList.toggle("is-visible", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-      if (open) header.classList.remove("is-hidden");
+      document.body.classList.toggle("nav-lock", open && !desktop.matches);
+
+      if (open) {
+        header.classList.remove("is-hidden");
+        if (!wasOpen) nav.querySelector("a, button")?.focus();
+      }
     };
 
     toggle.addEventListener("click", () => setOpen(!header.classList.contains("nav-open")));
+    backdrop.addEventListener("click", () => {
+      setOpen(false);
+      toggle.focus();
+    });
     nav.addEventListener("click", event => {
       if (event.target.closest("a")) setOpen(false);
     });
@@ -77,13 +99,28 @@
       if (!header.contains(event.target)) setOpen(false);
     });
     document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && header.classList.contains("nav-open")) {
+      if (!header.classList.contains("nav-open")) return;
+
+      if (event.key === "Escape") {
         setOpen(false);
         toggle.focus();
+        return;
+      }
+
+      if (event.key === "Tab" && !desktop.matches) {
+        const focusable = [toggle, ...nav.querySelectorAll("a, button")];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     });
 
-    const desktop = matchMedia("(min-width: 48rem)");
     const handleDesktopChange = event => {
       if (event.matches) setOpen(false);
     };
