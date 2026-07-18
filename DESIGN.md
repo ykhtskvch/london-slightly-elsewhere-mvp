@@ -14,7 +14,7 @@ This file applies the Anti-Slop Design Brief to this project. Future pages and c
 
 - British English throughout.
 - Six-colour token palette only; no gradients.
-- Georgia is the display face; Avenir Next/system sans is the body face. No extra families.
+- Fraunces is the display face; Work Sans is the body face. Both are self-hosted variable fonts (latin subset only, no third-party font requests). No extra families.
 - Body copy is at least 16px with a 60–75 character measure.
 - Spacing uses 4px half-steps and 8px full steps.
 - Cards use background shift and named elevation before borders.

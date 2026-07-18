@@ -1,3 +1,23 @@
+/* Self-hosted variable fonts (latin subset only). Each file covers its
+   whole weight range — Fraunces also varies its optical-size axis — so
+   one file per family serves every weight used on the site. */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('../fonts/fraunces-variable-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/work-sans-variable-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --paper: #e7e4dc;
@@ -14,8 +34,8 @@
   --caution: color-mix(in srgb, var(--wine) 10%, var(--surface));
   --route-accent: var(--wine);
 
-  --display: Georgia, "Times New Roman", serif;
-  --body: "Avenir Next", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --display: 'Fraunces', Georgia, "Times New Roman", serif;
+  --body: 'Work Sans', "Avenir Next", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
   --step--1: .75rem;
   --step-0: 1rem;
   --step-1: clamp(1.2rem, 1.1rem + .4vw, 1.333rem);
@@ -106,7 +126,7 @@ h1, h2, h3, dd { overflow-wrap: break-word; }
 
 .hero { display: grid; gap: var(--space-6); padding-block: var(--space-8) var(--space-6); }
 .eyebrow { margin-bottom: var(--space-1); color: var(--wine); font-size: var(--step--1); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-h1, h2, h3 { margin: 0; font-family: var(--display); line-height: 1.06; letter-spacing: -.025em; text-wrap: balance; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-optical-sizing: auto; font-weight: 900; line-height: 1.06; letter-spacing: -.025em; text-wrap: balance; }
 h1 { max-width: 11ch; font-size: var(--step-5); }
 h2 { font-size: var(--step-3); }
 h3 { font-size: var(--step-1); }
