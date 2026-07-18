@@ -117,6 +117,7 @@ function renderRoute(route, target) {
       <p>${e(navigation.finish.exitNote)}</p>
       <p><a class="button soft" href="${e(mapsSearch(navigation.finish.nearestStation))}" rel="noopener" target="_blank">Open exit station ↗</a></p>
     </section>` : "";
+  const feedbackUrl = `${window.routeApp.basePath}feedback/?route=${encodeURIComponent(route.title)}`;
   const valueTimingBlock = route.valueTiming ? `
     <section class="value-timing">
       <p class="eyebrow">${e(route.valueTiming.label)}</p>
@@ -140,7 +141,7 @@ function renderRoute(route, target) {
       <div class="route-utility">
         <span class="pilot-badge">${status.label}</span>
         <p class="fine-print">Last checked: ${e(lastChecked)}. Verify opening hours and access before going.</p>
-        <a class="button soft" href="${window.routeApp.basePath}feedback/">Did this work?</a>
+        <a class="button soft" href="${e(feedbackUrl)}">Did this work?</a>
       </div>
     </section>
     ${navigationBlock}
@@ -194,9 +195,15 @@ function renderRoute(route, target) {
         <h2>Before you go</h2>
         <p><strong>${e(route.quickFacts.bestTime)}</strong></p>
         <p class="fine-print">${e(route.editorial.whatNotToExpect)}</p>
-        <p><a class="button soft" href="${window.routeApp.basePath}feedback/">Give feedback</a></p>
+        <p><a class="button soft" href="${e(feedbackUrl)}">Give feedback</a></p>
       </aside>
-    </div>`;
+    </div>
+    <section class="route-feedback">
+      <p class="eyebrow">Walked this route?</p>
+      <h2>Two things help most.</h2>
+      <p>What was closed, and where you bailed — more useful than a compliment.</p>
+      <p><a class="button primary" href="${e(feedbackUrl)}">Give feedback on this route</a></p>
+    </section>`;
 }
 
 function mapsSearch(query) {

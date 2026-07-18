@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const routeSelect = document.getElementById("route");
+  const requestedRoute = new URLSearchParams(location.search).get("route");
+  if (routeSelect && requestedRoute) {
+    const match = [...routeSelect.options].find(option => option.value === requestedRoute);
+    if (match) routeSelect.value = requestedRoute;
+  }
+
   document.querySelectorAll("[data-static-form]").forEach(form => {
     form.noValidate = true;
     const endpointName = form.dataset.staticForm;
