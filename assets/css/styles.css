@@ -166,6 +166,7 @@ h3 { font-size: var(--step-1); }
 .route-harringay-green-lanes, .route-brixton { --route-accent: var(--wine); }
 .route-kentish-town { --route-accent: var(--moss); }
 .route-deptford, .route-little-venice-kensal-green { --route-accent: var(--river); }
+.route-kew-old-chiswick { --route-accent: var(--moss); }
 .route-card .card-top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-1); color: var(--muted); font-size: var(--step--1); }
 .route-card h3 { font-size: var(--step-2); }
 .route-card p { margin: 0; }

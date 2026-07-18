@@ -76,6 +76,7 @@ function renderRoute(route, target) {
     bookshop: "bookshop",
     museum: "indoor stop",
     "cafe-or-pub": "warm finish",
+    garden: "free gardens",
     view: "view"
   };
   const routeFlow = route.stops.map(stop => flowLabels[stop.type] || stop.type).map(label => `<span>${e(label)}</span>`).join("");

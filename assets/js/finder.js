@@ -37,7 +37,7 @@ function render(routes, prefs, target, meta) {
   const results = hasPreferences ? scored.slice(0, 3) : scored;
   meta.textContent = hasPreferences
     ? `Three routes, ranked for the shape of day you picked.`
-    : `Browse fifteen routes, or use the filters to make the choice more specific.`;
+    : `Browse sixteen routes, or use the filters to make the choice more specific.`;
   target.innerHTML = results.map((item, index) => resultCard(item, index)).join("");
 }
 

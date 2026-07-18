@@ -67,7 +67,7 @@ Upload the contents of this directory to any static host. The site uses relative
 
 ## Launch checks
 
-- Test homepage, finder, all fifteen route links and mobile layout.
+- Test homepage, finder, all sixteen route links and mobile layout.
 - Test a first-date query, rainy-day query and no-filter state.
 - Test light theme, dark theme and reduced-motion mode.
 - Test keyboard navigation, 200% zoom and a 360px viewport.
