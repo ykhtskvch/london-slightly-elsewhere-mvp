@@ -1,0 +1,772 @@
+[
+  {
+    "id": "putney-river-air-music-pub",
+    "slug": "putney",
+    "status": "field-test",
+    "access": "free",
+    "title": "Putney for River Air and a Proper Music Pub",
+    "subtitle": "A low-key Thames evening that can stay as a walk and a pint, or turn into live music if the mood holds.",
+    "seo": {
+      "title": "Putney for River Air and a Proper Music Pub",
+      "description": "A walk-first Putney route with Thames air, an old-pub pause and an optional live-music ending."
+    },
+    "quickFacts": {
+      "startStation": "Putney Bridge Underground",
+      "endStation": "Putney Bridge Underground or Putney rail",
+      "duration": "2–4 hours",
+      "walkingDistance": "Approx. 2–4 km, adjustable",
+      "walkingLevel": "gentle",
+      "noiseLevel": "moderate; loud if a gig is included",
+      "budget": "under £30 without a gig",
+      "bestTime": "Dry evening, spring to early autumn",
+      "weather": ["sunny", "cold", "evening"],
+      "mainStops": 3
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "Putney Bridge Underground",
+        "stationExit": "Use the main exit and set the first pin before leaving the station entrance.",
+        "pinLabel": "Putney Bridge — south side",
+        "pinQuery": "Putney Bridge south side London SW15",
+        "firstMove": "Walk west from the station to Putney Bridge, cross the Thames towards Putney, then descend to the south-bank riverside at Putney Embankment."
+      },
+      "finish": {
+        "label": "The Half Moon Putney, 93 Lower Richmond Road",
+        "nearestStation": "Putney Bridge Underground or Putney rail",
+        "exitNote": "Both stations are about a 13–14 minute walk from the pub; choose the one that gives you the simpler journey home."
+      },
+      "disclaimer": "Use the live walking route for crossings and temporary closures; the written direction is an orientation cue, not turn-by-turn navigation."
+    },
+    "valueTimingVenueId": "half-moon-putney",
+    "filters": {
+      "occasion": ["second-date", "friend-catch-up", "neighbourhood-escape"],
+      "groupSize": ["1", "2", "3-4"],
+      "vibe": ["riverside", "old-pubs", "live-music", "low-key-romantic", "local-london", "good-for-talking", "river-first"],
+      "walking": "gentle",
+      "noise": "moderate",
+      "budget": "under-30",
+      "weather": ["sunny", "cold", "evening"],
+      "duration": ["1-2h", "3-4h"],
+      "socialPressure": "low",
+      "easyExit": "must-have",
+      "booking": "optional-booking"
+    },
+    "editorial": {
+      "vibeSummary": "Thames air, old rooms and the useful possibility that the evening might become a gig.",
+      "bestFor": ["A second or third date", "Music-loving friends", "A southwest escape without Chelsea gloss"],
+      "notIdealFor": ["A 45-minute first date", "Guaranteed seating", "Conversation once the band starts"],
+      "whyNow": "Best when there is enough light for a river walk but not enough appetite for a fully programmed night.",
+      "specialBecause": "It gives an evening shape without making the shape compulsory.",
+      "whatNotToExpect": "More atmospheric than glamorous; the live-music version depends on the current listing.",
+      "practicalWarnings": ["Check opening hours, listings and tickets before setting off.", "The river can feel colder and windier than the rest of Putney.", "Do not assume a ticket, seat or quiet corner is available."],
+      "tags": ["riverside", "old-pubs", "live-music", "good-for-talking"]
+    },
+    "routeNarrative": "Start with the river so the evening has room to arrive. Take one proper pause in a pub, then decide whether the night should remain a conversation or become an event. The no-gig version is the route, not a consolation prize.",
+    "stops": [
+      {
+        "name": "Putney Bridge — south side",
+        "type": "start",
+        "duration": "10–15 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "Meet on the Putney side of the bridge, above Putney Embankment.",
+        "mapQuery": "Putney Bridge south side London SW15",
+        "directionFromPrevious": "From Putney Bridge station, walk to the bridge, cross towards Putney and use the south-bank access for Putney Embankment.",
+        "description": "Make this the unambiguous meeting point. The bridge gives you river air immediately and avoids deciding where to go while standing outside the station.",
+        "officialUrl": null
+      },
+      {
+        "name": "Putney Embankment and the rowing clubs",
+        "type": "walk",
+        "duration": "35–60 min",
+        "walkingToNext": "5–15 min",
+        "locationNote": "Putney Embankment, London SW15",
+        "mapQuery": "Putney Embankment London SW15",
+        "directionFromPrevious": "Turn west along Putney Embankment and keep the Thames on your right. Extend the walk past the rowing clubs only while the weather and conversation make it worthwhile.",
+        "description": "Walk by the Thames without treating it as an endurance event. In cold or wind, make this 15–25 minutes; if conversation is easy, let it lengthen.",
+        "officialUrl": null
+      },
+      {
+        "name": "The Half Moon Putney",
+        "type": "live-music",
+        "duration": "45–120 min",
+        "walkingToNext": "Finish",
+        "locationNote": "93 Lower Richmond Road, Putney, London SW15 1EU",
+        "mapQuery": "The Half Moon Putney 93 Lower Richmond Road SW15 1EU",
+        "directionFromPrevious": "Leave the riverside for Lower Richmond Road and continue west to number 93. Check the live route rather than improvising through private rowing-club access.",
+        "description": "Use it as the pub finish even without a gig. Add music only if the current listing, tickets and group mood fit; once the band starts, this stops being a conversation route.",
+        "officialUrl": "https://www.halfmoon.co.uk/"
+      }
+    ],
+    "versions": [
+      {
+        "id": "no-gig",
+        "label": "River + pub",
+        "description": "The default: a reversible, low-pressure evening.",
+        "duration": "2–3 hours",
+        "budget": "under £30",
+        "requiresTicketCheck": false
+      },
+      {
+        "id": "gig",
+        "label": "River + pub + gig",
+        "description": "Take a shorter walk, eat or drink early, then go only if the listing and tickets work.",
+        "duration": "3–4 hours",
+        "budget": "£30–£70",
+        "requiresTicketCheck": true
+      }
+    ],
+    "copy": {
+      "dateNotes": "Good for a second or third date: walking removes some face-to-face pressure, and either person can leave after the first drink without turning it into a statement.",
+      "friendGroupNotes": "Best for two to four people. For larger groups, verify seating before making the pub stop the plan.",
+      "soloNotes": "The no-gig version works alone if you enjoy river walking and sitting somewhere with a book. The gig is a bonus, not a requirement.",
+      "foodDrinkNotes": "Think snack stop or early practical meal, not a destination dinner. Check kitchen hours before relying on food.",
+      "rainyDayBackup": "Reduce the walk to one brief river section, begin indoors and keep the gig branch only if weather, transport and tickets still make sense.",
+      "continueIfGoingWell": "Extend the river walk or take a second verified pub stop. Do not add a third venue just because the route has space.",
+      "exitEarly": "Leave after the first drink or use Putney station as a practical exit.",
+      "finalEditorialNote": "River first, pub later, gig if it goes well."
+    },
+    "logic": {
+      "fallbackIfClosed": "Keep the river walk and replace the named music stop with any currently open, verified pub room.",
+      "conversationQuality": "good before music",
+      "commitmentLevel": "low"
+    },
+    "links": {
+      "officialSources": ["https://www.halfmoon.co.uk/", "https://www.halfmoon.co.uk/contact"],
+      "mapQuery": "Putney Bridge to The Half Moon Putney"
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": null,
+      "nextReview": null,
+      "feedbackStatus": "needs-field-test",
+      "updateNotes": "Venue information requires a field check before public promotion."
+    }
+  },
+  {
+    "id": "bloomsbury-after-rain",
+    "slug": "bloomsbury",
+    "status": "field-test",
+    "access": "free",
+    "title": "Bloomsbury After Rain",
+    "subtitle": "Squares, books and somewhere warm: an indoor-outdoor route for days that should not be written off.",
+    "seo": {
+      "title": "Bloomsbury After Rain",
+      "description": "A rainy-day Bloomsbury route with wet pavements, bookshops, an indoor cultural pause and an old-room finish."
+    },
+    "quickFacts": {
+      "startStation": "Russell Square Underground",
+      "endStation": "Russell Square or Holborn Underground",
+      "duration": "2–4 hours",
+      "walkingDistance": "Approx. 1.5–3 km",
+      "walkingLevel": "very-low",
+      "noiseLevel": "quiet to moderate",
+      "budget": "free-ish to under £30",
+      "bestTime": "Rainy afternoon or cold Sunday",
+      "weather": ["rainy", "cold", "winter"],
+      "mainStops": 4
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "Russell Square Underground",
+        "stationExit": "Exit onto Bernard Street and set Russell Square Gardens as the first pin.",
+        "pinLabel": "Russell Square Gardens",
+        "pinQuery": "Russell Square Gardens London WC1",
+        "firstMove": "Turn left on Bernard Street, then left into Russell Square. Use the nearest open garden entrance rather than circling the whole square."
+      },
+      "finish": {
+        "label": "The Lamb, 94 Lamb's Conduit Street",
+        "nearestStation": "Russell Square or Holborn Underground",
+        "exitNote": "The Lamb sits between Russell Square and Holborn; choose the station that makes the journey home simpler."
+      },
+      "disclaimer": "Indoor opening hours can change. The map links locate each anchor; check the official venue page before relying on entry, seating or food."
+    },
+    "valueTimingVenueId": "the-lamb-bloomsbury",
+    "filters": {
+      "occasion": ["rainy-day", "solo-day", "visitors", "first-date"],
+      "groupSize": ["1", "2", "3-4"],
+      "vibe": ["literary", "old-city", "cosy", "good-for-talking", "parisian-ish"],
+      "walking": "very-low",
+      "noise": "quiet",
+      "budget": "under-30",
+      "weather": ["rainy", "cold", "winter"],
+      "duration": ["1-2h", "3-4h"],
+      "socialPressure": "low",
+      "easyExit": "must-have",
+      "booking": "no-booking"
+    },
+    "editorial": {
+      "vibeSummary": "Wet stone, old squares and enough indoor pauses to make a rainy day feel intentional.",
+      "bestFor": ["A solo afternoon", "A low-pressure first date", "Visitors who have already done the obvious sights"],
+      "notIdealFor": ["People who need lots of outdoor space", "Anyone looking for a loud evening"],
+      "whyNow": "It is strongest after rain, when the streets do a little of the work for you.",
+      "specialBecause": "The route makes the weather part of the atmosphere rather than a scheduling problem.",
+      "whatNotToExpect": "Not a grand museum day or a restaurant crawl; it is deliberately small-scale.",
+      "practicalWarnings": ["Verify the opening hours and entry requirements of any indoor cultural stop.", "Bookshops and cafés may not have seating when it is wet.", "Keep an umbrella: the route still has short outdoor sections."],
+      "tags": ["rainy-day", "literary", "old-city", "good-for-talking"]
+    },
+    "routeNarrative": "Move between short outdoor sections and warm interiors. The rhythm is the point: square, bookshop, cultural pause, old room. Nothing needs to be booked into an exhausting day.",
+    "stops": [
+      {
+        "name": "Russell Square Gardens",
+        "type": "walk",
+        "duration": "15–25 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "Russell Square, London WC1B",
+        "mapQuery": "Russell Square Gardens London WC1B",
+        "directionFromPrevious": "From Russell Square station, turn left on Bernard Street and left again towards the square; enter through the nearest open gate.",
+        "description": "Begin outside, even if briefly. Cross the garden or make one small loop; wet paths and old facades earn the first indoor stop.",
+        "officialUrl": null
+      },
+      {
+        "name": "London Review Bookshop",
+        "type": "bookshop",
+        "duration": "20–40 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "14 Bury Place, London WC1A 2JL",
+        "mapQuery": "London Review Bookshop 14 Bury Place London WC1A 2JL",
+        "directionFromPrevious": "Leave the south-west side of Russell Square and walk via Bloomsbury Square towards Bury Place. Let Google Maps handle the final block in heavy rain.",
+        "description": "Browse without turning the shop into a task. It gives a first date or solo day a useful lull and keeps the outdoor legs short.",
+        "officialUrl": "https://www.londonreviewbookshop.co.uk/"
+      },
+      {
+        "name": "The British Museum — Great Russell Street entrance",
+        "type": "museum",
+        "duration": "30–75 min",
+        "walkingToNext": "5–15 min",
+        "locationNote": "Great Russell Street, London WC1B 3DG",
+        "mapQuery": "British Museum Great Russell Street entrance WC1B 3DG",
+        "directionFromPrevious": "Walk south along Bury Place, then turn left onto Great Russell Street for the main entrance.",
+        "description": "Pick one room, gallery or small exhibition rather than trying to complete the museum. Check current hours and any entry guidance before relying on it.",
+        "officialUrl": "https://www.britishmuseum.org/visit"
+      },
+      {
+        "name": "The Lamb, Bloomsbury",
+        "type": "cafe-or-pub",
+        "duration": "45–75 min",
+        "walkingToNext": "Finish",
+        "locationNote": "94 Lamb's Conduit Street, London WC1N 3LZ",
+        "mapQuery": "The Lamb 94 Lamb's Conduit Street London WC1N 3LZ",
+        "directionFromPrevious": "Leave via Great Russell Street and head east through Bloomsbury towards Lamb's Conduit Street. Use the live walking route for the quieter final streets.",
+        "description": "Finish in an old pub room where a silence need not feel awkward. Check current hours and seating before making it a promise.",
+        "officialUrl": "https://www.thelamblondon.com/home"
+      }
+    ],
+    "versions": [
+      {
+        "id": "short",
+        "label": "Squares + one indoor stop",
+        "description": "A 90-minute version for low energy or a short first meeting.",
+        "duration": "1–2 hours",
+        "budget": "free-ish",
+        "requiresTicketCheck": false
+      },
+      {
+        "id": "long",
+        "label": "Books + culture + warm finish",
+        "description": "The slower version for an unplanned Sunday.",
+        "duration": "3–4 hours",
+        "budget": "under £30",
+        "requiresTicketCheck": false
+      }
+    ],
+    "copy": {
+      "dateNotes": "A good first-date route because the indoor pauses remove pressure and every stop can be the natural ending.",
+      "friendGroupNotes": "Works for a small group that likes looking at things and talking, not for a noisy birthday plan.",
+      "soloNotes": "Particularly good alone: browsing, a cultural stop and a warm drink all work without company.",
+      "foodDrinkNotes": "Food is optional. Plan for a cake, soup or drink rather than relying on a long sit-down meal.",
+      "rainyDayBackup": "This is already the rainy version. In heavy rain, shorten the first outdoor section and choose two indoor stops close together.",
+      "continueIfGoingWell": "Add another square or bookshop, then linger over a second drink rather than crossing town for a finale.",
+      "exitEarly": "Leave after the bookshop or cultural stop via Holborn, Russell Square or Tottenham Court Road.",
+      "finalEditorialNote": "Better after rain, and happier without a timetable."
+    },
+    "logic": {
+      "fallbackIfClosed": "Replace a closed cultural stop with another indoor public space; keep the rhythm of short walk, warm pause, short walk.",
+      "conversationQuality": "good",
+      "commitmentLevel": "low"
+    },
+    "links": {
+      "officialSources": ["https://www.londonreviewbookshop.co.uk/", "https://www.britishmuseum.org/visit", "https://www.thelamblondon.com/home"],
+      "mapQuery": "Russell Square to Holborn via Bloomsbury"
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": null,
+      "nextReview": null,
+      "feedbackStatus": "needs-field-test",
+      "updateNotes": "Indoor stop and café/pub choice require current verification."
+    }
+  },
+  {
+    "id": "hampstead-pretend-left-london",
+    "slug": "hampstead",
+    "status": "field-test",
+    "access": "free",
+    "title": "Hampstead When You Want to Pretend You Left London",
+    "subtitle": "Old lanes, heath air and a pub finish with enough weather to make the story better.",
+    "seo": {
+      "title": "Hampstead When You Want to Pretend You Left London",
+      "description": "A Hampstead and heath route for old lanes, hill air, a pub pause and a small escape from usual London."
+    },
+    "quickFacts": {
+      "startStation": "Hampstead Underground",
+      "endStation": "Gospel Oak Overground",
+      "duration": "3–4 hours",
+      "walkingDistance": "Approx. 3–5 km",
+      "walkingLevel": "medium",
+      "noiseLevel": "quiet to moderate",
+      "budget": "under £30",
+      "bestTime": "Late afternoon, especially autumn or winter",
+      "weather": ["sunny", "cold", "autumn"],
+      "mainStops": 4
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "Hampstead Underground",
+        "stationExit": "Outside the station, set Flask Walk as the first pin before choosing a street.",
+        "pinLabel": "Flask Walk",
+        "pinQuery": "Flask Walk Hampstead London NW3",
+        "firstMove": "Cross Hampstead High Street into Flask Walk. Follow it east towards Well Walk instead of heading straight north onto the Heath."
+      },
+      "finish": {
+        "label": "The Southampton Arms, 139 Highgate Road",
+        "nearestStation": "Gospel Oak Overground",
+        "exitNote": "Gospel Oak is the practical finish. If you skip the pub, walk directly from Parliament Hill Fields to the station."
+      },
+      "disclaimer": "Heath paths can be muddy, dark or temporarily diverted. Use the live walking route at each anchor and keep to signed public paths."
+    },
+    "valueTimingVenueId": "southampton-arms-hampstead",
+    "filters": {
+      "occasion": ["neighbourhood-escape", "first-date", "visitors", "solo-day"],
+      "groupSize": ["1", "2", "3-4"],
+      "vibe": ["village-london", "old-pubs", "literary", "moody", "feels-elsewhere", "good-for-talking"],
+      "walking": "medium",
+      "noise": "moderate",
+      "budget": "under-30",
+      "weather": ["sunny", "cold", "autumn"],
+      "duration": ["3-4h", "half-day"],
+      "socialPressure": "medium",
+      "easyExit": "helpful",
+      "booking": "optional-booking"
+    },
+    "editorial": {
+      "vibeSummary": "Lanes, slopes, heath air and the useful sense that London has temporarily loosened its grip.",
+      "bestFor": ["A date that needs walking as well as talking", "Visitors who want local London", "A solo weekend reset"],
+      "notIdealFor": ["Anyone who dislikes hills", "People who need a precise, reservation-led day"],
+      "whyNow": "The route earns its keep in cooler weather, when the streets are quieter and a pub finish feels deserved.",
+      "specialBecause": "It feels like a small trip without requiring a real departure.",
+      "whatNotToExpect": "Not flat, not cheap-cheap, and not a route for people who want every stop managed in advance.",
+      "practicalWarnings": ["There are hills: do not label this gentle walking.", "Weather can change the heath section quickly.", "Verify pub opening hours and seating before promising a final stop."],
+      "tags": ["village-london", "old-pubs", "literary", "feels-elsewhere"]
+    },
+    "routeNarrative": "Let the village streets arrive before the heath. The walk gives a date space to breathe; the pub gives it an ending. The route is less about ticking off Hampstead than about borrowing its sense of distance for an afternoon.",
+    "stops": [
+      {
+        "name": "Flask Walk into Well Walk",
+        "type": "walk",
+        "duration": "25–40 min",
+        "walkingToNext": "10–15 min",
+        "locationNote": "Flask Walk, Hampstead, London NW3",
+        "mapQuery": "Flask Walk Hampstead London NW3",
+        "directionFromPrevious": "From Hampstead station, cross the High Street into Flask Walk and continue east towards Well Walk.",
+        "description": "Use Flask Walk and Well Walk as the old-lane introduction. Let the slopes set the pace rather than trying to optimise them away.",
+        "officialUrl": null
+      },
+      {
+        "name": "Keats House garden or museum",
+        "type": "museum",
+        "duration": "20–45 min",
+        "walkingToNext": "10–20 min",
+        "locationNote": "10 Keats Grove, Hampstead, London NW3 2RR",
+        "mapQuery": "Keats House 10 Keats Grove Hampstead NW3 2RR",
+        "directionFromPrevious": "Continue down Well Walk, then use the signed streets towards Keats Grove. The garden and exterior still work as a pause if the museum is closed.",
+        "description": "Use the house or garden as the literary pause. Check the official page before relying on museum entry; the route still works when only the exterior is available.",
+        "officialUrl": "https://www.cityoflondon.gov.uk/things-to-do/attractions-museums-entertainment/keats-house/visit-keats-house"
+      },
+      {
+        "name": "Parliament Hill viewpoint",
+        "type": "view",
+        "duration": "30–60 min",
+        "walkingToNext": "15–25 min",
+        "locationNote": "South-east corner of Hampstead Heath, above Parliament Hill Fields",
+        "mapQuery": "Parliament Hill viewpoint Hampstead Heath London",
+        "directionFromPrevious": "From Keats Grove, enter the Heath on the south side and follow signed public paths towards Parliament Hill. Keep the viewpoint pin open: paths branch and the direct-looking line is not always the public route.",
+        "description": "Stop for air and distance rather than a perfect photograph. In poor weather, shorten this section and leave via Parliament Hill Fields.",
+        "officialUrl": "https://www.cityoflondon.gov.uk/things-to-do/green-spaces/hampstead-heath/where-to-go-at-hampstead-heath/parliament-hill-viewpoint"
+      },
+      {
+        "name": "The Southampton Arms",
+        "type": "pub",
+        "duration": "45–90 min",
+        "walkingToNext": "Finish",
+        "locationNote": "139 Highgate Road, London NW5 1LE",
+        "mapQuery": "The Southampton Arms 139 Highgate Road London NW5 1LE",
+        "directionFromPrevious": "Leave the viewpoint downhill through Parliament Hill Fields towards Highgate Road, then walk south to number 139. Gospel Oak station remains the simple exit nearby.",
+        "description": "Finish somewhere old, straightforward and unbookable. The pub says it does not reserve tables, so treat seating as possible rather than guaranteed.",
+        "officialUrl": "https://www.thesouthamptonarms.co.uk/"
+      }
+    ],
+    "versions": [
+      {
+        "id": "short",
+        "label": "Lanes + Keats House",
+        "description": "Use this if the weather is turning: finish at Hampstead Heath Overground before the Parliament Hill section.",
+        "duration": "2 hours",
+        "budget": "under £30",
+        "requiresTicketCheck": false
+      },
+      {
+        "id": "heath",
+        "label": "Lanes + heath + pub",
+        "description": "The fuller version for people comfortable with hills and uneven weather.",
+        "duration": "3–4 hours",
+        "budget": "under £30",
+        "requiresTicketCheck": false
+      }
+    ],
+    "copy": {
+      "dateNotes": "Better for a first or early date if both people like walking. The short version creates a clean exit before the heath or after the first drink.",
+      "friendGroupNotes": "Works for a small group that will not resent a hill. Avoid making it the plan for anyone with limited mobility without adapting it first.",
+      "soloNotes": "A reliable reset route alone, especially if you want a proper change of visual rhythm without leaving London.",
+      "foodDrinkNotes": "Treat the pub as the food-and-drink decision. Bring a small snack if the walk is the longer version.",
+      "rainyDayBackup": "Use the short version: Flask Walk, Keats House or its exterior, then Hampstead Heath Overground. Do not force Parliament Hill in difficult weather.",
+      "continueIfGoingWell": "Continue from Parliament Hill to the Southampton Arms only if the weather and legs are cooperating; otherwise leave via Gospel Oak.",
+      "exitEarly": "After Keats House, use Hampstead Heath Overground instead of committing to Parliament Hill.",
+      "finalEditorialNote": "A little uphill, a little gothic, and much better if you do not rush it."
+    },
+    "logic": {
+      "fallbackIfClosed": "Make the final stop a café or another verified pub; do not abandon the route because one venue changes hands.",
+      "conversationQuality": "good",
+      "commitmentLevel": "medium"
+    },
+    "links": {
+      "officialSources": ["https://www.cityoflondon.gov.uk/things-to-do/attractions-museums-entertainment/keats-house/visit-keats-house", "https://www.cityoflondon.gov.uk/things-to-do/green-spaces/hampstead-heath/where-to-go-at-hampstead-heath/parliament-hill-viewpoint", "https://www.thesouthamptonarms.co.uk/"],
+      "mapQuery": "Hampstead station to Hampstead Heath"
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": null,
+      "nextReview": null,
+      "feedbackStatus": "needs-field-test",
+      "updateNotes": "Walking duration, weather route and final venue require a field check."
+    }
+  },
+  {
+    "id": "rotherhithe-dock-melancholy",
+    "slug": "rotherhithe",
+    "status": "prototype",
+    "access": "free",
+    "title": "Rotherhithe for River Air and Old Dock Melancholy",
+    "subtitle": "Warehouses, water and an old-room finish for a quieter stretch of the Thames.",
+    "seo": {"title": "Rotherhithe for River Air and Old Dock Melancholy", "description": "A prototype Rotherhithe route with river walking, dock history and a pub finish."},
+    "quickFacts": {"startStation": "Canada Water or Rotherhithe", "endStation": "Bermondsey", "duration": "3–4 hours", "walkingDistance": "Approx. 4 km", "walkingLevel": "gentle", "noiseLevel": "quiet", "budget": "under £30", "bestTime": "Grey afternoon or early evening", "weather": ["sunny", "cold", "rainy"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Canada Water Underground and Overground", "stationExit": "Meet outside the main station entrance before starting the dock section.", "pinLabel": "Stave Hill Ecological Park", "pinQuery": "Stave Hill Ecological Park London SE16", "firstMove": "From Canada Water, set Stave Hill as the first pin. Do not improvise towards the river yet; the full riverside sequence still needs a field check."}, "finish": {"label": "Prototype finish near Bermondsey", "nearestStation": "Bermondsey Underground", "exitNote": "The finish and riverside access still need field verification."}, "disclaimer": "Prototype navigation: the starting pin is concrete, but the full route has not been field-checked."},
+    "filters": {"occasion": ["friend-catch-up", "second-date", "solo-day", "neighbourhood-escape"], "groupSize": ["1", "2", "3-4"], "vibe": ["riverside", "old-pubs", "moody", "old-city", "good-for-talking"], "walking": "gentle", "noise": "quiet", "budget": "under-30", "weather": ["sunny", "cold", "rainy"], "duration": ["3-4h"], "socialPressure": "low", "easyExit": "helpful", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "Tidal London, old brick and enough quiet for an actual conversation.", "bestFor": ["A friend catch-up", "A second date", "A solo river afternoon"], "notIdealFor": ["A group that wants constant activity", "Anyone expecting polished riverside dining"], "whyNow": "It works especially well when the river and sky are doing something dramatic.", "specialBecause": "The route feels maritime without turning into a heritage lesson.", "whatNotToExpect": "More atmospheric than eventful; several stretches are deliberately quiet.", "practicalWarnings": ["Check riverside access and pub hours before going.", "Some exposed sections feel colder than the station forecast.", "The prototype has not been field-checked."], "tags": ["riverside", "quiet", "old-pubs", "moody"]},
+    "routeNarrative": "Start near the water, follow the older dock edge, pause where the river opens out and finish in a verified pub room. The value is the long middle stretch where nobody has to perform.",
+    "stops": [
+      {"name": "A practical river start", "type": "start", "duration": "10 min", "walkingToNext": "10 min", "description": "Choose the station that makes arrival easiest, then move towards the river before making any decisions.", "officialUrl": null},
+      {"name": "Dock and warehouse walk", "type": "walk", "duration": "45–60 min", "walkingToNext": "10 min", "description": "Follow a currently accessible riverside section and let the old industrial edges do the atmospheric work.", "officialUrl": null},
+      {"name": "A broad river pause", "type": "view", "duration": "15–25 min", "walkingToNext": "10–15 min", "description": "Stop where the Thames feels wide enough to change the pace of the conversation.", "officialUrl": null},
+      {"name": "A verified old-room finish", "type": "pub", "duration": "45–75 min", "walkingToNext": "Finish", "description": "Choose a currently open pub with food or a quiet room; do not make a single venue the whole route.", "officialUrl": null}
+    ],
+    "versions": [{"id": "short", "label": "River + one pause", "description": "A lower-energy version with one riverside stretch and a drink.", "duration": "2 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "full", "label": "Dock walk + river + pub", "description": "The complete version for a slow afternoon.", "duration": "3–4 hours", "budget": "under £30", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Better for a second date than a grand first impression.", "friendGroupNotes": "Best for two to four people who are content to walk and talk.", "soloNotes": "Works alone if you like water, old brick and a quiet finish.", "foodDrinkNotes": "Food is optional; verify the final kitchen before relying on it.", "rainyDayBackup": "Shorten the exposed river stretch and move quickly to the verified indoor stop.", "continueIfGoingWell": "Continue towards Bermondsey or stay for a second drink.", "exitEarly": "Leave from Rotherhithe, Canada Water or the nearest practical station before the final stretch.", "finalEditorialNote": "Grey sky helps. A timetable does not."},
+    "logic": {"fallbackIfClosed": "Keep the river sequence and replace the pub with another verified indoor stop.", "conversationQuality": "very good", "commitmentLevel": "low"},
+    "links": {"officialSources": [], "mapQuery": "Rotherhithe riverside walk to Bermondsey"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Test riverside access, timing and final stop."}
+  },
+  {
+    "id": "crystal-palace-uphill-away",
+    "slug": "crystal-palace",
+    "status": "prototype",
+    "access": "free",
+    "title": "Crystal Palace, Slightly Up a Hill and Away",
+    "subtitle": "Views, eccentric park details and a pub finish that earns itself.",
+    "seo": {"title": "Crystal Palace, Slightly Up a Hill and Away", "description": "A prototype Crystal Palace route for hills, park oddities and a local pub finish."},
+    "quickFacts": {"startStation": "Crystal Palace", "endStation": "Crystal Palace", "duration": "3–4 hours", "walkingDistance": "Approx. 4–5 km", "walkingLevel": "medium", "noiseLevel": "lively", "budget": "under £30", "bestTime": "Weekend daytime", "weather": ["sunny", "cold"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Crystal Palace Overground", "stationExit": "Use the park-side station exit and set the dinosaur sculptures as the first pin.", "pinLabel": "Crystal Palace Dinosaurs", "pinQuery": "Crystal Palace Dinosaurs London SE19", "firstMove": "Enter Crystal Palace Park and follow the live walking route towards the dinosaur sculptures. The later hill and pub sequence still needs a field check."}, "finish": {"label": "Prototype finish around the Crystal Palace Triangle", "nearestStation": "Crystal Palace Overground", "exitNote": "Return to the station after the park if you do not want to test the unverified second half."}, "disclaimer": "Prototype navigation: the starting pin is concrete, but gradients and the full sequence have not been field-checked."},
+    "filters": {"occasion": ["friend-catch-up", "solo-day", "neighbourhood-escape", "visitors"], "groupSize": ["1", "2", "3-4"], "vibe": ["slightly-weird", "village-london", "scruffy-charming", "view", "local-london"], "walking": "medium", "noise": "lively", "budget": "under-30", "weather": ["sunny", "cold"], "duration": ["3-4h", "half-day"], "socialPressure": "medium", "easyExit": "helpful", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "A south London hill with just enough oddness to feel like a small trip.", "bestFor": ["A Sunday without plans", "Friends who do not mind a hill", "A local visitor day"], "notIdealFor": ["Very low walking energy", "Heavy rain", "Anyone demanding guaranteed seating"], "whyNow": "Clear weather gives the route its distance and scale.", "specialBecause": "The park is eccentric enough to stop the day feeling managed.", "whatNotToExpect": "The hill is real, and the route is more peculiar than picturesque.", "practicalWarnings": ["Do not describe this as gentle walking.", "Check park access and the final stop before going.", "The prototype has not been field-checked."], "tags": ["hills", "slightly-weird", "local-london", "view"]},
+    "routeNarrative": "Start with the climb, use the park as the strange middle chapter, then finish around the local high street rather than racing back to central London.",
+    "stops": [
+      {"name": "Station and first climb", "type": "start", "duration": "15–25 min", "walkingToNext": "10 min", "description": "Take the hill at a conversational pace and establish early that this is not the flat option.", "officialUrl": null},
+      {"name": "Park oddities", "type": "walk", "duration": "45–75 min", "walkingToNext": "10–20 min", "description": "Choose a currently open park section with enough eccentric detail to justify the journey.", "officialUrl": null},
+      {"name": "A broad view", "type": "view", "duration": "15–25 min", "walkingToNext": "10–15 min", "description": "Pause where the city feels usefully far away.", "officialUrl": null},
+      {"name": "Local pub finish", "type": "pub", "duration": "45–90 min", "walkingToNext": "Finish", "description": "End somewhere currently verified and unfussy rather than making a reservation the climax.", "officialUrl": null}
+    ],
+    "versions": [{"id": "park", "label": "Park + view", "description": "The cheaper daylight version.", "duration": "2–3 hours", "budget": "free-ish", "requiresTicketCheck": false}, {"id": "full", "label": "Park + local finish", "description": "The fuller weekend version.", "duration": "3–4 hours", "budget": "under £30", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Better when both people like walking and a little oddness.", "friendGroupNotes": "Good for a small group; agree about the hill before arrival.", "soloNotes": "A useful solo reset if you want distance and visual change.", "foodDrinkNotes": "Treat food as optional until the final stop is verified.", "rainyDayBackup": "Use a shorter park circuit and move to an indoor local stop; avoid in severe weather.", "continueIfGoingWell": "Stay locally for another drink rather than returning to central immediately.", "exitEarly": "Return to Crystal Palace station after the first park section.", "finalEditorialNote": "The hill is the price of admission."},
+    "logic": {"fallbackIfClosed": "Keep the park and view; choose another verified local room.", "conversationQuality": "moderate", "commitmentLevel": "medium"},
+    "links": {"officialSources": [], "mapQuery": "Crystal Palace station park circular walk"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Test park route, gradients and weekend noise."}
+  },
+  {
+    "id": "stoke-newington-books-graves-pint",
+    "slug": "stoke-newington",
+    "status": "prototype",
+    "access": "free",
+    "title": "Stoke Newington for Books, Graves and a Decent Pint",
+    "subtitle": "A gentle north London route with quiet pauses and somewhere warm at the end.",
+    "seo": {"title": "Stoke Newington for Books, Graves and a Decent Pint", "description": "A prototype Stoke Newington route with books, cemetery paths and a pub finish."},
+    "quickFacts": {"startStation": "Stoke Newington", "endStation": "Stoke Newington", "duration": "2–4 hours", "walkingDistance": "Approx. 2–3 km", "walkingLevel": "gentle", "noiseLevel": "moderate", "budget": "under £30", "bestTime": "Weekday afternoon or rainy Sunday", "weather": ["rainy", "cold", "sunny"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Stoke Newington Overground", "stationExit": "Meet outside the station before choosing the first indoor stop.", "pinLabel": "Abney Park — Stoke Newington High Street entrance", "pinQuery": "Abney Park Stoke Newington High Street entrance London", "firstMove": "From the station, set the High Street entrance to Abney Park as the first confirmed outdoor anchor. The bookshop and pub choices still need a field check."}, "finish": {"label": "Prototype finish near Stoke Newington Church Street", "nearestStation": "Stoke Newington Overground", "exitNote": "Keep the station as the default exit until the final venue is verified."}, "disclaimer": "Prototype navigation: the outdoor anchor is concrete, but venue choices and opening times have not been field-checked."},
+    "filters": {"occasion": ["first-date", "friend-catch-up", "solo-day", "rainy-day"], "groupSize": ["1", "2", "3-4"], "vibe": ["literary", "old-pubs", "cosy", "good-for-talking", "local-london"], "walking": "gentle", "noise": "moderate", "budget": "under-30", "weather": ["rainy", "cold", "sunny"], "duration": ["1-2h", "3-4h"], "socialPressure": "low", "easyExit": "must-have", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "Books, old trees and a pub room without a great deal of ceremony.", "bestFor": ["A solo afternoon", "A first date with natural pauses", "A quiet friend catch-up"], "notIdealFor": ["Someone uncomfortable with cemetery walks", "A loud group night"], "whyNow": "Rain and colder light make the route more convincing, not less.", "specialBecause": "It gives a short afternoon several changes of pace without much travel.", "whatNotToExpect": "Not a brunch crawl and not a fashionable grand entrance.", "practicalWarnings": ["Check cemetery access and bookshop hours.", "Do not promise pub seating.", "The prototype has not been field-checked."], "tags": ["literary", "rainy-day", "old-pubs", "easy-exit"]},
+    "routeNarrative": "Browse first, walk somewhere quiet, then finish in a verified pub. Each stage can be the natural ending, which is useful for first dates and low-energy days.",
+    "stops": [
+      {"name": "A currently open bookshop", "type": "bookshop", "duration": "20–35 min", "walkingToNext": "10 min", "description": "Use browsing as the first low-pressure activity rather than filling every silence.", "officialUrl": null},
+      {"name": "Quiet streets", "type": "walk", "duration": "20–30 min", "walkingToNext": "5–10 min", "description": "Take the slower residential route rather than the most efficient one.", "officialUrl": null},
+      {"name": "Cemetery or old-tree pause", "type": "walk", "duration": "25–45 min", "walkingToNext": "10 min", "description": "Check access first and skip this section if the company or weather makes it wrong.", "officialUrl": null},
+      {"name": "Verified pub finish", "type": "pub", "duration": "45–75 min", "walkingToNext": "Finish", "description": "Choose a room suited to conversation, with current hours checked.", "officialUrl": null}
+    ],
+    "versions": [{"id": "short", "label": "Books + one drink", "description": "A clean 90-minute first-date version.", "duration": "1–2 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "full", "label": "Books + walk + pub", "description": "The slower solo or Sunday version.", "duration": "3–4 hours", "budget": "under £30", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Every stop creates a natural exit, which is the point.", "friendGroupNotes": "Keep the group small enough for bookshops and quiet rooms.", "soloNotes": "One of the stronger solo prototypes because browsing and walking need no audience.", "foodDrinkNotes": "Plan for a drink or snack, not a guaranteed proper meal.", "rainyDayBackup": "Shorten the outdoor section and use the bookshop plus verified pub version.", "continueIfGoingWell": "Add a second quiet room or keep walking locally.", "exitEarly": "Leave after the bookshop or before the cemetery section.", "finalEditorialNote": "A place where silence need not be repaired."},
+    "logic": {"fallbackIfClosed": "Keep the bookshop-walk-pub rhythm with verified alternatives.", "conversationQuality": "very good", "commitmentLevel": "low"},
+    "links": {"officialSources": [], "mapQuery": "Stoke Newington bookshop cemetery walk"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Test access, seating and rainy-day timings."}
+  },
+  {
+    "id": "walthamstow-market-village-later",
+    "slug": "walthamstow",
+    "status": "prototype",
+    "access": "free",
+    "title": "Walthamstow, Market First, Village Later",
+    "subtitle": "Start with noise and food, then let the afternoon become smaller and more local.",
+    "seo": {"title": "Walthamstow, Market First, Village Later", "description": "A prototype Walthamstow route from market energy to quieter village streets."},
+    "quickFacts": {"startStation": "Walthamstow Central", "endStation": "Walthamstow Central", "duration": "3–4 hours", "walkingDistance": "Approx. 3 km", "walkingLevel": "gentle", "noiseLevel": "lively", "budget": "under £30", "bestTime": "Saturday daytime or summer evening", "weather": ["sunny", "evening"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Walthamstow Central", "stationExit": "Use the town-centre exit and check that the market is trading before starting.", "pinLabel": "Walthamstow Market", "pinQuery": "Walthamstow Market High Street London E17", "firstMove": "Walk from the station towards the High Street and set Walthamstow Market as the first pin. Do not rely on the market section without checking the trading day."}, "finish": {"label": "Prototype finish in Walthamstow Village", "nearestStation": "Walthamstow Central", "exitNote": "The quieter village sequence and final venue still need a field check."}, "disclaimer": "Prototype navigation: the market start is concrete, but trading times and the full route have not been field-checked."},
+    "filters": {"occasion": ["friend-catch-up", "visitors", "neighbourhood-escape"], "groupSize": ["2", "3-4"], "vibe": ["market-food", "local-london", "lively", "village-london", "cheap-good"], "walking": "gentle", "noise": "lively", "budget": "under-30", "weather": ["sunny", "evening"], "duration": ["3-4h"], "socialPressure": "medium", "easyExit": "helpful", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "A route that begins with a pulse and knows when to quieten down.", "bestFor": ["A friend catch-up", "Visitors who like markets", "A small group afternoon"], "notIdealFor": ["Someone seeking quiet from the first minute", "Heavy rain", "A formal date"], "whyNow": "It works when the market is active and there is enough daylight for the quieter second half.", "specialBecause": "The change in pace gives the route an actual narrative.", "whatNotToExpect": "The first section is busy; this is not a hushed village fantasy.", "practicalWarnings": ["Verify market days and opening times.", "Expect crowding at peak times.", "The prototype has not been field-checked."], "tags": ["market", "lively", "village-london", "friends"]},
+    "routeNarrative": "Use the market as the social ignition, then walk towards quieter streets and finish somewhere local. The route should get calmer as it goes.",
+    "stops": [
+      {"name": "Market start", "type": "market", "duration": "35–60 min", "walkingToNext": "10–15 min", "description": "Browse and eat only after checking the current market day and trading hours.", "officialUrl": null},
+      {"name": "The quieter transition", "type": "walk", "duration": "25–40 min", "walkingToNext": "10 min", "description": "Leave the busiest section and let the route change register.", "officialUrl": null},
+      {"name": "Village-scale streets", "type": "walk", "duration": "25–40 min", "walkingToNext": "10 min", "description": "Take the smaller streets rather than adding another attraction.", "officialUrl": null},
+      {"name": "Local finish", "type": "pub", "duration": "45–90 min", "walkingToNext": "Finish", "description": "Choose a verified pub or taproom that suits the group and current noise tolerance.", "officialUrl": null}
+    ],
+    "versions": [{"id": "market", "label": "Market + walk", "description": "A cheaper daylight version.", "duration": "2–3 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "full", "label": "Market + village + drink", "description": "The complete social version.", "duration": "3–4 hours", "budget": "under £30", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Better for an established date than a quiet first meeting.", "friendGroupNotes": "The strongest use case; the noisy start gives the group something to react to.", "soloNotes": "Possible alone, though the market section is the main event.", "foodDrinkNotes": "Food matters here; verify trading days before relying on it.", "rainyDayBackup": "Use a shorter market section and move quickly to a verified indoor finish.", "continueIfGoingWell": "Stay locally for another drink rather than crossing London again.", "exitEarly": "Return to Walthamstow Central after the market.", "finalEditorialNote": "Noise first. Village later."},
+    "logic": {"fallbackIfClosed": "If the market is not operating, do not pretend the route is unchanged; use the village-only version.", "conversationQuality": "moderate", "commitmentLevel": "medium"},
+    "links": {"officialSources": [], "mapQuery": "Walthamstow market to Walthamstow Village"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Verify market days, crowd level and final stop."}
+  },
+  {
+    "id": "woolwich-barrier-big-sky",
+    "slug": "woolwich",
+    "status": "prototype",
+    "access": "free",
+    "title": "Woolwich for the Barrier, Big Sky and Strange Edges",
+    "subtitle": "An industrial river walk for when a proper urban hike sounds restorative.",
+    "seo": {"title": "Woolwich for the Barrier, Big Sky and Strange Edges", "description": "A prototype Woolwich and Thames Barrier urban hike with industrial river views."},
+    "quickFacts": {"startStation": "Woolwich", "endStation": "Charlton or Woolwich", "duration": "Half day", "walkingDistance": "Approx. 7–9 km", "walkingLevel": "urban-hike", "noiseLevel": "quiet", "budget": "free-ish", "bestTime": "Clear, dry daytime", "weather": ["sunny", "cold"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Woolwich Elizabeth line", "stationExit": "Meet outside the main Elizabeth line entrance with water, daylight and weather checked.", "pinLabel": "Royal Arsenal Riverside", "pinQuery": "Royal Arsenal Riverside Woolwich London", "firstMove": "Walk through the Royal Arsenal development towards the Thames and set Royal Arsenal Riverside as the first pin. Do not begin the long barrier section until path access is field-checked."}, "finish": {"label": "Prototype finish near Charlton", "nearestStation": "Charlton rail or Woolwich Elizabeth line", "exitNote": "The second station, path access and safe turn-back points still need field verification."}, "disclaimer": "Prototype navigation: only the river start is confirmed; do not treat this as a ready-to-follow urban hike."},
+    "filters": {"occasion": ["solo-day", "neighbourhood-escape", "visitors"], "groupSize": ["1", "2"], "vibe": ["riverside", "slightly-weird", "industrial", "view", "feels-elsewhere"], "walking": "urban-hike", "noise": "quiet", "budget": "free-ish", "weather": ["sunny", "cold"], "duration": ["half-day"], "socialPressure": "low", "easyExit": "helpful", "booking": "no-booking"},
+    "editorial": {"vibeSummary": "Concrete, tidal water and enough horizon to clear a noisy head.", "bestFor": ["A solo reset", "Two people who genuinely like walking", "Visitors curious about London’s edges"], "notIdealFor": ["Low energy", "Heavy rain or high wind", "Anyone expecting frequent cafés"], "whyNow": "Dry, clear weather makes the scale visible and the exposed sections tolerable.", "specialBecause": "It treats the industrial river as the destination, not an apology.", "whatNotToExpect": "Not conventionally pretty, not short and not supported by constant amenities.", "practicalWarnings": ["Check path access, weather and daylight.", "Carry water and do not rely on frequent toilets or cafés.", "The prototype has not been field-checked."], "tags": ["urban-hike", "free-ish", "quiet", "industrial-river"]},
+    "routeNarrative": "Begin in Woolwich, commit to the river and let the industrial scale build. The barrier is an anchor, not a photo stop to rush towards.",
+    "stops": [
+      {"name": "Woolwich start", "type": "start", "duration": "15 min", "walkingToNext": "15 min", "description": "Sort water, weather and the intended exit before joining the river.", "officialUrl": null},
+      {"name": "Industrial river stretch", "type": "walk", "duration": "60–90 min", "walkingToNext": "Continuous", "description": "Follow only a currently open and safe public path; the long exposure is the route’s main demand.", "officialUrl": null},
+      {"name": "Barrier and big-sky pause", "type": "view", "duration": "20–35 min", "walkingToNext": "30–60 min", "description": "Stop long enough for the scale to register, then choose whether to continue or turn back.", "officialUrl": null},
+      {"name": "Practical finish", "type": "cafe-or-pub", "duration": "30–60 min", "walkingToNext": "Finish", "description": "Use a verified indoor stop near the chosen station; do not assume it will appear exactly when needed.", "officialUrl": null}
+    ],
+    "versions": [{"id": "out-and-back", "label": "Shorter out-and-back", "description": "Turn back at the first major river pause.", "duration": "2–3 hours", "budget": "free-ish", "requiresTicketCheck": false}, {"id": "hike", "label": "Full urban hike", "description": "Continue to the planned second station with daylight in hand.", "duration": "Half day", "budget": "free-ish", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Not a first-date recommendation unless both people asked for a long industrial walk.", "friendGroupNotes": "Two people is ideal; larger groups need more planning around pace and stops.", "soloNotes": "The primary use case, with normal daylight and safety judgement.", "foodDrinkNotes": "Bring water and a snack; food is not the route’s reliable feature.", "rainyDayBackup": "Do not force this in heavy rain or high wind; choose another route.", "continueIfGoingWell": "Complete the longer riverside section and finish near the second station.", "exitEarly": "Use the planned turn-back point or return to Woolwich before the exposed section continues.", "finalEditorialNote": "Not pretty. Considerably more useful than that."},
+    "logic": {"fallbackIfClosed": "If the river path is closed, choose another route rather than improvising around industrial access.", "conversationQuality": "good", "commitmentLevel": "high"},
+    "links": {"officialSources": [], "mapQuery": "Woolwich to Thames Barrier riverside walk"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Test access, daylight timing, exits and amenities."}
+  },
+  {
+    "id": "clerkenwell-old-city-evening",
+    "slug": "clerkenwell",
+    "status": "prototype",
+    "access": "free",
+    "title": "Clerkenwell for an Old-City Evening Without West End Fuss",
+    "subtitle": "Short streets, old rooms and enough food to make the evening feel considered.",
+    "seo": {"title": "Clerkenwell for an Old-City Evening", "description": "A prototype Clerkenwell evening route with old streets, pub rooms and an optional proper meal."},
+    "quickFacts": {"startStation": "Farringdon", "endStation": "Farringdon or Barbican", "duration": "2–4 hours", "walkingDistance": "Approx. 2 km", "walkingLevel": "very-low", "noiseLevel": "moderate", "budget": "£30–£70", "bestTime": "Weekday evening", "weather": ["evening", "rainy", "cold"], "mainStops": 4},
+    "navigation": {"detailLevel": "start-only", "arrival": {"station": "Farringdon Elizabeth line and Underground", "stationExit": "Meet outside the Cowcross Street entrance before the first old-city leg.", "pinLabel": "St John's Gate, Clerkenwell", "pinQuery": "St John's Gate Clerkenwell London EC1M", "firstMove": "From Farringdon, set St John's Gate as the first pin and use the live walking route through Clerkenwell. The pub and meal sequence still needs an evening field check."}, "finish": {"label": "Prototype finish between Clerkenwell and Barbican", "nearestStation": "Farringdon or Barbican Underground", "exitNote": "Keep Farringdon as the default easy exit until the final venue is verified."}, "disclaimer": "Prototype navigation: the first landmark is concrete, but evening noise, prices and venue sequence have not been field-checked."},
+    "filters": {"occasion": ["second-date", "friend-catch-up", "visitors"], "groupSize": ["2", "3-4"], "vibe": ["old-city", "old-pubs", "good-for-talking", "not-polished", "food"], "walking": "very-low", "noise": "moderate", "budget": "30-70", "weather": ["evening", "rainy", "cold"], "duration": ["1-2h", "3-4h"], "socialPressure": "medium", "easyExit": "must-have", "booking": "optional-booking"},
+    "editorial": {"vibeSummary": "Old London compressed into a walk short enough to leave room for dinner.", "bestFor": ["A second or third date", "A friend catch-up after work", "Visitors who want central London without West End chaos"], "notIdealFor": ["A free-ish evening", "A loud group night", "Anyone wanting a long walk"], "whyNow": "It works after work, especially in cold or wet weather when short outdoor sections are an advantage.", "specialBecause": "It feels central without asking anyone to endure the West End.", "whatNotToExpect": "Not cheap-cheap and not a sprawling adventure; the value is compression.", "practicalWarnings": ["Check kitchen hours and whether a table is realistic.", "Weekday noise changes sharply by venue and time.", "The prototype has not been field-checked."], "tags": ["old-city", "evening", "30-70", "very-low-walk"]},
+    "routeNarrative": "Begin with one short old-street circuit, take a drink in a verified room, then choose between a proper meal and an easy exit. The route spends money on comfort rather than spectacle.",
+    "stops": [
+      {"name": "Farringdon start", "type": "start", "duration": "10 min", "walkingToNext": "5–10 min", "description": "Meet somewhere obvious and keep the first leg short enough for late arrivals.", "officialUrl": null},
+      {"name": "Old-city street circuit", "type": "walk", "duration": "25–40 min", "walkingToNext": "5 min", "description": "Use churches, squares and older lanes as the first chapter, not a heritage checklist.", "officialUrl": null},
+      {"name": "Verified pub room", "type": "pub", "duration": "45–60 min", "walkingToNext": "5–10 min", "description": "Choose for conversation and current noise, not historical claims alone.", "officialUrl": null},
+      {"name": "Optional proper meal", "type": "cafe-or-pub", "duration": "60–90 min", "walkingToNext": "Finish", "description": "Book only if the group wants commitment; otherwise end after the first drink.", "officialUrl": null}
+    ],
+    "versions": [{"id": "short", "label": "Streets + one drink", "description": "The low-commitment after-work version.", "duration": "1–2 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "meal", "label": "Streets + drink + meal", "description": "The considered evening version.", "duration": "3–4 hours", "budget": "£30–£70", "requiresTicketCheck": false}],
+    "copy": {"dateNotes": "Strong for an early established date: easy exit first, proper meal if the mood holds.", "friendGroupNotes": "Good for two to four; larger groups should book rather than improvise.", "soloNotes": "Possible, but the route earns more with conversation.", "foodDrinkNotes": "This is the one prototype where a proper meal can be central; verify price and booking.", "rainyDayBackup": "Shorten the street circuit and move between two close indoor stops.", "continueIfGoingWell": "Take the proper meal version or continue towards Barbican.", "exitEarly": "End after the first drink and return to Farringdon.", "finalEditorialNote": "Central London, with the volume turned down."},
+    "logic": {"fallbackIfClosed": "Replace the named type with another verified old-room stop; preserve the short walk and easy exit.", "conversationQuality": "good", "commitmentLevel": "medium"},
+    "links": {"officialSources": [], "mapQuery": "Farringdon Clerkenwell old streets walk"},
+    "editorialControl": {"fieldTested": false, "lastChecked": null, "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Test weekday noise, prices, booking pressure and exits."}
+  },
+  {
+    "id": "kings-cross-water-graves-pint",
+    "slug": "kings-cross",
+    "status": "prototype",
+    "access": "free",
+    "title": "King’s Cross for Water, Graves and a Properly Low-Stakes Pint",
+    "subtitle": "A canal-side start, a quiet churchyard and an easy pub finish for two people who do not need a big plan.",
+    "seo": {
+      "title": "King’s Cross for Water, Graves and a Properly Low-Stakes Pint",
+      "description": "A prototype King’s Cross route for two: Granary Square, Gasholder Park, Camley Street, St Pancras Old Church and a low-pressure pub finish."
+    },
+    "quickFacts": {
+      "startStation": "King’s Cross St Pancras",
+      "endStation": "King’s Cross St Pancras",
+      "duration": "2–3 hours",
+      "walkingDistance": "Approx. 2.5 km",
+      "walkingLevel": "gentle",
+      "noiseLevel": "quiet to moderate",
+      "budget": "under £30",
+      "bestTime": "Dry afternoon into early evening",
+      "weather": ["sunny", "cold"],
+      "mainStops": 5
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "King’s Cross St Pancras",
+        "stationExit": "Use the King’s Cross exit towards Granary Square rather than meeting in the station concourse.",
+        "pinLabel": "Granary Square",
+        "pinQuery": "Granary Square London N1C",
+        "firstMove": "From King’s Cross, cross the canal-side development towards Granary Square. Make the square the meeting point so neither person has to navigate the station crush."
+      },
+      "finish": {
+        "label": "The Queen’s Head, 66 Acton Street",
+        "nearestStation": "King’s Cross St Pancras",
+        "exitNote": "The pub is about two minutes from King’s Cross, so either person can leave without making the end of the route feel like a statement."
+      },
+      "disclaimer": "Camley Street Natural Park has controlled access. Use the Gasholder Park and churchyard version if it is closed, and follow live maps for crossings."
+    },
+    "valueTimingVenueId": "queens-head-kings-cross",
+    "filters": {
+      "occasion": ["second-date", "friend-catch-up", "solo-day", "neighbourhood-escape"],
+      "groupSize": ["1", "2", "3-4"],
+      "vibe": ["canal-side", "slightly-weird", "old-city", "good-for-talking", "easy-exit"],
+      "walking": "gentle",
+      "noise": "moderate",
+      "budget": "under-30",
+      "weather": ["sunny", "cold"],
+      "duration": ["1-2h", "3-4h"],
+      "socialPressure": "low",
+      "easyExit": "must-have",
+      "booking": "no-booking"
+    },
+    "editorial": {
+      "vibeSummary": "A new-London start that gets greener, older and less performative as it goes.",
+      "bestFor": ["A second or third date", "A quiet friend catch-up", "Two people arriving by train"],
+      "notIdealFor": ["A late-night first meeting", "Anyone wanting a completely hidden London", "Heavy rain"],
+      "whyNow": "It lets King’s Cross be useful without making the route about the station or its restaurants.",
+      "specialBecause": "The move from canal infrastructure to churchyard gives a short walk an actual change of mood.",
+      "whatNotToExpect": "Not secret, not untouched and not worth forcing after the nature reserve closes.",
+      "practicalWarnings": ["Check Camley Street Natural Park access before relying on it.", "The route has not been field-tested yet.", "Check current pub hours and noise before going."],
+      "tags": ["canal-side", "old-city", "easy-exit", "for-two"]
+    },
+    "routeNarrative": "Begin in the part of King’s Cross that looks newly made, then let the route become smaller and stranger. The water and gasholder are the first conversation; the churchyard is the quiet pause; the pub is nearby enough that the plan never feels trapped.",
+    "stops": [
+      {
+        "name": "Granary Square",
+        "type": "start",
+        "duration": "10–15 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "Granary Square, King’s Cross, London N1C",
+        "mapQuery": "Granary Square London N1C",
+        "directionFromPrevious": "From King’s Cross St Pancras, follow signs for Granary Square and meet beside the canal rather than inside the station.",
+        "description": "Use the square only as a clean starting point. Have one lap, decide whether the day needs a coffee, then leave before the development becomes the whole route.",
+        "officialUrl": "https://www.kingscross.co.uk/explore-parks-gardens"
+      },
+      {
+        "name": "Gasholder Park",
+        "type": "view",
+        "duration": "15–25 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "Gasholder Park, King’s Cross, London N1C",
+        "mapQuery": "Gasholder Park Kings Cross London N1C",
+        "directionFromPrevious": "Follow the canal-side park east from Granary Square towards the circular gasholder structure.",
+        "description": "A short, strange industrial pause that gives you something to look at without needing an attraction to explain itself.",
+        "officialUrl": "https://www.kingscross.co.uk/gasholder-park"
+      },
+      {
+        "name": "Camley Street Natural Park — daytime branch",
+        "type": "walk",
+        "duration": "20–35 min",
+        "walkingToNext": "10–15 min",
+        "locationNote": "12 Camley Street, London N1C 4PW",
+        "mapQuery": "Camley Street Natural Park London N1C 4PW",
+        "directionFromPrevious": "From Gasholder Park, follow the live walking route to Camley Street. Enter only if the reserve is open; otherwise skip directly to St Pancras Old Churchyard.",
+        "description": "The green interruption is the point. If it is closed, do not replace it with another paid stop: keep the route short and move on.",
+        "officialUrl": "https://www.wildlondon.org.uk/nature-reserves/camley-street-natural-park"
+      },
+      {
+        "name": "St Pancras Old Churchyard",
+        "type": "walk",
+        "duration": "20–30 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "St Pancras Old Church, Pancras Road, London NW1 2BA",
+        "mapQuery": "St Pancras Old Church London NW1 2BA",
+        "directionFromPrevious": "Walk south from Camley Street through the quieter streets towards Pancras Road. If the park was closed, use this as the first proper pause instead.",
+        "description": "Take a slow lap of the churchyard rather than treating it as a history lesson. It is the part that makes the route feel less like a redeveloped district.",
+        "officialUrl": "https://www.visitkingscross.com/st-pancras-old-church/"
+      },
+      {
+        "name": "The Queen’s Head",
+        "type": "pub",
+        "duration": "45–75 min",
+        "walkingToNext": "Finish",
+        "locationNote": "66 Acton Street, London WC1X 9NB",
+        "mapQuery": "The Queen's Head 66 Acton Street London WC1X 9NB",
+        "directionFromPrevious": "From the churchyard, head south-east to Acton Street. Keep King’s Cross behind you until you are ready to leave; the station is still only a short walk away.",
+        "description": "A deliberately close finish: there is room for a pint and a conversation, but no obligation to turn it into dinner or a second venue.",
+        "officialUrl": "https://queensheadlondon.com/"
+      }
+    ],
+    "versions": [
+      {
+        "id": "daytime",
+        "label": "Canal + nature + pub",
+        "description": "The full version when Camley Street Natural Park is open.",
+        "duration": "2–3 hours",
+        "budget": "under £30",
+        "requiresTicketCheck": false
+      },
+      {
+        "id": "after-hours",
+        "label": "Gasholder + churchyard + pub",
+        "description": "Skip the reserve after access hours and keep the route short, calm and useful.",
+        "duration": "1–2 hours",
+        "budget": "under £30",
+        "requiresTicketCheck": false
+      }
+    ],
+    "copy": {
+      "dateNotes": "Good for a second or third date because the first hour is visibly structured but every point creates a natural exit.",
+      "friendGroupNotes": "Works for two to four people if everyone is content with a short walk rather than a packed itinerary.",
+      "soloNotes": "The daytime version works alone, though the close-by pub finish is less essential.",
+      "foodDrinkNotes": "Treat the pub as drinks first. Check current food and seating before making it dinner.",
+      "rainyDayBackup": "Skip the nature reserve, keep Gasholder Park brief and go straight to the churchyard or finish early in the pub.",
+      "continueIfGoingWell": "Stay for another drink, or return to Granary Square for a final canal-side lap rather than adding a third venue.",
+      "exitEarly": "Leave from King’s Cross after Gasholder Park, or from the churchyard before the pub finish.",
+      "finalEditorialNote": "A station district that gets less station-like the longer you let it breathe."
+    },
+    "logic": {
+      "fallbackIfClosed": "If Camley Street Natural Park is closed, do the after-hours version; do not substitute a random indoor attraction.",
+      "conversationQuality": "good",
+      "commitmentLevel": "low"
+    },
+    "links": {
+      "officialSources": ["https://www.kingscross.co.uk/gasholder-park", "https://www.wildlondon.org.uk/nature-reserves/camley-street-natural-park", "https://www.visitkingscross.com/st-pancras-old-church/", "https://queensheadlondon.com/"],
+      "mapQuery": "Granary Square to The Queen's Head Acton Street via Gasholder Park and St Pancras Old Church"
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": null,
+      "nextReview": null,
+      "feedbackStatus": "needs-field-test",
+      "updateNotes": "Test the Camley Street access branch, timings, crossings and final pub noise before promotion."
+    }
+  }
+]

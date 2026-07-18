@@ -1,0 +1,42 @@
+{
+  "half-moon-putney": {
+    "venueName": "The Half Moon Putney",
+    "status": "check-current-listing",
+    "label": "Low-cost music option",
+    "title": "New Moon nights can be a cheaper way in",
+    "detail": "Some New Moon listings at The Half Moon are priced from £2.50. It is an event series, not a regular happy hour: the date, time and ticket price can change.",
+    "sourceLabel": "Check current tickets and prices",
+    "sourceUrl": "https://tickets.halfmoon.co.uk/tickets-and-events",
+    "checked": "10 July 2026"
+  },
+  "the-lamb-bloomsbury": {
+    "venueName": "The Lamb, Bloomsbury",
+    "status": "no-regular-offer-confirmed",
+    "label": "Happy-hour check",
+    "title": "No regular happy hour confirmed",
+    "detail": "The Lamb’s official pages publish menus and opening hours, but no recurring happy-hour pricing was confirmed when this route was checked.",
+    "sourceLabel": "Check current menus and opening hours",
+    "sourceUrl": "https://www.thelamblondon.com/",
+    "checked": "10 July 2026"
+  },
+  "southampton-arms-hampstead": {
+    "venueName": "The Southampton Arms",
+    "status": "no-regular-offer-confirmed",
+    "label": "Happy-hour check",
+    "title": "No regular happy hour confirmed",
+    "detail": "No recurring happy-hour offer was confirmed on the venue’s official information when this route was checked. The finish still works best as a walk-in, not a reservation-led plan.",
+    "sourceLabel": "Check current venue information",
+    "sourceUrl": "https://www.thesouthamptonarms.co.uk/",
+    "checked": "10 July 2026"
+  },
+  "queens-head-kings-cross": {
+    "venueName": "The Queen’s Head, King’s Cross",
+    "status": "no-regular-offer-confirmed",
+    "label": "Happy-hour check",
+    "title": "No regular happy hour confirmed",
+    "detail": "No recurring happy-hour pricing was confirmed on the venue’s official page when this route was drafted. Check the current menu and opening hours before making it the finish.",
+    "sourceLabel": "Check current venue information",
+    "sourceUrl": "https://queensheadlondon.com/",
+    "checked": "12 July 2026"
+  }
+}

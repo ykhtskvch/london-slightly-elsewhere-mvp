@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Give feedback on a London route or suggest one for London, Slightly Elsewhere.">
+    <title>Feedback | London, Slightly Elsewhere</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <script src="../assets/js/theme.js"></script>
+  </head>
+  <body data-base-path="../">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><div class="site-shell header-row">
+      <a class="brand" href="../">London, Slightly Elsewhere<small>Routes by mood, not algorithm</small></a>
+      <div class="header-actions"><nav class="site-nav" aria-label="Primary navigation"><a href="../find-your-route/">Find a route</a><a href="../routes/">All routes</a></nav><button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme">◐</button></div>
+    </div></header>
+    <main id="main" class="site-shell">
+      <section class="page-intro"><p class="eyebrow">Field notes welcome</p><h1>Did the route work in real life?</h1><p>Specific corrections are more useful than compliments: noise, walking, closures, awkwardness, weather and whether the exit actually felt easy.</p></section>
+      <section class="section">
+        <form class="form-card" data-static-form="feedbackEndpoint" data-submit-label="Send feedback">
+          <p class="eyebrow">Route feedback</p><h2>Tell us what happened.</h2>
+          <div class="form-grid">
+            <div class="form-field"><label for="route">Which route?</label><select id="route" name="route" required><option value="">Choose one</option><option>Putney for River Air and a Proper Music Pub</option><option>Bloomsbury After Rain</option><option>Hampstead When You Want to Pretend You Left London</option><option>Rotherhithe for River Air and Old Dock Melancholy</option><option>Crystal Palace, Slightly Up a Hill and Away</option><option>Stoke Newington for Books, Graves and a Decent Pint</option><option>Walthamstow, Market First, Village Later</option><option>Woolwich for the Barrier, Big Sky and Strange Edges</option><option>Clerkenwell for an Old-City Evening Without West End Fuss</option><option>King’s Cross for Water, Graves and a Properly Low-Stakes Pint</option></select></div>
+            <div class="form-field"><label for="worked">Did it work as expected?</label><select id="worked" name="worked_as_expected" required><option value="">Choose one</option><option>Mostly</option><option>Partly</option><option>Not really</option></select></div>
+            <div class="form-field"><label for="noise">Was the noise level right?</label><select id="noise" name="noise_accuracy"><option value="">Not sure</option><option>Too quiet</option><option>About right</option><option>Too loud</option></select></div>
+            <div class="form-field"><label for="walk">Was the walking level right?</label><select id="walk" name="walking_accuracy"><option value="">Not sure</option><option>Easier than described</option><option>About right</option><option>Harder than described</option></select></div>
+            <div class="form-field full"><label for="feedback-note">What was inaccurate, awkward or unexpectedly good?</label><textarea id="feedback-note" name="feedback" required></textarea></div>
+            <div class="form-field"><label for="feedback-email">Email (optional)</label><input id="feedback-email" name="email" type="email" placeholder="you@example.com"></div>
+          </div>
+          <div class="button-row"><button class="button primary" type="submit">Send feedback</button></div>
+          <p class="form-message" role="status"></p>
+          <p class="fine-print">Response collection is closed in this build. See the <a href="../privacy/">privacy notice</a>.</p>
+        </form>
+      </section>
+      <section class="section">
+        <form class="form-card" data-static-form="feedbackEndpoint" data-submit-label="Suggest a route">
+          <p class="eyebrow">Suggest a route</p><h2>Point us somewhere worth walking.</h2>
+          <div class="form-grid">
+            <div class="form-field"><label for="area">Neighbourhood or area</label><input id="area" name="area" required></div>
+            <div class="form-field"><label for="occasion">Best occasion</label><input id="occasion" name="occasion" placeholder="Solo day, second date, friends…"></div>
+            <div class="form-field full"><label for="stops">Suggested stops and what makes them work</label><textarea id="stops" name="suggested_stops" required></textarea></div>
+            <div class="form-field"><label for="caveat">The honest caveat</label><input id="caveat" name="honest_caveat" placeholder="Not great if you hate hills…"></div>
+            <div class="form-field"><label for="suggestion-email">Email (optional)</label><input id="suggestion-email" name="email" type="email" placeholder="you@example.com"></div>
+          </div>
+          <div class="button-row"><button class="button primary" type="submit">Suggest a route</button></div>
+          <p class="form-message" role="status"></p>
+        </form>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="site-shell footer-row"><span>Suggestions are reviewed, not published automatically.</span><nav class="footer-links" aria-label="Footer"><a href="../find-your-route/">Find a route</a><a href="../privacy/">Privacy</a><a href="../accessibility/">Accessibility</a></nav></div></footer>
+    <script src="../assets/js/config.js"></script><script src="../assets/js/forms.js"></script>
+  </body>
+</html>
