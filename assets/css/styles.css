@@ -32,6 +32,7 @@
   --surface-shift: color-mix(in srgb, var(--surface) 72%, var(--paper));
   --good: color-mix(in srgb, var(--moss) 12%, var(--surface));
   --caution: color-mix(in srgb, var(--wine) 10%, var(--surface));
+  --near: color-mix(in srgb, var(--river) 12%, var(--surface));
   --route-accent: var(--wine);
 
   --display: 'Fraunces', Georgia, "Times New Roman", serif;
@@ -92,6 +93,7 @@ h1, h2, h3, dd { overflow-wrap: break-word; }
 
 .skip-link { position: absolute; left: -999rem; top: 0; z-index: 20; background: var(--ink); color: var(--paper); padding: var(--space-2); }
 .skip-link:focus { left: var(--space-2); top: var(--space-2); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .site-shell { width: min(var(--container), calc(100% - var(--space-4))); max-width: 100%; margin-inline: auto; }
 
 .site-header { position: sticky; top: 0; z-index: 50; width: 100%; padding-block: .625rem; background: color-mix(in srgb, var(--paper) 94%, transparent); border-bottom: var(--border-thin) solid var(--line); box-shadow: 0 .25rem 1rem color-mix(in srgb, var(--ink) 5%, transparent); backdrop-filter: blur(.75rem); transition: transform 220ms ease, opacity 180ms ease, box-shadow 180ms ease; }
@@ -209,12 +211,22 @@ h3 { font-size: var(--step-1); }
 .advanced-filters { margin-top: var(--space-1); border-block: var(--border-thin) solid var(--line); }
 .advanced-filters summary { min-height: var(--tap); display: flex; align-items: center; padding-block: var(--space-2); color: var(--moss); cursor: pointer; font-weight: 800; }
 .results-meta { margin: 0 0 var(--space-2); color: var(--muted); }
+.results-meta.results-meta-honest { padding: var(--space-2) var(--space-3); background: var(--caution); border-left: var(--border-strong) solid var(--wine); border-radius: var(--radius-s); color: var(--ink); }
 .result-card { min-width: 0; padding: var(--space-3); background: var(--surface); border: var(--border-thin) solid var(--line); border-top: var(--border-strong) solid var(--route-accent); border-radius: var(--radius-s) var(--radius-l); box-shadow: var(--elevation-1); }
 .result-card:first-child { box-shadow: inset var(--border-strong) 0 0 var(--wine), var(--elevation-1); }
 .result-card .result-heading { min-width: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: start; gap: var(--space-2); }
 .result-card .result-heading > * { min-width: 0; }
 .result-kicker { padding: var(--space-half) var(--space-1); border: var(--border-thin) solid var(--option-line); border-radius: var(--radius-pill); color: var(--ink); font-size: var(--step--1); font-weight: 800; white-space: nowrap; }
 .match { margin: var(--space-1) 0; color: var(--moss); font-size: .92rem; }
+.match-chips { display: flex; flex-wrap: wrap; gap: var(--space-half); margin: 0 0 var(--space-2); padding: 0; list-style: none; }
+.match-chip { display: inline-flex; align-items: center; gap: .35em; max-width: 100%; padding: var(--space-half) var(--space-1); border-radius: var(--radius-pill); border: var(--border-thin) solid transparent; font-size: var(--step--1); font-weight: 700; line-height: 1.2; }
+.match-chip::before { content: ""; flex: none; width: .5em; height: .5em; border-radius: 50%; }
+.match-chip-match { background: var(--good); border-color: color-mix(in srgb, var(--moss) 35%, transparent); color: var(--moss); }
+.match-chip-match::before { background: var(--moss); }
+.match-chip-close { background: var(--near); border-color: color-mix(in srgb, var(--river) 35%, transparent); color: var(--river); }
+.match-chip-close::before { background: var(--river); }
+.match-chip-miss { background: var(--caution); border-color: color-mix(in srgb, var(--wine) 35%, transparent); color: var(--wine); text-decoration: line-through; text-decoration-thickness: from-font; }
+.match-chip-miss::before { background: var(--wine); }
 .empty-state { padding: var(--space-4); background: var(--surface-shift); border-radius: var(--radius-s); color: var(--muted); }
 
 .route-hero { padding-block: var(--space-6) var(--space-4); }
