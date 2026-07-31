@@ -293,6 +293,7 @@ h3 { font-size: var(--step-1); }
 .location-note { margin: 0 0 var(--space-1); color: var(--moss); font-size: .9rem; font-weight: 750; }
 .direction-note { margin: var(--space-2) 0; padding: var(--space-2); background: var(--surface); border: var(--border-thin) solid var(--line); border-left: var(--border-strong) solid var(--river); border-radius: 0 var(--radius-s) var(--radius-s) 0; font-size: .92rem; }
 .stop-links { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-2); margin-top: var(--space-1); font-size: .9rem; font-weight: 750; }
+.stop-links a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 .route-finish { padding-inline: var(--space-3); background: var(--good); border-left: var(--border-strong) solid var(--moss); border-radius: 0 var(--radius-m) var(--radius-m) 0; }
 .route-finish h2 { font-size: var(--step-2); }
 .value-timing { padding-inline: var(--space-3); background: var(--surface); border: var(--border-thin) solid var(--line); border-left: var(--border-strong) solid var(--wine); border-radius: 0 var(--radius-m) var(--radius-m) 0; }
