@@ -1,0 +1,145 @@
+{
+  "_howToUse": "Fill in the \"route\" object below, then it gets appended to data/routes.json and scripts/build_route_pages.py writes routes/<slug>/index.html. Nothing reads this file at runtime. Leave a field empty rather than guessing — a wrong opening time is worse than a missing one. This skeleton is a london-day route; a day-walk additionally needs the \"travel\" and \"hike\" blocks, copied from marlow-hambleden in routes.json.",
+  "_allowedValues": {
+    "routeType": ["london-day", "day-walk"],
+    "status": ["prototype", "field-test", "field-checked", "published"],
+    "access": ["free"],
+    "stops[].type": ["start", "walk", "pub", "dinner", "market", "museum", "bookshop", "garden", "view", "live-music", "cafe-or-pub", "finish"],
+    "navigation.detailLevel": ["start-only", "anchor-by-anchor"],
+    "filters.occasion": ["first-date", "second-date", "friend-catch-up", "solo-day", "neighbourhood-escape", "rainy-day", "visitors"],
+    "filters.groupSize": ["1", "2", "3-4"],
+    "filters.vibe": ["canal-side", "cheap-good", "cosy", "diaspora-london", "easy-exit", "feels-elsewhere", "food", "good-for-talking", "historic-london", "industrial", "literary", "live-music", "lively", "local-london", "low-key-romantic", "market-food", "moody", "not-polished", "old-city", "old-pubs", "parisian-ish", "river-first", "riverside", "scruffy-charming", "slightly-weird", "view", "village-london"],
+    "filters.walking": ["very-low", "gentle", "medium", "urban-hike"],
+    "filters.noise": ["quiet", "moderate", "lively"],
+    "filters.budget": ["free-ish", "under-30", "30-70"],
+    "filters.weather": ["sunny", "cold", "rainy", "evening", "autumn", "winter"],
+    "filters.duration": ["1-2h", "3-4h", "half-day"],
+    "filters.socialPressure": ["low", "medium"],
+    "filters.easyExit": ["helpful", "must-have"],
+    "filters.booking": ["no-booking", "optional-booking"]
+  },
+  "route": {
+    "id": "",
+    "slug": "",
+    "routeType": "london-day",
+    "status": "prototype",
+    "access": "free",
+    "soundtrack": null,
+    "title": "",
+    "subtitle": "",
+    "fieldNote": {
+      "verified": false,
+      "text": ""
+    },
+    "seo": {
+      "title": "",
+      "shortTitle": "",
+      "description": "",
+      "socialDescription": "",
+      "contentLocation": ""
+    },
+    "quickFacts": {
+      "startStation": "",
+      "endStation": "",
+      "duration": "",
+      "startBy": "",
+      "walkingDistance": "",
+      "walkingLevel": "",
+      "noiseLevel": "",
+      "budget": "",
+      "bestTime": "",
+      "weather": [],
+      "mainStops": 0
+    },
+    "navigation": {
+      "detailLevel": "start-only",
+      "arrival": {
+        "station": "",
+        "stationExit": "",
+        "pinLabel": "",
+        "pinQuery": "",
+        "firstMove": ""
+      },
+      "finish": {
+        "label": "",
+        "nearestStation": "",
+        "exitNote": ""
+      },
+      "disclaimer": ""
+    },
+    "valueTimingVenueId": null,
+    "filters": {
+      "occasion": [],
+      "groupSize": [],
+      "vibe": [],
+      "walking": "",
+      "noise": "",
+      "budget": "",
+      "weather": [],
+      "duration": [],
+      "socialPressure": "",
+      "easyExit": "",
+      "booking": ""
+    },
+    "editorial": {
+      "vibeSummary": "",
+      "bestFor": [],
+      "notIdealFor": [],
+      "whyNow": "",
+      "specialBecause": "",
+      "whatNotToExpect": "",
+      "practicalWarnings": [],
+      "tags": []
+    },
+    "routeNarrative": "",
+    "stops": [
+      {
+        "name": "",
+        "type": "start",
+        "duration": "",
+        "walkingToNext": "",
+        "locationNote": "",
+        "mapQuery": "",
+        "directionFromPrevious": "",
+        "description": "",
+        "officialUrl": ""
+      }
+    ],
+    "versions": [
+      {
+        "id": "",
+        "label": "",
+        "description": "",
+        "duration": "",
+        "budget": "",
+        "requiresTicketCheck": false
+      }
+    ],
+    "copy": {
+      "dateNotes": "",
+      "friendGroupNotes": "",
+      "soloNotes": "",
+      "foodDrinkNotes": "",
+      "rainyDayBackup": "",
+      "continueIfGoingWell": "",
+      "exitEarly": "",
+      "finalEditorialNote": ""
+    },
+    "logic": {
+      "fallbackIfClosed": "",
+      "conversationQuality": "",
+      "commitmentLevel": ""
+    },
+    "links": {
+      "officialSources": [],
+      "mapQuery": ""
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": null,
+      "nextReview": null,
+      "feedbackStatus": "prototype",
+      "updateNotes": ""
+    }
+  }
+}

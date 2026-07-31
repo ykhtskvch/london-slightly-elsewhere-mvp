@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Regenerate routes/<slug>/index.html from data/routes.json.
+"""Regenerate the route pages, the browse grid and the homepage cards from
+data/routes.json.
 
 Every route page is a shell: the head metadata plus a no-JS fallback that
-route-page.js replaces once the data loads. Both used to be hand-written, so
-renaming a route in the data left the title, meta description, JSON-LD and
-fallback prose behind. This script makes routes.json the only place a route is
-described.
+route-page.js replaces once the data loads. The browse grid and the homepage
+work the same way, with browse.js and home.js replacing hand-written cards.
+Those fallbacks used to be maintained by hand, so renaming a route left the
+title, meta description, JSON-LD and card copy behind, and the browse grid
+still listed 16 of the 24 routes.
 
-The fallback markup below deliberately mirrors renderRoute() in
-assets/js/route-page.js — the status labels, quick-fact selection and the
-at-a-glance flow labels must stay in step with it, or a visitor without JS sees
-different facts from one with.
+The markup below deliberately mirrors renderRoute() and routeCard() in
+assets/js/route-page.js and assets/js/app.js — status labels, quick-fact
+selection, the at-a-glance flow labels and the card fields must stay in step
+with them, or a visitor without JS sees different facts from one with.
 """
 
 import html
@@ -31,6 +33,13 @@ STATUS = {
     "prototype": ("Prototype route", "Prototype route — not yet field-checked", "Prototype."),
 }
 PILOT = ("Pilot route", "Pilot route — walked once; verify live details before going", "Pilot edition.")
+
+CARD_STATUS = {
+    "published": "Published",
+    "field-checked": "Field-checked",
+    "field-test": "Pilot",
+    "prototype": "Prototype",
+}
 
 FLOW_LABELS = {
     "start": "start",
@@ -172,6 +181,43 @@ def page(route):
 """
 
 
+def card(route, href_prefix, browsable):
+    is_day_walk = route["routeType"] == "day-walk"
+    duration = f"{route['hike']['distanceKm']} km" if is_day_walk else route["quickFacts"]["duration"]
+    start = route["travel"]["arrivalStation"] if is_day_walk else route["quickFacts"]["startStation"]
+    walk = route["quickFacts"]["walkingLevel"].replace("-", " ")
+    facts = [walk if "hike" in walk else f"{walk} walk", route["quickFacts"]["budget"]]
+    attrs = f' data-route-card data-route-type="{e(route["routeType"])}"' if browsable else ""
+    fact_spans = "".join('<span class="fact">' + e(fact) + "</span>" for fact in facts if fact)
+    return (
+        f'<a{attrs} class="route-card route-{e(route["slug"])}" href="{href_prefix}{e(route["slug"])}/">'
+        f'<div class="card-top"><span class="card-status">{e(CARD_STATUS.get(route["status"], "Pilot"))}</span>'
+        f"<span>{e(duration)}</span></div>"
+        f'<h3>{e(route["title"])}</h3><p>{e(route["subtitle"])}</p>'
+        f'<p class="fine-print">Start: {e(start)}</p>'
+        f'<div class="facts">{fact_spans}</div></a>'
+    )
+
+
+def replace_grid(path, marker, cards, indent):
+    """Swap the contents of the one route-grid carrying `marker`, leaving the
+    opening tag and everything around it untouched."""
+    text = path.read_text(encoding="utf-8")
+    start = text.find(marker)
+    assert start != -1, f"{path}: no grid marked {marker}"
+    open_end = text.index(">", start) + 1
+    depth, i = 1, open_end
+    while depth:
+        nxt_open, nxt_close = text.find("<div", i), text.index("</div>", i)
+        if nxt_open != -1 and nxt_open < nxt_close:
+            depth, i = depth + 1, nxt_open + 4
+        else:
+            depth, i = depth - 1, nxt_close + 6
+    close_start = i - 6
+    body = "\n" + "".join(indent + c + "\n" for c in cards) + indent[:-2]
+    path.write_text(text[:open_end] + body + text[close_start:], encoding="utf-8")
+
+
 def main():
     routes = json.loads((ROOT / "data" / "routes.json").read_text(encoding="utf-8"))
     for route in routes:
@@ -179,6 +225,19 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(page(route), encoding="utf-8")
     print(f"Wrote {len(routes)} route pages.")
+
+    browse = ROOT / "routes" / "index.html"
+    replace_grid(browse, "<div class=\"route-grid\" data-featured-routes data-browse-routes",
+                 [card(r, "", browsable=True) for r in routes], " " * 8)
+    print(f"Wrote {len(routes)} cards into routes/index.html.")
+
+    home = ROOT / "index.html"
+    marker = "<div class=\"route-grid\" data-featured-routes data-featured-route-ids="
+    featured_ids = home.read_text(encoding="utf-8").split(marker)[1].split('"')[1].split(",")
+    by_key = {key: r for r in routes for key in (r["id"], r["slug"])}
+    featured = [by_key[key.strip()] for key in featured_ids if key.strip()]
+    replace_grid(home, marker, [card(r, "routes/", browsable=False) for r in featured], " " * 10)
+    print(f"Wrote {len(featured)} cards into index.html.")
 
     missing = [r["slug"] for r in routes if not r["seo"].get("contentLocation")]
     if missing:
