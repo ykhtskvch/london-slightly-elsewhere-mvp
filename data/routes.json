@@ -994,5 +994,224 @@
     "logic": {"fallbackIfClosed": "If Chiswick House Gardens are inaccessible, keep the river walk and choose one pub finish; if The Old Pack Horse food service is unavailable, do not substitute a random restaurant and call the route after George & Devonshire.", "conversationQuality": "very good while walking; moderate in the Saturday final room", "commitmentLevel": "medium"},
     "links": {"officialSources": ["https://www.citybargechiswick.com/", "https://chiswickhouseandgardens.org.uk/plan-your-visit/opening-times-and-prices/", "https://www.oldpackhorsechiswick.co.uk/", "https://www.oldpackhorsechiswick.co.uk/whats-on/live-music-saturdays"], "mapQuery": "Kew Gardens station to The Old Pack Horse Chiswick via Kew Green, The City Barge and Chiswick House Gardens"},
     "editorialControl": {"fieldTested": false, "lastChecked": "Desk-checked — July 2026", "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Field-test the exact Kew Bridge/Strand-on-the-Green to Chiswick Mall walk, garden gate choice, George & Devonshire branch and South Acton return."}
+  },
+  {
+    "id": "marlow-hambleden-long-way-home",
+    "slug": "marlow-hambleden",
+    "routeType": "day-walk",
+    "status": "prototype",
+    "access": "free",
+    "soundtrack": null,
+    "title": "Marlow to Hambleden, Then the Long Way Home",
+    "subtitle": "A train-out Thames walk for river meadows, two locks, a proper village pub and the satisfying simplicity of walking back the way you came.",
+    "fieldNote": {
+      "verified": false,
+      "text": "Desk-checked from current operator, National Trails and venue information in July 2026. This is a prototype rather than a claimed personal walk: confirm path conditions, any Thames Path diversions and the return train before you leave London."
+    },
+    "seo": {
+      "title": "Marlow to Hambleden, Then the Long Way Home",
+      "description": "A prototype full day out from London: a mostly level Thames Path walk from Marlow to Hambleden Lock and village, then back again."
+    },
+    "quickFacts": {
+      "startStation": "Marlow rail",
+      "endStation": "Marlow rail",
+      "duration": "5–6 hours plus train travel",
+      "startBy": "Leave Paddington before 10am for a relaxed pub stop",
+      "walkingDistance": "About 19 km, out and back",
+      "walkingLevel": "easy to moderate",
+      "noiseLevel": "quiet",
+      "budget": "train fare + pub lunch",
+      "bestTime": "A dry spring, summer or early-autumn day",
+      "weather": ["sunny", "cold"],
+      "mainStops": 5
+    },
+    "travel": {
+      "departureHubs": ["paddington"],
+      "typicalMinutes": 75,
+      "travelTimeBand": "60-90",
+      "journeyComplexity": "one-change",
+      "arrivalStation": "Marlow rail station",
+      "returnStation": "Marlow rail station",
+      "transportMode": "rail",
+      "serviceNote": "From London Paddington, travel to Maidenhead and change for Marlow. Services and engineering work change, so use the operator journey planner on the day.",
+      "officialSourceUrl": "https://visit-marlow.com/plan-your-trip/how-to-get-here/"
+    },
+    "hike": {
+      "distanceKm": 19,
+      "distanceBand": "18-22",
+      "walkingTime": "About 4½–5 hours walking",
+      "difficulty": "easy",
+      "routeShape": "either",
+      "elevationGainM": null,
+      "landscape": ["river", "open-countryside", "villages"],
+      "views": ["rolling-countryside", "historic-villages"],
+      "urbanPresence": "lightly-settled",
+      "terrainNotes": "A mostly level riverside walk on the signed Thames Path: firm in dry weather, with meadow and towpath sections that can become muddy or waterlogged after heavy rain.",
+      "shortenable": true,
+      "shorterOptionKm": 12,
+      "shorteningNote": "For the shorter version, turn around at Temple Lock rather than continuing to Hambleden. It keeps the river rhythm and returns you to Marlow without relying on a rural bus.",
+      "earlyExit": {
+        "label": "Mill End, by Hambleden Lock",
+        "note": "There is no rail station here; only use this as an exit after checking a live local bus or arranging a taxi. The reliable default is to walk back to Marlow."
+      },
+      "pubOptions": ["pub-mid-route", "bring-food"],
+      "conditions": {
+        "mudOrDrainage": "Expect mud and occasional standing water after sustained rain. Waterproof footwear is sensible outside dry spells.",
+        "exposedSections": "The river meadows have little shelter. Bring an extra layer when it is windy, even on a sunny forecast.",
+        "roadSections": "Very limited on the main route, but use care on the final lanes into Hambleden village.",
+        "stiles": "Do not rely on this as a stile-free access route; use the live National Trails information for current path details.",
+        "foodWater": "Carry water and a snack. The village pub is a planned stop, not a guarantee of immediate food or a table.",
+        "toilets": "Use facilities in Marlow before setting out; do not depend on public toilets along the countryside section.",
+        "mobileSignal": "Usually usable but do not assume it will be perfect in every meadow or wooded edge.",
+        "pubTiming": "The Stag & Huntsman lists lunch service 12–3pm; check the current kitchen hours and reserve if a sit-down lunch matters."
+      }
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "Marlow rail station",
+        "stationExit": "Leave via Station Approach and use the first pin before deciding on coffee or provisions in town.",
+        "pinLabel": "Higginson Park, Marlow",
+        "pinQuery": "Higginson Park Marlow SL7",
+        "firstMove": "Walk through Marlow to Higginson Park, then join the signed Thames Path heading upstream, keeping the river as the organising line rather than trusting an unverified GPX."
+      },
+      "finish": {
+        "label": "Marlow rail station",
+        "nearestStation": "Marlow rail station",
+        "exitNote": "Retrace the signed Thames Path to Marlow, then use the live route from Higginson Park back to the station. Check the final Marlow–Maidenhead connection before committing to a long pub stop."
+      },
+      "externalRouteUrl": "https://www.nationaltrail.co.uk/en_GB/trails/thames-path/route/",
+      "disclaimer": "Prototype route: walk the signed Thames Path out to Hambleden Lock and return by the same line. It is deliberately not supplied as a fictional continuous Google Maps route or GPX. Check the official trail, live conditions and any diversion before setting out."
+    },
+    "filters": {
+      "routeType": "day-walk",
+      "distance": "18-22",
+      "travelTime": "60-90",
+      "departureHubs": ["paddington"],
+      "landscape": ["river", "open-countryside", "villages"],
+      "views": ["rolling-countryside", "historic-villages"],
+      "urbanPresence": "lightly-settled",
+      "difficulty": "easy",
+      "pub": ["pub-mid-route", "bring-food"],
+      "routeShape": "either",
+      "journeyComplexity": "one-change",
+      "shortenable": true
+    },
+    "editorial": {
+      "vibeSummary": "A long river day that feels more like a change of country than an escape room with walking shoes.",
+      "bestFor": ["Two people who would rather walk than queue", "A solo day with one deliberate pub stop", "A calm full day when the forecast is dry"],
+      "notIdealFor": ["Heavy rain or recent flooding", "Anyone wanting a circular route with constant novelty", "A day that needs a guaranteed early rail exit"],
+      "whyNow": "It earns a whole day without inventing an agenda: get out by train, follow the water, eat in the village, then make the return feel earned.",
+      "specialBecause": "The repeated route is a feature. On the way out you are looking for the lock; on the way back the river has become familiar and the train home feels unusually simple.",
+      "whatNotToExpect": "Not a wilderness hike, a hidden restaurant discovery or a route to attempt in trainers after a wet week.",
+      "practicalWarnings": ["Check the Paddington–Maidenhead–Marlow journey and return connection on the day, especially at weekends.", "Check the official Thames Path for diversions and avoid flooded or unsafe path sections.", "The Stag & Huntsman is a destination stop, not a promise of walk-in lunch; verify kitchen hours and book when needed.", "There is no guaranteed public-transport bail-out at Hambleden. The dependable return is the same path back to Marlow.", "This route has been desk-checked, not personally field-checked end to end."],
+      "tags": ["thames-path", "river", "village-pub", "full-day-out"]
+    },
+    "routeNarrative": "Leave the station, pass through Marlow before it has had time to become a shopping trip, and let the Thames do all the planning. The river gives you locks, water meadows and enough space to talk or not talk. Hambleden is the pause, not the finish line: eat, look at the village, then follow the water back until Marlow and the train feel like the only reasonable ending.",
+    "stops": [
+      {
+        "name": "Marlow rail station → Higginson Park",
+        "type": "start",
+        "duration": "20–30 min",
+        "walkingToNext": "10 min to the river path",
+        "locationNote": "Marlow station, Station Approach, SL7 1NT",
+        "mapQuery": "Higginson Park Marlow SL7",
+        "directionFromPrevious": "From the station, use the live walking route into Marlow and set Higginson Park as the first clear riverside anchor.",
+        "description": "Do the practical things here: water, a snack, a toilet if you can find one. Once you enter the park, stop treating the day as a town visit and look for the signed Thames Path.",
+        "officialUrl": null
+      },
+      {
+        "name": "Marlow Bridge and the Thames Path",
+        "type": "walk",
+        "duration": "45–60 min",
+        "walkingToNext": "60–75 min to Temple Lock",
+        "locationNote": "Marlow Bridge and Higginson Park, Marlow SL7",
+        "mapQuery": "Marlow Bridge SL7",
+        "directionFromPrevious": "From Higginson Park, follow the official Thames Path signs upstream. Do not improvise a river crossing; use the marked path and live trail information.",
+        "description": "The town falls away quickly. This first stretch is the calibration: boats, meadow edges and enough space to decide whether the day wants conversation, headphones or neither.",
+        "officialUrl": "https://www.nationaltrail.co.uk/en_GB/trails/thames-path/route/"
+      },
+      {
+        "name": "Temple Lock and footbridge",
+        "type": "walk",
+        "duration": "20–30 min",
+        "walkingToNext": "60–75 min to Hambleden Lock",
+        "locationNote": "Temple Lock, River Thames near Marlow",
+        "mapQuery": "Temple Lock Marlow",
+        "directionFromPrevious": "Stay with the signed Thames Path. At the lock and footbridge, use the official trail or live walking map to confirm the correct side of the river before continuing.",
+        "description": "A useful halfway-feeling without a café-script. Pause for the lock, top up water and keep going only if the weather and pace still make the full Hambleden version feel good.",
+        "officialUrl": null
+      },
+      {
+        "name": "Hambleden Lock, Mill End and the village",
+        "type": "view",
+        "duration": "45–75 min",
+        "walkingToNext": "About 20 min into Hambleden village",
+        "locationNote": "Hambleden Lock and Mill End, near Hambleden RG9",
+        "mapQuery": "Hambleden Lock RG9",
+        "directionFromPrevious": "At Hambleden Lock, follow the public crossing and the live map into Mill End, then continue carefully on the lanes to Hambleden village. Check any local access changes before crossing.",
+        "description": "The visual reward: lock, weir, the old mill and the feeling that the river has briefly moved the country around you. This is the point to choose between a short village detour or an immediate return.",
+        "officialUrl": null
+      },
+      {
+        "name": "The Stag & Huntsman, Hambleden → return to Marlow",
+        "type": "pub",
+        "duration": "60–90 min",
+        "walkingToNext": "About 9.5 km back to Marlow rail station",
+        "locationNote": "Hambleden village, RG9 6RP",
+        "mapQuery": "The Stag and Huntsman Hambleden RG9 6RP",
+        "directionFromPrevious": "From Mill End, use the live walking route into the village. After the stop, return to Hambleden Lock and retrace the signed Thames Path to Marlow; do not rely on an unverified rural bus as the default exit.",
+        "description": "A proper village-pub anchor, but do not let lunch turn the return into a negotiation with daylight. Treat it as a scheduled pause, then take the same generous river line back to the station.",
+        "officialUrl": "https://www.stagandhuntsman.com/"
+      }
+    ],
+    "versions": [
+      {
+        "id": "temple-turnaround",
+        "label": "Short river version",
+        "description": "Marlow to Temple Lock and back: the sensible choice if rain, late trains or low energy make a 19 km day feel performative.",
+        "duration": "3–4 hours plus train travel",
+        "budget": "train fare + snacks",
+        "requiresTicketCheck": false
+      },
+      {
+        "id": "hambleden-full",
+        "label": "Full river + village-pub day",
+        "description": "The complete Marlow–Hambleden return with the lock, village and one long pub pause in the middle.",
+        "duration": "5–6 hours plus train travel",
+        "budget": "train fare + pub lunch",
+        "requiresTicketCheck": false
+      }
+    ],
+    "copy": {
+      "dateNotes": "Good for a second or third date only when both people actively want a long walk. The out-and-back shape is low-pressure, but the distance is real.",
+      "friendGroupNotes": "Best for two to four people who agree in advance that the pub is one stop, not an all-afternoon referendum.",
+      "soloNotes": "Very strong solo in clear weather: the navigation is intentionally simple, but download or screenshot the official trail information before signal becomes a question.",
+      "foodDrinkNotes": "Carry water and a snack. Plan the village pub, but check opening and kitchen times before treating it as your only meal source.",
+      "rainyDayBackup": "Use the Temple Lock turnaround or postpone. Do not turn a flooded-path warning into a personality test.",
+      "continueIfGoingWell": "Take your time in the village, then return by the same path while there is still comfortable daylight. The full route does not need an extra dinner in Marlow.",
+      "exitEarly": "Turn around at Temple Lock for the cleanest early finish. From Hambleden, the reliable exit is walking back to Marlow unless live local transport says otherwise.",
+      "finalEditorialNote": "The river takes you out; walking it back makes the day stick."
+    },
+    "logic": {
+      "fallbackIfClosed": "If the pub is closed or full, keep the village look, eat your carried snack and return. Do not replace it with a detour that breaks the daylight and train plan.",
+      "conversationQuality": "excellent on the path; quieter after a long pub lunch",
+      "commitmentLevel": "high"
+    },
+    "links": {
+      "officialSources": [
+        "https://visit-marlow.com/plan-your-trip/how-to-get-here/",
+        "https://www.nationaltrail.co.uk/en_GB/trails/thames-path/route/",
+        "https://www.stagandhuntsman.com/"
+      ],
+      "mapQuery": "Marlow station to Hambleden Lock via Thames Path"
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": "Desk-checked — July 2026",
+      "nextReview": null,
+      "feedbackStatus": "prototype",
+      "updateNotes": "Field-check the signed Marlow–Hambleden path, river crossings, the village detour, return walking time and current public-transport options from Mill End before marking field-checked."
+    }
   }
 ]
