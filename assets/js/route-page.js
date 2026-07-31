@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       valueTiming: storedRoute.valueTimingVenueId ? venueTiming[storedRoute.valueTimingVenueId] : null
     };
     if (!route) throw new Error("Route not found");
-    document.title = `${route.title} | London, Slightly Elsewhere`;
+    document.title = `${route.seo?.shortTitle || route.title} | London, Slightly Elsewhere`;
     renderRoute(route, target);
   } catch (error) {
     target.innerHTML = "<section class=\"page-intro\"><p>Route data could not be loaded. Please use a static server or deploy the site.</p></section>";
