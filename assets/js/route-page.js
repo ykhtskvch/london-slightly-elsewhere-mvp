@@ -187,7 +187,7 @@ function renderRoute(route, target) {
     ${travelBlock}
     ${navigationBlock}
     <div class="route-layout">
-      <main class="route-main">
+      <div class="route-main">
         <section>
           <p class="eyebrow">Why this route exists</p>
           <h2>${e(route.editorial.vibeSummary)}</h2>
@@ -232,7 +232,7 @@ function renderRoute(route, target) {
           <p class="eyebrow">Final editorial note</p>
           <h2>${e(route.copy.finalEditorialNote)}</h2>
         </section>
-      </main>
+      </div>
       <aside class="route-sidebar">
         <h2>Before you go</h2>
         <p><strong>${e(route.quickFacts.bestTime)}</strong></p>

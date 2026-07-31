@@ -27,6 +27,9 @@
     routeTypeLabel(routeType) {
       return routeType === "day-walk" ? "Full day out" : "London day";
     },
+    statusLabel(status) {
+      return { "field-checked": "Field-checked", "field-test": "Pilot", prototype: "Prototype", published: "Published" }[status] || "Pilot";
+    },
     routeCard(route) {
       const e = this.escape;
       const type = this.routeTypeLabel(route.routeType);
@@ -38,7 +41,7 @@
         ? [`About ${route.travel.typicalMinutes} min from ${human(route.travel.departureHubs[0])}`, human(route.hike.difficulty), route.hike.landscape?.slice(0, 2).map(human).join(" + "), human(route.hike.pubOptions?.[0])]
         : [route.quickFacts.walkingLevel, route.quickFacts.noiseLevel, route.quickFacts.budget];
       const soundtrack = route.soundtrack ? `<p class="soundtrack">This day sounds like: ${e(route.soundtrack.artist)} — <em>${e(route.soundtrack.track)}</em></p>` : "";
-      return `<a data-route-card data-route-type="${e(route.routeType)}" class="route-card route-${e(route.slug)}" href="${this.routeHref(route)}"><div class="card-top"><span>${e(type)} · ${e(this.titleCase(route.status))}</span><span>${e(duration)}</span></div><h3>${e(route.title)}</h3><p>${e(route.subtitle)}</p>${soundtrack}<p class="fine-print">${e(start)}</p><p class="caveat">${e(route.editorial.whatNotToExpect)}</p><div class="facts">${facts.filter(Boolean).map(fact => `<span class="fact">${e(fact)}</span>`).join("")}</div></a>`;
+      return `<a data-route-card data-route-type="${e(route.routeType)}" class="route-card route-${e(route.slug)}" href="${this.routeHref(route)}"><div class="card-top"><span>${e(type)} · ${e(this.statusLabel(route.status))}</span><span>${e(duration)}</span></div><h3>${e(route.title)}</h3><p>${e(route.subtitle)}</p>${soundtrack}<p class="fine-print">${e(start)}</p><p class="caveat">${e(route.editorial.whatNotToExpect)}</p><div class="facts">${facts.filter(Boolean).map(fact => `<span class="fact">${e(fact)}</span>`).join("")}</div></a>`;
     }
   };
 })();

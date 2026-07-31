@@ -38,7 +38,7 @@ function render(routes, prefs, target, meta) {
     const missed = results[0].criteria.filter(item => item.status === "miss");
     meta.textContent = missed.length ? `Closest match: ${results[0].route.title}. It misses on ${list(missed.map(item => item.label))}.` : `Three routes, ranked for the shape of day you picked.`;
   }
-  target.innerHTML = results.map((item, index) => resultCard(item, index)).join("");
+  target.innerHTML = results.map((item, index) => resultCard(item, index, hasPreferences)).join("");
 }
 
 function scoreRoute(route, prefs) { return route.routeType === "day-walk" ? scoreDayWalk(route, prefs) : scoreLondonDay(route, prefs); }
@@ -71,10 +71,14 @@ function ordinalCriterion(selected, actual, order, match, miss, criteria, key) {
 function label(key, value) { return labels[key]?.[value] || window.routeApp.titleCase(value); }
 function list(values) { return values.length === 1 ? values[0] : `${values.slice(0, -1).join(", ")} and ${values.at(-1)}`; }
 
-function resultCard(item, index) {
+function resultCard(item, index, hasPreferences) {
   const { route, criteria } = item; const e = window.routeApp.escape; const missed = criteria.filter(item => item.status === "miss");
+  const ranking = !hasPreferences ? "" : index === 0 ? (missed.length ? "Closest match" : "Best match") : "Worth a look";
+  const matchLine = hasPreferences
+    ? `<p class="match">${missed.length ? `Closest on ${list(criteria.filter(item => item.status !== "miss").map(item => item.label)) || "the overall shape"}.` : "Matches everything you picked."}</p>`
+    : "";
   const type = route.routeType === "day-walk" ? "Full day out" : "London day";
   const facts = route.routeType === "day-walk" ? [`${route.hike.distanceKm} km`, `About ${route.travel.typicalMinutes} min from ${label("departureHub", route.travel.departureHubs[0])}`, label("difficulty", route.hike.difficulty), route.hike.landscape.slice(0, 2).map(value => label("landscape", value)).join(" + "), label("pub", route.hike.pubOptions[0])] : [route.quickFacts.duration, `${route.quickFacts.walkingLevel} walk`, route.quickFacts.noiseLevel, route.quickFacts.budget, `Start: ${route.quickFacts.startStation}`];
   const soundtrack = route.soundtrack ? `<p class="soundtrack">This day sounds like: ${e(route.soundtrack.artist)} — <em>${e(route.soundtrack.track)}</em></p>` : "";
-  return `<article class="result-card route-${e(route.slug)}"><div class="result-heading"><div><p class="eyebrow">${e(type)} · ${index === 0 ? missed.length ? "Closest match" : "Best match" : "Worth a look"}</p><h2>${e(route.title)}</h2></div><span class="result-kicker">${e(route.status.replace("-", " "))}</span></div><p>${e(route.subtitle)}</p>${soundtrack}<p class="match">${missed.length ? `Closest on ${list(criteria.filter(item => item.status !== "miss").map(item => item.label)) || "the overall shape"}.` : "Matches everything you picked."}</p><div class="facts">${facts.map(fact => `<span class="fact">${e(fact)}</span>`).join("")}</div><p class="caveat">${e(route.editorial.whatNotToExpect)}</p><p><a class="button soft" href="${window.routeApp.routeHref(route)}">See the route</a></p></article>`;
+  return `<article class="result-card route-${e(route.slug)}"><div class="result-heading"><div><p class="eyebrow">${e(type)}${ranking ? ` · ${ranking}` : ""}</p><h2>${e(route.title)}</h2></div><span class="result-kicker">${e(window.routeApp.statusLabel(route.status))}</span></div><p>${e(route.subtitle)}</p>${soundtrack}${matchLine}<div class="facts">${facts.map(fact => `<span class="fact">${e(fact)}</span>`).join("")}</div><p class="caveat">${e(route.editorial.whatNotToExpect)}</p><p><a class="button soft" href="${window.routeApp.routeHref(route)}">See the route</a></p></article>`;
 }
