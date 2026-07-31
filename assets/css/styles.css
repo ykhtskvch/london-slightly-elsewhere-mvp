@@ -154,7 +154,7 @@ h3 { font-size: var(--step-1); }
 .section-header p { margin: var(--space-1) 0 0; color: var(--muted); }
 .route-grid, .result-list, .steps { min-width: 0; display: grid; gap: var(--space-2); }
 .route-grid > *, .result-list > *, .steps > * { min-width: 0; }
-.route-card { --route-accent: var(--wine); min-height: 100%; display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3); background: var(--surface); border-top: var(--border-strong) solid var(--route-accent); border-radius: var(--radius-s) var(--radius-l) var(--radius-m) var(--radius-s); box-shadow: var(--elevation-1); text-decoration: none; transition: transform var(--motion-fast), box-shadow var(--motion-fast); }
+.route-card { --route-accent: var(--wine); display: grid; grid-row: span 5; grid-template-rows: subgrid; gap: var(--space-2); padding: var(--space-3); background: var(--surface); border-top: var(--border-strong) solid var(--route-accent); border-radius: var(--radius-s) var(--radius-l) var(--radius-m) var(--radius-s); box-shadow: var(--elevation-1); text-decoration: none; transition: transform var(--motion-fast), box-shadow var(--motion-fast); }
 .route-card:hover { transform: translateY(-.25rem); box-shadow: var(--elevation-2); }
 .idea-card { padding: var(--space-3); background: var(--surface-shift); border-radius: var(--radius-s); }
 .idea-card p { margin-bottom: 0; }
@@ -170,6 +170,7 @@ h3 { font-size: var(--step-1); }
 .route-deptford, .route-little-venice-kensal-green { --route-accent: var(--river); }
 .route-kew-old-chiswick { --route-accent: var(--moss); }
 .route-card .card-top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-1); color: var(--muted); font-size: var(--step--1); }
+.card-status { padding: var(--space-half) var(--space-1); border: var(--border-thin) solid var(--route-accent); border-radius: var(--radius-pill); color: var(--route-accent); font-weight: 800; white-space: nowrap; }
 .route-card h3 { font-size: var(--step-2); }
 .route-card p { margin: 0; }
 .facts { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: auto; }
