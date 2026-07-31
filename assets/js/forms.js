@@ -1,10 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const routeSelect = document.getElementById("route");
-  const requestedRoute = new URLSearchParams(location.search).get("route");
-  if (routeSelect && requestedRoute) {
-    const match = [...routeSelect.options].find(option => option.value === requestedRoute);
-    if (match) routeSelect.value = requestedRoute;
-  }
+  if (routeSelect) fillRouteChoices(routeSelect);
 
   document.querySelectorAll("[data-static-form]").forEach(form => {
     form.noValidate = true;
@@ -86,6 +82,18 @@ function requiredMessage(name) {
     contact_message: "Write a short message so we know how to help."
   };
   return messages[name] || "Complete this field so the response can be processed.";
+}
+
+// The markup carries a hand-written route list so the form still works
+// without JS; it goes stale as routes are added, so replace it from the data.
+async function fillRouteChoices(select) {
+  try {
+    const routes = await window.routeApp.loadRoutes();
+    const placeholder = select.querySelector("option[value='']");
+    select.replaceChildren(placeholder, ...routes.map(route => new Option(route.title)));
+  } catch {}
+  const requested = new URLSearchParams(location.search).get("route");
+  if (requested && [...select.options].some(option => option.value === requested)) select.value = requested;
 }
 
 function showMessage(message, text, type = "status") {

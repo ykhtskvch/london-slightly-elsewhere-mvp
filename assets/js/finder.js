@@ -36,7 +36,7 @@ function render(routes, prefs, target, meta) {
   if (!hasPreferences) meta.textContent = `Browse ${routes.length} routes, or choose the kind of day to make the choice more specific.`;
   else {
     const missed = results[0].criteria.filter(item => item.status === "miss");
-    meta.textContent = missed.length ? `Closest match: ${results[0].route.title}. It misses on ${list(missed.map(item => item.label))}.` : `Three routes, ranked for the shape of day you picked.`;
+    meta.textContent = missed.length ? `Closest match: ${results[0].route.title}. It misses on ${list(missed.map(item => item.label))}.` : `${count(results.length)}, ranked for the shape of day you picked.`;
   }
   target.innerHTML = results.map((item, index) => resultCard(item, index, hasPreferences)).join("");
 }
@@ -70,6 +70,7 @@ function isRelatedOccasion(actual, selected) { return [["first-date", "second-da
 function ordinalCriterion(selected, actual, order, match, miss, criteria, key) { if (!selected) return 0; const distance = Math.abs(order.indexOf(selected) - order.indexOf(actual)); const status = distance === 0 ? "match" : distance === 1 ? "close" : "miss"; criteria.push({ label: label(key, selected), status }); return status === "match" ? match : status === "close" ? 2 : miss; }
 function label(key, value) { return labels[key]?.[value] || window.routeApp.titleCase(value); }
 function list(values) { return values.length === 1 ? values[0] : `${values.slice(0, -1).join(", ")} and ${values.at(-1)}`; }
+function count(total) { return total === 1 ? "One route" : `${["No", "One", "Two", "Three"][total] || total} routes`; }
 
 function resultCard(item, index, hasPreferences) {
   const { route, criteria } = item; const e = window.routeApp.escape; const missed = criteria.filter(item => item.status === "miss");
