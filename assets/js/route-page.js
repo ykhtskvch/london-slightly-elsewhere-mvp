@@ -21,9 +21,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
+function formatHub(hub) {
+  const names = {
+    "kings-cross-st-pancras": "King’s Cross St Pancras",
+    "liverpool-street": "Liverpool Street",
+    "london-bridge": "London Bridge",
+    "metropolitan-line": "Metropolitan line",
+    other: "Another London departure point"
+  };
+  return names[hub] || hub.replaceAll("-", " ").replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
 function renderRoute(route, target) {
   const e = window.routeApp.escape;
   const navigation = route.navigation;
+  const isDayWalk = route.routeType === "day-walk";
   const status = route.status === "published"
     ? { label: "Published route", detail: "Self-guided route" }
     : route.status === "field-checked"
@@ -31,10 +43,19 @@ function renderRoute(route, target) {
       : route.status === "prototype"
         ? { label: "Prototype route", detail: "Prototype route — not yet field-checked" }
         : { label: "Pilot route", detail: "Pilot route — walked once; verify live details before going" };
-  const facts = [
+  const facts = isDayWalk ? [
+    ["Start", route.travel.arrivalStation],
+    ["Finish", route.travel.returnStation],
+    ["Distance", `${route.hike.distanceKm} km`],
+    ["Walking time", route.hike.walkingTime || route.quickFacts.duration],
+    ["Difficulty", route.hike.difficulty],
+    ["Route shape", route.hike.routeShape === "point-to-point" ? "Station to station" : route.hike.routeShape],
+    ["Travel from London", `About ${route.travel.typicalMinutes} min`],
+    ["Shorter fallback", route.hike.shortenable ? "Available" : "Not planned"]
+  ] : [
     ["Start", route.quickFacts.startStation],
     ["Time", route.quickFacts.duration],
-    ["Start by", route.quickFacts.startBy],
+    ...(route.quickFacts.startBy ? [["Start by", route.quickFacts.startBy]] : []),
     ["Walk", route.quickFacts.walkingLevel],
     ["Budget", route.quickFacts.budget],
     ["Easy exit", route.filters.easyExit === "must-have" ? "Built in" : "Possible"]
@@ -86,7 +107,7 @@ function renderRoute(route, target) {
   // the destination. Shown on every route, prototype included: the pins
   // themselves are real, and navigation.disclaimer already says how far to
   // trust the sequence for routes that have not been field-checked.
-  const wholeRouteUrl = navigation?.arrival?.station && mappedStops.length > 0 && mappedStops.length <= 10
+  const wholeRouteUrl = !isDayWalk && navigation?.arrival?.station && mappedStops.length > 0 && mappedStops.length <= 10
     ? mapsRoute(navigation.arrival.station, mappedStops)
     : null;
   const navigationBlock = navigation ? `
@@ -106,18 +127,35 @@ function renderRoute(route, target) {
       <div class="button-row">
         <a class="button primary" href="${e(mapsDirections(navigation.arrival.station, navigation.arrival.pinQuery))}" rel="noopener" target="_blank">Start in Google Maps ↗</a>
         ${wholeRouteUrl ? `<a class="button soft" href="${e(wholeRouteUrl)}" rel="noopener" target="_blank">Open the whole walk ↗</a>` : ""}
+        ${navigation.externalRouteUrl ? `<a class="button soft" href="${e(navigation.externalRouteUrl)}" rel="noopener" target="_blank">Open detailed route ↗</a>` : ""}
+        ${navigation.gpxUrl ? `<a class="button soft" href="${e(navigation.gpxUrl)}" rel="noopener" target="_blank">Download GPX ↗</a>` : ""}
       </div>
       <p class="navigation-disclaimer">${e(navigation.disclaimer)}</p>
     </section>` : "";
   const finishBlock = navigation ? `
     <section class="route-finish">
-      <p class="eyebrow">Finish and easy exit</p>
+      <p class="eyebrow">${isDayWalk ? "Finish and practical return" : "Finish and easy exit"}</p>
       <h2>${e(navigation.finish.label)}</h2>
       <p><strong>Nearest practical station:</strong> ${e(navigation.finish.nearestStation)}</p>
       <p>${e(navigation.finish.exitNote)}</p>
+      ${isDayWalk && route.hike.earlyExit ? `<p><strong>Earlier exit:</strong> ${e(route.hike.earlyExit.label)}${route.hike.earlyExit.note ? ` — ${e(route.hike.earlyExit.note)}` : ""}</p>` : ""}
       <p><a class="button soft" href="${e(mapsSearch(navigation.finish.nearestStation))}" rel="noopener" target="_blank">Open exit station ↗</a></p>
     </section>` : "";
   const feedbackUrl = `${window.routeApp.basePath}feedback/?route=${encodeURIComponent(route.title)}`;
+  const soundtrackBlock = route.soundtrack ? `<p class="soundtrack">This day sounds like: ${e(route.soundtrack.artist)} — <em>${e(route.soundtrack.track)}</em></p>` : "";
+  const travelBlock = isDayWalk ? `
+    <section class="travel-details">
+      <p class="eyebrow">Getting there from London</p><h2>Start with the train, not a car.</h2>
+      <dl class="travel-facts"><div><dt>Leave from</dt><dd>${e(route.travel.departureHubs.map(formatHub).join(" / "))}</dd></div><div><dt>Typical journey</dt><dd>About ${e(route.travel.typicalMinutes)} min · ${e(route.travel.journeyComplexity === "one-change" ? "one change" : "direct")}</dd></div><div><dt>Arrive at</dt><dd>${e(route.travel.arrivalStation)}</dd></div><div><dt>Return from</dt><dd>${e(route.travel.returnStation)}</dd></div><div><dt>Mode</dt><dd>${e(route.travel.transportMode.replaceAll("-", " and "))}</dd></div></dl>
+      <p class="fine-print">${e(route.travel.serviceNote)}</p>${route.travel.officialSourceUrl ? `<p><a class="button soft" href="${e(route.travel.officialSourceUrl)}" rel="noopener" target="_blank">Check operator information ↗</a></p>` : ""}
+    </section>` : "";
+  const terrainEntries = isDayWalk ? [["Terrain", route.hike.terrainNotes], ["Mud and drainage", route.hike.conditions?.mudOrDrainage], ["Exposed sections", route.hike.conditions?.exposedSections], ["Road sections", route.hike.conditions?.roadSections], ["Stiles", route.hike.conditions?.stiles], ["Food and water", route.hike.conditions?.foodWater], ["Toilets", route.hike.conditions?.toilets], ["Mobile signal", route.hike.conditions?.mobileSignal], ["Pub timing", route.hike.conditions?.pubTiming], ["Shortening", route.hike.shorteningNote], ["Elevation", route.hike.elevationGainM == null ? null : `${route.hike.elevationGainM} m gain`]].filter(([, value]) => value) : [];
+  const terrainBlock = terrainEntries.length ? `<section><p class="eyebrow">Terrain and conditions</p><h2>Read this before the platform.</h2>${terrainEntries.map(([label, value]) => `<h3>${e(label)}</h3><p>${e(value)}</p>`).join("")}</section>` : "";
+  const fieldNoteBlock = route.fieldNote ? `
+    <aside class="field-note">
+      <p class="eyebrow">Last walked${route.fieldNote.verified ? "" : '<span class="verify-flag">unverified — details not yet reconfirmed</span>'}</p>
+      <p>${e(route.fieldNote.text)}</p>
+    </aside>` : "";
   const valueTimingBlock = route.valueTiming ? `
     <section class="value-timing">
       <p class="eyebrow">${e(route.valueTiming.label)}</p>
@@ -134,6 +172,7 @@ function renderRoute(route, target) {
       <p class="eyebrow">${status.detail}</p>
       <h1>${e(route.title)}</h1>
       <p class="route-subtitle">${e(route.subtitle)}</p>
+      ${soundtrackBlock}
       <dl class="quick-facts">
         ${facts.map(([label, value]) => `<div><dt>${e(label)}</dt><dd>${e(value)}</dd></div>`).join("")}
       </dl>
@@ -144,6 +183,8 @@ function renderRoute(route, target) {
         <a class="button soft" href="${e(feedbackUrl)}">Did this work?</a>
       </div>
     </section>
+    ${fieldNoteBlock}
+    ${travelBlock}
     ${navigationBlock}
     <div class="route-layout">
       <main class="route-main">
@@ -162,6 +203,7 @@ function renderRoute(route, target) {
           <p class="eyebrow">The route</p>
           <ol class="stop-list">${stops}</ol>
         </section>
+        ${terrainBlock}
         ${finishBlock}
         ${valueTimingBlock}
         <section>

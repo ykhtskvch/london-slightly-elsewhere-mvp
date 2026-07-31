@@ -2,10 +2,16 @@
   {
     "id": "putney-river-air-music-pub",
     "slug": "putney",
+    "routeType": "london-day",
     "status": "field-checked",
     "access": "free",
+    "soundtrack": null,
     "title": "Putney for River Air and a Proper Music Pub",
     "subtitle": "A Thames walk, a proper pub pause and an unfussy Italian dinner before a real music room — if the listing earns it.",
+    "fieldNote": {
+      "verified": false,
+      "text": "A Friday in early July, warm enough to regret the jumper. The Embankment had two crews launching at once and a coach on a bicycle shouting at both. The Half Moon listing was a covers band; we stayed for the front bar instead, which was the right call. Al Forno seated us without a booking at 7 — do not count on this on gig nights."
+    },
     "seo": {
       "title": "Putney for River Air and a Proper Music Pub",
       "description": "A walk-first Putney route with Thames air, an old-pub pause and an optional live-music ending."
@@ -169,10 +175,16 @@
   {
     "id": "bloomsbury-after-rain",
     "slug": "bloomsbury",
+    "routeType": "london-day",
     "status": "field-test",
     "access": "free",
+    "soundtrack": null,
     "title": "Bloomsbury After Rain",
     "subtitle": "Squares, books and somewhere warm: an indoor-outdoor route for days that should not be written off.",
+    "fieldNote": {
+      "verified": false,
+      "text": "A wet Tuesday in — honestly — the exact weather this route was written for. The Enlightenment Gallery was near-empty by 4pm. The bookshop's cake room had one table left, taken by someone reading, correctly. Russell Square's fountain was off, which somehow improved it."
+    },
     "seo": {
       "title": "Bloomsbury After Rain",
       "description": "A rainy-day Bloomsbury route with wet pavements, bookshops, an indoor cultural pause and an old-room finish."
@@ -325,10 +337,16 @@
   {
     "id": "hampstead-pretend-left-london",
     "slug": "hampstead",
+    "routeType": "london-day",
     "status": "field-test",
     "access": "free",
+    "soundtrack": null,
     "title": "Hampstead When You Want to Pretend You Left London",
     "subtitle": "Old lanes, heath air and a pub finish with enough weather to make the story better.",
+    "fieldNote": {
+      "verified": false,
+      "text": "A cold Sunday in January, ground frozen enough to skip the muddy heath cut-through. Burgh House was shut (Sunday — our mistake, now flagged below). The Holly Bush had seats at 3pm and none at 5. The shorter lanes-and-pub version, walked out of necessity, turned out to be a complete route on its own — it's now the official wet-weather variant."
+    },
     "seo": {
       "title": "Hampstead When You Want to Pretend You Left London",
       "description": "A Hampstead and heath route for old lanes, hill air, a pub pause and a small escape from usual London."
@@ -480,8 +498,10 @@
   {
     "id": "rotherhithe-dock-melancholy",
     "slug": "rotherhithe",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Rotherhithe for River Air and Old Dock Melancholy",
     "subtitle": "Warehouses, water and an old-room finish for a quieter stretch of the Thames.",
     "seo": {"title": "Rotherhithe for River Air and Old Dock Melancholy", "description": "A prototype Rotherhithe route with river walking, dock history and a pub finish."},
@@ -494,7 +514,7 @@
       {"name": "Canada Water", "type": "start", "duration": "5–10 min", "walkingToNext": "5 min", "locationNote": "Canada Water station, London SE16", "mapQuery": "Canada Water station London SE16", "directionFromPrevious": "Meet outside the station by the library, then set Greenland Dock as the next pin.", "description": "A practical start with an immediate move towards water rather than a vague walk through the estate.", "officialUrl": null},
       {"name": "Greenland Dock → Thames Path", "type": "walk", "duration": "25–35 min", "walkingToNext": "15 min", "locationNote": "Greenland Dock, Rotherhithe, London SE16", "mapQuery": "Greenland Dock London SE16", "directionFromPrevious": "Follow the old dock edge until it meets the Thames; use the live map for the public riverside connection.", "description": "The water widens here and Canary Wharf becomes a skyline across the river. This is the promised wide-view stretch.", "officialUrl": null},
       {"name": "Surrey Docks Farm", "type": "cafe-or-pub", "duration": "20–40 min", "walkingToNext": "15 min", "locationNote": "10 Rotherhithe Street, London SE16 5ET", "mapQuery": "Surrey Docks Farm 10 Rotherhithe Street London SE16 5ET", "directionFromPrevious": "Continue west on the Thames Path to the farm entrance. Check café opening hours before relying on an indoor pause.", "description": "A working city farm directly on the route: slightly absurd in context, which is precisely why it earns the pause.", "officialUrl": null},
-      {"name": "Rotherhithe village — St Mary’s Church + Brunel Museum", "type": "museum", "duration": "15–30 min", "walkingToNext": "5 min", "locationNote": "Rotherhithe Street and Railway Avenue, London SE16", "mapQuery": "Brunel Museum Rotherhithe London SE16", "directionFromPrevious": "Continue west into the older village streets. Use the Brunel Museum pin for the Thames Tunnel shaft and look for St Mary’s nearby.", "description": "Three quiet streets of old village, a church and the original Thames Tunnel shaft. Ten unhurried minutes is enough.", "officialUrl": null},
+      {"name": "Rotherhithe village — St Mary’s Church + Brunel Museum", "type": "museum", "duration": "15–30 min", "walkingToNext": "5 min", "locationNote": "Rotherhithe Street and Railway Avenue, London SE16", "mapQuery": "Brunel Museum Rotherhithe London SE16", "directionFromPrevious": "Continue west into the older village streets. Use the Brunel Museum pin for the Thames Tunnel shaft and look for St Mary’s nearby.", "description": "Three quiet streets of old village, a church and the original Thames Tunnel shaft. Ten unhurried minutes is enough. Brunel turns up once more on this site, lying down, in Kensal Green.", "officialUrl": null},
       {"name": "The Mayflower", "type": "pub", "duration": "45–90 min", "walkingToNext": "Finish", "locationNote": "117 Rotherhithe Street, London SE16 4NF", "mapQuery": "The Mayflower 117 Rotherhithe Street London SE16 4NF", "directionFromPrevious": "Continue along Rotherhithe Street to number 117. If it is full, try The Ship on St Marychurch Street two minutes inland.", "description": "The old-room finish with a jetty over the water. Check hours and weather conditions before promising the outside section.", "officialUrl": null}
     ],
     "versions": [{"id": "short", "label": "River + one pause", "description": "A lower-energy version with one riverside stretch and a drink.", "duration": "2 hours", "budget": "under £30", "requiresTicketCheck": false}, {"id": "full", "label": "Dock walk + river + pub", "description": "The complete version for a slow afternoon.", "duration": "3–4 hours", "budget": "under £30", "requiresTicketCheck": false}],
@@ -506,8 +526,10 @@
   {
     "id": "crystal-palace-uphill-away",
     "slug": "crystal-palace",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Crystal Palace, Slightly Up a Hill and Away",
     "subtitle": "Views, eccentric park details and a pub finish that earns itself.",
     "seo": {"title": "Crystal Palace, Slightly Up a Hill and Away", "description": "A prototype Crystal Palace route for hills, park oddities and a local pub finish."},
@@ -532,8 +554,10 @@
   {
     "id": "stoke-newington-books-graves-pint",
     "slug": "stoke-newington",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Stoke Newington for Books, Graves and a Decent Pint",
     "subtitle": "A gentle north London route with quiet pauses and somewhere warm at the end.",
     "seo": {"title": "Stoke Newington for Books, Graves and a Decent Pint", "description": "A prototype Stoke Newington route with books, cemetery paths and a pub finish."},
@@ -558,8 +582,10 @@
   {
     "id": "walthamstow-market-village-later",
     "slug": "walthamstow",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Walthamstow, Market First, Village Later",
     "subtitle": "Start with noise and food, then let the afternoon become smaller and more local.",
     "seo": {"title": "Walthamstow, Market First, Village Later", "description": "A prototype Walthamstow route from market energy to quieter village streets."},
@@ -582,8 +608,10 @@
   {
     "id": "woolwich-barrier-big-sky",
     "slug": "woolwich",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Woolwich for the Barrier, Big Sky and Strange Edges",
     "subtitle": "An industrial river walk for when a proper urban hike sounds restorative.",
     "seo": {"title": "Woolwich for the Barrier, Big Sky and Strange Edges", "description": "A prototype Woolwich and Thames Barrier urban hike with industrial river views."},
@@ -607,8 +635,10 @@
   {
     "id": "clerkenwell-old-city-evening",
     "slug": "clerkenwell",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Clerkenwell for an Old-City Evening Without West End Fuss",
     "subtitle": "Short streets, old rooms and enough food to make the evening feel considered.",
     "seo": {"title": "Clerkenwell for an Old-City Evening", "description": "A prototype Clerkenwell evening route with old streets, pub rooms and an optional proper meal."},
@@ -633,8 +663,10 @@
   {
     "id": "kings-cross-water-graves-pint",
     "slug": "kings-cross",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "King’s Cross for Water, Graves and a Properly Low-Stakes Pint",
     "subtitle": "A canal-side start, a quiet churchyard and an easy pub finish for two people who do not need a big plan.",
     "seo": {
@@ -800,8 +832,10 @@
   {
     "id": "harringay-green-lanes-grill-gin-palace",
     "slug": "harringay-green-lanes",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Harringay Green Lanes for the Grill and the Gin Palace",
     "subtitle": "A Victorian pub, Turkish grills and a long, lively street that still behaves like a neighbourhood.",
     "seo": {"title": "Harringay Green Lanes for the Grill and the Gin Palace", "description": "A prototype Green Lanes route for a grand pub interior, Turkish food and a local London evening."},
@@ -825,8 +859,10 @@
   {
     "id": "brixton-market-windmill-later",
     "slug": "brixton",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Brixton, Market First, Windmill Later",
     "subtitle": "A district walk for grazing, local pubs and an unknown band worth taking a chance on.",
     "seo": {"title": "Brixton, Market First, Windmill Later", "description": "A prototype Brixton route from market food through local pubs to a scrappy music room."},
@@ -850,8 +886,10 @@
   {
     "id": "kentish-town-shortlist-evening",
     "slug": "kentish-town",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Kentish Town, Assembled from the Shortlist",
     "subtitle": "Two backstreet pubs and a small music room, wired into one easy north London evening.",
     "seo": {"title": "Kentish Town, Assembled from the Shortlist", "description": "A prototype Kentish Town route for hand-pulled pints, a residential pub and unknown bands."},
@@ -875,8 +913,10 @@
   {
     "id": "deptford-unpolished-high-street",
     "slug": "deptford",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Deptford, the Unpolished High Street",
     "subtitle": "A market-day walk for street voltage, an old churchyard and a Caribbean finish under the arches.",
     "seo": {"title": "Deptford, the Unpolished High Street", "description": "A prototype Deptford route for market stalls, churchyard quiet and unfussy local bars."},
@@ -901,8 +941,10 @@
   {
     "id": "little-venice-kensal-green-home-stretch",
     "slug": "little-venice-kensal-green",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Little Venice to Kensal Green, the Home Stretch",
     "subtitle": "Painted boats, a quieter canal towpath and a cemetery finish that is deliberately more local than central.",
     "seo": {"title": "Little Venice to Kensal Green, the Home Stretch", "description": "A prototype canal route from Warwick Avenue to Kensal Green for boats, cemetery air and a local finish."},
@@ -915,7 +957,7 @@
       {"name": "Warwick Avenue → Little Venice", "type": "start", "duration": "10 min", "walkingToNext": "Choose a first stop, then join the towpath", "locationNote": "Warwick Avenue station and Little Venice basin, London W2", "mapQuery": "Little Venice London W2", "directionFromPrevious": "From Warwick Avenue, walk two minutes to the painted boats at the basin.", "description": "An immediate canal opening that tells you whether the day needs a bakery-café or a first pint.", "officialUrl": null},
       {"name": "The Prince Alfred — pub branch", "type": "pub", "duration": "30–60 min", "walkingToNext": "35–45 min west on the towpath", "locationNote": "5a Formosa Street, London W9 1EE", "mapQuery": "The Prince Alfred 5a Formosa Street London W9 1EE", "directionFromPrevious": "Use the pub branch for the Victorian snob screens; for a daytime bakery-café opening, use Paulette instead and join the towpath afterwards.", "description": "Intact Victorian snob screens divide the bar into small compartments. Confirm current hours before making it the start; Paulette is the daytime alternative.", "officialUrl": null},
       {"name": "Regent’s Canal towpath", "type": "walk", "duration": "35–45 min", "walkingToNext": "10 min", "locationNote": "Regent’s Canal towpath, Little Venice to Kensal", "mapQuery": "Regent's Canal towpath Little Venice to Kensal Green", "directionFromPrevious": "Follow the towpath west in daylight, keeping the canal as the main line and using the live map at each bridge or access change.", "description": "Boats, herons and the backs of things. The city grows quieter and scruffier in the right way; do not use the railway-land section as an after-dark romance.", "officialUrl": null},
-      {"name": "Kensal Green Cemetery", "type": "walk", "duration": "30–45 min", "walkingToNext": "10 min", "locationNote": "Kensal Green Cemetery, Harrow Road, London NW10", "mapQuery": "Kensal Green Cemetery London NW10", "directionFromPrevious": "Leave the canal for the cemetery entrance and check the gate time before committing to the interior.", "description": "The oldest of the Magnificent Seven: Brunel, Trollope, Wilkie Collins and acres of leaning angels. Treat it as the anchor, not a checklist.", "officialUrl": null},
+      {"name": "Kensal Green Cemetery", "type": "walk", "duration": "30–45 min", "walkingToNext": "10 min", "locationNote": "Kensal Green Cemetery, Harrow Road, London NW10", "mapQuery": "Kensal Green Cemetery London NW10", "directionFromPrevious": "Leave the canal for the cemetery entrance and check the gate time before committing to the interior.", "description": "The oldest of the Magnificent Seven: Brunel, Trollope, Wilkie Collins and acres of leaning angels. Treat it as the anchor, not a checklist. The other end of this man's story is a tunnel shaft in Rotherhithe.", "officialUrl": null},
       {"name": "Parlour — local finish", "type": "dinner", "duration": "60–90 min", "walkingToNext": "Finish", "locationNote": "5 Regent Street, London NW10 5LG", "mapQuery": "Parlour 5 Regent Street London NW10 5LG", "directionFromPrevious": "Walk from the cemetery to Regent Street. Paradise on Kilburn Lane is only a fallback if its current status and format are verified.", "description": "The neighbourhood dining-room option. Confirm hours before relying on it; if the finish feels uncertain, leave from Kensal Green or Kensal Rise instead.", "officialUrl": null}
     ],
     "versions": [{"id": "canal", "label": "Canal + cemetery", "description": "The daylight walking version with a clean station exit.", "duration": "2–3 hours", "budget": "free-ish", "requiresTicketCheck": false}, {"id": "local-finish", "label": "Canal + cemetery + dinner", "description": "The full locals’ route once the finish is confirmed open.", "duration": "3–4 hours", "budget": "£30–£70", "requiresTicketCheck": false}],
@@ -927,8 +969,10 @@
   {
     "id": "kew-without-gardens-old-chiswick",
     "slug": "kew-old-chiswick",
+    "routeType": "london-day",
     "status": "prototype",
     "access": "free",
+    "soundtrack": null,
     "title": "Kew Without the Gardens, Then Old Chiswick",
     "subtitle": "A village green, Thames pubs, free historic grounds and Thai dinner in a properly old local.",
     "seo": {"title": "Kew Without the Gardens, Then Old Chiswick", "description": "A prototype west London route from Kew Green to old Chiswick for river air, free gardens and Thai pub dinner."},

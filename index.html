@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Self-guided London routes for dates, rainy days and local escapes — by vibe, not by algorithm.">
+    <meta name="description" content="Independent routes for neighbourhood days, green escapes and full days out by public transport — by mood, not by algorithm.">
     <title>London, Slightly Elsewhere</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/theme.js"></script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"London, Slightly Elsewhere","description":"Self-guided London routes for dates, rainy days and local escapes.","inLanguage":"en-GB","areaServed":{"@type":"City","name":"London"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"London, Slightly Elsewhere","description":"Independent routes for neighbourhood days, green escapes and full days out by public transport.","inLanguage":"en-GB","areaServed":{"@type":"City","name":"London"}}</script>
   </head>
   <body data-base-path="./">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -17,7 +17,7 @@
         <div class="header-actions">
           <nav class="site-nav" aria-label="Primary navigation">
             <a href="find-your-route/">Find a route</a>
-            <a href="routes/">All routes</a>
+            <a href="routes/">Browse routes</a>
           </nav>
           <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme">◐</button>
         </div>
@@ -27,17 +27,18 @@
     <main id="main" class="site-shell">
       <section class="hero">
         <div>
-          <p class="eyebrow">London routes for real life</p>
+          <p class="eyebrow">Independent routes for days in and out of London</p>
           <h1>Go somewhere that feels slightly elsewhere.</h1>
-          <p class="lede">Routes for dates, rainy Sundays and local escapes — with room to leave early or keep going.</p>
+          <p class="lede">Neighbourhood days, green escapes and eventually full days out — all shaped around a walk, a pause and an easy way home.</p>
           <div class="button-row">
             <a class="button primary" href="find-your-route/">Find your route</a>
           </div>
+          <p class="fine-print">Choose a nearby London day or a longer day out by public transport.</p>
           <p><a href="#pilot-routes">Or browse a few good places to start ↓</a></p>
         </div>
         <aside class="hero-note">
           <strong>River first. Pub later.</strong>
-          <p>Routes with a beginning, a useful pause, and no obligation to make a big night of it.</p>
+          <p>Routes with a beginning, a useful pause, and no obligation to make a big day of it.</p>
         </aside>
       </section>
 
@@ -49,10 +50,10 @@
           </div>
           <p>Putney has been personally field-checked. Bloomsbury and Hampstead remain pilot routes; check live venue details before setting off.</p>
         </div>
-        <div class="route-grid" data-featured-routes>
-          <a class="route-card route-putney" href="routes/putney/"><div class="card-top"><span>Field-checked route</span><span>3–5 hours</span></div><h3>Putney for River Air and a Proper Music Pub</h3><p>A Thames evening of river air, a proper pub, dinner and optional live music.</p><p class="fine-print">Start: Putney Bridge or Putney</p><p class="caveat">Personally checked, but the gig listing and live venue hours still need a last look.</p><div class="facts"><span class="fact">gentle walk</span><span class="fact">moderate noise</span><span class="fact">under £30 without gig</span></div></a>
-          <a class="route-card route-bloomsbury" href="routes/bloomsbury/"><div class="card-top"><span>Pilot route</span><span>2–4 hours</span></div><h3>Bloomsbury After Rain</h3><p>Squares, books and somewhere warm for a day that should not be written off.</p><p class="fine-print">Start: Russell Square or Tottenham Court Road</p><p class="caveat">Small-scale by design; not a grand museum day.</p><div class="facts"><span class="fact">very low walk</span><span class="fact">quiet</span><span class="fact">free-ish to £30</span></div></a>
-          <a class="route-card route-hampstead" href="routes/hampstead/"><div class="card-top"><span>Pilot route</span><span>3–4 hours</span></div><h3>Hampstead When You Want to Pretend You Left London</h3><p>Old lanes, heath air and a pub finish with enough weather to improve the story.</p><p class="fine-print">Start: Hampstead</p><p class="caveat">Not flat, not cheap-cheap, and not reservation-led.</p><div class="facts"><span class="fact">medium walk</span><span class="fact">quiet–moderate</span><span class="fact">under £30</span></div></a>
+        <div class="route-grid" data-featured-routes data-featured-route-ids="putney,bloomsbury,hampstead">
+          <a class="route-card route-putney" href="routes/putney/"><div class="card-top"><span>London day · Field-checked</span><span>3–5 hours</span></div><h3>Putney for River Air and a Proper Music Pub</h3><p>A Thames evening of river air, a proper pub, dinner and optional live music.</p><p class="fine-print">Start: Putney Bridge or Putney</p><p class="caveat">Personally checked, but the gig listing and live venue hours still need a last look.</p><div class="facts"><span class="fact">gentle walk</span><span class="fact">moderate noise</span><span class="fact">under £30 without gig</span></div></a>
+          <a class="route-card route-bloomsbury" href="routes/bloomsbury/"><div class="card-top"><span>London day · Pilot</span><span>2–4 hours</span></div><h3>Bloomsbury After Rain</h3><p>Squares, books and somewhere warm for a day that should not be written off.</p><p class="fine-print">Start: Russell Square or Tottenham Court Road</p><p class="caveat">Small-scale by design; not a grand museum day.</p><div class="facts"><span class="fact">very low walk</span><span class="fact">quiet</span><span class="fact">free-ish to £30</span></div></a>
+          <a class="route-card route-hampstead" href="routes/hampstead/"><div class="card-top"><span>London day · Pilot</span><span>3–4 hours</span></div><h3>Hampstead When You Want to Pretend You Left London</h3><p>Old lanes, heath air and a pub finish with enough weather to improve the story.</p><p class="fine-print">Start: Hampstead</p><p class="caveat">Not flat, not cheap-cheap, and not reservation-led.</p><div class="facts"><span class="fact">medium walk</span><span class="fact">quiet–moderate</span><span class="fact">under £30</span></div></a>
         </div>
       </section>
 
@@ -64,8 +65,8 @@
           </div>
         </div>
         <div class="steps">
-          <article class="step"><h3>Say what the day needs.</h3><p>Choose occasion, walking, noise, budget and weather. No personality quiz theatre.</p></article>
-          <article class="step"><h3>Get three workable routes.</h3><p>One best match, one lighter option, and one way the day could go differently.</p></article>
+          <article class="step"><h3>Choose the shape of day.</h3><p>Start nearby, or choose a full day out when those routes arrive. Then say what matters.</p></article>
+          <article class="step"><h3>Get workable routes.</h3><p>One best match, one lighter option, and one way the day could go differently.</p></article>
           <article class="step"><h3>Leave room for real life.</h3><p>Every route includes a rainy backup, an easy exit and somewhere to continue if it goes well.</p></article>
         </div>
       </section>
@@ -82,6 +83,7 @@
       </section>
     </main>
 
-    <footer class="site-footer"><div class="site-shell footer-row"><span>Independent London route guide · Pilot edition.</span><nav class="footer-links" aria-label="Footer"><a href="feedback/">Feedback</a><a href="about/">About</a><a href="future-guides/">What next?</a><a href="privacy/">Privacy</a><a href="accessibility/">Accessibility</a></nav></div></footer>
+    <footer class="site-footer"><div class="site-shell footer-row"><span>Independent routes for days in and out of London · Pilot edition.</span><nav class="footer-links" aria-label="Footer"><a href="feedback/">Feedback</a><a href="about/">About</a><a href="terms-used-here/">Terms used here</a><a href="future-guides/">What next?</a><a href="privacy/">Privacy</a><a href="accessibility/">Accessibility</a></nav><span class="footer-whisper"><a href="routes/seventeen/">The seventeenth</a> is not listed.</span></div></footer>
+    <script src="assets/js/app.js"></script><script src="assets/js/home.js"></script>
   </body>
 </html>

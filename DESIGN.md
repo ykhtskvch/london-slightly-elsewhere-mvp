@@ -4,8 +4,8 @@ This file applies the Anti-Slop Design Brief to this project. Future pages and c
 
 ## Project decisions
 
-- **Subject and audience:** an independent route guide for London residents aged roughly 25–45 who want a date, catch-up or local escape with more character and less planning theatre.
-- **The page's single job:** help a visitor choose one viable route and understand how to adapt or leave it without awkwardness.
+- **Subject and audience:** an independent route guide for London residents aged roughly 25–45 who want a date, catch-up, local escape or occasional full day out with more character and less planning theatre.
+- **The page's single job:** help a visitor choose one viable route — a London day or a longer day walk — and understand how to adapt or leave it without awkwardness.
 - **Aesthetic direction:** **London field notebook** — rain-washed paper, pub-sign enamel, river-map blue, marginal notes and practical route annotations. Editorial, but not broadsheet; warm, but not artisan-café beige.
 - **Signature element:** a route line with decision nodes. It appears once in the hero and returns functionally as the stop sequence on route pages.
 - **One deliberate risk:** one slightly displaced, rotated margin note in the homepage hero. Everything else stays aligned and quiet.
@@ -31,6 +31,8 @@ This file applies the Anti-Slop Design Brief to this project. Future pages and c
 - Controls describe their outcome.
 - Every caveat says who or what the route is not for.
 - Dates use DD/MM/YYYY; distances use km, except miles or pints where natural.
+- Route cards always state their type and show the facts that matter for it. A soundtrack, when present, sits beneath the subtitle and is clearly editorial.
+- A full-day walk must show travel from London, terrain and useful route logistics; it is never published as an invented route line or GPX.
 
 ## Pre-publish check
 

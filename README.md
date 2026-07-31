@@ -19,6 +19,7 @@ Then open `http://localhost:8000`.
 - `data/routes.json` — the single source of truth for all routes.
 - `data/venue-timing.json` — one editable record per venue for happy-hour checks, current deals and official source links.
 - `assets/js/finder.js` — the deterministic six-filter scoring logic.
+- `scripts/validate-routes.js` — dependency-free schema checks for route data.
 - `assets/js/route-page.js` — renders all detail pages from JSON.
 - `assets/js/theme.js` — light/dark preference with system fallback.
 - `assets/js/config.js` — add form endpoints here before public launch.
@@ -46,9 +47,17 @@ Do not publish a regular happy hour unless the venue’s own current page confir
 
 1. Copy the JSON shape from `data/routes.json` or the [route-card template](../route-card-template.md).
 2. Give it a stable `id` and `slug`.
-3. Add it to the JSON array.
-4. Copy one route directory, rename it to the slug, and update `data-route-id`.
-5. Personally field-test it before changing `status` to `field-checked`; reserve `published` for a final public editorial review.
+3. Set `routeType` to `london-day` or `day-walk`; use `soundtrack: null` unless an editorial soundtrack has been chosen.
+4. Add it to the JSON array.
+5. Copy one route directory, rename it to the slug, and update `data-route-id`.
+6. For a `day-walk`, add the required `travel` and `hike` objects before it can pass validation. Use only checked journey and route sources; do not invent a continuous Google Maps route or GPX.
+7. Personally field-test it before changing `status` to `field-checked`; reserve `published` for a final public editorial review.
+
+Run the data checks before sharing a change:
+
+```bash
+node scripts/validate-routes.js
+```
 
 ## Forms
 
@@ -67,7 +76,7 @@ Upload the contents of this directory to any static host. The site uses relative
 
 ## Launch checks
 
-- Test homepage, finder, all sixteen route links and mobile layout.
+- Test homepage, finder, every route link and mobile layout.
 - Test a first-date query, rainy-day query and no-filter state.
 - Test light theme, dark theme and reduced-motion mode.
 - Test keyboard navigation, 200% zoom and a 360px viewport.
