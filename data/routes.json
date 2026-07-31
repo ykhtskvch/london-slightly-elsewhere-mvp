@@ -178,7 +178,7 @@
     "routeType": "london-day",
     "status": "field-test",
     "access": "free",
-    "soundtrack": null,
+    "soundtrack": {"artist": "M", "track": "La bonne étoile"},
     "title": "Bloomsbury After Rain",
     "subtitle": "Squares, books and somewhere warm: an indoor-outdoor route for days that should not be written off.",
     "fieldNote": {
@@ -501,7 +501,7 @@
     "routeType": "london-day",
     "status": "prototype",
     "access": "free",
-    "soundtrack": null,
+    "soundtrack": {"artist": "Morphine", "track": "Empty Box"},
     "title": "Rotherhithe for River Air and Old Dock Melancholy",
     "subtitle": "Warehouses, water and an old-room finish for a quieter stretch of the Thames.",
     "seo": {"title": "Rotherhithe for River Air and Old Dock Melancholy", "description": "A prototype Rotherhithe route with river walking, dock history and a pub finish."},
@@ -529,7 +529,7 @@
     "routeType": "london-day",
     "status": "prototype",
     "access": "free",
-    "soundtrack": null,
+    "soundtrack": {"artist": "Django Django", "track": "First Light"},
     "title": "Crystal Palace, Slightly Up a Hill and Away",
     "subtitle": "Views, eccentric park details and a pub finish that earns itself.",
     "seo": {"title": "Crystal Palace, Slightly Up a Hill and Away", "description": "A prototype Crystal Palace route for hills, park oddities and a local pub finish."},
@@ -611,7 +611,7 @@
     "routeType": "london-day",
     "status": "prototype",
     "access": "free",
-    "soundtrack": null,
+    "soundtrack": {"artist": "Shame", "track": "The Lick"},
     "title": "Woolwich for the Barrier, Big Sky and Strange Edges",
     "subtitle": "An industrial river walk for when a proper urban hike sounds restorative.",
     "seo": {"title": "Woolwich for the Barrier, Big Sky and Strange Edges", "description": "A prototype Woolwich and Thames Barrier urban hike with industrial river views."},
@@ -666,7 +666,7 @@
     "routeType": "london-day",
     "status": "prototype",
     "access": "free",
-    "soundtrack": null,
+    "soundtrack": {"artist": "Glass Caves", "track": "Taipei Nights"},
     "title": "King’s Cross for Water, Graves and a Properly Low-Stakes Pint",
     "subtitle": "A canal-side start, a quiet churchyard and an easy pub finish for two people who do not need a big plan.",
     "seo": {
@@ -1212,6 +1212,225 @@
       "nextReview": null,
       "feedbackStatus": "prototype",
       "updateNotes": "Field-check the signed Marlow–Hambleden path, river crossings, the village detour, return walking time and current public-transport options from Mill End before marking field-checked."
+    }
+  },
+  {
+    "id": "chesham-rickmansworth-chess-valley",
+    "slug": "chesham-rickmansworth",
+    "routeType": "day-walk",
+    "status": "prototype",
+    "access": "free",
+    "soundtrack": null,
+    "title": "Chesham to Rickmansworth, Following the Chalk Water",
+    "subtitle": "A full Met-line day for a rare clear river, valley villages and one proper pub pause before the long ride home.",
+    "fieldNote": {
+      "verified": false,
+      "text": "Desk-checked from Chilterns National Landscape, TfL planning information and the pub’s current site in July 2026. The published route currently carries a flooding notice between Latimer and Chenies Bottom, so this is a prototype to check against live conditions — not a promise of dry feet."
+    },
+    "seo": {
+      "title": "Chesham to Rickmansworth, Following the Chalk Water",
+      "description": "A prototype 16 km Chess Valley Walk from Chesham to Rickmansworth, using the Metropolitan line at both ends."
+    },
+    "quickFacts": {
+      "startStation": "Chesham Underground",
+      "endStation": "Rickmansworth Underground",
+      "duration": "5–6 hours plus Tube travel",
+      "startBy": "Leave London by 9:30–10am for a relaxed Chenies stop",
+      "walkingDistance": "About 16 km, station to station",
+      "walkingLevel": "moderate",
+      "noiseLevel": "quiet",
+      "budget": "Tube fare + pub lunch",
+      "bestTime": "A dry spring, summer or early-autumn day",
+      "weather": ["sunny", "cold"],
+      "mainStops": 5
+    },
+    "travel": {
+      "departureHubs": ["metropolitan-line"],
+      "typicalMinutes": 65,
+      "travelTimeBand": "60-90",
+      "journeyComplexity": "direct",
+      "arrivalStation": "Chesham Underground station",
+      "returnStation": "Rickmansworth Underground station",
+      "transportMode": "tube",
+      "serviceNote": "Both ends are on the Metropolitan line. Journey time depends on where you begin in London and whether a service requires a change; use TfL’s live planner before leaving and again before the return.",
+      "officialSourceUrl": "https://tfl.gov.uk/plan-a-journey/"
+    },
+    "hike": {
+      "distanceKm": 16.1,
+      "distanceBand": "15-18",
+      "walkingTime": "About 4½–5 hours walking",
+      "difficulty": "moderate",
+      "routeShape": "point-to-point",
+      "elevationGainM": 192,
+      "landscape": ["river", "woodland", "farmland", "villages"],
+      "views": ["woodland", "rolling-countryside", "historic-villages"],
+      "urbanPresence": "mostly-nature",
+      "terrainNotes": "A waymarked chalk-stream valley route with field paths, woodland and some slopes. There are stiles, and sections can be muddy or flooded after rain.",
+      "shortenable": true,
+      "shorterOptionKm": 8,
+      "shorteningNote": "For the shorter version, leave the valley around Chalfont & Latimer and walk about a mile to the station. Check the live map before deciding: the route is not designed as a frequent-bus walk.",
+      "earlyExit": {
+        "label": "Chalfont & Latimer Underground station",
+        "note": "It is roughly a mile from the trail around Latimer. Use a live walking map for the exact access and check the Metropolitan line before abandoning the main route."
+      },
+      "pubOptions": ["pub-mid-route", "bring-food"],
+      "conditions": {
+        "mudOrDrainage": "Important: the Chilterns National Landscape currently warns that high groundwater can flood the section between Latimer and Chenies Bottom. Check its diversion note before setting off and wear waterproof boots after wet weather.",
+        "exposedSections": "Water meadows and field crossings are open to wind; woodland portions can be cooler and slower to dry.",
+        "roadSections": "Mostly paths and lanes, with a small number of road crossings. Do not treat the walk as traffic-free; use care where the signed route meets roads.",
+        "stiles": "There are stiles on the full Chess Valley Walk. This is not the right route for a stile-free day.",
+        "foodWater": "Carry water and a picnic backup. Chenies is the planned pub pause, but there are no shops to depend on through the valley.",
+        "toilets": "Use the toilets at Chesham or Rickmansworth station; do not expect public facilities between them.",
+        "mobileSignal": "Usually usable, but do not make a route decision in a field on the assumption that signal will be perfect.",
+        "pubTiming": "The Bedford Arms lists lunch from 12–5pm and takes bookings. Check current kitchen hours and reserve if food is central to the day."
+      }
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "Chesham Underground station",
+        "stationExit": "Leave the station, set the first pin and pick up water or a snack in Chesham before the valley becomes quieter.",
+        "pinLabel": "Meades Water Gardens, Chesham",
+        "pinQuery": "Meades Water Gardens Chesham HP5",
+        "firstMove": "Use the signed Chess Valley Walk markers — the small egret logo — from Chesham towards Latimer. Keep the official route leaflet open rather than relying on a continuous Google Maps line."
+      },
+      "finish": {
+        "label": "Rickmansworth Underground station",
+        "nearestStation": "Rickmansworth Underground station",
+        "exitNote": "The trail finishes at Rickmansworth. Use the station toilets if needed, check live Metropolitan line service and let the Tube be the deliberate end rather than adding another venue by force."
+      },
+      "externalRouteUrl": "https://www.chilterns.org.uk/map_marker/chess-valley-walk/",
+      "disclaimer": "Prototype route: follow the waymarked Chess Valley Walk from Chesham to Rickmansworth, not an invented GPX. The official route currently flags a flooding issue between Latimer and Chenies Bottom; check the latest diversion and do not cross flooded ground."
+    },
+    "filters": {
+      "routeType": "day-walk",
+      "distance": "15-18",
+      "travelTime": "60-90",
+      "departureHubs": ["metropolitan-line"],
+      "landscape": ["river", "woodland", "farmland", "villages"],
+      "views": ["woodland", "rolling-countryside", "historic-villages"],
+      "urbanPresence": "mostly-nature",
+      "difficulty": "moderate",
+      "pub": ["pub-mid-route", "bring-food"],
+      "routeShape": "point-to-point",
+      "journeyComplexity": "direct",
+      "shortenable": true
+    },
+    "editorial": {
+      "vibeSummary": "The rare kind of route where the Tube takes you out, then the water does the quiet work of the day.",
+      "bestFor": ["A pair who want a proper walking day without National Rail logistics", "A solo reset with one clear navigation line", "Anyone who likes villages more than destination restaurants"],
+      "notIdealFor": ["Wet weeks or flood warnings", "A first outing in brand-new shoes", "Anyone who needs cafés and public toilets every hour"],
+      "whyNow": "It uses the Metropolitan line for what it was always good at: a direct move from the city into a different scale of landscape.",
+      "specialBecause": "The river is not scenery pasted onto a suburban walk; it is the route’s spine. Villages, old manor country and the final station all arrive because you followed it.",
+      "whatNotToExpect": "Not a sealed, always-dry promenade or a spontaneous pub crawl. This is a real footpath day with live conditions to respect.",
+      "practicalWarnings": ["Read the current flood/diversion notice on the official Chess Valley Walk page before leaving London.", "Wear waterproof walking shoes or boots after rain; the flooded Latimer–Chenies Bottom section may require the higher diversion.", "There are stiles and no dependable food or toilet stops between stations.", "The Bedford Arms is an intentional detour and may need a booking; carry food so its availability does not decide the day.", "This route has been desk-checked, not personally field-checked end to end."],
+      "tags": ["metropolitan-line", "chalk-stream", "village-pub", "full-day-out"]
+    },
+    "routeNarrative": "Ride the furthest-out end of the Metropolitan line and start with the small, ordinary edge of Chesham. Then the River Chess begins to pull the day into shape: green water, meadows, manor country and quiet village lanes. The pub in Chenies is the one grown-up pause. From there, return to the water, keep walking east and let Rickmansworth arrive as the cleanest possible finish.",
+    "stops": [
+      {
+        "name": "Chesham station → Meades Water Gardens",
+        "type": "start",
+        "duration": "20–30 min",
+        "walkingToNext": "45–60 min to Latimer",
+        "locationNote": "Chesham Underground station, Station Approach, HP5 1EB",
+        "mapQuery": "Meades Water Gardens Chesham HP5",
+        "directionFromPrevious": "From the station, use the live walking route to Meades Water Gardens and find the Chess Valley Walk’s egret waymarkers heading out of Chesham.",
+        "description": "Do the unromantic things first: water, a snack, station toilets. Then look for the river rather than trying to make Chesham into an opening act it does not need to be.",
+        "officialUrl": "https://www.chilterns.org.uk/map_marker/chess-valley-walk/"
+      },
+      {
+        "name": "Latimer and the first Chess meadows",
+        "type": "walk",
+        "duration": "45–60 min",
+        "walkingToNext": "45–60 min to Chenies",
+        "locationNote": "Latimer, near Chesham HP5",
+        "mapQuery": "Latimer Buckinghamshire",
+        "directionFromPrevious": "Stay on the waymarked Chess Valley Walk. At Latimer, check the official diversion notice before continuing towards Chenies Bottom; take the higher route if water has made the valley floor unsafe.",
+        "description": "This is where the route turns from ‘outside London’ into actual valley walking: chalk water, fields and a slower kind of landscape. Do not rush this section just to make lunch on an arbitrary clock.",
+        "officialUrl": null
+      },
+      {
+        "name": "Chenies and The Bedford Arms",
+        "type": "pub",
+        "duration": "60–90 min",
+        "walkingToNext": "75–90 min to Sarratt Bottom",
+        "locationNote": "The Bedford Arms, Chenies, Rickmansworth WD3 6EQ",
+        "mapQuery": "The Bedford Arms Chenies WD3 6EQ",
+        "directionFromPrevious": "Follow the signed route or official diversion towards Chenies, then take the live walking route into the village. The pub is a deliberate detour; do not shortcut across private land to save a few minutes.",
+        "description": "The right middle: a 15th-century village-pub setting with enough food and a garden to make lunch feel like a pause rather than a concession. Book if a table matters, and carry a picnic anyway.",
+        "officialUrl": "https://www.bedfordarms.co.uk/"
+      },
+      {
+        "name": "Sarratt Bottom and the watercress meadows",
+        "type": "walk",
+        "duration": "60–75 min",
+        "walkingToNext": "45–60 min to Rickmansworth",
+        "locationNote": "Sarratt Bottom, Hertfordshire WD4",
+        "mapQuery": "Sarratt Bottom Hertfordshire",
+        "directionFromPrevious": "Return to the waymarked Chess Valley Walk and continue east through the valley. Keep the official leaflet available; wet ground can make the obvious-looking line the wrong one.",
+        "description": "The quieter final middle: watercress beds, low meadows and the feeling that the day has gone further away from London than it actually has. Keep the pace steady; the station is still a real walk away.",
+        "officialUrl": null
+      },
+      {
+        "name": "Rickmansworth station and the long Met ride home",
+        "type": "finish",
+        "duration": "10–15 min",
+        "walkingToNext": "Finish",
+        "locationNote": "Rickmansworth Underground station, Station Approach, WD3 1QY",
+        "mapQuery": "Rickmansworth Underground station WD3 1QY",
+        "directionFromPrevious": "Follow the final Chess Valley Walk waymarkers to Rickmansworth, then use the live walking map for the last approach to the station rather than cutting through unfamiliar roads as daylight fades.",
+        "description": "Stop here. The Tube is the closing scene, not a failure to find a better final drink. Check the next service, sit down and let the long ride back be part of the route.",
+        "officialUrl": "https://tfl.gov.uk/plan-a-journey/"
+      }
+    ],
+    "versions": [
+      {
+        "id": "latimer-exit",
+        "label": "Short valley version",
+        "description": "Walk from Chesham into the Latimer stretch, then exit via Chalfont & Latimer if weather or energy says the full valley is no longer the generous choice.",
+        "duration": "2½–3½ hours plus Tube travel",
+        "budget": "Tube fare + snacks",
+        "requiresTicketCheck": false
+      },
+      {
+        "id": "full-chess-valley",
+        "label": "Full Chess Valley + Chenies lunch",
+        "description": "The full 16 km station-to-station version: chalk stream, one proper pub pause and a Metropolitan line return from Rickmansworth.",
+        "duration": "5–6 hours plus Tube travel",
+        "budget": "Tube fare + pub lunch",
+        "requiresTicketCheck": false
+      }
+    ],
+    "copy": {
+      "dateNotes": "Good for a second or third date when both people genuinely want to walk. It has easy conversation space, but wet boots and a long return are not inherently romantic.",
+      "friendGroupNotes": "Best for two to four people who agree on the flood diversion and pub timing before the first train. A large group will slow markedly at gates and stiles.",
+      "soloNotes": "A strong solo route if you can read a waymarked trail and make sensible condition calls. Download the official leaflet while still on Wi-Fi.",
+      "foodDrinkNotes": "The Bedford Arms is the only planned sit-down food stop; its listed lunch service is not a substitute for carrying water and a snack.",
+      "rainyDayBackup": "If the official page flags flooding, use the higher diversion only with proper footwear and confidence. Otherwise take a shorter local route or postpone — this is not the day to negotiate with waterlogged fields.",
+      "continueIfGoingWell": "Keep the last Rickmansworth section simple and go straight to the station. The long Tube ride is a complete ending; save a second venue for another day.",
+      "exitEarly": "Around Latimer, leave the trail for Chalfont & Latimer station if you need to stop. It is about a mile away, so confirm the walking route and live service before committing.",
+      "finalEditorialNote": "A chalk stream, a proper lunch and the Metropolitan line all the way home."
+    },
+    "logic": {
+      "fallbackIfClosed": "If The Bedford Arms is full or not serving, eat carried food and continue. Do not add a long search for another pub that risks daylight, conditions and the last useful train.",
+      "conversationQuality": "excellent while walking; quieter after a long lunch",
+      "commitmentLevel": "high"
+    },
+    "links": {
+      "officialSources": [
+        "https://www.chilterns.org.uk/map_marker/chess-valley-walk/",
+        "https://www.bedfordarms.co.uk/",
+        "https://tfl.gov.uk/plan-a-journey/"
+      ],
+      "mapQuery": "Chesham Underground station to Rickmansworth Underground station via Chess Valley Walk"
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": "Desk-checked — July 2026",
+      "nextReview": null,
+      "feedbackStatus": "prototype",
+      "updateNotes": "Field-check the Chesham start, the active Latimer–Chenies flooding diversion, Bedford Arms detour, early exit to Chalfont & Latimer and final Rickmansworth approach before marking field-checked."
     }
   }
 ]
