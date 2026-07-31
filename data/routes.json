@@ -1432,5 +1432,212 @@
       "feedbackStatus": "prototype",
       "updateNotes": "Field-check the Chesham start, the active Latimer–Chenies flooding diversion, Bedford Arms detour, early exit to Chalfont & Latimer and final Rickmansworth approach before marking field-checked."
     }
+  },
+  {
+    "id": "box-hill-headley-three-ridges",
+    "slug": "box-hill-headley",
+    "routeType": "day-walk",
+    "status": "prototype",
+    "access": "free",
+    "soundtrack": null,
+    "title": "Box Hill, Three Ridges and the Pub at the Bottom",
+    "subtitle": "A direct train from Waterloo for chalk climbs, long views and a route that earns one last drink near the platform.",
+    "fieldNote": {
+      "verified": false,
+      "text": "Desk-checked from current National Trust, National Rail and route information in July 2026. This is a prototype long loop: the terrain and individual landmarks are real, but the exact 15 km sequence still needs an editorial field walk before it is marked field-checked."
+    },
+    "seo": {
+      "title": "Box Hill, Three Ridges and the Pub at the Bottom",
+      "description": "A prototype 15 km circular Box Hill day walk for chalk downs, woodland, panoramic views and a pub near the train home."
+    },
+    "quickFacts": {
+      "startStation": "Box Hill & Westhumble rail",
+      "endStation": "Box Hill & Westhumble rail",
+      "duration": "5–6 hours plus train travel",
+      "startBy": "Leave Waterloo before 10am",
+      "walkingDistance": "About 15 km, circular",
+      "walkingLevel": "challenging",
+      "noiseLevel": "quiet except at the summit on sunny weekends",
+      "budget": "train fare + final pub stop",
+      "bestTime": "Dry, clear weather; avoid wet or icy paths",
+      "weather": ["sunny", "cold"],
+      "mainStops": 5
+    },
+    "travel": {
+      "departureHubs": ["waterloo"],
+      "typicalMinutes": 55,
+      "travelTimeBand": "under-60",
+      "journeyComplexity": "direct",
+      "arrivalStation": "Box Hill & Westhumble rail station",
+      "returnStation": "Box Hill & Westhumble rail station",
+      "transportMode": "rail",
+      "serviceNote": "Box Hill & Westhumble is on the London–Dorking line. Direct services from Waterloo vary by day and engineering work, so check the live National Rail planner before setting out and before the return.",
+      "officialSourceUrl": "https://www.nationalrail.co.uk/destinations/trains-from-box-hill-and-westhumble-to-london-waterloo/"
+    },
+    "hike": {
+      "distanceKm": 15,
+      "distanceBand": "15-18",
+      "walkingTime": "About 4½–5 hours walking",
+      "difficulty": "challenging",
+      "routeShape": "circular",
+      "elevationGainM": null,
+      "landscape": ["hills", "chalk-downs", "woodland"],
+      "views": ["panoramic", "woodland"],
+      "urbanPresence": "mostly-nature",
+      "terrainNotes": "A ridge-and-downs walk with sustained climbs, descents, uneven chalk paths and woodland tracks. The famous Box Hill descent includes hundreds of steps; wet chalk and leaf litter can be slippery.",
+      "shortenable": false,
+      "shorterOptionKm": null,
+      "shorteningNote": null,
+      "pubOptions": ["pub-finish"],
+      "conditions": {
+        "mudOrDrainage": "Chalk paths and wooded sections become slick after rain or in winter. The National Trust specifically warns that the paths can be slippery in wet or wintry weather.",
+        "exposedSections": "The ridges and viewpoints are exposed to wind and sun. Carry water, sun protection or an extra layer according to the forecast.",
+        "roadSections": "The route uses a station underpass and short road sections at the bottom of the hill; do not cross the A24 outside the designated pedestrian route.",
+        "stiles": "Expect gates and uneven access on a countryside ridge loop. Do not treat it as a mobility-accessible walk.",
+        "foodWater": "Carry enough water and food for the climb. The National Trust café at the summit and the pub at the end are useful but should not be your only plan.",
+        "toilets": "Use facilities at the station or National Trust visitor area when open; do not assume facilities across the ridge sections.",
+        "mobileSignal": "Usually present but less reliable than a city walk in folds of the downs and woodland.",
+        "pubTiming": "The Stepping Stones is the finish, not a mid-route rescue. Check current food service and whether it needs a booking before relying on it."
+      }
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "Box Hill & Westhumble rail station",
+        "stationExit": "Leave the station, use the pedestrian underpass where the route meets the A24, and set the first ridge pin before beginning the climb.",
+        "pinLabel": "Mickleham Downs",
+        "pinQuery": "Mickleham Downs Surrey",
+        "firstMove": "Start from the river level and take the published ridge route towards Mickleham Downs. Use its directions and the live map at every junction; this page deliberately does not pretend that a single Google Maps line is a hiking route."
+      },
+      "finish": {
+        "label": "The Stepping Stones, Westhumble Street",
+        "nearestStation": "Box Hill & Westhumble rail station",
+        "exitNote": "The pub is a short walk from the station. Check the live departure board before ordering, then cross back to the platform through the designated route rather than over the A24."
+      },
+      "externalRouteUrl": "https://www.westlondonramblers.org.uk/ken-s-walks2/59-box-hill-west-humble-circular-via-headley.html",
+      "disclaimer": "Prototype long loop: use the published circular route and live conditions for exact navigation. Do not follow an invented GPX or attempt the hill in trainers after rain; the National Trust warns that the steep paths can be slippery."
+    },
+    "filters": {
+      "routeType": "day-walk",
+      "distance": "15-18",
+      "travelTime": "under-60",
+      "departureHubs": ["waterloo"],
+      "landscape": ["hills", "chalk-downs", "woodland"],
+      "views": ["panoramic", "woodland"],
+      "urbanPresence": "mostly-nature",
+      "difficulty": "challenging",
+      "pub": ["pub-finish"],
+      "routeShape": "circular",
+      "journeyComplexity": "direct",
+      "shortenable": false
+    },
+    "editorial": {
+      "vibeSummary": "The one for when the day needs a horizon line, a real climb and no attempt to make either feel quaint.",
+      "bestFor": ["A clear-weather walking date", "Friends who want hills rather than a long lunch", "Anyone looking for a proper test without leaving the South East"],
+      "notIdealFor": ["Recent rain, ice or low cloud", "A gentle first countryside walk", "Anyone who needs a short or guaranteed flat escape"],
+      "whyNow": "It fills the gap left by the river routes: this is not about following water or finding a village, but gaining and losing height until the view feels useful.",
+      "specialBecause": "It gives a full outdoors day within a direct train ride of Waterloo, then has the restraint to finish at a pub beside the station instead of trying to add a second ending.",
+      "whatNotToExpect": "Not an empty secret landscape, a casual stroll or a route that stays pleasant in bad weather just because it is near London.",
+      "practicalWarnings": ["Check the direct Waterloo service and the return connection before setting out.", "Wear footwear with grip; the National Trust notes that the hill paths can be slippery in wet or wintry conditions.", "The summit and Stepping Stones can be busy on sunny weekends; the woodland and ridge sections are the quieter part of the route.", "This full loop is a prototype compilation and needs field-checking before publication as a field-checked route."],
+      "tags": ["box-hill", "chalk-downs", "panoramic", "full-day-out"]
+    },
+    "routeNarrative": "Start at the bottom, where the hill does not yet look persuasive. Then take the first climb and keep choosing the higher ground: Mickleham Downs, Headley Heath, Juniper Top and the wide view from Box Hill. The circle makes the landscape keep changing its angle. Come down tired enough that the Stepping Stones feels perfectly proportioned, then take the direct train back without having to explain why the day was worth it.",
+    "stops": [
+      {
+        "name": "Box Hill & Westhumble station → River Mole",
+        "type": "start",
+        "duration": "15–25 min",
+        "walkingToNext": "45–60 min climbing to Mickleham Downs",
+        "locationNote": "Box Hill & Westhumble station, Westhumble RH5 6BT",
+        "mapQuery": "Box Hill and Westhumble station RH5 6BT",
+        "directionFromPrevious": "Leave the station, use the designated A24 underpass and follow the published circular route towards the river and the first climb. Do not cross the dual carriageway directly.",
+        "description": "The only flat beginning you get. Check the weather, tighten the laces and make a deliberate start before the route begins asking something of your legs.",
+        "officialUrl": "https://www.nationalrail.co.uk/stations/box-hill-westhumble/"
+      },
+      {
+        "name": "Mickleham Downs",
+        "type": "walk",
+        "duration": "60–75 min",
+        "walkingToNext": "45–60 min to Headley Heath",
+        "locationNote": "Mickleham Downs, Surrey Hills",
+        "mapQuery": "Mickleham Downs Surrey",
+        "directionFromPrevious": "Use the published circular-route directions for the climb and ridge junctions. Pause on the downs rather than making the first viewpoint a race to the next one.",
+        "description": "The first proper change of scale: chalk underfoot, longer sightlines and London already far enough away to stop being the day’s reference point.",
+        "officialUrl": null
+      },
+      {
+        "name": "Headley Heath",
+        "type": "walk",
+        "duration": "45–60 min",
+        "walkingToNext": "45–60 min to Juniper Top",
+        "locationNote": "Headley Heath, Surrey KT18",
+        "mapQuery": "Headley Heath Surrey",
+        "directionFromPrevious": "Continue on the published loop through the heath and woodland tracks. In wet conditions, slow down rather than taking the slickest-looking shortcut.",
+        "description": "A quieter middle with heath and woodland atmosphere — the point of the loop is that it refuses to be only the famous view.",
+        "officialUrl": null
+      },
+      {
+        "name": "Juniper Top and Box Hill viewpoint",
+        "type": "view",
+        "duration": "30–45 min",
+        "walkingToNext": "45–60 min descent to Westhumble",
+        "locationNote": "Box Hill viewpoint, Tadworth KT20 7LB",
+        "mapQuery": "Box Hill viewpoint Tadworth KT20 7LB",
+        "directionFromPrevious": "Follow the published route back towards Juniper Top and the Box Hill summit. Use the live map for the exact descent rather than following other walkers into an unsuitable path.",
+        "description": "The reason this is the challenging filter choice: the panorama is not handed to you at station level. Take it in, refill water if possible, then treat the descent as seriously as the climb.",
+        "officialUrl": "https://www.nationaltrust.org.uk/visit/surrey/box-hill"
+      },
+      {
+        "name": "The Stepping Stones → train home",
+        "type": "pub",
+        "duration": "45–75 min",
+        "walkingToNext": "5–10 min to Box Hill & Westhumble station",
+        "locationNote": "The Stepping Stones, Westhumble Street, RH5 6BS",
+        "mapQuery": "The Stepping Stones Westhumble RH5 6BS",
+        "directionFromPrevious": "Use the designated descent, cross the River Mole by the safe route and follow Westhumble Street to the pub. From there, return to the station via the pedestrian route under the A24.",
+        "description": "A useful finish because it is close to the station and does not ask the day to become dinner. One drink or a proper meal, then the train is close enough to keep the ending clean.",
+        "officialUrl": "https://steppingstonesdorking.co.uk/"
+      }
+    ],
+    "versions": [
+      {
+        "id": "three-ridges",
+        "label": "Full Three Ridges loop",
+        "description": "The intended version: a 15 km circular ridge route through Mickleham Downs, Headley Heath, Juniper Top and Box Hill, ending by the station.",
+        "duration": "5–6 hours plus train travel",
+        "budget": "train fare + final pub stop",
+        "requiresTicketCheck": false
+      }
+    ],
+    "copy": {
+      "dateNotes": "This works only if both people genuinely enjoy a hard walk. The view creates conversation; it does not compensate for a mismatch on hills.",
+      "friendGroupNotes": "Keep it small and set a realistic pace. The strongest version is two to four people who will take the descent seriously and not splinter at every viewpoint.",
+      "soloNotes": "A satisfying solo challenge in clear weather. Download the detailed route before the train and turn back if conditions do not match your footwear or confidence.",
+      "foodDrinkNotes": "Carry water and food. The café and final pub are useful bonuses, not a plan robust enough to replace supplies on a long ridge loop.",
+      "rainyDayBackup": "Postpone. The official short trail itself warns of slippery wet and wintry paths, and this longer version only compounds that risk.",
+      "continueIfGoingWell": "Let the final pub stop remain the finish. The journey back to Waterloo has enough room for a second conversation without adding another London venue.",
+      "exitEarly": "There is no planned short fallback in this route card. If the climb feels wrong, use the safest signed route back towards Box Hill & Westhumble and consult a live map or local information.",
+      "finalEditorialNote": "A hill is not a mood board. Earn the view, then take the train home."
+    },
+    "logic": {
+      "fallbackIfClosed": "If the Stepping Stones is closed or full, go to the station. A missed drink is not a reason to extend a completed hill walk in fading light.",
+      "conversationQuality": "good on the ridges; sparse on steep climbs",
+      "commitmentLevel": "high"
+    },
+    "links": {
+      "officialSources": [
+        "https://www.nationaltrust.org.uk/visit/surrey/box-hill/box-hill-train-to-stepping-stones-walk",
+        "https://www.nationalrail.co.uk/destinations/trains-from-box-hill-and-westhumble-to-london-waterloo/",
+        "https://steppingstonesdorking.co.uk/"
+      ],
+      "mapQuery": "Box Hill and Westhumble station circular walk via Mickleham Downs Headley Heath Juniper Top"
+    },
+    "editorialControl": {
+      "fieldTested": false,
+      "lastChecked": "Desk-checked — July 2026",
+      "nextReview": null,
+      "feedbackStatus": "prototype",
+      "updateNotes": "Field-check the exact ridge junctions, underpass access, wet-weather footing, Headley Heath sequence, final descent and Stepping Stones timing before marking field-checked."
+    }
   }
 ]
