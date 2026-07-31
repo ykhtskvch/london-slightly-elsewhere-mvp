@@ -25,6 +25,7 @@ function formatHub(hub) {
   const names = {
     "kings-cross-st-pancras": "King’s Cross St Pancras",
     "liverpool-street": "Liverpool Street",
+    stratford: "Stratford",
     "london-bridge": "London Bridge",
     "metropolitan-line": "Metropolitan line",
     other: "Another London departure point"

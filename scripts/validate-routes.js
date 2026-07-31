@@ -8,7 +8,7 @@ const routes = JSON.parse(fs.readFileSync(path.join(root, "data/routes.json"), "
 const errors = [];
 
 const routeTypes = new Set(["london-day", "day-walk"]);
-const departureHubs = new Set(["marylebone", "paddington", "euston", "kings-cross-st-pancras", "liverpool-street", "london-bridge", "victoria", "waterloo", "metropolitan-line", "other"]);
+const departureHubs = new Set(["marylebone", "paddington", "euston", "kings-cross-st-pancras", "liverpool-street", "stratford", "london-bridge", "victoria", "waterloo", "metropolitan-line", "other"]);
 const travelBands = new Set(["under-60", "60-90"]);
 const journeyComplexities = new Set(["direct", "one-change"]);
 const transportModes = new Set(["rail", "tube", "rail-and-tube"]);
