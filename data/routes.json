@@ -342,49 +342,50 @@
     "id": "hampstead-pretend-left-london",
     "slug": "hampstead",
     "routeType": "london-day",
-    "status": "field-test",
+    "status": "field-checked",
     "access": "free",
     "soundtrack": null,
     "title": "Hampstead When You Want to Pretend You Left London",
-    "subtitle": "Old lanes, heath air and a pub finish with enough weather to make the story better.",
+    "subtitle": "Start by the Heath, take the ponds seriously, then climb to Kenwood before tiny cafés and a properly useful pub finish.",
     "fieldNote": {
-      "verified": false,
-      "text": "A cold Sunday in January, ground frozen enough to skip the muddy heath cut-through. Burgh House was shut (Sunday — our mistake, now flagged below). The Holly Bush had seats at 3pm and none at 5. The shorter lanes-and-pub version, walked out of necessity, turned out to be a complete route on its own — it's now the official wet-weather variant."
+      "verified": true,
+      "text": "Field-walked from Hampstead Heath Overground in August 2026. The Magdala works as a low-key opening, Burgh House Café as a light bite, and the ponds become a real walk only when extended uphill to Kenwood House. The Old White Bear was the cosiest pub stop. The Wells Tavern remains an optional drink, but is no longer the food recommendation in this guide."
     },
     "seo": {
       "title": "Hampstead When You Want to Pretend You Left London",
       "shortTitle": "Hampstead",
-      "description": "A Hampstead route for old lanes, heath air and a pub finish.",
+      "description": "A field-checked Hampstead route from Hampstead Heath Overground: ponds, Kenwood, hidden cafés and local pub stops.",
       "contentLocation": "Hampstead, London"
     },
     "quickFacts": {
-      "startStation": "Hampstead Underground",
+      "startStation": "Hampstead Heath Overground (preferred) or Hampstead Underground",
       "endStation": "Hampstead Underground or Hampstead Heath Overground",
-      "duration": "3–4 hours",
-      "startBy": "2pm in winter, flexible in summer",
-      "walkingDistance": "Approx. 3–5 km",
+      "duration": "4–5 hours",
+      "startBy": "1–2pm for the full Kenwood version",
+      "walkingDistance": "Approx. 5–6 km",
       "walkingLevel": "medium",
       "noiseLevel": "quiet to moderate",
       "budget": "under £30",
-      "bestTime": "Late afternoon, especially autumn or winter",
+      "bestTime": "Late morning or early afternoon, especially autumn or winter",
       "weather": ["sunny", "cold", "autumn"],
-      "mainStops": 4
+      "mainStops": 5
     },
     "navigation": {
       "detailLevel": "anchor-by-anchor",
       "arrival": {
-        "station": "Hampstead Underground",
-        "stationExit": "Outside the station, set Flask Walk as the first pin before choosing a street.",
-        "pinLabel": "Flask Walk",
-        "pinQuery": "Flask Walk Hampstead London NW3",
-        "firstMove": "Cross Hampstead High Street into Flask Walk. Follow it east towards Well Walk instead of heading straight north onto the Heath."
+        "station": "Hampstead Heath Overground (preferred) or Hampstead Underground (alternative)",
+        "mapOriginQuery": "Hampstead Heath Overground Station London",
+        "stationExit": "Preferred: leave Hampstead Heath Overground at South End Green and set The Magdala as the first pin. Alternative: begin at Hampstead Underground and follow the live downhill walking route to The Magdala; it makes the opening about 15–20 minutes longer and steeper.",
+        "pinLabel": "The Magdala",
+        "pinQuery": "The Magdala 2A South Hill Park Hampstead NW3 2SB",
+        "firstMove": "Have a first drink at The Magdala, or simply use it as the meeting anchor, then climb Well Walk by following the live map. Both station options join the same route here."
       },
       "finish": {
-        "label": "The Holly Bush, 22 Holly Mount",
-        "nearestStation": "Hampstead Underground or Hampstead Heath Overground",
-        "exitNote": "Hampstead Underground is the simple return from the pub. If you shorten the route after the heath, use Hampstead Heath Overground instead."
+        "label": "The Old White Bear or The Duke of Hamilton, New End",
+        "nearestStation": "Hampstead Underground",
+        "exitNote": "Hampstead Underground is the simplest finish from New End. If you stop after the ponds instead, return from Hampstead Heath Overground."
       },
-      "disclaimer": "Heath paths can be muddy, dark or temporarily diverted. Use the live walking route at each anchor and keep to signed public paths."
+      "disclaimer": "Heath paths can be muddy, dark or temporarily diverted. Use live walking directions at each anchor, keep to signed public paths, check Kenwood opening access before relying on its toilets, and book Well Walk Theatre in advance if you want a screening."
     },
     "filters": {
       "occasion": ["neighbourhood-escape", "first-date", "visitors", "solo-day"],
@@ -394,111 +395,122 @@
       "noise": "moderate",
       "budget": "under-30",
       "weather": ["sunny", "cold", "autumn"],
-      "duration": ["3-4h", "half-day"],
+      "duration": ["4h-plus", "half-day"],
       "socialPressure": "medium",
       "easyExit": "helpful",
       "booking": "optional-booking"
     },
     "editorial": {
-      "vibeSummary": "Lanes, slopes, heath air and the useful sense that London has temporarily loosened its grip.",
-      "bestFor": ["A date that needs walking as well as talking", "Visitors who want local London", "A solo weekend reset"],
-      "notIdealFor": ["Anyone who dislikes hills", "People who need a precise, reservation-led day"],
-      "whyNow": "The route earns its keep in cooler weather, when the streets are quieter and a pub finish feels deserved.",
-      "specialBecause": "It feels like a small trip without requiring a real departure.",
-      "whatNotToExpect": "Not flat, not cheap-cheap, and not a route for people who want every stop managed in advance.",
-      "practicalWarnings": ["There are hills: do not label this gentle walking.", "Weather can change the heath section quickly.", "Verify pub opening hours and seating before promising a final stop."],
-      "tags": ["village-london", "old-pubs", "literary", "feels-elsewhere"]
+      "vibeSummary": "A longer Hampstead day with a real middle: heath air, a climb to Kenwood, then cafés and pubs that feel local rather than staged.",
+      "bestFor": ["A date that needs walking as well as talking", "Visitors who want a non-central London day", "A solo weekend reset with a proper destination"],
+      "notIdealFor": ["Anyone who dislikes hills", "People who need a precise, reservation-led itinerary", "A very wet day without a short-route backup"],
+      "whyNow": "The field walk showed that the route is stronger when the ponds lead somewhere: Kenwood adds the view, the pause and the practical toilet stop that makes the distance feel easy.",
+      "specialBecause": "It feels like a small trip without requiring a real departure — and now has a clear beginning, middle and end.",
+      "whatNotToExpect": "Not flat, not cheap-cheap, and not a route for people who want every stop booked or every meal choice guaranteed.",
+      "practicalWarnings": ["There are hills; the Underground alternative starts with a steep downhill approach to the first anchor.", "Weather can change the heath section quickly, so use signed paths and a live map.", "Check the current programme and book ahead before relying on Well Walk Theatre.", "Kenwood House toilets depend on site opening access; verify before leaving.", "The Wells Tavern is no longer this guide's food stop after field feedback; menus and service change, so decide on the day if you still want to try it."],
+      "tags": ["village-london", "old-pubs", "literary", "feels-elsewhere", "field-checked"]
     },
-    "routeNarrative": "Let the village streets arrive before the heath. The walk gives a date space to breathe; the pub gives it an ending. The route is less about ticking off Hampstead than about borrowing its sense of distance for an afternoon.",
+    "routeNarrative": "Start beside the Heath rather than in the village centre, and let the route earn its Hampsteadness gradually: an independent pub, a small theatre, a semi-hidden café, then the ponds and the climb to Kenwood. By the time you reach New End, the pub is an ending rather than a rescue. Hampstead Underground still works as an alternative entrance; it simply adds a steep first section to the same sequence.",
     "stops": [
       {
-        "name": "Flask Walk into Well Walk",
-        "type": "walk",
-        "duration": "10–15 min",
-        "walkingToNext": "5 min",
-        "locationNote": "Flask Walk, Hampstead, London NW3",
-        "mapQuery": "Flask Walk Hampstead London NW3",
-        "directionFromPrevious": "From Hampstead station, cross the High Street into Flask Walk and continue east towards Well Walk.",
-        "description": "This is the old-lanes section: it does most of the pretending-you-left-London work before the heath even begins.",
-        "officialUrl": null
+        "name": "The Magdala — South End Green start",
+        "type": "pub",
+        "duration": "20–35 min",
+        "walkingToNext": "10–15 min uphill",
+        "locationNote": "2A South Hill Park, Hampstead, London NW3 2SB",
+        "mapQuery": "The Magdala 2A South Hill Park Hampstead NW3 2SB",
+        "directionFromPrevious": "From Hampstead Heath Overground, exit at South End Green, cross towards South Hill Park and keep The Magdala pin open. From Hampstead Underground, follow the live walking route downhill to the same pin.",
+        "description": "A good independent-pub opening directly by the preferred station. Take one drink, meet here, or treat it as a clean alternative finish if you decide not to climb back into the village.",
+        "officialUrl": "https://www.themagdala.co.uk/"
       },
       {
-        "name": "Burgh House",
+        "name": "Well Walk Theatre — optional bookshop and screening stop",
         "type": "museum",
-        "duration": "20–40 min",
-        "walkingToNext": "5 min",
+        "duration": "15–30 min",
+        "walkingToNext": "5–8 min",
+        "locationNote": "49 Willow Road, Hampstead, London NW3 1TS",
+        "mapQuery": "Well Walk Theatre 49 Willow Road Hampstead NW3 1TS",
+        "directionFromPrevious": "Climb Well Walk from The Magdala, using the theatre pin rather than trying to cut across the slope.",
+        "description": "A small bookshop, café and cine-club that makes the climb feel purposeful. It is optional: check the live programme and reserve before planning around a screening.",
+        "officialUrl": "https://www.thewellwalktheatre.com/"
+      },
+      {
+        "name": "Burgh House Café — light bite in New End Square",
+        "type": "cafe-or-pub",
+        "duration": "30–50 min",
+        "walkingToNext": "5–10 min to the Heath edge",
         "locationNote": "New End Square, Hampstead, London NW3 1LT",
         "mapQuery": "Burgh House New End Square Hampstead NW3 1LT",
-        "directionFromPrevious": "Continue through the lanes towards New End Square. Keep the map pin open rather than cutting across private-looking mews.",
-        "description": "A small house museum and café that works as rainy-day insurance. Check current opening days before relying on entry; the lanes-to-pub version still works if it is shut.",
-        "officialUrl": null
+        "directionFromPrevious": "Continue through the lanes from Well Walk Theatre to New End Square. Keep the pin open rather than cutting through private-looking mews.",
+        "description": "Use the café for breakfast, cake or a light lunch rather than the route's main meal. Its lower-ground and courtyard setting has the semi-secret feeling the route needs; it is first-come-first-served, so check current opening before relying on it.",
+        "officialUrl": "https://www.burghhouse.org.uk/"
       },
       {
-        "name": "Hampstead Heath — ponds or Parliament Hill",
+        "name": "Hampstead Heath ponds → Kenwood House",
         "type": "walk",
-        "duration": "20–45 min",
-        "walkingToNext": "10–15 min back into the lanes",
-        "locationNote": "Hampstead Heath, London NW3",
-        "mapQuery": "Hampstead Heath ponds London NW3",
-        "directionFromPrevious": "From New End Square, join signed public paths at the heath edge. Go as far as the ponds, or continue to Parliament Hill only if the sky and energy make it worthwhile.",
-        "description": "The heath is breathing room, not an obligation. Twenty minutes counts; the shorter wet version goes straight from the lanes and Burgh House to the pub.",
-        "officialUrl": null
+        "duration": "75–105 min",
+        "walkingToNext": "15–20 min downhill to New End",
+        "locationNote": "Hampstead Heath and Kenwood, London NW3",
+        "mapQuery": "Kenwood House Hampstead Heath London NW3",
+        "directionFromPrevious": "Join signed public paths from New End Square, pass the ponds, then continue uphill towards the Kenwood House pin instead of turning back as soon as the water ends.",
+        "description": "The ponds alone are a short interlude. Continue to Kenwood for the high view and a practical toilet stop before the pub finish; check the estate's current opening access if you need the facilities.",
+        "officialUrl": "https://www.english-heritage.org.uk/visit/places/kenwood/"
       },
       {
-        "name": "The Holly Bush",
+        "name": "New End — Old White Bear for a drink, Duke of Hamilton for food",
         "type": "pub",
-        "duration": "45–90 min",
+        "duration": "60–100 min",
         "walkingToNext": "Finish",
-        "locationNote": "22 Holly Mount, Hampstead, London NW3 6SG",
-        "mapQuery": "The Holly Bush 22 Holly Mount Hampstead NW3 6SG",
-        "directionFromPrevious": "Leave the heath via the Hampstead lanes and climb Holly Mount to number 22. If it is full, try The Flask on Flask Walk instead.",
-        "description": "A dim Georgian pub up its own small hill: the intended pub finish. Check current hours and arrive around the Sunday-roast rush rather than assuming a table.",
-        "officialUrl": null
+        "locationNote": "Well Road and New End, Hampstead, London NW3",
+        "mapQuery": "The Old White Bear 1 Well Road Hampstead NW3 1LJ",
+        "directionFromPrevious": "Leave Kenwood by the signed route back to New End and follow the live map to The Old White Bear. The Duke of Hamilton is a short walk away on New End if you want the main meal instead.",
+        "description": "Choose The Old White Bear for the cosy pub atmosphere. Choose The Duke of Hamilton when dinner matters more: it is the current food recommendation from field feedback. The Wells Tavern is deliberately not listed as the meal stop in this version.",
+        "officialUrl": "https://theoldwhitebearhampstead.co.uk/"
       }
     ],
     "versions": [
       {
-        "id": "short",
-        "label": "Lanes + Burgh House + pub",
-        "description": "The shorter wet-weather version: Flask Walk, Burgh House if open, then the Holly Bush.",
-        "duration": "2 hours",
+        "id": "heath-station",
+        "label": "Heath station → ponds → Kenwood → New End",
+        "description": "The preferred full route: Magdala, Well Walk, Burgh House Café, ponds, Kenwood, then a pub or dinner in New End.",
+        "duration": "4–5 hours",
         "budget": "under £30",
         "requiresTicketCheck": false
       },
       {
-        "id": "heath",
-        "label": "Lanes + heath + pub",
-        "description": "The fuller version for people comfortable with hills and uneven weather.",
-        "duration": "3–4 hours",
+        "id": "underground-alternative",
+        "label": "Hampstead Underground alternative",
+        "description": "Start at Hampstead Underground, walk downhill to The Magdala, then follow the preferred sequence. Expect a steeper opening and a slightly longer day.",
+        "duration": "4½–5 hours",
         "budget": "under £30",
         "requiresTicketCheck": false
       }
     ],
     "copy": {
-      "dateNotes": "Better for a first or early date if both people like walking. The short version creates a clean exit before the heath or after the first drink.",
+      "dateNotes": "Best for a date where the walking is part of the conversation. The Magdala is a low-pressure meeting point; Burgh House Café offers a natural pause before the Heath.",
       "friendGroupNotes": "Works for a small group that will not resent a hill. Avoid making it the plan for anyone with limited mobility without adapting it first.",
-      "soloNotes": "A reliable reset route alone, especially if you want a proper change of visual rhythm without leaving London.",
-      "foodDrinkNotes": "Treat the pub as the food-and-drink decision. Bring a small snack if the walk is the longer version.",
-      "rainyDayBackup": "Use the short version: Flask Walk, Burgh House if open, then the Holly Bush. Do not force the heath in difficult weather.",
-      "continueIfGoingWell": "Continue from the ponds or Parliament Hill back into the lanes for the Holly Bush only if the weather and legs are cooperating.",
-      "exitEarly": "After Burgh House, return to Hampstead Underground instead of committing to the heath.",
-      "finalEditorialNote": "A little uphill, a little gothic, and much better if you do not rush it."
+      "soloNotes": "A reliable reset route alone, especially when you want a proper change of visual rhythm without leaving London.",
+      "foodDrinkNotes": "Take breakfast or a snack at Burgh House Café, a drink at The Old White Bear, and make The Duke of Hamilton the dinner choice if food matters. The Wells Tavern can still be a drink stop, but this guide no longer recommends it for a meal after a field walk; always check current menus yourself.",
+      "rainyDayBackup": "Use The Magdala, Well Walk Theatre if something is on, Burgh House Café if open, and The Old White Bear. Skip the Heath and Kenwood rather than forcing the long outdoor middle.",
+      "continueIfGoingWell": "Do not turn back at the ponds: climb to Kenwood House for the view, the pause and the toilets, then descend to New End for a pub finish.",
+      "exitEarly": "After Burgh House Café, return to Hampstead Underground. From the ponds, return to Hampstead Heath Overground instead of committing to Kenwood.",
+      "finalEditorialNote": "A little uphill, a little gothic, and now long enough to feel like a genuine day out rather than a walk between pubs."
     },
     "logic": {
-      "fallbackIfClosed": "Make the final stop a café or another verified pub; do not abandon the route because one venue changes hands.",
+      "fallbackIfClosed": "If Burgh House Café is closed, keep the route moving to the Heath and choose food in New End. If the final pub is full, use another nearby venue, but do not rebuild the walk around a table.",
       "conversationQuality": "good",
       "commitmentLevel": "medium"
     },
     "links": {
-      "officialSources": [],
-      "mapQuery": "Hampstead station to Hampstead Heath"
+      "officialSources": ["https://www.themagdala.co.uk/", "https://www.thewellwalktheatre.com/", "https://www.burghhouse.org.uk/", "https://www.english-heritage.org.uk/visit/places/kenwood/", "https://theoldwhitebearhampstead.co.uk/"],
+      "mapQuery": "Hampstead Heath Overground to The Magdala to Kenwood House"
     },
     "editorialControl": {
-      "fieldTested": false,
-      "lastChecked": null,
-      "nextReview": null,
-      "feedbackStatus": "needs-field-test",
-      "updateNotes": "Walking duration, weather route and final venue require a field check."
+      "fieldTested": true,
+      "lastChecked": "Field-walked — August 2026",
+      "nextReview": "Recheck venue menus, Kenwood facilities access and theatre programme before winter 2026.",
+      "feedbackStatus": "field-checked",
+      "updateNotes": "Updated from a full Hampstead Heath Overground field walk: added the Magdala, Well Walk Theatre, Burgh House Café, Kenwood extension, Old White Bear and Duke of Hamilton food guidance; retained Hampstead Underground as an alternative start."
     }
   },
   {

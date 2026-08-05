@@ -36,6 +36,7 @@ function formatHub(hub) {
 function renderRoute(route, target) {
   const e = window.routeApp.escape;
   const navigation = route.navigation;
+  const mapStart = navigation?.arrival?.mapOriginQuery || navigation?.arrival?.station;
   const isDayWalk = route.routeType === "day-walk";
   const status = route.status === "published"
     ? { label: "Published route", detail: "Self-guided route" }
@@ -64,7 +65,7 @@ function renderRoute(route, target) {
   const list = values => values.map(value => `<li>${e(value)}</li>`).join("");
   const stops = route.stops.map((stop, index) => {
     const previousQuery = index === 0
-      ? navigation?.arrival?.station
+      ? mapStart
       : route.stops[index - 1].mapQuery;
     const walkingUrl = stop.mapQuery && previousQuery
       ? mapsDirections(previousQuery, stop.mapQuery)
@@ -109,7 +110,7 @@ function renderRoute(route, target) {
   // themselves are real, and navigation.disclaimer already says how far to
   // trust the sequence for routes that have not been field-checked.
   const wholeRouteUrl = !isDayWalk && navigation?.arrival?.station && mappedStops.length > 0 && mappedStops.length <= 10
-    ? mapsRoute(navigation.arrival.station, mappedStops)
+    ? mapsRoute(mapStart, mappedStops)
     : null;
   const navigationBlock = navigation ? `
     <section class="navigation-start" aria-labelledby="start-here-title">
@@ -126,7 +127,7 @@ function renderRoute(route, target) {
         <div><span>First move</span><strong>One useful instruction</strong><p>${e(navigation.arrival.firstMove)}</p></div>
       </div>
       <div class="button-row">
-        <a class="button primary" href="${e(mapsDirections(navigation.arrival.station, navigation.arrival.pinQuery))}" rel="noopener" target="_blank">Start in Google Maps ↗</a>
+        <a class="button primary" href="${e(mapsDirections(mapStart, navigation.arrival.pinQuery))}" rel="noopener" target="_blank">Start in Google Maps ↗</a>
         ${wholeRouteUrl ? `<a class="button soft" href="${e(wholeRouteUrl)}" rel="noopener" target="_blank">Open the whole walk ↗</a>` : ""}
         ${navigation.externalRouteUrl ? `<a class="button soft" href="${e(navigation.externalRouteUrl)}" rel="noopener" target="_blank">Open detailed route ↗</a>` : ""}
         ${navigation.gpxUrl ? `<a class="button soft" href="${e(navigation.gpxUrl)}" rel="noopener" target="_blank">Download GPX ↗</a>` : ""}
