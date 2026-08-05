@@ -173,7 +173,6 @@ function renderRoute(route, target) {
       <p class="eyebrow">${status.detail}</p>
       <h1>${e(route.title)}</h1>
       <p class="route-subtitle">${e(route.subtitle)}</p>
-      ${soundtrackBlock}
       <dl class="quick-facts">
         ${facts.map(([label, value]) => `<div><dt>${e(label)}</dt><dd>${e(value)}</dd></div>`).join("")}
       </dl>
@@ -232,6 +231,7 @@ function renderRoute(route, target) {
         <section>
           <p class="eyebrow">Final editorial note</p>
           <h2>${e(route.copy.finalEditorialNote)}</h2>
+          ${soundtrackBlock}
         </section>
       </div>
       <aside class="route-sidebar">
