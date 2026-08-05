@@ -134,12 +134,17 @@
       "officialSources": [],
       "mapQuery": ""
     },
-    "editorialControl": {
+  "editorialControl": {
       "fieldTested": false,
       "lastChecked": null,
       "nextReview": null,
       "feedbackStatus": "prototype",
-      "updateNotes": ""
-    }
+    "updateNotes": ""
+  },
+  "community": {
+    "reportCount": 0,
+    "lastReported": null,
+    "status": "awaiting-reports"
+  }
   }
 }

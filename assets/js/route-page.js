@@ -145,6 +145,26 @@ function renderRoute(route, target) {
       <p><a class="button soft" href="${e(mapsSearch(navigation.finish.nearestStation))}" rel="noopener" target="_blank">Open exit station ↗</a></p>
     </section>` : "";
   const feedbackUrl = `${window.routeApp.basePath}feedback/?route=${encodeURIComponent(route.title)}`;
+  const community = route.community || {};
+  const communityCount = Number(community.reportCount || 0);
+  const communityNeedsReview = community.status === "needs-review";
+  const communityTitle = communityNeedsReview
+    ? "A walker flagged something worth checking."
+    : communityCount
+      ? `${communityCount} ${communityCount === 1 ? "walker has" : "walkers have"} reported this route.`
+      : "No community walks reported yet.";
+  const communityDetail = communityNeedsReview
+    ? "Treat route details as provisional until the issue has been reviewed."
+    : communityCount
+      ? `Most recent report: ${community.lastReported || "date not yet recorded"}. Community reports are reviewed; they do not change the Field-checked label.`
+      : "Walked it? A concise field note helps keep the route current. Community reports never change the Field-checked label automatically.";
+  const communityBlock = `
+    <section class="community-signal${communityNeedsReview ? " needs-review" : ""}">
+      <p class="eyebrow">Community signal</p>
+      <h2>${e(communityTitle)}</h2>
+      <p>${e(communityDetail)}</p>
+      <p><a class="button soft" href="${e(feedbackUrl)}">Share a field note</a></p>
+    </section>`;
   const soundtrackBlock = route.soundtrack ? `<p class="soundtrack">This day sounds like: ${e(route.soundtrack.artist)} — <em>${e(route.soundtrack.track)}</em></p>` : "";
   const travelBlock = isDayWalk ? `
     <section class="travel-details">
@@ -186,6 +206,7 @@ function renderRoute(route, target) {
       </div>
     </section>
     ${fieldNoteBlock}
+    ${communityBlock}
     ${travelBlock}
     ${navigationBlock}
     <div class="route-layout">

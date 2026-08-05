@@ -340,6 +340,11 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 .field-note { margin-top: var(--space-3); padding: var(--space-2) var(--space-3); border-left: var(--border-thin) solid var(--line); color: var(--muted); font-size: var(--step--1); line-height: 1.6; }
 .field-note .eyebrow { margin: 0 0 var(--space-1); color: var(--muted); }
 .field-note .verify-flag { display: inline-block; margin-left: var(--space-1); padding: 0 var(--space-1); border-radius: var(--radius-s); background: var(--caution); color: var(--wine); font-style: normal; text-transform: none; letter-spacing: normal; }
+.community-signal { margin-top: var(--space-3); padding: var(--space-3); background: var(--surface); border-top: var(--border-strong) solid var(--moss); border-radius: var(--radius-s) var(--radius-l); box-shadow: var(--elevation-1); }
+.community-signal h2 { margin: var(--space-1) 0; font-size: var(--step-2); }
+.community-signal > p:not(.eyebrow) { max-width: 42rem; color: var(--muted); }
+.community-signal .button { margin-top: var(--space-1); }
+.community-signal.needs-review { border-top-color: var(--wine); }
 
 @keyframes settle-in {
   from { opacity: 0; transform: translateY(var(--space-1)); }

@@ -70,6 +70,22 @@ Before sharing publicly:
 3. Submit a test entry from a deployed preview.
 4. Add a privacy notice that names the form processor and states what is stored.
 
+## Community validation
+
+Community feedback helps keep a route current, but it does not replace an editorial field walk. A route must never become `field-checked` automatically.
+
+When forms are connected, review reports in batches. After two or three recent, internally consistent reports, add a `community` object to that route in `data/routes.json`:
+
+```json
+"community": {
+  "reportCount": 3,
+  "lastReported": "August 2026",
+  "status": "reports-received"
+}
+```
+
+If a report identifies a closure, unsafe connection or materially wrong detail, set `status` to `needs-review` until you have checked or corrected it. Community reports display as a separate signal; only your own editorial walk can set `status` to `field-checked`.
+
 ## Deployment
 
 Upload the contents of this directory to any static host. The site uses relative paths, so it also works when hosted under a project subpath, such as a GitLab Pages project URL.
