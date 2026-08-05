@@ -375,10 +375,10 @@
       "arrival": {
         "station": "Hampstead Heath Overground (preferred) or Hampstead Underground (alternative)",
         "mapOriginQuery": "Hampstead Heath Overground Station London",
-        "stationExit": "Preferred: leave Hampstead Heath Overground at South End Green and set The Magdala as the first pin. Alternative: begin at Hampstead Underground and follow the live downhill walking route to The Magdala; it makes the opening about 15–20 minutes longer and steeper.",
+        "stationExit": "Preferred: leave Hampstead Heath Overground at South End Green. Alternative: Hampstead Underground adds a 15–20 minute downhill walk to The Magdala.",
         "pinLabel": "The Magdala",
         "pinQuery": "The Magdala 2A South Hill Park Hampstead NW3 2SB",
-        "firstMove": "Have a first drink at The Magdala, or simply use it as the meeting anchor, then climb Well Walk by following the live map. Both station options join the same route here."
+        "firstMove": "Have a first drink at The Magdala, or simply use it as the meeting anchor, then climb Well Walk by following the live map."
       },
       "finish": {
         "label": "The Old White Bear or The Duke of Hamilton, New End",

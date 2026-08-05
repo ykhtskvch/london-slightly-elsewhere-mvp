@@ -110,7 +110,7 @@ function renderRoute(route, target) {
   // themselves are real, and navigation.disclaimer already says how far to
   // trust the sequence for routes that have not been field-checked.
   const wholeRouteUrl = !isDayWalk && navigation?.arrival?.station && mappedStops.length > 0 && mappedStops.length <= 10
-    ? mapsRoute(mapStart, mappedStops)
+    ? mapsRoute(mappedStops)
     : null;
   const navigationBlock = navigation ? `
     <section class="navigation-start" aria-labelledby="start-here-title">
@@ -122,17 +122,18 @@ function renderRoute(route, target) {
         <span class="navigation-level">${navigation.detailLevel === "anchor-by-anchor" ? "Anchor by anchor" : "Prototype"}</span>
       </div>
       <div class="navigation-grid">
-        <div><span>Arrive at</span><strong>${e(navigation.arrival.station)}</strong><p>${e(navigation.arrival.stationExit)}</p></div>
+        <div><span>Suggested arrival</span><strong>${e(navigation.arrival.station)}</strong><p>${e(navigation.arrival.stationExit)}</p></div>
         <div><span>Set your first pin</span><strong>${e(navigation.arrival.pinLabel)}</strong><p>${e(navigation.arrival.pinQuery)}</p></div>
-        <div><span>First move</span><strong>One useful instruction</strong><p>${e(navigation.arrival.firstMove)}</p></div>
+        <div><span>Once you arrive</span><strong>One useful instruction</strong><p>${e(navigation.arrival.firstMove)}</p></div>
       </div>
       <div class="button-row">
-        <a class="button primary" href="${e(mapsDirections(mapStart, navigation.arrival.pinQuery))}" rel="noopener" target="_blank">Start in Google Maps ↗</a>
+        <a class="button primary" href="${e(mapsDirections(null, navigation.arrival.pinQuery, "transit"))}" rel="noopener" target="_blank">Start in Google Maps ↗</a>
         ${wholeRouteUrl ? `<a class="button soft" href="${e(wholeRouteUrl)}" rel="noopener" target="_blank">Open the whole walk ↗</a>` : ""}
         ${navigation.externalRouteUrl ? `<a class="button soft" href="${e(navigation.externalRouteUrl)}" rel="noopener" target="_blank">Open detailed route ↗</a>` : ""}
         ${navigation.gpxUrl ? `<a class="button soft" href="${e(navigation.gpxUrl)}" rel="noopener" target="_blank">Download GPX ↗</a>` : ""}
       </div>
       <p class="navigation-disclaimer">${e(navigation.disclaimer)}</p>
+      <p class="arrival-privacy">We never request your location. Google Maps can use it privately, if you have already given Maps permission.</p>
     </section>` : "";
   const finishBlock = navigation ? `
     <section class="route-finish">
@@ -255,15 +256,17 @@ function mapsSearch(query) {
   return `https://www.google.com/maps/search/?${params.toString()}`;
 }
 
-function mapsDirections(origin, destination) {
-  const params = new URLSearchParams({ api: "1", origin, destination, travelmode: "walking" });
+function mapsDirections(origin, destination, travelmode = "walking") {
+  const params = new URLSearchParams({ api: "1", destination, travelmode });
+  if (origin) params.set("origin", origin);
   return `https://www.google.com/maps/dir/?${params.toString()}`;
 }
 
-function mapsRoute(origin, stops) {
+function mapsRoute(stops) {
+  const origin = stops[0].mapQuery;
   const destination = stops[stops.length - 1].mapQuery;
   const params = new URLSearchParams({ api: "1", origin, destination, travelmode: "walking" });
-  const waypoints = stops.slice(0, -1).map(stop => stop.mapQuery).slice(0, 9);
+  const waypoints = stops.slice(1, -1).map(stop => stop.mapQuery).slice(0, 9);
   if (waypoints.length) params.set("waypoints", waypoints.join("|"));
   return `https://www.google.com/maps/dir/?${params.toString()}`;
 }
