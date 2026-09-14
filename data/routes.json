@@ -15,9 +15,10 @@
       "linkName": "The whole route, hour by hour",
       "indexNote": "Walked twice, most recently in March, both times in bad weather.",
       "plate": {
-        "image": null,
-        "placeholder": "photo — towpath west of the bridge",
-        "caption": "Six in the evening, mid-March, the tide going out. This is the twenty minutes I would actually turn up for; everything after it is a bonus."
+        "image": "assets/photos/putney.jpg",
+        "alt": "Putney Pier lit at night, a launch and a motor cruiser moored alongside, the bridge beyond and lights reflected on the water.",
+        "placeholder": "photo — the pier by the bridge",
+        "caption": "Ten at night in January, the boats tied up at Putney Pier. Not the evening this route is built around, but the river is still the reason to come."
       },
       "body": ["The timings on this one are mine and they hold. I have done it twice in bad weather and it survives both — the towpath is the point, the pub is the reward, and the gig is genuinely optional. Go without checking the listings and you will still have had the day."],
       "factLine": {
