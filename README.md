@@ -29,6 +29,8 @@ Then open `http://localhost:8000`.
   the routes still waiting for copy each time it runs.
 - `assets/js/condition-filter.js` — the index filter. The only JavaScript on
   a redesigned page, and the index reads in full without it.
+- `scripts/generate_icons.py` — draws the favicon at every size from the
+  palette. Run it after changing the colours; the build does not.
 - `assets/css/almanac-tokens.css` — design tokens for the redesign. Nothing
   in `almanac.css` may use a value that is not defined there.
 - `data/venue-timing.json` — one editable record per venue for happy-hour checks, current deals and official source links.

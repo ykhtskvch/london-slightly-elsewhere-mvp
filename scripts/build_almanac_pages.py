@@ -294,12 +294,22 @@ def maps_route(stops):
 # --- pages --------------------------------------------------------------
 
 
-def shell(head, body, base, narrow=False):
+def shell(head, body, base, narrow=False, path=None):
+    """`path` is where this page sits under the site root, with a trailing
+    slash and no leading one: "" for the homepage, "routes/putney/" for a
+    route. It becomes the canonical URL. The 404 passes None: it stands for
+    every address that does not exist, so it canonicalises to nothing."""
     page_class = "page page--narrow" if narrow else "page"
+    canonical = (
+        f'\n    <link rel="canonical" href="{SITE_URL}{path}">' if path is not None else ""
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
-{head}
+{head}{canonical}
+    <link rel="icon" href="{base}favicon.ico" sizes="32x32">
+    <link rel="icon" href="{base}assets/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{base}assets/icon-180.png">
     <link rel="stylesheet" href="{base}assets/css/almanac-tokens.css">
     <link rel="stylesheet" href="{base}assets/css/almanac.css">
   </head>
@@ -325,7 +335,17 @@ def home(routes, almanac):
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
         '    <meta name="description" content="Independent routes for neighbourhood days, green escapes and full days out by public transport — by mood, not by algorithm.">',
         "    <title>London, Slightly Elsewhere</title>",
-        '    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"London, Slightly Elsewhere","description":"Independent routes for neighbourhood days, green escapes and full days out by public transport.","inLanguage":"en-GB","areaServed":{"@type":"City","name":"London"}}</script>',
+        "    <script type=\"application/ld+json\">"
+        + json.dumps({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "London, Slightly Elsewhere",
+            "description": "Independent routes for neighbourhood days, green escapes and full days out by public transport.",
+            "url": SITE_URL,
+            "inLanguage": "en-GB",
+            "areaServed": {"@type": "City", "name": "London"},
+        }, ensure_ascii=False, separators=(",", ":"))
+        + "</script>",
     ])
 
     # The h1 is hidden rather than absent: the design puts the editor's note
@@ -352,7 +372,7 @@ def home(routes, almanac):
         f'      <main id="main">{"".join(parts)}</main>\n'
         f"      {apparatus(almanac, base)}"
     )
-    return shell(head, body, base)
+    return shell(head, body, base, path="")
 
 
 # --- derived index values ------------------------------------------------
@@ -518,7 +538,7 @@ def index_page(routes, almanac):
         f"      {apparatus(almanac, base, current='routes/')}\n"
         f'      <script src="{base}assets/js/condition-filter.js"></script>'
     )
-    return shell(head, body, base)
+    return shell(head, body, base, path="routes/")
 
 
 def terms_page(almanac):
@@ -549,7 +569,7 @@ def terms_page(almanac):
         "</main>\n"
         f"      {apparatus(almanac, base, current='terms-used-here/')}"
     )
-    return shell(head, body, base, narrow=True)
+    return shell(head, body, base, narrow=True, path="terms-used-here/")
 
 
 # --- the pages the handoff never designed -------------------------------
@@ -573,7 +593,7 @@ LEGACY_PAGES = {
 }
 
 
-def legacy_page(path, base, current, almanac):
+def legacy_page(path, base, current, almanac, site_path):
     source = path.read_text(encoding="utf-8")
 
     head_lines = ['    <meta charset="utf-8">',
@@ -614,7 +634,34 @@ def legacy_page(path, base, current, almanac):
     )
     if scripts:
         body += "\n" + "\n".join(scripts)
-    return shell("\n".join(head_lines), body, base)
+    return shell("\n".join(head_lines), body, base, path=site_path)
+
+
+def sitemap(routes):
+    """Every page worth finding, in reading order.
+
+    /routes/seventeen/ is left out. It is linked from the apparatus on every
+    page, so a crawler reaches it anyway; listing it in a machine-readable
+    index of the whole site is the one place the joke would not survive.
+    The 404 is left out because it is not a page."""
+    paths = [""]
+    paths += [f'routes/{route["slug"]}/' for route in routes]
+    paths += ["routes/", "terms-used-here/", "find-your-route/", "about/",
+              "feedback/", "contact/", "future-guides/", "privacy/",
+              "accessibility/"]
+    locs = "\n".join(f"  <url><loc>{SITE_URL}{path}</loc></url>" for path in paths)
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{locs}\n</urlset>\n"
+    )
+
+
+def robots():
+    """Nothing is disallowed. Naming the unlisted route here would publish it
+    more loudly than leaving it alone: robots.txt is the first file a curious
+    person opens."""
+    return f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n"
 
 
 def not_found_page(almanac):
@@ -668,6 +715,7 @@ def route_head_meta(route):
         "@type": "Article",
         "headline": seo["title"],
         "description": seo["description"],
+        "url": f'{SITE_URL}routes/{route["slug"]}/',
         "inLanguage": "en-GB",
     }
     if seo.get("contentLocation"):
@@ -959,7 +1007,7 @@ def route_page(route, almanac, venue_timing):
         f'{"".join(sections)}{closing}</main>\n'
         f"      {apparatus(almanac, base)}"
     )
-    return shell(route_head_meta(route), body, base)
+    return shell(route_head_meta(route), body, base, path=f'routes/{route["slug"]}/')
 
 
 def main():
@@ -979,11 +1027,18 @@ def main():
 
     for relative, (base, current) in LEGACY_PAGES.items():
         target = ROOT / relative
-        target.write_text(legacy_page(target, base, current, almanac), encoding="utf-8")
+        site_path = relative[: -len("index.html")]
+        target.write_text(
+            legacy_page(target, base, current, almanac, site_path), encoding="utf-8"
+        )
     print(f"Converted {len(LEGACY_PAGES)} pages that were never designed.")
 
     (ROOT / "404.html").write_text(not_found_page(almanac), encoding="utf-8")
     print(f"Wrote 404.html, anchored at {BASE_PATH}")
+
+    (ROOT / "sitemap.xml").write_text(sitemap(routes), encoding="utf-8")
+    (ROOT / "robots.txt").write_text(robots(), encoding="utf-8")
+    print(f"Wrote sitemap.xml ({len(routes) + 10} urls) and robots.txt for {SITE_URL}")
 
     slugs = list(by_slug) if ALMANAC_ROUTES is None else list(ALMANAC_ROUTES)
     for slug in slugs:
