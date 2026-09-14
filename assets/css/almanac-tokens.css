@@ -1,0 +1,171 @@
+/* Almanac design tokens — the single source for colour, type, spacing and
+   rules in the field-guide redesign. Nothing in almanac.css may introduce a
+   value that is not defined here.
+
+   Colour is expressed as roles, not shades. There are no colours outside this
+   list; `hatch` is the only one that participates in a gradient, and only in
+   the temporary photograph placeholder.
+
+   Loaded alongside almanac.css by the redesigned pages. The pages still on
+   the previous design load assets/css/styles.css instead; the two stylesheets
+   are never loaded together. */
+
+/* Self-hosted latin subsets, matching the existing font policy: no
+   third-party font requests. Newsreader ships as a variable font covering
+   300–500, so one upright file and one italic file serve every editorial
+   weight; IBM Plex Mono needs one file per weight. */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url('../fonts/newsreader-variable-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url('../fonts/newsreader-italic-variable-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-mono-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-mono-500-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* One palette. The design has no dark variant: paper is the only content
+     background, and a dark theme would need colours outside this list. */
+  color-scheme: light;
+
+  --desk: #e4e3dc;          /* background outside the page column */
+  --paper: #f1f0ea;         /* the only content background */
+  --ink: #1c1c19;           /* headings, fact values, major rule */
+  --ink-secondary: #36352f; /* body text */
+  --ink-tertiary: #44433c;  /* captions, caveats */
+  --muted: #63625b;         /* apparatus, absence lines, colophon */
+  --numerals: #83827b;      /* digits and separators only — never prose */
+  --rule-minor: #c9c8c0;    /* rule between entries */
+  --red-lead: #a3341a;      /* links and marginal marks, max 3 per viewport */
+  --hover-paper: #e9e8e2;   /* row hover */
+  --active-paper: #e1e0d9;  /* row active */
+  --hatch: #dedcd4;         /* stripe of the temporary photo placeholder */
+
+  --editorial: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --apparatus: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Type roles. Sizes are overridden below 768px; line heights and tracking
+     are not, so the rhythm holds at every width. */
+  --fs-page-title: 44px;
+  --lh-page-title: 1.05;
+  --tr-page-title: -.015em;
+  --fs-route-title: 34px;
+  --lh-route-title: 1.08;
+  --tr-route-title: -.008em;
+  --fs-route-title-quiet: 24px;
+  --lh-route-title-quiet: 1.15;
+  --fs-editor-note: 26px;
+  --lh-editor-note: 1.34;
+  --fs-section-head: 24px;
+  --lh-section-head: 1.2;
+  --fs-term: 21px;
+  --fs-lead: 19px;
+  --fs-lead-quiet: 17px;
+  --lh-lead: 1.55;
+  --fs-body: 17.5px;
+  --lh-body: 1.6;
+  --lh-factline: 1.7;
+  --fs-caveat: 16.5px;
+  --fs-caption: 16px;
+  --lh-caption: 1.6;
+  --fs-serif-small: 15px;
+  --fs-meta: 12.5px;
+  --fs-apparatus: 11px;
+  --fs-eyebrow: 10px;
+  --lh-mono: 1.7;
+
+  /* Spacing scale, 4px base. */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-22: 22px;
+  --space-26: 26px;
+  --space-34: 34px;
+  --space-44: 44px;
+  --space-56: 56px;
+  --space-88: 88px;
+
+  /* Measure. Given in pixels because `ch` resolves against the element's own
+     font size, which would make the same "66ch" rule produce a different
+     column for 16px and 17.5px text. These are the widths the design files
+     render: measured from them so the columns match to the pixel. Below
+     768px every one of them exceeds the viewport, so the measure is bounded
+     by the page padding instead — which is what the spec asks for. */
+  --measure-note: 667px;     /* 46ch */
+  --measure-colophon: 635px; /* 70ch */
+  --measure-lead: 586px;     /* 56ch */
+  --measure-body: 598px;     /* 66ch */
+  --measure-caption: 562px;  /* 62ch */
+  --measure-row: 580px;      /* 64ch — index row body */
+  --measure-filter: 780px;   /* 64ch at 22px — the filter sentence */
+  --measure-index: 588px;    /* 62ch at 17px — the index intro */
+  --measure-terms: 494px;    /* 52ch at 17px — the glossary intro */
+  --page-max-narrow: 620px;  /* the glossary column */
+
+  /* Everything else. One rule weight, no radius, no shadow, no gradient
+     except the placeholder hatch. Motion is a colour change with no
+     duration. */
+  --rule: 1px;
+  --page-max: 1020px;
+  --page-pad: 20px;
+  --page-pad-narrow: 20px;
+  --plate-ratio: 3 / 2;
+  --tap: 44px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-pad: 32px;
+    --page-pad-narrow: 32px;
+    --plate-ratio: 2 / 1;
+  }
+}
+
+@media (min-width: 1180px) {
+  :root {
+    --page-pad: var(--space-56);
+    --page-pad-narrow: var(--space-44);
+  }
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --fs-page-title: 30px;
+    --fs-route-title: 26px;
+    --fs-route-title-quiet: 22px;
+    --fs-editor-note: 21px;
+    --lh-editor-note: 1.35;
+    --fs-section-head: 21px;
+    --fs-term: 19px;
+    --fs-lead: 18px;
+    --fs-lead-quiet: 16.5px;
+    --fs-body: 17px;
+    --fs-caveat: 16px;
+    --fs-caption: 15.5px;
+  }
+}

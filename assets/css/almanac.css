@@ -1,0 +1,1071 @@
+/* Almanac components. Every value comes from almanac-tokens.css.
+
+   House rules enforced here, not by convention:
+     · one column at every width — no grid, no rail, no sticky panel;
+     · one rule weight (1px) in two colours, ink and rule-minor;
+     · no border-radius, no box-shadow, no gradient (the photograph
+       placeholder hatch is the single, temporary exception);
+     · links, never buttons;
+     · motion is a link colour change with no duration. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Several components set a display value, which would otherwise beat the
+   user-agent rule for [hidden] and leave filtered-out rows on the page. */
+[hidden] { display: none !important; }
+
+html {
+  background: var(--desk);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--editorial);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-synthesis-weight: none;
+}
+
+/* The paper column. Below 1180px it fills the viewport and the desk is not
+   seen; above it the column is 1020px, centred, with the desk either side. */
+.page {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+  background: var(--paper);
+}
+
+@media (min-width: 1180px) {
+  .page {
+    max-width: var(--page-max);
+    border-inline: var(--rule) solid var(--rule-minor);
+  }
+}
+
+/* The glossary runs in a narrower column: 620px with 44px padding. */
+.page--narrow { padding-inline: var(--page-pad-narrow); }
+
+@media (min-width: 1180px) {
+  .page--narrow { max-width: var(--page-max-narrow); }
+}
+
+p { margin: 0; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* Links. Two treatments only. The editorial link is red-lead and carries the
+   author's confidence in its wording; the quiet link is for apparatus and for
+   the repeated utility links on a route page, which would otherwise push the
+   page past three red elements per viewport. Hover moves either to ink. */
+a {
+  color: var(--red-lead);
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--numerals);
+  text-underline-offset: 3px;
+  transition: none;
+}
+
+a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+a.quiet {
+  color: var(--ink-secondary);
+  text-decoration-color: var(--rule-minor);
+}
+
+a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+/* A visible line, never a glow. */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999rem;
+  top: 0;
+  z-index: 2;
+  padding: var(--space-12) var(--space-16);
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.skip-link:focus { left: 0; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Eyebrow ------------------------------------------------------------
+   Imprint only, and at most one per page. Never a section label. */
+.eyebrow {
+  font-family: var(--apparatus);
+  font-size: var(--fs-eyebrow);
+  line-height: var(--lh-mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --- EditorNote ---------------------------------------------------------
+   The author's admission. Nothing sits above it. */
+.editor-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-block: var(--space-44) var(--space-26);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.editor-note__body {
+  max-width: var(--measure-note);
+  font-size: var(--fs-editor-note);
+  line-height: var(--lh-editor-note);
+  letter-spacing: -.004em;
+  text-wrap: pretty;
+}
+
+.editor-note__colophon {
+  max-width: var(--measure-colophon);
+  color: var(--ink-tertiary);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+/* --- SectionHead --------------------------------------------------------
+   Sentence case, full stop, carrying meaning rather than labelling. */
+.section-head {
+  max-width: var(--measure-body);
+  font-size: var(--fs-section-head);
+  line-height: var(--lh-section-head);
+}
+
+.section-head--ruled {
+  padding-bottom: var(--space-8);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.section-note {
+  max-width: var(--measure-caption);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+/* --- RouteEntry ---------------------------------------------------------
+   A walked entry runs about three times the length of an unwalked one. That
+   inequality is the content: do not equalise the heights. */
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: var(--measure-body);
+  padding-block: var(--space-34);
+  border-bottom: var(--rule) solid var(--rule-minor);
+}
+
+.entry__title {
+  font-size: var(--fs-route-title);
+  line-height: var(--lh-route-title);
+  letter-spacing: var(--tr-route-title);
+}
+
+.entry__lead {
+  max-width: var(--measure-lead);
+  color: var(--ink-secondary);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+.entry__body {
+  color: var(--ink-secondary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.entry--quiet {
+  gap: var(--space-8);
+  padding-block: 0;
+  border-bottom: 0;
+}
+
+.entry--quiet .entry__title {
+  font-size: var(--fs-route-title-quiet);
+  line-height: var(--lh-route-title-quiet);
+  letter-spacing: normal;
+}
+
+.entry--quiet .entry__lead { max-width: var(--measure-body); font-size: var(--fs-lead-quiet); }
+
+.entry__caveat {
+  color: var(--ink-tertiary);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+.entry-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-26);
+  max-width: var(--measure-body);
+  padding-block: var(--space-34);
+  border-bottom: var(--rule) solid var(--rule-minor);
+}
+
+/* --- Plate --------------------------------------------------------------
+   Only on walked routes. The caption is first person and names a time of day
+   and a month. */
+.plate {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin: 0;
+}
+
+/* The frame carries no padding, so the photograph itself is 2:1 (3:2 below
+   768px) inside the 1px rule. The placeholder label is positioned over it
+   rather than taking part in the box. */
+.plate__frame {
+  position: relative;
+  aspect-ratio: var(--plate-ratio);
+  border: var(--rule) solid var(--rule-minor);
+}
+
+.plate__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Temporary: stands in until the author's own photograph is placed. The only
+   gradient in the stylesheet, and it goes when the photograph arrives. */
+.plate__frame--empty {
+  background: repeating-linear-gradient(135deg, var(--hatch) 0 7px, var(--paper) 7px 14px);
+}
+
+.plate__placeholder {
+  position: absolute;
+  left: var(--space-12);
+  bottom: var(--space-12);
+  font-family: var(--apparatus);
+  font-size: var(--fs-eyebrow);
+  color: var(--muted);
+}
+
+.plate figcaption {
+  max-width: var(--measure-caption);
+  color: var(--ink-tertiary);
+  font-size: var(--fs-caption);
+  line-height: 1.55;
+}
+
+/* --- AbsenceMark --------------------------------------------------------
+   Where the photograph would be. Two rules and one sentence written for this
+   route: never a shared template, never filled with a stand-in image. */
+.absence {
+  padding-block: var(--space-16);
+  border-block: var(--rule) solid var(--rule-minor);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+/* --- FactLine -----------------------------------------------------------
+   The last paragraph of an entry. Five facts, always station, time, effort,
+   cost, toilets. Prose — never a table, a chip row or icons with labels. */
+.factline {
+  padding-top: var(--space-12);
+  border-top: var(--rule) solid var(--rule-minor);
+  color: var(--ink-secondary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-factline);
+}
+
+.factline--major {
+  padding-top: var(--space-16);
+  border-top-color: var(--ink);
+}
+
+/* A fact value never breaks across lines, at any width. validate-routes.js
+   caps the length of each value so this cannot overflow the column. */
+.factline b {
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* --- CorrectionsBand ----------------------------------------------------
+   Prose and an address. No form. */
+.corrections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  max-width: var(--measure-body);
+  padding-block: var(--space-26) var(--space-34);
+}
+
+.corrections__lead {
+  color: var(--ink-secondary);
+  font-size: 18px;
+  line-height: var(--lh-body);
+}
+
+.corrections__body {
+  color: var(--ink-tertiary);
+  font-size: 17px;
+  line-height: var(--lh-body);
+}
+
+.corrections__scale {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+/* --- Apparatus ----------------------------------------------------------
+   The footer. One serif line on the left, the service links in mono on the
+   right. */
+.apparatus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding-block: var(--space-16) var(--space-22);
+  border-top: var(--rule) solid var(--ink);
+}
+
+.apparatus__line { font-size: var(--fs-serif-small); }
+
+.apparatus__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12) var(--space-16);
+  font-family: var(--apparatus);
+  font-size: var(--fs-apparatus);
+  line-height: var(--lh-mono);
+}
+
+.apparatus__links a { color: var(--muted); text-decoration-color: var(--rule-minor); }
+.apparatus__links a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+/* --- Index page ---------------------------------------------------------
+   The head block: the one Eyebrow the page is allowed, used as imprint. */
+.index-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-block: var(--space-44) var(--space-26);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.index-head__title {
+  font-size: var(--fs-route-title);
+  line-height: 1.1;
+  letter-spacing: var(--tr-route-title);
+}
+
+.index-head__intro {
+  max-width: var(--measure-index);
+  color: var(--ink-secondary);
+  font-size: 17px;
+  line-height: var(--lh-body);
+}
+
+/* --- ConditionFilter ----------------------------------------------------
+   The filter is written as one sentence whose words are toggles. No chips,
+   no dropdowns, no Apply: a choice applies immediately.
+
+   It needs JavaScript to do anything, so it is served hidden and revealed by
+   condition-filter.js. A static host cannot filter on a query string, and a
+   control that looks live but does nothing is exactly what this redesign is
+   against. The index itself reads in full without it. */
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-block: var(--space-26) var(--space-22);
+  border-bottom: var(--rule) solid var(--rule-minor);
+}
+
+.filter__sentence {
+  max-width: var(--measure-filter);
+  color: var(--ink-secondary);
+  font-size: 22px;
+  line-height: 1.75;
+}
+
+/* A word is a toggle, not a link, so it is a real button — with none of a
+   button's appearance. Screen readers get the pressed state; the page gets a
+   word with a rule under it. */
+.filter__word {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--rule-minor);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.filter__word[aria-pressed="true"] {
+  color: var(--red-lead);
+  text-decoration-color: var(--red-lead);
+}
+
+.filter__sep { color: var(--numerals); }
+
+.filter__result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-8) var(--space-16);
+  padding-top: var(--space-12);
+  border-top: var(--rule) solid var(--rule-minor);
+}
+
+.filter__count {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+.filter__clear {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--apparatus);
+  font-size: var(--fs-apparatus);
+  line-height: var(--lh-mono);
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--rule-minor);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.filter__word:hover, .filter__clear:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+/* --- IndexRow -----------------------------------------------------------
+   Walked rows are separated from unwalked ones by a heading, never a badge.
+   The digits are the one place the numerals role is used as intended. */
+.index-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-26);
+}
+
+.index-group + .index-group {
+  margin-top: var(--space-8);
+  border-top: var(--rule) solid var(--ink);
+}
+
+.index-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: var(--space-22);
+  padding-block: var(--space-16);
+  border-top: var(--rule) solid var(--rule-minor);
+}
+
+.index-group:first-of-type .index-row:first-of-type { border-top-color: var(--ink); }
+.index-group:last-of-type .index-row:last-of-type { border-bottom: var(--rule) solid var(--rule-minor); }
+
+.index-row__number {
+  font-family: var(--apparatus);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--numerals);
+}
+
+.index-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: var(--measure-row);
+  min-width: 0;
+}
+
+.index-row__title {
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.index-row--walked .index-row__title { font-size: 26px; line-height: 1.12; }
+
+.index-row__summary {
+  color: var(--ink-secondary);
+  font-size: 17px;
+  line-height: var(--lh-lead);
+}
+
+.index-row__confidence {
+  color: var(--muted);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+.index-row--walked .index-row__confidence { color: var(--ink-tertiary); }
+
+.index-scale {
+  max-width: var(--measure-body);
+  padding-block: var(--space-22) var(--space-26);
+  color: var(--ink-secondary);
+  font-size: 17px;
+  line-height: var(--lh-body);
+}
+
+/* --- Terms used here ----------------------------------------------------
+   A glossary in the first person, not a legal page. The rows are the same
+   .definition component the route page uses. */
+.terms-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-block: var(--space-34) var(--space-22);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.terms-head__title {
+  font-size: 30px;
+  line-height: 1.12;
+  letter-spacing: -.006em;
+}
+
+.terms-head__intro {
+  max-width: var(--measure-terms);
+  color: var(--ink-secondary);
+  font-size: 17px;
+  line-height: var(--lh-body);
+}
+
+.terms-group { padding-block: var(--space-8) var(--space-26); }
+
+.terms-group + .terms-group { border-top: var(--rule) solid var(--ink); }
+
+.terms-group__head {
+  padding-top: var(--space-22);
+  font-size: var(--fs-section-head);
+  line-height: var(--lh-section-head);
+}
+
+.terms-group__note {
+  margin-top: var(--space-8);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+.terms-close {
+  padding-block: var(--space-16) var(--space-26);
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+/* --- Route page ---------------------------------------------------------
+   Not drawn in the handoff; built from the same components. Sections are
+   separated by one rule, in one column, with no panel or card anywhere. */
+.route-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: var(--measure-body);
+  padding-block: var(--space-44) var(--space-34);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.route-head__title {
+  font-size: var(--fs-route-title);
+  line-height: var(--lh-route-title);
+  letter-spacing: var(--tr-route-title);
+}
+
+.route-head__lead {
+  max-width: var(--measure-lead);
+  color: var(--ink-secondary);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+.route-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: var(--measure-body);
+  padding-block: var(--space-34);
+  border-bottom: var(--rule) solid var(--rule-minor);
+}
+
+/* Body default for a route section. Wrapped in :where() so it carries no
+   specificity: any component class on a paragraph — .meta, .quiet-line,
+   .definition__body — wins over it without needing a longer selector. */
+:where(.route-section) p {
+  color: var(--ink-secondary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* Apparatus prose: statuses, disclaimers, the unverified flag. Quiet, but
+   still above 4.5:1 on paper. */
+.quiet-line {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+.subhead {
+  font-size: var(--fs-term);
+  line-height: 1.25;
+}
+
+/* Ruled rows: the list idiom of the design system. Used for best-for and
+   not-ideal-for, the shapes of the day, the notes and the warnings — each of
+   which was a card, a panel or a chip row before. */
+.ruled-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ruled-list > li {
+  padding-block: var(--space-12);
+  border-top: var(--rule) solid var(--rule-minor);
+  color: var(--ink-secondary);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+/* No closing rule on the last row of any ruled stack: the section's own rule
+   closes it, and two rules a few pixels apart read as a mistake. */
+
+.definition {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-block: var(--space-16);
+  border-top: var(--rule) solid var(--rule-minor);
+}
+
+.definition__term {
+  font-size: var(--fs-term);
+  line-height: 1.25;
+}
+
+/* The glossary rows are a description list, so its own margins go. */
+.terms-group dl { margin: 0; }
+.terms-group dd { margin: 0; }
+
+.definition__body {
+  color: var(--ink-secondary);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+/* The stop sequence. Numerals are the only place the numerals role is used
+   as designed: digits, never prose. */
+.stops {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: stop;
+}
+
+.stops > li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: var(--space-22);
+  padding-block: var(--space-22);
+  border-top: var(--rule) solid var(--rule-minor);
+}
+
+.stops > li::before {
+  counter-increment: stop;
+  content: counter(stop, decimal-leading-zero);
+  font-family: var(--apparatus);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--numerals);
+}
+
+.stop__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.stop__title {
+  font-size: var(--fs-term);
+  line-height: 1.2;
+}
+
+.meta {
+  font-family: var(--apparatus);
+  font-size: var(--fs-meta);
+  line-height: var(--lh-mono);
+  color: var(--ink-tertiary);
+}
+
+.meta .separator { color: var(--numerals); }
+
+.links-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-16);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+/* --- Pages the handoff never designed -----------------------------------
+   About, Feedback, Privacy, Accessibility, the finder, the 404 and the
+   future-guides page keep their existing markup, so their class names — and
+   the ones assets/js/finder.js and forms.js generate — are restyled here
+   rather than renamed. No JavaScript was changed to make this work. */
+
+.page-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-block: var(--space-44) var(--space-26);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+.page-intro h1 {
+  font-size: var(--fs-route-title);
+  line-height: 1.1;
+  letter-spacing: var(--tr-route-title);
+}
+
+.page-intro > p:not(.eyebrow) {
+  max-width: var(--measure-index);
+  color: var(--ink-secondary);
+  font-size: 17px;
+  line-height: var(--lh-body);
+}
+
+.prose, .section {
+  max-width: var(--measure-body);
+  padding-block: var(--space-26);
+  border-bottom: var(--rule) solid var(--rule-minor);
+}
+
+.prose h2, .section > h2 {
+  margin-block: var(--space-16) var(--space-12);
+  font-size: var(--fs-section-head);
+  line-height: var(--lh-section-head);
+}
+
+.prose > h2:first-child, .section > h2:first-child { margin-top: 0; }
+
+.prose p, .section > p {
+  margin-block: var(--space-12);
+  color: var(--ink-secondary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.prose ul, .section ul {
+  margin-block: var(--space-12);
+  padding: 0;
+  list-style: none;
+}
+
+.prose li {
+  padding-block: var(--space-12);
+  border-top: var(--rule) solid var(--rule-minor);
+  color: var(--ink-secondary);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+.prose strong, .section strong { font-weight: 500; color: var(--ink); }
+
+.fine-print, .caveat, .navigation-disclaimer, .arrival-privacy, .status-legend,
+.results-meta, .soundtrack, .form-message {
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+.caveat, .soundtrack { font-style: italic; }
+
+/* Buttons. A link that was dressed as one goes back to being a link; a form's
+   submit stays a control, because a form needs one — a single 1px rule, no
+   fill, no radius. */
+a.button {
+  display: inline;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--red-lead);
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--numerals);
+  text-underline-offset: 3px;
+}
+
+a.button:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+button[type="submit"], button[type="reset"] {
+  min-height: var(--tap);
+  padding: var(--space-8) var(--space-16);
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--editorial);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+  cursor: pointer;
+}
+
+button[type="submit"]:hover, button[type="reset"]:hover { color: var(--red-lead); border-color: var(--red-lead); }
+button:disabled { color: var(--muted); border-color: var(--rule-minor); cursor: not-allowed; }
+
+.button-row, .filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12) var(--space-16);
+  margin-top: var(--space-16);
+}
+
+/* Forms. One column, ruled fields, no panel. */
+.form-card { max-width: var(--measure-body); }
+.form-grid { display: flex; flex-direction: column; gap: var(--space-16); }
+.form-field { display: flex; flex-direction: column; gap: var(--space-4); }
+
+label, .filter-group legend, .form-field label {
+  color: var(--ink);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+input, select, textarea {
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--space-8) var(--space-12);
+  border: var(--rule) solid var(--rule-minor);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--editorial);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+textarea { min-height: 7rem; resize: vertical; }
+input:focus, select:focus, textarea:focus { border-color: var(--ink); }
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--red-lead); }
+input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
+
+.field-error { margin-top: var(--space-4); color: var(--red-lead); font-size: var(--fs-caption); }
+.form-message { margin-top: var(--space-16); padding-top: var(--space-12); border-top: var(--rule) solid var(--rule-minor); }
+.form-message:not(.show) { display: none; }
+
+/* The finder. Its chips become the same selectable words the index filter
+   uses, so the two filters read as one idea. */
+.finder-layout, .route-grid, .result-list, .steps, .quick-facts, .fit-panels,
+.version-cards, .navigation-grid, .travel-facts, .chip-list, .route-type-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.chip-list { flex-direction: row; flex-wrap: wrap; gap: var(--space-8) var(--space-16); }
+
+.filter-panel { max-width: var(--measure-body); }
+.filter-panel > h2 { font-size: var(--fs-section-head); line-height: var(--lh-section-head); }
+
+.filter-group {
+  margin: 0;
+  padding: var(--space-16) 0;
+  border: 0;
+  border-top: var(--rule) solid var(--rule-minor);
+}
+
+.filter-group legend { padding: 0 0 var(--space-8); }
+
+.chip, .route-type-option { position: relative; }
+.chip input, .route-type-option input { position: absolute; opacity: 0; pointer-events: none; }
+
+.chip span, .route-type-option span {
+  display: inline-block;
+  color: var(--ink);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--rule-minor);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.chip input:checked + span, .route-type-option input:checked + span {
+  color: var(--red-lead);
+  text-decoration-color: var(--red-lead);
+}
+
+.chip input:focus-visible + span, .route-type-option input:focus-visible + span {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.route-type-option span { display: block; }
+.route-type-option strong { font-weight: 400; }
+.route-type-option small { display: block; color: var(--muted); font-size: var(--fs-caption); text-decoration: none; }
+
+.advanced-filters { margin-top: var(--space-16); border-top: var(--rule) solid var(--rule-minor); }
+.advanced-filters summary {
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  color: var(--ink-secondary);
+  font-size: var(--fs-caveat);
+  cursor: pointer;
+}
+
+/* Finder results become index rows. */
+.result-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: var(--measure-row);
+  padding-block: var(--space-16);
+  border-top: var(--rule) solid var(--rule-minor);
+}
+
+.result-card h2 { font-size: 22px; line-height: 1.15; }
+.result-card > p { color: var(--ink-secondary); font-size: 17px; line-height: var(--lh-lead); }
+.result-heading { display: flex; flex-direction: column; gap: var(--space-4); }
+
+/* One Eyebrow per page, and only as imprint: the one in .page-intro keeps
+   the mono caps treatment. The rest — the labels that sat above a heading on
+   these pages, and the type-and-ranking line the finder generates — keep
+   their words but lose the micro-label look. */
+.section .eyebrow, .form-card .eyebrow, .idea-card .eyebrow,
+.result-card .eyebrow, .result-kicker, .match, .match-chips {
+  font-family: var(--apparatus);
+  font-size: var(--fs-meta);
+  line-height: var(--lh-mono);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ink-tertiary);
+}
+
+.result-kicker::before { content: "· "; color: var(--numerals); }
+.result-heading > div { display: flex; flex-direction: column; gap: var(--space-4); }
+
+/* Fact chips become one mono line with the separators in numerals. */
+.facts { display: block; }
+.fact {
+  font-family: var(--apparatus);
+  font-size: var(--fs-meta);
+  line-height: var(--lh-mono);
+  color: var(--ink-tertiary);
+}
+.fact + .fact::before { content: " · "; color: var(--numerals); }
+
+.match-chips { display: flex; flex-wrap: wrap; gap: 0 var(--space-8); padding: 0; list-style: none; }
+.match-chip-miss { color: var(--muted); text-decoration: line-through; }
+
+.empty-state, .status-legend { padding-block: var(--space-16); }
+.results-meta { padding-block: var(--space-16); }
+
+/* future-guides: the possible collections are ruled rows, not cards. */
+.idea-card {
+  padding-block: var(--space-16);
+  border-top: var(--rule) solid var(--rule-minor);
+}
+.idea-card h2 { font-size: var(--fs-term); line-height: 1.25; }
+.idea-card p { margin-block: var(--space-4) 0; color: var(--ink-secondary); font-size: var(--fs-caveat); line-height: var(--lh-caption); }
+.idea-card .eyebrow { margin-bottom: var(--space-4); }
+
+@media (max-width: 767.98px) {
+  /* Tap targets ≥ 44px. Vertical padding on an inline link grows the hit
+     area without changing the line box, so the measure is untouched. The
+     spec suggests 10px; an inline box is only about 1.15em tall, so 10px
+     lands at 37–39px and 14px is what actually clears 44. The 11px mono
+     apparatus links are too small for padding alone to reach it, so they
+     become inline-flex with a minimum height instead. */
+  a { padding-block: 14px; }
+  .apparatus__links a, .apparatus__line a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding-block: 0;
+  }
+  .apparatus__links { gap: var(--space-12) var(--space-16); }
+  .stops > li { grid-template-columns: 26px 1fr; gap: var(--space-16); }
+  .index-row { grid-template-columns: 26px minmax(0, 1fr); gap: var(--space-16); }
+  .links-line { gap: var(--space-4) var(--space-16); }
+  /* Filter words are buttons. Neither a minimum height nor vertical padding
+     works here — a button is laid out as a replaced box, so both stretch
+     every line of the sentence. The hit area is extended with a transparent
+     overlay instead, which reaches 44px and leaves the line box alone. */
+  .filter__word { position: relative; }
+  .filter__word::after {
+    content: "";
+    position: absolute;
+    inset: -9px -2px;
+  }
+  .filter__clear {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+  /* The finder's chips are labels, not links, so they need the overlay too. */
+  .chip span, .route-type-option span, .advanced-filters summary { position: relative; }
+  .chip span::after, .route-type-option span::after {
+    content: "";
+    position: absolute;
+    inset: -11px -2px;
+  }
+}
+
+@media print {
+  html, body { background: #fff; }
+  .page {
+    max-width: none;
+    border: 0;
+    padding-inline: 0;
+    background: #fff;
+  }
+  .skip-link { display: none; }
+  a { color: var(--ink); }
+  a[href^="http"]::after,
+  a[href^="/"]::after {
+    content: " [" attr(href) "]";
+    font-family: var(--apparatus);
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .entry, .entry-group, .route-section, .definition, .stops > li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
