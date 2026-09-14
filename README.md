@@ -17,6 +17,17 @@ Then open `http://localhost:8000`.
 ## Files that matter
 
 - `data/routes.json` — the single source of truth for all routes.
+- `data/almanac.json` — page-level copy for the pages on the field-guide
+  design; per-route copy for those pages lives under each route's `almanac`
+  key in `routes.json`.
+- `scripts/build_almanac_pages.py` — builds every page. Route pages, the
+  homepage, the index and the glossary are generated in full; the pages the
+  handoff never designed keep their `<main>` and get the new shell. It prints
+  the routes still waiting for copy each time it runs.
+- `assets/js/condition-filter.js` — the index filter. The only JavaScript on
+  a redesigned page, and the index reads in full without it.
+- `assets/css/almanac-tokens.css` — design tokens for the redesign. Nothing
+  in `almanac.css` may use a value that is not defined there.
 - `data/venue-timing.json` — one editable record per venue for happy-hour checks, current deals and official source links.
 - `assets/js/finder.js` — the deterministic six-filter scoring logic.
 - `scripts/validate-routes.js` — dependency-free schema checks for route data.
@@ -53,11 +64,15 @@ Do not publish a regular happy hour unless the venue’s own current page confir
 6. For a `day-walk`, add the required `travel` and `hike` objects before it can pass validation. Use only checked journey and route sources; do not invent a continuous Google Maps route or GPX.
 7. Personally field-test it before changing `status` to `field-checked`; reserve `published` for a final public editorial review.
 
-Run the data checks before sharing a change:
+Rebuild the pages and run the data checks before sharing a change:
 
 ```bash
-node scripts/validate-routes.js
+python3 scripts/build_route_pages.py && python3 scripts/build_almanac_pages.py && node scripts/validate-routes.js
 ```
+
+The two generators skip each other's pages, so the order does not matter.
+`DESIGN.md` says which pages are on which design, and `DESIGN-CONFLICTS.md`
+records what the redesign still needs decided.
 
 ## Forms
 

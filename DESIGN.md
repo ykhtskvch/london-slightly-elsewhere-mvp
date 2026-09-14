@@ -2,6 +2,25 @@
 
 This file applies the Anti-Slop Design Brief to this project. Future pages and components should follow it.
 
+## Which design a page is on
+
+**Every page is on the field-guide design**, except `/routes/seventeen/` —
+the unlisted route, which the handoff says stays as it is.
+
+- Field-guide design: `assets/css/almanac-tokens.css` +
+  `assets/css/almanac.css`, Newsreader and IBM Plex Mono, one column. Built by
+  `scripts/build_almanac_pages.py`. Every page reads in full without
+  JavaScript; `condition-filter.js` enhances the index, and `finder.js` and
+  `forms.js` drive the finder and the forms as before.
+- Previous design: `assets/css/styles.css`, Fraunces and Work Sans, light and
+  dark, built by `scripts/build_route_pages.py`. Now used by one page.
+
+The two stylesheets are never loaded together. The rules below still describe
+that one page and the project's editorial standards; the palette, the two type
+families, the dark theme and the 60–75 character measure are superseded
+everywhere else. `DESIGN-CONFLICTS.md` records where the two disagree, what
+was decided and why, and what still needs the author.
+
 ## Project decisions
 
 - **Subject and audience:** an independent route guide for London residents aged roughly 25–45 who want a date, catch-up, local escape or occasional full day out with more character and less planning theatre.
