@@ -19,6 +19,8 @@ import html
 import json
 import pathlib
 
+import build_almanac_pages
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE_BASE = "https://ykhtskvch.github.io/london-slightly-elsewhere-mvp"
 TITLE_SUFFIX = " | London, Slightly Elsewhere"
@@ -220,19 +222,32 @@ def replace_grid(path, marker, cards, indent):
 
 def main():
     routes = json.loads((ROOT / "data" / "routes.json").read_text(encoding="utf-8"))
+    # Pages that have moved to the field-guide design are written by
+    # build_almanac_pages.py instead. Skipping them here keeps the two
+    # generators from overwriting each other.
+    moved = ({route["slug"] for route in routes} if build_almanac_pages.ALMANAC_ROUTES is None
+             else set(build_almanac_pages.ALMANAC_ROUTES))
     for route in routes:
+        if route["slug"] in moved:
+            continue
         target = ROOT / "routes" / route["slug"] / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(page(route), encoding="utf-8")
-    print(f"Wrote {len(routes)} route pages.")
+    print(f"Wrote {len(routes) - len(moved)} route pages ({len(moved)} on the new design, skipped).")
 
     browse = ROOT / "routes" / "index.html"
-    replace_grid(browse, "<div class=\"route-grid\" data-featured-routes data-browse-routes",
-                 [card(r, "", browsable=True) for r in routes], " " * 8)
-    print(f"Wrote {len(routes)} cards into routes/index.html.")
+    browse_marker = "<div class=\"route-grid\" data-featured-routes data-browse-routes"
+    if browse_marker in browse.read_text(encoding="utf-8"):
+        replace_grid(browse, browse_marker, [card(r, "", browsable=True) for r in routes], " " * 8)
+        print(f"Wrote {len(routes)} cards into routes/index.html.")
+    else:
+        print("routes/index.html is on the new design; run build_almanac_pages.py for it.")
 
     home = ROOT / "index.html"
     marker = "<div class=\"route-grid\" data-featured-routes data-featured-route-ids="
+    if marker not in home.read_text(encoding="utf-8"):
+        print("index.html is on the new design; run build_almanac_pages.py for it.")
+        return
     featured_ids = home.read_text(encoding="utf-8").split(marker)[1].split('"')[1].split(",")
     by_key = {key: r for r in routes for key in (r["id"], r["slug"])}
     featured = [by_key[key.strip()] for key in featured_ids if key.strip()]

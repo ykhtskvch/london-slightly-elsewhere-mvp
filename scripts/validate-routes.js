@@ -131,6 +131,60 @@ for (const route of routes) {
   if (typeof filters.shortenable !== "boolean") addError(route, "filters.shortenable must be boolean");
 }
 
+// The `almanac` block drives the field-guide design. These checks are the
+// design's acceptance criteria expressed as data rules: the five facts in a
+// fixed order, one effort scale of three words, a photograph only where a
+// route has been walked, and an absence sentence written per route rather
+// than from a template.
+const effortWords = new Set(["flat", "gentle", "a proper walk"]);
+const factOrder = ["station", "time", "effort", "cost", "toilets"];
+// A fact value is set in `white-space: nowrap`, so an over-long one would
+// push the column sideways at 375px.
+const FACT_VALUE_MAX = 28;
+const absenceSentences = new Map();
+
+for (const route of routes) {
+  const almanac = route.almanac;
+  if (almanac === undefined) continue;
+  if (!almanac || typeof almanac !== "object" || Array.isArray(almanac)) {
+    addError(route, "almanac must be an object when supplied");
+    continue;
+  }
+
+  if (typeof almanac.walked !== "boolean") addError(route, "almanac.walked must be boolean");
+  if (almanac.lastWalked !== null && !isString(almanac.lastWalked)) addError(route, "almanac.lastWalked must be a string or null");
+  if (!effortWords.has(almanac.effort)) addError(route, `almanac.effort must be one of ${[...effortWords].join(", ")}`);
+  if (!isString(almanac.linkName)) addError(route, "almanac.linkName is missing");
+
+  const facts = almanac.factLine;
+  if (!facts || typeof facts !== "object" || Array.isArray(facts)) addError(route, "almanac.factLine is missing");
+  else {
+    const found = [...String(facts.sentence || "").matchAll(/\{([a-z]+)\}/g)].map(match => match[1]);
+    if (found.join(",") !== factOrder.join(",")) {
+      addError(route, `almanac.factLine.sentence must name ${factOrder.join(", ")} once each, in that order`);
+    }
+    for (const key of factOrder) {
+      if (!isString(facts[key])) addError(route, `almanac.factLine.${key} is missing`);
+      else if (facts[key].length > FACT_VALUE_MAX) addError(route, `almanac.factLine.${key} is over ${FACT_VALUE_MAX} characters and would not fit on one line at 375px`);
+    }
+    if (facts.effort !== almanac.effort) addError(route, "almanac.factLine.effort must match almanac.effort");
+  }
+
+  if (almanac.walked) {
+    const plate = almanac.plate;
+    if (!plate || !isString(plate.caption)) addError(route, "a walked route needs almanac.plate.caption");
+    if (plate && !plate.image && !isString(plate.placeholder)) addError(route, "almanac.plate needs an image or a placeholder label");
+    if ("absence" in almanac) addError(route, "a walked route must not carry an absence sentence");
+  } else {
+    if (!isString(almanac.absence)) addError(route, "an unwalked route needs almanac.absence");
+    if (!isString(almanac.caveat)) addError(route, "an unwalked route needs almanac.caveat");
+    if ("plate" in almanac) addError(route, "photographs appear only on walked routes");
+    const seen = absenceSentences.get(almanac.absence);
+    if (seen) addError(route, `almanac.absence repeats the sentence used by ${seen} — each absence is written for its own route`);
+    else if (isString(almanac.absence)) absenceSentences.set(almanac.absence, route.slug);
+  }
+}
+
 if (errors.length) {
   console.error(`Route validation failed with ${errors.length} error${errors.length === 1 ? "" : "s"}:`);
   errors.forEach(error => console.error(`- ${error}`));

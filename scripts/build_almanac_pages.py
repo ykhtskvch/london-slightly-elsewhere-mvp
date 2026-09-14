@@ -1,0 +1,973 @@
+#!/usr/bin/env python3
+"""Build the pages that have moved to the field-guide design.
+
+The previous generator (build_route_pages.py) writes a thin shell that
+route-page.js fills in from data/routes.json once it loads. The redesign
+requires every page to be readable with JavaScript disabled, so the pages
+listed in ALMANAC_ROUTES are written out in full here instead, and they load
+neither app.js nor route-page.js.
+
+Both generators read the same data/routes.json. A route is built by exactly
+one of them: ALMANAC_ROUTES decides which. Pages still on the previous design
+keep assets/css/styles.css; the redesigned pages load almanac-tokens.css and
+almanac.css and never both stylesheets at once.
+
+build_route_pages.py imports ALMANAC_ROUTES from here and skips those routes,
+so the two can be run in either order.
+"""
+
+import html
+import json
+import pathlib
+import re
+from urllib.parse import quote, urlencode
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+SITE_BASE = "https://ykhtskvch.github.io/london-slightly-elsewhere-mvp"
+TITLE_SUFFIX = " | London, Slightly Elsewhere"
+
+# Routes whose detail page is built to the new design. Every route is now on
+# it; the tuple stays so build_route_pages.py can still tell the two apart if
+# a page is ever moved back.
+ALMANAC_ROUTES = None  # None means every route in the data.
+
+FACT_ORDER = ("station", "time", "effort", "cost", "toilets")
+
+# Kept in step with FLOW_LABELS in build_route_pages.py: the same stop types
+# must read the same way on a redesigned page and on one that has not moved
+# yet.
+FLOW_LABELS = {
+    "start": "start",
+    "walk": "walk",
+    "pub": "pub",
+    "live-music": "optional gig",
+    "bookshop": "bookshop",
+    "museum": "indoor stop",
+    "cafe-or-pub": "warm finish",
+    "garden": "free gardens",
+    "view": "view",
+}
+
+# The status sentence, in the author's words rather than as a badge. Wording
+# is carried over verbatim from route-page.js so nothing new is claimed.
+STATUS_LINE = {
+    "published": "Self-guided route.",
+    "field-checked": "Personally field-checked route — live details can still change.",
+    "prototype": "Prototype route — not yet field-checked.",
+}
+PILOT_LINE = "Pilot route — walked once; verify live details before going."
+
+
+HUB_NAMES = {
+    "kings-cross-st-pancras": "King’s Cross St Pancras",
+    "liverpool-street": "Liverpool Street",
+    "london-bridge": "London Bridge",
+    "metropolitan-line": "Metropolitan line",
+    "other": "Another London departure point",
+}
+
+
+def e(value):
+    return html.escape(str(value or ""), quote=True)
+
+
+def format_hub(hub):
+    return HUB_NAMES.get(hub) or hub.replace("-", " ").title()
+
+
+def load(name):
+    return json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
+
+
+# --- components ---------------------------------------------------------
+
+
+def external(href, text, quiet=True):
+    """An outward link. The old markup signalled 'new tab' with a ↗ glyph;
+    the design allows no icons, so the signal is given to assistive
+    technology in words instead."""
+    cls = ' class="quiet"' if quiet else ""
+    return (
+        f'<a{cls} href="{e(href)}" rel="noopener" target="_blank">{e(text)}'
+        '<span class="visually-hidden"> (opens in a new tab)</span></a>'
+    )
+
+
+def fact_line_parts(route):
+    """The FactLine sentence and its values. Authored per route where an
+    almanac block exists; otherwise assembled from the fields the data has,
+    in the same fixed order. Toilets are simply absent for the routes that
+    carry no toilet information — a fact is left out rather than invented."""
+    almanac = route.get("almanac")
+    if almanac:
+        return almanac["factLine"]["sentence"], almanac["factLine"]
+    quick = route["quickFacts"]
+    is_walk = route["routeType"] == "day-walk"
+    values = {
+        "station": route["travel"]["arrivalStation"] if is_walk else quick["startStation"],
+        "time": quick["duration"],
+        "effort": effort_word(route),
+        "cost": quick["budget"],
+    }
+    toilets = (route.get("hike") or {}).get("conditions", {}).get("toilets")
+    sentence = "Start at {station}, allow {time}, it is {effort}, reckon on {cost}."
+    if toilets:
+        # Written as a sentence in the data, so it follows the FactLine
+        # rather than sitting inside it as a short phrase.
+        sentence += f" {toilets}"
+    return sentence, values
+
+
+def fact_line(route, base, major, with_link):
+    """FactLine — the facts as one sentence, always in the order station,
+    time, effort, cost, toilets, with the values in ink at 500. Prose, and it
+    stays prose."""
+    sentence, facts = fact_line_parts(route)
+    text = ""
+    for chunk in re.split(r"(\{[a-z]+\})", sentence):
+        key = chunk[1:-1] if chunk.startswith("{") else None
+        text += f"<b>{e(facts[key])}</b>" if key else e(chunk)
+    if with_link:
+        link_name = (route.get("almanac") or {}).get("linkName") or "What I think it is"
+        link = f'<a href="{base}routes/{e(route["slug"])}/">{e(link_name)}</a>'
+        text += f" {link}."
+    classes = "factline factline--major" if major else "factline"
+    return f'<p class="{classes}">{text}</p>'
+
+
+def plate(route):
+    """Photograph at 2:1 (3:2 below 768px), first-person caption naming the
+    time of day and the month. Walked routes only."""
+    art = route["almanac"]["plate"]
+    if art.get("image"):
+        frame = f'<div class="plate__frame"><img alt="" src="{e(art["image"])}"></div>'
+    else:
+        frame = (
+            '<div class="plate__frame plate__frame--empty">'
+            f'<span class="plate__placeholder">[ {e(art["placeholder"])} ]</span></div>'
+        )
+    return f'<figure class="plate">{frame}<figcaption>{e(art["caption"])}</figcaption></figure>'
+
+
+def entry(route, base):
+    """RouteEntry.walked — roughly three times the length of an unwalked
+    entry. The inequality is the content."""
+    a = route["almanac"]
+    body = "".join(f'<p class="entry__body">{e(p)}</p>' for p in a.get("body", []))
+    return (
+        '<article class="entry">'
+        f'<h2 class="entry__title">{e(route["title"])}</h2>'
+        f'<p class="entry__lead">{e(route["subtitle"])}</p>'
+        f"{plate(route)}"
+        f"{body}"
+        f"{fact_line(route, base, major=True, with_link=True)}"
+        "</article>"
+    )
+
+
+def entry_quiet(route, base):
+    """RouteEntry.unwalked — an AbsenceMark where the photograph would be,
+    carrying a sentence written for this route."""
+    a = route["almanac"]
+    return (
+        '<article class="entry entry--quiet">'
+        f'<h3 class="entry__title">{e(route["title"])}</h3>'
+        f'<p class="entry__lead">{e(route["subtitle"])}</p>'
+        f'<p class="absence">{e(a["absence"])}</p>'
+        f'<p class="entry__caveat">{e(a["caveat"])}</p>'
+        f"{fact_line(route, base, major=False, with_link=True)}"
+        "</article>"
+    )
+
+
+def corrections(almanac, base, head=None, lead=True, body=None):
+    """CorrectionsBand — prose and an address, never a form."""
+    terms = f'<a href="{base}terms-used-here/">{e(almanac["corrections"]["termsLinkName"])}</a>'
+    scale = e(almanac["corrections"]["scale"]).replace("{termsLink}", terms)
+    parts = [f'<h2 class="section-head">{e(head)}</h2>'] if head else []
+    if lead:
+        parts.append(f'<p class="corrections__lead">{e(almanac["corrections"]["lead"])}</p>')
+    for line in body or [almanac["corrections"]["body"]]:
+        parts.append(line if line.startswith("<") else f'<p class="corrections__body">{e(line)}</p>')
+    parts.append(f'<p class="corrections__scale">{scale}</p>')
+    return f'<section class="corrections">{"".join(parts)}</section>'
+
+
+def apparatus(almanac, base, current=None):
+    """Apparatus — one serif line and the service links in mono."""
+    line = almanac["apparatus"]["line"]
+    sentence = (
+        f'{e(line["before"])}<a href="{base}{e(line["href"])}">{e(line["linkName"])}</a>'
+        f'{e(line["after"])}'
+    )
+    here = ' aria-current="page"'
+    links = "".join(
+        f'<a{here if item["href"] == current else ""}'
+        f' href="{base}{e(item["href"])}">{e(item["name"])}</a>'
+        for item in almanac["apparatus"]["links"]
+    )
+    return (
+        '<footer class="apparatus">'
+        f'<span class="apparatus__line">{sentence}</span>'
+        f'<nav class="apparatus__links" aria-label="Site">{links}</nav>'
+        "</footer>"
+    )
+
+
+def definition(term, body, meta=None, glossary=False):
+    """A ruled row: the list idiom of the design system, and what every card,
+    panel and chip row on the route page becomes.
+
+    On the glossary the rows are a real description list, which is what they
+    are and which keeps the page from running h1 straight into h3."""
+    tail = f'<p class="meta">{e(meta)}</p>' if meta else ""
+    if glossary:
+        return (
+            '<div class="definition">'
+            f'<dt class="definition__term">{e(term)}</dt>'
+            f'<dd class="definition__body">{e(body)}</dd>'
+            f"{tail}</div>"
+        )
+    return (
+        '<div class="definition">'
+        f'<h3 class="definition__term">{e(term)}</h3>'
+        f'<p class="definition__body">{e(body)}</p>'
+        f"{tail}</div>"
+    )
+
+
+def ruled_list(values):
+    items = "".join(f"<li>{e(value)}</li>" for value in values)
+    return f'<ul class="ruled-list">{items}</ul>'
+
+
+def section(head, *blocks, ruled=False):
+    cls = "section-head section-head--ruled" if ruled else "section-head"
+    inner = "".join(block for block in blocks if block)
+    return f'<section class="route-section"><h2 class="{cls}">{e(head)}</h2>{inner}</section>'
+
+
+def paragraph(text, quiet=False):
+    if not text:
+        return ""
+    cls = ' class="quiet-line"' if quiet else ""
+    return f"<p{cls}>{e(text)}</p>"
+
+
+# --- maps ---------------------------------------------------------------
+
+
+def maps_search(query):
+    return "https://www.google.com/maps/search/?" + urlencode({"api": "1", "query": query})
+
+
+def maps_directions(origin, destination, travelmode="walking"):
+    params = {"api": "1", "destination": destination, "travelmode": travelmode}
+    if origin:
+        params["origin"] = origin
+    return "https://www.google.com/maps/dir/?" + urlencode(params)
+
+
+def maps_route(stops):
+    params = {
+        "api": "1",
+        "origin": stops[0]["mapQuery"],
+        "destination": stops[-1]["mapQuery"],
+        "travelmode": "walking",
+    }
+    waypoints = [stop["mapQuery"] for stop in stops[1:-1]][:9]
+    if waypoints:
+        params["waypoints"] = "|".join(waypoints)
+    return "https://www.google.com/maps/dir/?" + urlencode(params)
+
+
+# --- pages --------------------------------------------------------------
+
+
+def shell(head, body, base, narrow=False):
+    page_class = "page page--narrow" if narrow else "page"
+    return f"""<!doctype html>
+<html lang="en">
+  <head>
+{head}
+    <link rel="stylesheet" href="{base}assets/css/almanac-tokens.css">
+    <link rel="stylesheet" href="{base}assets/css/almanac.css">
+  </head>
+  <body data-base-path="{base}">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="{page_class}">
+{body}
+    </div>
+  </body>
+</html>
+"""
+
+
+def home(routes, almanac):
+    base = "./"
+    by_slug = {route["slug"]: route for route in routes}
+    featured = [by_slug[slug] for slug in almanac["home"]["featured"]]
+    walked = [route for route in featured if route["almanac"]["walked"]]
+    unwalked = [route for route in featured if not route["almanac"]["walked"]]
+
+    head = "\n".join([
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '    <meta name="description" content="Independent routes for neighbourhood days, green escapes and full days out by public transport — by mood, not by algorithm.">',
+        "    <title>London, Slightly Elsewhere</title>",
+        '    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"London, Slightly Elsewhere","description":"Independent routes for neighbourhood days, green escapes and full days out by public transport.","inLanguage":"en-GB","areaServed":{"@type":"City","name":"London"}}</script>',
+    ])
+
+    # The h1 is hidden rather than absent: the design puts the editor's note
+    # first and allows nothing above it, but the page still needs a level-one
+    # heading for assistive technology and for search.
+    parts = [
+        '<h1 class="visually-hidden">London, Slightly Elsewhere</h1>',
+        '<section class="editor-note">'
+        f'<p class="editor-note__body">{e(almanac["home"]["editorNote"])}</p>'
+        f'<p class="editor-note__colophon">{e(almanac["home"]["colophon"])}</p>'
+        "</section>",
+    ]
+    parts += [entry(route, base) for route in walked]
+    if unwalked:
+        quiet = "".join(entry_quiet(route, base) for route in unwalked)
+        parts.append(
+            '<section class="entry-group">'
+            f'<h2 class="section-head section-head--ruled">{e(almanac["home"]["unwalkedHead"])}</h2>'
+            f"{quiet}</section>"
+        )
+
+    parts.append(corrections(almanac, base))
+    body = (
+        f'      <main id="main">{"".join(parts)}</main>\n'
+        f"      {apparatus(almanac, base)}"
+    )
+    return shell(head, body, base)
+
+
+# --- derived index values ------------------------------------------------
+#
+# The index lists every route, but only the routes with an `almanac` block
+# carry authored copy. Everything below is derived from fields the data
+# already has, so no claim is made that the data does not support. Where a
+# fact is missing it is left out rather than guessed at — see
+# DESIGN-CONFLICTS.md.
+
+# One effort scale of three words, mapped from the three scales the data
+# still uses. Every full day out is a proper walk: they run 15–22 km.
+EFFORT_FROM_LEVEL = {
+    "very-low": "flat",
+    "gentle": "gentle",
+    "medium": "a proper walk",
+    "urban-hike": "a proper walk",
+}
+
+
+def effort_word(route):
+    almanac = route.get("almanac")
+    if almanac:
+        return almanac["effort"]
+    if route["routeType"] == "day-walk":
+        return "a proper walk"
+    return EFFORT_FROM_LEVEL.get(route["quickFacts"].get("walkingLevel"), "a proper walk")
+
+
+def condition_tags(route):
+    """The words this route can be filtered by. A route is tagged only where
+    the data answers the question; an untagged route does not match, rather
+    than being assumed to."""
+    tags = [effort_word(route)]
+
+    if route["routeType"] == "day-walk":
+        tags.append("most of a day")
+    else:
+        duration = set(route["filters"].get("duration") or [])
+        if duration & {"1-2h", "3-4h"}:
+            tags.append("an afternoon")
+        if duration & {"half-day", "4h-plus"}:
+            tags.append("most of a day")
+
+    # No cost band for the full days out: their budgets are written as "train
+    # fare + pub lunch" and the travel is the part that moves.
+    budget = route["filters"].get("budget")
+    if budget == "free-ish":
+        tags.append("next to nothing")
+    elif budget == "under-30":
+        tags.append("under £30")
+
+    weather = set(route["quickFacts"].get("weather") or [])
+    if "rainy" in weather:
+        tags.append("after rain")
+    if "cold" in weather:
+        tags.append("in the cold")
+    return tags
+
+
+def index_facts(route):
+    """The five facts in the fixed order station, time, effort, cost,
+    toilets. Toilets exist as a short phrase only on the routes with an
+    almanac block, so the other rows carry four."""
+    almanac = route.get("almanac")
+    if almanac:
+        facts = almanac["factLine"]
+        return [facts[key] for key in FACT_ORDER[:4]] + [f"toilets at {facts['toilets']}"]
+    quick = route["quickFacts"]
+    start = route["travel"]["arrivalStation"] if route["routeType"] == "day-walk" else quick["startStation"]
+    return [start, quick["duration"], effort_word(route), quick["budget"]]
+
+
+def index_row(route, number, base):
+    almanac = route.get("almanac") or {}
+    walked = bool(almanac.get("walked"))
+    link_name = almanac.get("linkName") or "What I think it is"
+    link = f'<a href="{base}routes/{e(route["slug"])}/">{e(link_name)}</a>'
+    confidence = f'{e(almanac["indexNote"])} {link}.' if almanac.get("indexNote") else f"{link}."
+    facts = '<span class="separator"> · </span>'.join(e(fact) for fact in index_facts(route))
+    return (
+        f'<div class="index-row{" index-row--walked" if walked else ""}" data-row'
+        f' data-walked="{"true" if walked else "false"}"'
+        f' data-tags="{e("|".join(condition_tags(route)))}">'
+        f'<span class="index-row__number" aria-hidden="true">{number:02d}</span>'
+        '<div class="index-row__body">'
+        f'<h3 class="index-row__title">{e(route["title"])}</h3>'
+        f'<p class="index-row__summary">{e(route["subtitle"])}</p>'
+        f'<p class="meta">{facts}</p>'
+        f'<p class="index-row__confidence">{confidence}</p>'
+        "</div></div>"
+    )
+
+
+def condition_filter(almanac):
+    spec = almanac["index"]["filter"]
+    parts = [e(spec["lead"])]
+    for group in spec["groups"]:
+        words = []
+        for word in group["words"]:
+            words.append(
+                f'<button class="filter__word" type="button" aria-pressed="false"'
+                f' data-word="{e(word)}" data-axis="{e(group["axis"])}">{e(word)}</button>'
+            )
+        parts.append('<span class="filter__sep"> / </span>'.join(words))
+        parts.append(e(group["after"]))
+    return (
+        '<section class="filter" data-condition-filter hidden aria-label="Filter the index">'
+        f'<p class="filter__sentence">{"".join(parts)}</p>'
+        '<div class="filter__result">'
+        '<p class="filter__count" data-result role="status"></p>'
+        f'<button class="filter__clear" type="button" data-clear hidden>{e(spec["clear"])}</button>'
+        "</div></section>"
+    )
+
+
+def index_page(routes, almanac):
+    base = "../"
+    spec = almanac["index"]
+    walked = [route for route in routes if (route.get("almanac") or {}).get("walked")]
+    unwalked = [route for route in routes if not (route.get("almanac") or {}).get("walked")]
+
+    number = 0
+    groups = []
+    for head, note, members in (
+        (spec["walkedHead"], None, walked),
+        (spec["unwalkedHead"], spec["unwalkedNote"], unwalked),
+    ):
+        if not members:
+            continue
+        rows = []
+        for route in members:
+            number += 1
+            rows.append(index_row(route, number, base))
+        note_html = f'<p class="section-note">{e(note)}</p>' if note else ""
+        groups.append(
+            '<section class="index-group" data-group>'
+            f'<h2 class="section-head">{e(head)}</h2>{note_html}{"".join(rows)}'
+            "</section>"
+        )
+
+    terms = f'<a href="{base}terms-used-here/">{e(almanac["corrections"]["termsLinkName"])}</a>'
+    scale = e(spec["scale"]).replace("{termsLink}", terms)
+
+    head = "\n".join([
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '    <meta name="description" content="Browse independent London days and full days out by public transport.">',
+        "    <title>Browse routes | London, Slightly Elsewhere</title>",
+    ])
+
+    body = (
+        '      <main id="main">'
+        '<header class="index-head">'
+        f'<p class="eyebrow">{e(spec["eyebrow"])}</p>'
+        f'<h1 class="index-head__title">{e(spec["title"])}</h1>'
+        f'<p class="index-head__intro">{e(spec["intro"])}</p>'
+        "</header>"
+        f'{condition_filter(almanac)}'
+        f'<div data-index>{"".join(groups)}</div>'
+        f'<p class="index-scale">{scale}</p>'
+        "</main>\n"
+        f"      {apparatus(almanac, base, current='routes/')}\n"
+        f'      <script src="{base}assets/js/condition-filter.js"></script>'
+    )
+    return shell(head, body, base)
+
+
+def terms_page(almanac):
+    base = "../"
+    spec = almanac["terms"]
+    rows = "".join(definition(item["term"], item["body"], glossary=True) for item in spec["definitions"])
+    legacy = "".join(definition(item["term"], item["body"], glossary=True) for item in spec["legacy"])
+
+    head = "\n".join([
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '    <meta name="description" content="Definitions for the words this site uses on purpose, and what each one is trying to protect you from.">',
+        "    <title>Terms used here | London, Slightly Elsewhere</title>",
+    ])
+
+    body = (
+        '      <main id="main">'
+        '<header class="terms-head">'
+        f'<h1 class="terms-head__title">{e(spec["title"])}</h1>'
+        f'<p class="terms-head__intro">{e(spec["intro"])}</p>'
+        "</header>"
+        f'<section class="terms-group"><dl>{rows}</dl></section>'
+        '<section class="terms-group">'
+        f'<h2 class="terms-group__head">{e(spec["legacyHead"])}</h2>'
+        f'<p class="terms-group__note">{e(spec["legacyNote"])}</p>'
+        f"<dl>{legacy}</dl></section>"
+        f'<p class="terms-close">{e(spec["closing"])}</p>'
+        "</main>\n"
+        f"      {apparatus(almanac, base, current='terms-used-here/')}"
+    )
+    return shell(head, body, base, narrow=True)
+
+
+# --- the pages the handoff never designed -------------------------------
+#
+# About, Feedback, Privacy, Accessibility, the finder, the 404 and the
+# future-guides page have content but no design. Rather than rewrite their
+# markup — which would mean re-typing two long forms and the six-filter
+# finder, and risking the JavaScript that drives them — the converter lifts
+# each page's <main> unchanged and drops it into the new shell. The old class
+# names those pages and assets/js/finder.js and forms.js use are restyled in
+# almanac.css instead. Running it twice is safe: it re-reads the same <main>.
+
+LEGACY_PAGES = {
+    "about/index.html": ("../", "about/"),
+    "privacy/index.html": ("../", "privacy/"),
+    "accessibility/index.html": ("../", "accessibility/"),
+    "feedback/index.html": ("../", "feedback/"),
+    "contact/index.html": ("../", None),
+    "future-guides/index.html": ("../", "future-guides/"),
+    "find-your-route/index.html": ("../", "find-your-route/"),
+    # The 404 is served at whatever depth the missing URL had, so its links
+    # and assets are absolute from the project root rather than relative.
+    "404.html": ("/london-slightly-elsewhere-mvp/", None),
+}
+
+
+def legacy_page(path, base, current, almanac):
+    source = path.read_text(encoding="utf-8")
+
+    head_lines = ['    <meta charset="utf-8">',
+                  '    <meta name="viewport" content="width=device-width, initial-scale=1">']
+    description = re.search(r'<meta name="description"[^>]*>', source)
+    if description:
+        head_lines.append(f"    {description.group(0)}")
+    for tag in re.findall(r'<meta (?:property|name)="(?:og:|twitter:)[^>]*>', source):
+        head_lines.append(f"    {tag}")
+    title = re.search(r"<title>(.*?)</title>", source, re.S)
+    head_lines.append(f"    <title>{title.group(1)}</title>")
+    for ld in re.findall(r'<script type="application/ld\+json">.*?</script>', source, re.S):
+        head_lines.append(f"    {ld}")
+
+    main = re.search(r"<main\b[^>]*>(.*?)</main>", source, re.S)
+    assert main, f"{path}: no <main> to convert"
+
+    body_scripts = source.split("</main>", 1)[1]
+    scripts = [
+        f'      <script src="{src}"></script>'
+        for src in re.findall(r'<script src="([^"]+)"></script>', body_scripts)
+        # The theme toggle is gone: the design has one palette.
+        if "theme.js" not in src
+    ]
+
+    body = (
+        f'      <main id="main">{main.group(1).rstrip()}\n      </main>\n'
+        f"      {apparatus(almanac, base, current=current)}"
+    )
+    if scripts:
+        body += "\n" + "\n".join(scripts)
+    return shell("\n".join(head_lines), body, base)
+
+
+def route_head_meta(route):
+    seo = route["seo"]
+    social = seo.get("socialDescription", seo["description"])
+    image = ROOT / "assets" / "og" / f"{route['slug']}.png"
+    lines = [
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        f'    <meta name="description" content="{e(seo["description"])}">',
+        '    <meta property="og:type" content="article">',
+        f'    <meta property="og:title" content="{e(seo["title"] + TITLE_SUFFIX)}">',
+        f'    <meta property="og:description" content="{e(social)}">',
+    ]
+    if image.exists():
+        lines += [
+            f'    <meta property="og:image" content="{SITE_BASE}/assets/og/{route["slug"]}.png">',
+            '    <meta property="og:image:width" content="1200">',
+            '    <meta property="og:image:height" content="630">',
+            '    <meta name="twitter:card" content="summary_large_image">',
+        ]
+    else:
+        lines.append('    <meta name="twitter:card" content="summary">')
+    ld = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": seo["title"],
+        "description": seo["description"],
+        "inLanguage": "en-GB",
+    }
+    if seo.get("contentLocation"):
+        ld["contentLocation"] = {"@type": "Place", "name": seo["contentLocation"]}
+    lines += [
+        f'    <title>{e(seo["shortTitle"] + TITLE_SUFFIX)}</title>',
+        '    <script type="application/ld+json">'
+        + json.dumps(ld, ensure_ascii=False, separators=(",", ":"))
+        + "</script>",
+    ]
+    return "\n".join(lines)
+
+
+def route_page(route, almanac, venue_timing):
+    base = "../../"
+    a = route.get("almanac") or {}
+    is_day_walk = route["routeType"] == "day-walk"
+    facts = route["quickFacts"]
+    navigation = route.get("navigation")
+    editorial = route["editorial"]
+    copy = route["copy"]
+    feedback = e(f"{base}feedback/?route={quote(route['title'], safe='')}")
+
+    status = STATUS_LINE.get(route["status"], PILOT_LINE)
+    last_checked = route["editorialControl"].get("lastChecked") or "Not yet field-checked"
+    flow = '<span class="separator"> · </span>'.join(
+        e(FLOW_LABELS.get(stop["type"], stop["type"])) for stop in route["stops"]
+    )
+
+    head_block = [
+        f'<h1 class="route-head__title">{e(route["title"])}</h1>',
+        f'<p class="route-head__lead">{e(route["subtitle"])}</p>',
+        f'<p class="quiet-line">{e(status)}</p>',
+        f'<p class="quiet-line">Last checked: {e(last_checked)}. '
+        "Verify opening hours and access before going.</p>",
+    ]
+    # A photograph only where the route has been walked; the AbsenceMark only
+    # where a sentence has been written for this route. A shared template
+    # would turn the admission into a widget, so a route without one shows
+    # neither — the status line above already says where it stands.
+    if a.get("walked"):
+        head_block.append(plate(route))
+    elif a.get("absence"):
+        head_block.append(f'<p class="absence">{e(a["absence"])}</p>')
+    head_block.append(fact_line(route, base, major=True, with_link=False))
+    head_block.append(
+        '<p class="meta"><span class="visually-hidden">Route at a glance: </span>'
+        f"{flow}</p>"
+    )
+
+    sections = []
+
+    note = route.get("fieldNote")
+    if note and note.get("text"):
+        flag = "" if note.get("verified") else paragraph(
+            "unverified — details not yet reconfirmed", quiet=True
+        )
+        sections.append(section("Last walked.", flag, paragraph(note["text"])))
+
+    community = route.get("community") or {}
+    count = int(community.get("reportCount") or 0)
+    needs_review = community.get("status") == "needs-review"
+    if needs_review:
+        community_head = "A walker flagged something worth checking."
+        community_body = "Treat route details as provisional until the issue has been reviewed."
+    elif count:
+        community_head = f"{count} {'walker has' if count == 1 else 'walkers have'} reported this route."
+        community_body = (
+            f"Most recent report: {community.get('lastReported') or 'date not yet recorded'}. "
+            "Community reports are reviewed; they do not change the Field-checked label."
+        )
+    else:
+        community_head = "No community walks reported yet."
+        community_body = (
+            "Walked it? A concise field note helps keep the route current. Community "
+            "reports never change the Field-checked label automatically."
+        )
+    sections.append(section(
+        community_head,
+        paragraph(community_body),
+        f'<p class="links-line"><a href="{feedback}">Share a field note</a></p>',
+    ))
+
+    if is_day_walk:
+        travel = route["travel"]
+        hike = route["hike"]
+        journey = "one change" if travel["journeyComplexity"] == "one-change" else "direct"
+        shape = "Station to station" if hike["routeShape"] == "point-to-point" else hike["routeShape"]
+        blocks = [
+            definition("Leave from", " / ".join(format_hub(hub) for hub in travel["departureHubs"])),
+            definition("Typical journey", f'About {travel["typicalMinutes"]} min · {journey}'),
+            definition("Arrive at", travel["arrivalStation"]),
+            definition("Return from", travel["returnStation"]),
+            definition("Mode", travel["transportMode"].replace("-", " and ")),
+            paragraph(travel["serviceNote"], quiet=True),
+        ]
+        if travel.get("officialSourceUrl"):
+            blocks.append(
+                '<p class="links-line">'
+                + external(travel["officialSourceUrl"], "Check operator information")
+                + "</p>"
+            )
+        sections.append(section("Start with the train, not a car.", *blocks))
+
+        walk_rows = [
+            definition("Distance", f'{hike["distanceKm"]} km'),
+            definition("Walking time", hike.get("walkingTime") or facts["duration"]),
+            definition("Difficulty", hike["difficulty"]),
+            definition("Route shape", shape),
+            definition("Shorter fallback", "Available" if hike["shortenable"] else "Not planned"),
+        ]
+        if hike.get("elevationGainM") is not None:
+            walk_rows.append(definition("Elevation", f'{hike["elevationGainM"]} m gain'))
+        sections.append(section("The walk itself.", *walk_rows))
+
+    if navigation:
+        arrival = navigation["arrival"]
+        mapped = [stop for stop in route["stops"] if stop.get("mapQuery")]
+        whole_walk = (
+            maps_route(mapped)
+            if route["routeType"] != "day-walk" and arrival.get("station") and 0 < len(mapped) <= 10
+            else None
+        )
+        links = [external(maps_directions(None, arrival["pinQuery"], "transit"), "Start in Google Maps")]
+        if whole_walk:
+            links.append(external(whole_walk, "Open the whole walk"))
+        if navigation.get("externalRouteUrl"):
+            links.append(external(navigation["externalRouteUrl"], "Open detailed route"))
+        if navigation.get("gpxUrl"):
+            links.append(external(navigation["gpxUrl"], "Download GPX"))
+        sections.append(section(
+            "Start without guessing.",
+            definition("Suggested arrival", f'{arrival["station"]} — {arrival["stationExit"]}'),
+            definition("Set your first pin", arrival["pinLabel"], meta=arrival["pinQuery"]),
+            definition("Once you arrive", arrival["firstMove"]),
+            f'<p class="links-line">{"".join(links)}</p>',
+            paragraph(navigation["disclaimer"], quiet=True),
+            paragraph(
+                "We never request your location. Google Maps can use it privately, if you "
+                "have already given Maps permission.",
+                quiet=True,
+            ),
+        ))
+
+    sections.append(section(editorial["vibeSummary"], paragraph(route["routeNarrative"])))
+    sections.append(section("Best for.", ruled_list(editorial["bestFor"])))
+    sections.append(section("Not ideal for.", ruled_list(editorial["notIdealFor"])))
+
+    stops_html = []
+    map_start = (navigation or {}).get("arrival", {}).get("mapOriginQuery") or (
+        navigation or {}
+    ).get("arrival", {}).get("station")
+    for index, stop in enumerate(route["stops"]):
+        previous = map_start if index == 0 else route["stops"][index - 1].get("mapQuery")
+        walking_url = None
+        if stop.get("mapQuery") and previous:
+            walking_url = maps_directions(previous, stop["mapQuery"])
+        elif stop.get("mapQuery"):
+            walking_url = maps_search(stop["mapQuery"])
+        meta = f'{e(stop["type"])}<span class="separator"> · </span>{e(stop["duration"])}'
+        if stop.get("walkingToNext"):
+            meta += f'<span class="separator"> · </span>{e(stop["walkingToNext"])} to next'
+        links = []
+        if walking_url:
+            label = "Walk here from the station" if index == 0 else "Walk from the previous stop"
+            links.append(external(walking_url, label))
+        if stop.get("mapQuery"):
+            links.append(external(maps_search(stop["mapQuery"]), "Open this point"))
+        if stop.get("officialUrl"):
+            links.append(external(stop["officialUrl"], "Official information"))
+        stops_html.append(
+            "<li><div class=\"stop__body\">"
+            f'<h3 class="stop__title">{e(stop["name"])}</h3>'
+            f'<p class="meta">{meta}</p>'
+            + (paragraph(stop.get("locationNote"), quiet=True) if stop.get("locationNote") else "")
+            + (
+                paragraph(f'From the previous point: {stop["directionFromPrevious"]}', quiet=True)
+                if stop.get("directionFromPrevious")
+                else ""
+            )
+            + paragraph(stop["description"])
+            + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+            + "</div></li>"
+        )
+    sections.append(section("The route.", f'<ol class="stops">{"".join(stops_html)}</ol>'))
+
+    if is_day_walk:
+        hike = route["hike"]
+        conditions = hike.get("conditions") or {}
+        terrain = [("Terrain", hike.get("terrainNotes"))] + [
+            ("Mud and drainage", conditions.get("mudOrDrainage")),
+            ("Exposed sections", conditions.get("exposedSections")),
+            ("Road sections", conditions.get("roadSections")),
+            ("Stiles", conditions.get("stiles")),
+            ("Food and water", conditions.get("foodWater")),
+            ("Toilets", conditions.get("toilets")),
+            ("Mobile signal", conditions.get("mobileSignal")),
+            ("Pub timing", conditions.get("pubTiming")),
+            ("Shortening", hike.get("shorteningNote")),
+        ]
+        rows = [definition(label, value) for label, value in terrain if value]
+        if rows:
+            sections.append(section("Read this before the platform.", *rows))
+
+    if navigation:
+        finish = navigation["finish"]
+        blocks = [
+            definition(finish["label"], f'Nearest practical station: {finish["nearestStation"]}'),
+            paragraph(finish["exitNote"]),
+        ]
+        early = (route.get("hike") or {}).get("earlyExit") if is_day_walk else None
+        if early:
+            note = f' — {early["note"]}' if early.get("note") else ""
+            blocks.append(paragraph(f'Earlier exit: {early["label"]}{note}'))
+        blocks.append(
+            f'<p class="links-line">{external(maps_search(finish["nearestStation"]), "Open exit station")}</p>'
+        )
+        sections.append(section("Finish and easy exit.", *blocks))
+
+    timing = venue_timing.get(route.get("valueTimingVenueId")) if route.get("valueTimingVenueId") else None
+    if timing:
+        sections.append(section(
+            timing["title"],
+            paragraph(timing["detail"]),
+            f'<p class="links-line">{external(timing["sourceUrl"], timing["sourceLabel"])}</p>',
+            f'<p class="meta">{e(timing["label"])}<span class="separator"> · </span>'
+            f'checked {e(timing["checked"])}</p>',
+        ))
+
+    sections.append(section(
+        "Choose the shape of the day.",
+        *[
+            definition(
+                version["label"],
+                version["description"],
+                meta=f'{version["duration"]} · {version["budget"]}'
+                + (" · ticket check required" if version.get("requiresTicketCheck") else ""),
+            )
+            for version in route["versions"]
+        ],
+    ))
+
+    sections.append(section(
+        "Notes before you go.",
+        definition("Best time", facts["bestTime"]),
+        definition("Date notes", copy["dateNotes"]),
+        definition("Friends", copy["friendGroupNotes"]),
+        definition("Solo", copy["soloNotes"]),
+        definition("Food and drink", copy["foodDrinkNotes"]),
+    ))
+
+    sections.append(section(
+        "When the plan changes.",
+        definition("If it rains", copy["rainyDayBackup"]),
+        definition("If it goes well", copy["continueIfGoingWell"]),
+        definition("If you want to leave early", copy["exitEarly"]),
+    ))
+
+    sections.append(section(
+        "What not to expect.",
+        paragraph(editorial["whatNotToExpect"]),
+        '<h3 class="subhead">Practical warnings</h3>',
+        ruled_list(editorial["practicalWarnings"]),
+    ))
+
+    final = []
+    if route.get("soundtrack"):
+        final.append(
+            f'<p class="quiet-line">This day sounds like: {e(route["soundtrack"]["artist"])} — '
+            f'<em>{e(route["soundtrack"]["track"])}</em></p>'
+        )
+    sections.append(section(copy["finalEditorialNote"], *final))
+
+    closing = corrections(
+        almanac,
+        base,
+        head="Two things help most.",
+        lead=False,
+        body=[
+            '<p class="corrections__body">What was closed, and where you bailed — more useful '
+            f'than a compliment. <a href="{feedback}">Give feedback on this route</a>.</p>',
+            "Walked by a person. Wrong by the time you read it, in small ways. Tell us which.",
+        ],
+    )
+
+    body = (
+        f'      <main id="main">'
+        f'<header class="route-head">{"".join(head_block)}</header>'
+        f'{"".join(sections)}{closing}</main>\n'
+        f"      {apparatus(almanac, base)}"
+    )
+    return shell(route_head_meta(route), body, base)
+
+
+def main():
+    routes = load("routes.json")
+    almanac = load("almanac.json")
+    venue_timing = load("venue-timing.json")
+    by_slug = {route["slug"]: route for route in routes}
+
+    (ROOT / "index.html").write_text(home(routes, almanac), encoding="utf-8")
+    print("Wrote index.html.")
+
+    (ROOT / "routes" / "index.html").write_text(index_page(routes, almanac), encoding="utf-8")
+    print(f"Wrote routes/index.html with {len(routes)} rows.")
+
+    (ROOT / "terms-used-here" / "index.html").write_text(terms_page(almanac), encoding="utf-8")
+    print("Wrote terms-used-here/index.html.")
+
+    for relative, (base, current) in LEGACY_PAGES.items():
+        target = ROOT / relative
+        target.write_text(legacy_page(target, base, current, almanac), encoding="utf-8")
+    print(f"Converted {len(LEGACY_PAGES)} pages that were never designed.")
+
+    slugs = list(by_slug) if ALMANAC_ROUTES is None else list(ALMANAC_ROUTES)
+    for slug in slugs:
+        route = by_slug[slug]
+        target = ROOT / "routes" / slug / "index.html"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(route_page(route, almanac, venue_timing), encoding="utf-8")
+    print(f"Wrote {len(slugs)} route pages.")
+
+    # Which routes still need copy written for them, rather than derived.
+    needs = [
+        (route["slug"], sorted(
+            field for field, missing in (
+                ("effort", not (route.get("almanac") or {}).get("effort")),
+                ("factLine", not (route.get("almanac") or {}).get("factLine")),
+                ("absence", not (route.get("almanac") or {}).get("walked")
+                 and not (route.get("almanac") or {}).get("absence")),
+                ("indexNote", not (route.get("almanac") or {}).get("indexNote")),
+            ) if missing
+        ))
+        for route in routes
+    ]
+    outstanding = [(slug, fields) for slug, fields in needs if fields]
+    if outstanding:
+        print(f"\n{len(outstanding)} routes still need copy written by hand:")
+        for slug, fields in outstanding:
+            print(f"  {slug}: {', '.join(fields)}")
+
+
+if __name__ == "__main__":
+    main()
