@@ -392,9 +392,10 @@
       "linkName": "The whole route, hour by hour",
       "indexNote": "Walked end to end in August, from the Overground rather than the Tube.",
       "plate": {
-        "image": null,
+        "image": "assets/photos/hampstead.jpg",
+        "alt": "The meadow below Kenwood in low sun, the wooded ridge above the ponds turning orange, two walkers crossing the grass.",
         "placeholder": "photo — the climb to Kenwood, above the ponds",
-        "caption": "Late afternoon, August, on the way up from the ponds to Kenwood. This is the stretch that turns a walk round the Heath into a proper one."
+        "caption": "Late afternoon, November, on the way up from the ponds to Kenwood. This is the stretch that turns a walk round the Heath into a proper one."
       },
       "body": ["Walked end to end from Hampstead Heath Overground in August, and the timings here are measured rather than guessed. The ponds on their own are a stroll; it only becomes a proper walk if you keep climbing to Kenwood, which is the version written here. The Old White Bear was the best of the pub stops, and I would still not go in the two days after rain."],
       "factLine": {

@@ -168,12 +168,23 @@ def fact_line(route, base, major, with_link):
     return f'<p class="{classes}">{text}</p>'
 
 
-def plate(route):
+def plate(route, base, lazy=True):
     """Photograph at 2:1 (3:2 below 768px), first-person caption naming the
     time of day and the month. Walked routes only."""
     art = route["almanac"]["plate"]
     if art.get("image"):
-        frame = f'<div class="plate__frame"><img alt="" src="{e(art["image"])}"></div>'
+        # The caption says when the photograph was taken; the alt says what is
+        # in it, for somebody who cannot see it. They are not the same
+        # sentence, so a photograph without its own alt stops the build.
+        assert art.get("alt"), f'{route["slug"]}: almanac.plate needs an alt beside the image'
+        src = f'{base}{art["image"]}' if not art["image"].startswith(("http", "/")) else art["image"]
+        # The first photograph on a page is inside the opening screen, so it
+        # is fetched straight away; the rest wait until they are scrolled to.
+        loading = ' loading="lazy"' if lazy else ""
+        frame = (
+            f'<div class="plate__frame"><img src="{e(src)}" alt="{e(art["alt"])}"'
+            f' width="1200" height="800"{loading} decoding="async"></div>'
+        )
     else:
         frame = (
             '<div class="plate__frame plate__frame--empty">'
@@ -182,7 +193,7 @@ def plate(route):
     return f'<figure class="plate">{frame}<figcaption>{e(art["caption"])}</figcaption></figure>'
 
 
-def entry(route, base):
+def entry(route, base, lazy=True):
     """RouteEntry.walked — roughly three times the length of an unwalked
     entry. The inequality is the content."""
     a = route["almanac"]
@@ -191,7 +202,7 @@ def entry(route, base):
         '<article class="entry">'
         f'<h2 class="entry__title">{e(route["title"])}</h2>'
         f'<p class="entry__lead">{e(route["subtitle"])}</p>'
-        f"{plate(route)}"
+        f"{plate(route, base, lazy)}"
         f"{body}"
         f"{fact_line(route, base, major=True, with_link=True)}"
         "</article>"
@@ -381,7 +392,8 @@ def home(routes, almanac):
         f'<p class="editor-note__colophon">{e(almanac["home"]["colophon"])}</p>'
         "</section>",
     ]
-    parts += [entry(route, base) for route in walked]
+    # The first photograph is inside the opening screen, so it is not lazy.
+    parts += [entry(route, base, lazy=i > 0) for i, route in enumerate(walked)]
     if unwalked:
         quiet = "".join(entry_quiet(route, base) for route in unwalked)
         parts.append(
@@ -880,7 +892,7 @@ def route_page(route, almanac, venue_timing):
     # would turn the admission into a widget, so a route without one shows
     # neither — the status line above already says where it stands.
     if a.get("walked"):
-        head_block.append(plate(route))
+        head_block.append(plate(route, base, lazy=False))
     elif a.get("absence"):
         head_block.append(f'<p class="absence">{e(a["absence"])}</p>')
     head_block.append(fact_line(route, base, major=True, with_link=False))
