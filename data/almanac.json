@@ -52,6 +52,54 @@
     ],
     "closing": "If a route uses a word that is not on this page, that is a mistake and worth telling me about."
   },
+  "_privacy": "The analytics section is chosen by whether analytics.goatcounter is set in site.json, so this page cannot describe a state the site is not in. Update `updated` whenever you change any of it.",
+  "privacy": {
+    "updated": "Last updated 14/09/2026",
+    "title": "Privacy, without fog.",
+    "intro": "This pilot collects less data because that is the sensible default.",
+    "sections": [
+      {
+        "head": "What this site stores",
+        "body": [
+          "Nothing on your device. No cookies, and nothing written to your browser's storage. There is no account, no session and no preference to remember.",
+          "One exception, and it is a leftover: a single page has not yet been rebuilt in the current design, and still carries a light and dark switch that remembers your choice in your browser. Nothing else on the site does, and that page will lose it when it is rebuilt."
+        ]
+      },
+      {
+        "head": "Analytics and cookies",
+        "whenAnalyticsOff": [
+          "There are no analytics, advertising pixels or non-essential cookies in this pilot. Accordingly, there is no consent banner.",
+          "If that changes, this notice changes with it, in the same breath — not afterwards."
+        ],
+        "whenAnalyticsOn": [
+          "Visits are counted by GoatCounter, an analytics service hosted in the European Union. It records which page was opened, where you arrived from, your country, and the kind of browser and device you used.",
+          "It does not record your IP address; that is discarded once the visit has been counted. It does not set anything on your device, so it cannot recognise you on a later visit. Counting is done with a hash on the server that changes every day.",
+          "One thing is counted beyond page views: opening a route in Google Maps. It is the only way to tell which routes people actually set out on, rather than which ones they read about.",
+          "There are no cookies and no advertising pixels. Nothing is stored on your device and nothing is read from it, so there is no consent banner to click.",
+          "If you would rather not be counted, turn on Do Not Track or Global Privacy Control in your browser. This site honours both."
+        ]
+      },
+      {
+        "head": "Forms",
+        "body": [
+          "The visible feedback forms are not connected to a processor yet, so this build does not transmit or retain their contents. Before collection is enabled, the form will name the processor, purpose, retention period and contact route."
+        ]
+      },
+      {
+        "head": "External links",
+        "body": [
+          "Links to venues and ticket pages take you to other organisations. Their privacy practices apply once you leave this site.",
+          "Route pages also link to Google Maps for directions. Opening one hands you to Google, on Google's terms rather than these."
+        ]
+      },
+      {
+        "head": "Contact",
+        "body": [
+          "This is a private validation pilot and is not yet collecting personal data. A dedicated privacy contact will be added before any public form is switched on."
+        ]
+      }
+    ]
+  },
   "notFound": {
     "pageTitle": "Page not found",
     "description": "This page does not exist on London, Slightly Elsewhere.",

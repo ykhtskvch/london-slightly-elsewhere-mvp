@@ -607,7 +607,6 @@ def terms_page(almanac):
 
 LEGACY_PAGES = {
     "about/index.html": ("../", "about/"),
-    "privacy/index.html": ("../", "privacy/"),
     "accessibility/index.html": ("../", "accessibility/"),
     "feedback/index.html": ("../", "feedback/"),
     "contact/index.html": ("../", None),
@@ -685,6 +684,42 @@ def robots():
     more loudly than leaving it alone: robots.txt is the first file a curious
     person opens."""
     return f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n"
+
+
+def privacy_page(almanac):
+    """The privacy notice is generated rather than lifted, because what it
+    has to say depends on a build value: whether analytics.goatcounter is
+    set. A page describing a state the site is not in is the one kind of
+    drift this notice cannot afford, so the build decides, not a human
+    remembering to edit two files at once."""
+    spec = almanac["privacy"]
+    blocks = []
+    for section in spec["sections"]:
+        if "body" in section:
+            paragraphs = section["body"]
+        else:
+            paragraphs = section["whenAnalyticsOn" if GOATCOUNTER else "whenAnalyticsOff"]
+        blocks.append(f'<h2>{e(section["head"])}</h2>')
+        blocks += [f"<p>{e(text)}</p>" for text in paragraphs]
+
+    head = "\n".join([
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '    <meta name="description" content="What London, Slightly Elsewhere stores, counts and links to.">',
+        f"    <title>Privacy{TITLE_SUFFIX}</title>",
+    ])
+    body = (
+        '      <main id="main">'
+        '<section class="page-intro">'
+        f'<p class="eyebrow">{e(spec["updated"])}</p>'
+        f'<h1>{e(spec["title"])}</h1>'
+        f'<p>{e(spec["intro"])}</p>'
+        "</section>"
+        f'<article class="section prose">{"".join(blocks)}</article>'
+        "</main>\n"
+        f"      {apparatus(almanac, '../', current='privacy/')}"
+    )
+    return shell(head, body, "../", path="privacy/")
 
 
 def not_found_page(almanac):
@@ -1062,6 +1097,9 @@ def main():
             legacy_page(target, base, current, almanac, site_path), encoding="utf-8"
         )
     print(f"Converted {len(LEGACY_PAGES)} pages that were never designed.")
+
+    (ROOT / "privacy" / "index.html").write_text(privacy_page(almanac), encoding="utf-8")
+    print(f"Wrote privacy/index.html (analytics {'described' if GOATCOUNTER else 'absent'})")
 
     (ROOT / "404.html").write_text(not_found_page(almanac), encoding="utf-8")
     print(f"Wrote 404.html, anchored at {BASE_PATH}")
