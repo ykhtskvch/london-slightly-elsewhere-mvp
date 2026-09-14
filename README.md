@@ -78,6 +78,13 @@ python3 scripts/build_route_pages.py && python3 scripts/build_almanac_pages.py &
 ```
 
 The two generators skip each other's pages, so the order does not matter.
+
+`build_almanac_pages.py` refuses to finish if any built page would store or
+read something on a visitor's device: it follows every local `<script src>`
+and fails on `localStorage`, `sessionStorage`, `document.cookie` or
+`indexedDB`, and it fails if GoatCounter's script is ever loaded without the
+`no_onload` setting and `analytics.js` that neutralise its own storage read.
+The privacy notice makes that promise, so the build keeps it.
 `DESIGN.md` says which pages are on which design, and `DESIGN-CONFLICTS.md`
 records what the redesign still needs decided.
 

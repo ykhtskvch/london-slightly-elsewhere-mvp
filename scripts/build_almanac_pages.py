@@ -686,6 +686,71 @@ def robots():
     return f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n"
 
 
+# Anything that would put something on the visitor's device, or read it back.
+# Matched as a member access, so the words can still appear in a comment.
+STORAGE_USE = re.compile(
+    r"\b(?:localStorage|sessionStorage)\s*[.\[]"
+    r"|\bdocument\s*\.\s*cookie"
+    r"|\bindexedDB\s*[.\[]"
+)
+
+
+def check_nothing_is_stored():
+    """The privacy notice says nothing is stored on the visitor's device and
+    nothing is read from it, on any page. That is a claim about every script
+    the site loads, so the build proves it instead of trusting it.
+
+    This is how theme.js went unnoticed: it stored a light/dark choice, and
+    the notice said otherwise for as long as one page still loaded it.
+
+    The only script from elsewhere is GoatCounter's count.js, which does read
+    localStorage in its own filter. analytics.js replaces that filter and
+    no_onload keeps the original from ever running, so the second check below
+    makes sure those two are never separated.
+    """
+    problems = []
+
+    def resolve(page, src):
+        if src.startswith(("http://", "https://", "//")):
+            return None  # not ours; covered by the count.js check
+        if src.startswith(BASE_PATH):
+            return ROOT / src[len(BASE_PATH):]
+        if src.startswith("/"):
+            return ROOT / src.lstrip("/")
+        return (page.parent / src).resolve()
+
+    for page in sorted(ROOT.rglob("*.html")):
+        text = page.read_text(encoding="utf-8")
+        where = page.relative_to(ROOT)
+
+        for src in re.findall(r'<script[^>]+src="([^"]+)"', text):
+            path = resolve(page, src)
+            if path is None:
+                continue
+            if not path.exists():
+                problems.append(f"{where} loads {src}, which is not in the repository")
+                continue
+            found = STORAGE_USE.findall(path.read_text(encoding="utf-8"))
+            if found:
+                problems.append(
+                    f"{where} loads {src}, which uses {', '.join(sorted(set(found)))} — "
+                    "the privacy notice says no page stores or reads anything on the device"
+                )
+
+        if "gc.zgo.at/count.js" in text:
+            if "no_onload" not in text:
+                problems.append(f"{where} loads count.js without no_onload: its own filter would read localStorage")
+            if "assets/js/analytics.js" not in text:
+                problems.append(f"{where} loads count.js without analytics.js: nothing replaces the filter that reads localStorage")
+
+    if problems:
+        raise SystemExit(
+            "Build stopped. The site would store or read something on a visitor's device:\n  "
+            + "\n  ".join(problems)
+            + "\n\nEither undo that, or rewrite data/almanac.json -> privacy first."
+        )
+
+
 def privacy_page(almanac):
     """The privacy notice is generated rather than lifted, because what it
     has to say depends on a build value: whether analytics.goatcounter is
@@ -1134,6 +1199,9 @@ def main():
         print(f"\n{len(outstanding)} routes still need copy written by hand:")
         for slug, fields in outstanding:
             print(f"  {slug}: {', '.join(fields)}")
+
+    check_nothing_is_stored()
+    print("Checked: no page stores or reads anything on a visitor's device.")
 
 
 if __name__ == "__main__":
