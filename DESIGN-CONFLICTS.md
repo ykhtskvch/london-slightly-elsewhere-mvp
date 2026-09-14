@@ -23,6 +23,14 @@ spec lists as "existing page, stays as is". It is the only page still loading
 old stylesheet remain in the build. If "stays as is" meant its content rather
 than its design, say so and it takes ten minutes.
 
+One thing was changed on it: `theme.js` is gone, so that the privacy notice
+can say nothing is stored on the visitor's device and mean it everywhere.
+That script did more than the theme — it also built the collapsible header,
+so the page carries a short inline stylesheet that lays the two nav links out
+as a row instead. `assets/js/theme.js` is now loaded by no page at all;
+`build_route_pages.py` still references it in its dormant template, which is
+the only reason it is still in the repository.
+
 ---
 
 ## 1 · Open — the author decides

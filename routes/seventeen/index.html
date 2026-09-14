@@ -1,18 +1,36 @@
 <!doctype html>
-<html lang="en">
+<!-- The one page still on the previous design, kept as it is by the handoff.
+     No theme script: it stored a light/dark choice in the browser, and it was
+     the only thing on the site that stored anything. data-theme pins it light
+     so it matches every other page without needing one. -->
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <title>Unlisted | London, Slightly Elsewhere</title>
     <link rel="stylesheet" href="../../assets/css/styles.css">
-    <script src="../../assets/js/theme.js"></script>
+    <style>
+      /* styles.css collapses the nav into a panel below 768px and expects
+         theme.js to supply the button that opens it. With no script on this
+         page there is nothing to open it, so the panel would sit over the
+         heading. It is two links: show them as a row at every width. */
+      .site-nav { position: static; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-2); width: auto; padding: 0; background: transparent; border: 0; box-shadow: none; }
+      .site-nav a { border-bottom: 0; }
+      /* The header row kept room beside the brand for the button that is no
+         longer built. Below 768px the links go under the brand instead. */
+      @media (max-width: 47.99rem) {
+        .header-row { flex-wrap: wrap; }
+        .brand { max-width: none; }
+        .header-actions { width: 100%; justify-content: flex-start; }
+      }
+    </style>
   </head>
   <body data-base-path="../../">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header"><div class="site-shell header-row">
       <a class="brand" href="../../">London, Slightly Elsewhere<small>Routes by mood, not algorithm</small></a>
-      <div class="header-actions"><nav class="site-nav" aria-label="Primary navigation"><a href="../../find-your-route/">Find a route</a><a href="../">Browse routes</a></nav><button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme">◐</button></div>
+      <div class="header-actions"><nav class="site-nav" aria-label="Primary navigation"><a href="../../find-your-route/">Find a route</a><a href="../">Browse routes</a></nav></div>
     </div></header>
     <main id="main" class="site-shell">
       <section class="page-intro"><p class="eyebrow">Unlisted</p><h1>No names on this one.</h1><p>No quick-facts, no filters, no easy exit. Just what to do, in order. Follow it from wherever you already are.</p></section>

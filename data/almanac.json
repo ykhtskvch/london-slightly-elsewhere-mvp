@@ -61,8 +61,7 @@
       {
         "head": "What this site stores",
         "body": [
-          "Nothing on your device. No cookies, and nothing written to your browser's storage. There is no account, no session and no preference to remember.",
-          "One exception, and it is a leftover: a single page has not yet been rebuilt in the current design, and still carries a light and dark switch that remembers your choice in your browser. Nothing else on the site does, and that page will lose it when it is rebuilt."
+          "Nothing on your device. No cookies, and nothing written to your browser's storage, on any page. There is no account, no session and no preference to remember."
         ]
       },
       {
