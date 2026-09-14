@@ -1,0 +1,79 @@
+{
+  "_comment": "Page-level copy for the field-guide redesign. Route-level copy lives in routes.json under each route's `almanac` key. Every string here is final: it is not rewritten for SEO, cut into bullets or translated.",
+  "home": {
+    "editorNote": "There are three routes here and I have walked two of them, end to end, and those two I would send anybody on. The third I have put together from places I know separately, which is not the same thing, and I would rather say so than pretend otherwise.",
+    "colophon": "Written in London in March, and corrected whenever somebody tells me I am wrong.",
+    "featured": ["putney", "hampstead", "bloomsbury"],
+    "unwalkedHead": "One I have not walked yet, so there is no photograph of it."
+  },
+  "index": {
+    "eyebrow": "The index · every route, walked or not",
+    "title": "Everything, in the order I trust it.",
+    "intro": "Walked routes first, then the ones I have put together. The five facts on every line are the same five you get on the route page, in the same order.",
+    "walkedHead": "Walked, and I would send you.",
+    "unwalkedHead": "Put together from places I know.",
+    "unwalkedNote": "Order and timings are my guess. No photographs, because I have not stood there with this route in mind.",
+    "scale": "Three words for effort, used the same way on every route: flat, gentle, a proper walk. They are defined in {termsLink}.",
+    "filter": {
+      "lead": "Show me routes that are ",
+      "clear": "clear the sentence",
+      "groups": [
+        { "axis": "effort", "words": ["gentle", "flat", "a proper walk"], "after": ", take " },
+        { "axis": "duration", "words": ["an afternoon", "most of a day"], "after": ", cost " },
+        { "axis": "cost", "words": ["next to nothing", "under £30"], "after": ", and work " },
+        { "axis": "condition", "words": ["after rain", "in the cold"], "after": "." }
+      ]
+    }
+  },
+  "terms": {
+    "title": "Terms used here.",
+    "intro": "Five words do most of the work on this site. If any of them means something different to you, the routes will read wrong, so here is what I mean by each.",
+    "definitions": [
+      { "term": "Flat", "body": "Pavement and level ground the whole way. You could do it in the shoes you happen to have on." },
+      { "term": "Gentle", "body": "A few miles, one or two slopes, nothing that needs a plan. You will know you have walked, and that is all." },
+      { "term": "A proper walk", "body": "Hills, mud after rain, and a real reason to sit down at the end. Wear something you do not mind ruining." },
+      { "term": "Walked", "body": "I have done this route start to finish, in this order, and the timings are measured rather than estimated. Walked routes carry a photograph I took, dated in the caption." },
+      { "term": "Not walked", "body": "I know the places, not the joins. The order is my judgement and the timing is a guess. There is no photograph, and the line where one would sit says why." },
+      { "term": "Cost", "body": "One person, travel not included. Next to nothing means under a tenner if you skip the pub. Under £30 assumes one drink and something to eat. Anything above that, I say so in the route." },
+      { "term": "Toilets", "body": "Where I know there is one you can use without buying anything, and where you will have to buy a drink. Not exhaustive, and I would like to be corrected." }
+    ],
+    "legacyHead": "Words this site uses on purpose.",
+    "legacyNote": "Not a style guide. Each of these is doing a specific job, and most of them are there to protect you from a bad day out.",
+    "legacy": [
+      { "term": "Old room", "body": "Not the same as an old pub. An old pub can be ruined by one refit; an old room survives its owners. You know one when your voice drops slightly on entering." },
+      { "term": "Easy exit", "body": "A named station within a short walk of every stage, and — more importantly — permission. Leaving a route early is a version of the route, not a failure of it." },
+      { "term": "The useful version", "body": "What the route page owes you: names, minutes, and what to do when the pub is full. Mood is the reason to go; the useful version is how." },
+      { "term": "What not to expect", "body": "Written before what to expect, and taken more seriously. Most bad days out are caused by accurate places and inaccurate hopes." },
+      { "term": "Field-checked", "body": "Walked, in person, recently enough to say so with a date. Nothing else on this site borrows that word, because assembling a route from knowledge is not the same as standing in it." },
+      { "term": "Pilot", "body": "Walked once, in person, but not lately. The shape has been stood in; some live details — hours, prices, whether the place still exists — need checking before you go." },
+      { "term": "Prototype", "body": "An honest draft. The shape is right; the details have not been stood next to. Treat every fact on a prototype as a rumour with good posture." },
+      { "term": "A warm finish", "body": "The last stop, chosen so that the day has an ending rather than a trailing-off. Usually an old room. Never a queue." },
+      { "term": "Slightly elsewhere", "body": "The feeling this site is for. Not another city — just enough sideways distance from your usual London that the evening acquires a border, and therefore a shape." }
+    ],
+    "closing": "If a route uses a word that is not on this page, that is a mistake and worth telling me about."
+  },
+  "corrections": {
+    "lead": "River first. Pub later. Routes with a beginning, a useful pause, and no obligation to make a big day of it.",
+    "body": "If you go, tell me what was too loud, too long, unexpectedly good or not worth the trip. Corrections go into the next edition with your wording where I can keep it.",
+    "scale": "Three words for effort, used the same way every time: flat, gentle, a proper walk. They are defined in {termsLink}.",
+    "termsLinkName": "Terms used here"
+  },
+  "apparatus": {
+    "line": {
+      "before": "",
+      "linkName": "One route",
+      "href": "routes/seventeen/",
+      "after": " is not listed."
+    },
+    "links": [
+      { "name": "Find a route", "href": "find-your-route/" },
+      { "name": "Browse routes", "href": "routes/" },
+      { "name": "Feedback", "href": "feedback/" },
+      { "name": "About", "href": "about/" },
+      { "name": "Terms used here", "href": "terms-used-here/" },
+      { "name": "What next?", "href": "future-guides/" },
+      { "name": "Privacy", "href": "privacy/" },
+      { "name": "Accessibility", "href": "accessibility/" }
+    ]
+  }
+}

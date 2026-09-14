@@ -8,6 +8,27 @@
     "soundtrack": null,
     "title": "Putney for River Air and a Proper Music Pub",
     "subtitle": "A Thames walk, a proper pub pause and an unfussy Italian dinner before a real music room — if the listing earns it.",
+    "almanac": {
+      "walked": true,
+      "lastWalked": "March",
+      "effort": "gentle",
+      "linkName": "The whole route, hour by hour",
+      "indexNote": "Walked twice, most recently in March, both times in bad weather.",
+      "plate": {
+        "image": null,
+        "placeholder": "photo — towpath west of the bridge",
+        "caption": "Six in the evening, mid-March, the tide going out. This is the twenty minutes I would actually turn up for; everything after it is a bonus."
+      },
+      "body": ["The timings on this one are mine and they hold. I have done it twice in bad weather and it survives both — the towpath is the point, the pub is the reward, and the gig is genuinely optional. Go without checking the listings and you will still have had the day."],
+      "factLine": {
+        "sentence": "Start at {station}, allow {time}, it is a {effort} walk, reckon on {cost} without a gig, and there are toilets at {toilets}.",
+        "station": "Putney Bridge",
+        "time": "three to five hours",
+        "effort": "gentle",
+        "cost": "under £30",
+        "toilets": "the station and the pub"
+      }
+    },
     "fieldNote": {
       "verified": false,
       "text": "A Friday in early July, warm enough to regret the jumper. The Embankment had two crews launching at once and a coach on a bicycle shouting at both. The Half Moon listing was a covers band; we stayed for the front bar instead, which was the right call. Al Forno seated us without a booking at 7 — do not count on this on gig nights."
@@ -183,6 +204,23 @@
     "soundtrack": {"artist": "M", "track": "La bonne étoile"},
     "title": "Bloomsbury After Rain",
     "subtitle": "Squares, books and somewhere warm: an indoor-outdoor route for days that should not be written off.",
+    "almanac": {
+      "walked": false,
+      "lastWalked": null,
+      "effort": "flat",
+      "linkName": "What I think it is",
+      "indexNote": "Never done in one afternoon.",
+      "absence": "I have not walked this as one afternoon, so there is nothing to photograph.",
+      "caveat": "I know each of these places and I am fairly confident about the order. I have not done them in a single go, so treat the timing as a guess rather than a measurement.",
+      "factLine": {
+        "sentence": "Start at {station}, allow {time} — guessed — it is {effort}, reckon on {cost} if you eat, and there are toilets in {toilets}.",
+        "station": "Russell Square",
+        "time": "two to four hours",
+        "effort": "flat",
+        "cost": "under £30",
+        "toilets": "the museums"
+      }
+    },
     "fieldNote": {
       "verified": false,
       "text": "A wet Tuesday in — honestly — the exact weather this route was written for. The Enlightenment Gallery was near-empty by 4pm. The bookshop's cake room had one table left, taken by someone reading, correctly. Russell Square's fountain was off, which somehow improved it."
@@ -347,6 +385,27 @@
     "soundtrack": null,
     "title": "Hampstead When You Want to Pretend You Left London",
     "subtitle": "Start by the Heath, take the ponds seriously, then climb to Kenwood before tiny cafés and a properly useful pub finish.",
+    "almanac": {
+      "walked": true,
+      "lastWalked": "August 2026",
+      "effort": "a proper walk",
+      "linkName": "The whole route, hour by hour",
+      "indexNote": "Walked end to end in August, from the Overground rather than the Tube.",
+      "plate": {
+        "image": null,
+        "placeholder": "photo — the climb to Kenwood, above the ponds",
+        "caption": "Late afternoon, August, on the way up from the ponds to Kenwood. This is the stretch that turns a walk round the Heath into a proper one."
+      },
+      "body": ["Walked end to end from Hampstead Heath Overground in August, and the timings here are measured rather than guessed. The ponds on their own are a stroll; it only becomes a proper walk if you keep climbing to Kenwood, which is the version written here. The Old White Bear was the best of the pub stops, and I would still not go in the two days after rain."],
+      "factLine": {
+        "sentence": "Start at {station}, allow {time}, it is {effort}, reckon on {cost}, and there are toilets in {toilets}.",
+        "station": "Hampstead Heath",
+        "time": "four to five hours",
+        "effort": "a proper walk",
+        "cost": "under £30",
+        "toilets": "the pub"
+      }
+    },
     "fieldNote": {
       "verified": true,
       "text": "Field-walked from Hampstead Heath Overground in August 2026. The Magdala works as a low-key opening, Burgh House Café as a light bite, and the ponds become a real walk only when extended uphill to Kenwood House. The Old White Bear was the cosiest pub stop. The Wells Tavern remains an optional drink, but is no longer the food recommendation in this guide."
