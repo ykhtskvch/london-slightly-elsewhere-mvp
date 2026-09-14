@@ -36,6 +36,17 @@ assert BASE_PATH.startswith("/") and BASE_PATH.endswith("/"), \
 # Absolute URL of the site root, with a trailing slash.
 SITE_URL = f"{ORIGIN}{BASE_PATH}"
 
+# GoatCounter, or nothing. The script sets no cookies; it reads one
+# localStorage key, "skipgc", which exists only so a visitor can opt out by
+# loading any page with #toggle-goatcounter, and writes it only when they do.
+# A normal visit stores nothing.
+GOATCOUNTER = (_SITE.get("analytics") or {}).get("goatcounter")
+ANALYTICS = (
+    f'\n    <script data-goatcounter="{GOATCOUNTER}" async '
+    'src="https://gc.zgo.at/count.js"></script>'
+    if GOATCOUNTER else ""
+)
+
 # Routes whose detail page is built to the new design. Every route is now on
 # it; the tuple stays so build_route_pages.py can still tell the two apart if
 # a page is ever moved back.
@@ -92,13 +103,18 @@ def load(name):
 # --- components ---------------------------------------------------------
 
 
-def external(href, text, quiet=True):
+def external(href, text, quiet=True, event=None):
     """An outward link. The old markup signalled 'new tab' with a ↗ glyph;
     the design allows no icons, so the signal is given to assistive
-    technology in words instead."""
+    technology in words instead.
+
+    `event` names the link for GoatCounter. It is only worth setting on a
+    link whose click cannot be seen any other way — an outward one. The
+    attribute is inert unless analytics is switched on."""
     cls = ' class="quiet"' if quiet else ""
+    tag = f' data-goatcounter-click="{e(event)}"' if event and GOATCOUNTER else ""
     return (
-        f'<a{cls} href="{e(href)}" rel="noopener" target="_blank">{e(text)}'
+        f'<a{cls}{tag} href="{e(href)}" rel="noopener" target="_blank">{e(text)}'
         '<span class="visually-hidden"> (opens in a new tab)</span></a>'
     )
 
@@ -311,7 +327,7 @@ def shell(head, body, base, narrow=False, path=None):
     <link rel="icon" href="{base}assets/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{base}assets/icon-180.png">
     <link rel="stylesheet" href="{base}assets/css/almanac-tokens.css">
-    <link rel="stylesheet" href="{base}assets/css/almanac.css">
+    <link rel="stylesheet" href="{base}assets/css/almanac.css">{ANALYTICS}
   </head>
   <body data-base-path="{base}">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -839,7 +855,14 @@ def route_page(route, almanac, venue_timing):
             if route["routeType"] != "day-walk" and arrival.get("station") and 0 < len(mapped) <= 10
             else None
         )
-        links = [external(maps_directions(None, arrival["pinQuery"], "transit"), "Start in Google Maps")]
+        # The one click on the site that no pageview can stand in for:
+        # somebody opening navigation for this route is the closest thing to
+        # evidence that they went.
+        links = [external(
+            maps_directions(None, arrival["pinQuery"], "transit"),
+            "Start in Google Maps",
+            event=f'maps/{route["slug"]}',
+        )]
         if whole_walk:
             links.append(external(whole_walk, "Open the whole walk"))
         if navigation.get("externalRouteUrl"):

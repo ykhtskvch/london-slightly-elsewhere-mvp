@@ -16,9 +16,11 @@ Then open `http://localhost:8000`.
 
 ## Files that matter
 
-- `data/site.json` — where the site is deployed. The only place the host and
-  the path prefix are written down. Moving to a custom domain is `origin` plus
-  `basePath` and a rebuild; nothing else in the build may hardcode either.
+- `data/site.json` — where the site is deployed, and whether analytics is on.
+  The only place the host and the path prefix are written down. Moving to a
+  custom domain is `origin` plus `basePath` and a rebuild; nothing else in the
+  build may hardcode either. `analytics.goatcounter` is null until the privacy
+  notice describes it.
 - `data/routes.json` — the single source of truth for all routes.
 - `data/almanac.json` — page-level copy for the pages on the field-guide
   design; per-route copy for those pages lives under each route's `almanac`
