@@ -237,6 +237,23 @@ def corrections(almanac, base, head=None, lead=True, body=None):
     return f'<section class="corrections">{"".join(parts)}</section>'
 
 
+def running_head(almanac, base):
+    """A running head, in the sense a book means it: the publication on the
+    left, where you are in it on the right, small and quiet above a rule.
+
+    Route pages only. Rule 06 of the handoff forbids anything above the
+    editor's note, and the editor's note exists only on the homepage; a route
+    page has none. It is set in the same mono as the apparatus at the foot of
+    the page, so the two read as the same piece of furniture, and it does not
+    stick to the viewport — rule 05 rules out panels that follow the reader.
+    """
+    links = "".join(
+        f'<a class="quiet" href="{base}{e(item["href"])}">{e(item["name"])}</a>'
+        for item in almanac["runningHead"]
+    )
+    return f'<nav class="running-head" aria-label="Primary">{links}</nav>'
+
+
 def route_return(almanac, base):
     """The way out, at the end of the reading rather than the end of the
     document. The apparatus is the only other navigation on the site, and on
@@ -265,7 +282,7 @@ def apparatus(almanac, base, current=None):
     return (
         '<footer class="apparatus">'
         f'<span class="apparatus__line">{sentence}</span>'
-        f'<nav class="apparatus__links" aria-label="Site">{links}</nav>'
+        f'<nav class="apparatus__links" aria-label="Footer">{links}</nav>'
         "</footer>"
     )
 
@@ -1157,6 +1174,7 @@ def route_page(route, almanac, venue_timing):
     )
 
     body = (
+        f'      {running_head(almanac, base)}\n'
         f'      <main id="main">'
         f'<header class="route-head">{"".join(head_block)}</header>'
         f'{"".join(sections)}{route_return(almanac, base)}{closing}</main>\n'

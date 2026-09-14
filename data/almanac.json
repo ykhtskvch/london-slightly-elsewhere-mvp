@@ -108,7 +108,13 @@
     "linkName": "Browse the routes",
     "href": "routes/"
   },
-  "_routeReturn": "The way back to the rest of the site from the end of a long page. The apparatus is the only other navigation there is, and on a full day out it sits ten screens down.",
+  "_runningHead": "Route pages only. The handoff forbids anything above the editor's note, and the editor's note is on the homepage, so a route page is the one place this does not break the rule. Set as a running head in a book rather than a site header: the same mono the apparatus uses, one rule under it, and not sticky.",
+  "runningHead": [
+    { "name": "London, Slightly Elsewhere", "href": "" },
+    { "name": "The index", "href": "routes/" }
+  ],
+
+  "_routeReturn":"The way back to the rest of the site from the end of a long page. The apparatus is the only other navigation there is, and on a full day out it sits ten screens down.",
   "routeReturn": {
     "sentence": "The rest of them are in {link}, in the order I trust it.",
     "linkName": "the index",

@@ -246,8 +246,15 @@ the index, in the order I trust it."* It also gives the homepage the way to
 Worth noting what the handoff actually forbids. Rule 06 says nothing appears
 above **the editor's note** – a banner, a promotional nav line, a route
 counter. The editor's note exists only on the homepage. A route page has
-none, so a header there would break the spirit of the rule rather than its
-letter. That remains open if the sentence proves not to be enough.
+none, so a header there breaks the spirit of the rule rather than its letter.
+
+**The author chose to take that.** The 24 route pages now open with a running
+head: the publication on the left, "The index" on the right, in the same 11px
+mono the apparatus uses at the foot of the page, above a single rule. It is
+furniture from a book rather than a navigation bar, and it does not stick to
+the viewport, because rule 05 rules out panels that follow the reader. The
+homepage still opens with the editor's note and nothing above it, and so does
+the index.
 
 ### 2.4 No dark theme
 

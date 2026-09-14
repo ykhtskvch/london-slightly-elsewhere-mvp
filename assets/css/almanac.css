@@ -319,6 +319,27 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
   white-space: nowrap;
 }
 
+/* --- Running head ------------------------------------------------------
+   The apparatus, moved to the top of a route page: same mono, same muted
+   links, one rule. A book's running head rather than a site's navigation
+   bar, and deliberately not sticky. Route pages only — the homepage opens
+   with the editor's note and nothing may sit above it. */
+.running-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-8) var(--space-16);
+  padding-block: var(--space-16);
+  border-bottom: var(--rule) solid var(--rule-minor);
+  font-family: var(--apparatus);
+  font-size: var(--fs-apparatus);
+  line-height: var(--lh-mono);
+}
+
+.running-head a { color: var(--muted); text-decoration-color: var(--rule-minor); }
+.running-head a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
 /* --- The way out -------------------------------------------------------
    A sentence, at the end of the reading rather than the end of the document.
    Set at body size rather than quietly, because it is the only navigation
@@ -1030,11 +1051,12 @@ input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
   /* Tap targets ≥ 44px. Vertical padding on an inline link grows the hit
      area without changing the line box, so the measure is untouched. The
      spec suggests 10px; an inline box is only about 1.15em tall, so 10px
-     lands at 37–39px and 14px is what actually clears 44. The 11px mono
-     apparatus links are too small for padding alone to reach it, so they
-     become inline-flex with a minimum height instead. */
-  a { padding-block: 14px; }
-  .apparatus__links a, .apparatus__line a {
+     lands at 37–39px. 14px clears 44 everywhere except a 15.5px link, which
+     landed on 43.97; 15px leaves room at every size the design uses. The
+     11px mono apparatus links are too small for padding alone to reach it,
+     so they become inline-flex with a minimum height instead. */
+  a { padding-block: 15px; }
+  .apparatus__links a, .apparatus__line a, .running-head a {
     display: inline-flex;
     align-items: center;
     min-height: var(--tap);
