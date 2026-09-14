@@ -737,6 +737,31 @@ STORAGE_USE = re.compile(
 )
 
 
+def check_leading_comes_from_tokens():
+    """Leading drifted three times because it was written as a number next to
+    the rule that needed it, so the same role ended up with two values: the
+    plate caption at 1.55 where the spec says 1.6, a subhead at 1.25 beside a
+    stop title at 1.2, an index title at 1.1 beside a route title at 1.08.
+    Each was invisible on its own page.
+
+    Every line-height in almanac.css now names a token, so two roles can only
+    disagree by disagreeing in the token file, where they sit next to each
+    other and the difference is legible.
+    """
+    css = (ROOT / "assets" / "css" / "almanac.css").read_text(encoding="utf-8")
+    # Filtered in Python rather than with a lookahead: \s* backtracks, so
+    # "(?!var\()" after it happily matches at the space before var(.
+    values = [v.strip() for v in re.findall(r"line-height:\s*([^;}]+)", css)]
+    literals = [v for v in values if not v.startswith("var(")]
+    if literals:
+        raise SystemExit(
+            "Build stopped. almanac.css sets leading as a number rather than a token:\n  "
+            + "\n  ".join(value.strip() for value in literals)
+            + "\n\nAdd a --lh-* token in almanac-tokens.css and use it, so the same "
+            "role cannot end up with two values."
+        )
+
+
 def check_nothing_is_stored():
     """The privacy notice says nothing is stored on the visitor's device and
     nothing is read from it, on any page. That is a claim about every script
@@ -1243,6 +1268,7 @@ def main():
         for slug, fields in outstanding:
             print(f"  {slug}: {', '.join(fields)}")
 
+    check_leading_comes_from_tokens()
     check_nothing_is_stored()
     print("Checked: no page stores or reads anything on a visitor's device.")
 

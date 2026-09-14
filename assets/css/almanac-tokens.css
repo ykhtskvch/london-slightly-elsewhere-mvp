@@ -83,6 +83,10 @@
   --fs-section-head: 24px;
   --lh-section-head: 1.2;
   --fs-term: 21px;
+  --lh-term: 1.2;         /* terms, stop titles, subheads: with the section head */
+  --lh-row-title: 1.12;   /* a walked route in the index, and the glossary title */
+  --lh-filter: 1.75;      /* the filter sentence, which is read, not scanned */
+  --lh-numerals: 1.5;     /* the digits beside an index row and a stop */
   --fs-lead: 19px;
   --fs-lead-quiet: 17px;
   --lh-lead: 1.55;

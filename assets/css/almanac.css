@@ -281,7 +281,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
   max-width: var(--measure-caption);
   color: var(--ink-tertiary);
   font-size: var(--fs-caption);
-  line-height: 1.55;
+  line-height: var(--lh-caption);
 }
 
 /* --- AbsenceMark --------------------------------------------------------
@@ -421,7 +421,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .index-head__title {
   font-size: var(--fs-route-title);
-  line-height: 1.1;
+  line-height: var(--lh-route-title);
   letter-spacing: var(--tr-route-title);
 }
 
@@ -452,7 +452,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
   max-width: var(--measure-filter);
   color: var(--ink-secondary);
   font-size: 22px;
-  line-height: 1.75;
+  line-height: var(--lh-filter);
 }
 
 /* A word is a toggle, not a link, so it is a real button — with none of a
@@ -542,7 +542,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 .index-row__number {
   font-family: var(--apparatus);
   font-size: 13px;
-  line-height: 1.5;
+  line-height: var(--lh-numerals);
   color: var(--numerals);
 }
 
@@ -556,10 +556,10 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .index-row__title {
   font-size: 22px;
-  line-height: 1.15;
+  line-height: var(--lh-route-title-quiet);
 }
 
-.index-row--walked .index-row__title { font-size: 26px; line-height: 1.12; }
+.index-row--walked .index-row__title { font-size: 26px; line-height: var(--lh-row-title); }
 
 .index-row__summary {
   color: var(--ink-secondary);
@@ -596,7 +596,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .terms-head__title {
   font-size: 30px;
-  line-height: 1.12;
+  line-height: var(--lh-row-title);
   letter-spacing: -.006em;
 }
 
@@ -684,7 +684,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .subhead {
   font-size: var(--fs-term);
-  line-height: 1.25;
+  line-height: var(--lh-term);
 }
 
 /* Ruled rows: the list idiom of the design system. Used for best-for and
@@ -717,7 +717,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .definition__term {
   font-size: var(--fs-term);
-  line-height: 1.25;
+  line-height: var(--lh-term);
 }
 
 /* The glossary rows are a description list, so its own margins go. */
@@ -752,7 +752,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
   content: counter(stop, decimal-leading-zero);
   font-family: var(--apparatus);
   font-size: 13px;
-  line-height: 1.5;
+  line-height: var(--lh-numerals);
   color: var(--numerals);
 }
 
@@ -765,7 +765,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .stop__title {
   font-size: var(--fs-term);
-  line-height: 1.2;
+  line-height: var(--lh-term);
 }
 
 .meta {
@@ -801,7 +801,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .page-intro h1 {
   font-size: var(--fs-route-title);
-  line-height: 1.1;
+  line-height: var(--lh-route-title);
   letter-spacing: var(--tr-route-title);
 }
 
@@ -1001,7 +1001,7 @@ input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
   border-top: var(--rule) solid var(--rule-minor);
 }
 
-.result-card h2 { font-size: 22px; line-height: 1.15; }
+.result-card h2 { font-size: 22px; line-height: var(--lh-route-title-quiet); }
 .result-card > p { color: var(--ink-secondary); font-size: 17px; line-height: var(--lh-lead); }
 .result-heading { display: flex; flex-direction: column; gap: var(--space-4); }
 
@@ -1043,7 +1043,7 @@ input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
   padding-block: var(--space-16);
   border-top: var(--rule) solid var(--rule-minor);
 }
-.idea-card h2 { font-size: var(--fs-term); line-height: 1.25; }
+.idea-card h2 { font-size: var(--fs-term); line-height: var(--lh-term); }
 .idea-card p { margin-block: var(--space-4) 0; color: var(--ink-secondary); font-size: var(--fs-caveat); line-height: var(--lh-caption); }
 .idea-card .eyebrow { margin-bottom: var(--space-4); }
 
