@@ -36,16 +36,23 @@ assert BASE_PATH.startswith("/") and BASE_PATH.endswith("/"), \
 # Absolute URL of the site root, with a trailing slash.
 SITE_URL = f"{ORIGIN}{BASE_PATH}"
 
-# GoatCounter, or nothing. The script sets no cookies; it reads one
-# localStorage key, "skipgc", which exists only so a visitor can opt out by
-# loading any page with #toggle-goatcounter, and writes it only when they do.
-# A normal visit stores nothing.
+# GoatCounter, or nothing. It sets no cookies, and assets/js/analytics.js
+# replaces its filter with one that reads no storage either, so a visit
+# stores nothing and reads nothing. no_onload holds the count back until that
+# filter is in place; both scripts are deferred, which runs them in document
+# order, so count.js is always ready by the time ours runs.
 GOATCOUNTER = (_SITE.get("analytics") or {}).get("goatcounter")
-ANALYTICS = (
-    f'\n    <script data-goatcounter="{GOATCOUNTER}" async '
-    'src="https://gc.zgo.at/count.js"></script>'
-    if GOATCOUNTER else ""
-)
+
+
+def analytics_tags(base):
+    if not GOATCOUNTER:
+        return ""
+    return (
+        f'\n    <script data-goatcounter="{GOATCOUNTER}"'
+        " data-goatcounter-settings='{\"no_onload\":true}'"
+        ' defer src="https://gc.zgo.at/count.js"></script>'
+        f'\n    <script defer src="{base}assets/js/analytics.js"></script>'
+    )
 
 # Routes whose detail page is built to the new design. Every route is now on
 # it; the tuple stays so build_route_pages.py can still tell the two apart if
@@ -327,7 +334,7 @@ def shell(head, body, base, narrow=False, path=None):
     <link rel="icon" href="{base}assets/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{base}assets/icon-180.png">
     <link rel="stylesheet" href="{base}assets/css/almanac-tokens.css">
-    <link rel="stylesheet" href="{base}assets/css/almanac.css">{ANALYTICS}
+    <link rel="stylesheet" href="{base}assets/css/almanac.css">{analytics_tags(base)}
   </head>
   <body data-base-path="{base}">
     <a class="skip-link" href="#main">Skip to content</a>
