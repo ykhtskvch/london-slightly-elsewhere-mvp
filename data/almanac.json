@@ -52,6 +52,15 @@
     ],
     "closing": "If a route uses a word that is not on this page, that is a mistake and worth telling me about."
   },
+  "notFound": {
+    "pageTitle": "Page not found",
+    "description": "This page does not exist on London, Slightly Elsewhere.",
+    "eyebrow": "404",
+    "title": "You are somewhere unlisted.",
+    "intro": "That happens on the routes too. The routes that exist are here.",
+    "linkName": "Browse the routes",
+    "href": "routes/"
+  },
   "corrections": {
     "lead": "River first. Pub later. Routes with a beginning, a useful pause, and no obligation to make a big day of it.",
     "body": "If you go, tell me what was too loud, too long, unexpectedly good or not worth the trip. Corrections go into the next edition with your wording where I can keep it.",

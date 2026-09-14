@@ -16,6 +16,9 @@ Then open `http://localhost:8000`.
 
 ## Files that matter
 
+- `data/site.json` — where the site is deployed. The only place the host and
+  the path prefix are written down. Moving to a custom domain is `origin` plus
+  `basePath` and a rebuild; nothing else in the build may hardcode either.
 - `data/routes.json` — the single source of truth for all routes.
 - `data/almanac.json` — page-level copy for the pages on the field-guide
   design; per-route copy for those pages lives under each route's `almanac`

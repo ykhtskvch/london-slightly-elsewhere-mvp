@@ -316,13 +316,19 @@ What that restyling does:
   stays a control — a form needs one — drawn as a single 1px ink rule with no
   fill and no radius. This is the one place "no buttons anywhere" cannot hold.
 
-### 2.6e The 404 is styled only on the deployed site
+### 2.6e The 404 is generated, and styled only on the deployed site
 
-Its assets and links are absolute from the project root
-(`/london-slightly-elsewhere-mvp/…`) so the page works at whatever depth the
-missing URL had — a deliberate earlier fix, preserved. On a local preview
-served at `/`, that path resolves to nothing and the 404 renders unstyled.
-That was true before this work; it is correct on GitHub Pages.
+Its assets and links are absolute from the site root, so the page works at
+whatever depth the missing URL had — a deliberate earlier fix, preserved. On
+a local preview served at `/`, that prefix resolves to nothing and the 404
+renders unstyled. That was true before this work; it is correct on Pages.
+
+It is also the one page among the undesigned ones whose markup is generated
+rather than lifted. A lifted `<main>` is build output as well as source, so
+an absolute link inside one would quietly pin the deploy path into a file the
+build only copies. Every address on the 404 now comes from `BASE_PATH` in
+`data/site.json`, and `legacy_page()` refuses to convert any page whose
+`<main>` contains an absolute in-site link.
 
 ### 2.6f Disabled form fields sit under 4.5:1
 

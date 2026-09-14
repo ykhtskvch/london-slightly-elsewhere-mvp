@@ -1,0 +1,8 @@
+{
+  "_comment": "Where the site lives. The only place the deploy address is written down: the build scripts read it, and nothing else may hardcode it. Moving to a custom domain is an edit to these two lines plus a rebuild.",
+
+  "origin": "https://ykhtskvch.github.io",
+
+  "_basePath": "Path prefix the site is served under, with a leading and a trailing slash. A GitHub Pages project site sits under its repository name; on a domain of its own this becomes \"/\". Used for absolute in-site URLs: og:image, and the 404, which is served at whatever depth the missing URL had and so cannot use relative paths.",
+  "basePath": "/london-slightly-elsewhere-mvp/"
+}

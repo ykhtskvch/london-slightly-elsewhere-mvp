@@ -23,8 +23,18 @@ import re
 from urllib.parse import quote, urlencode
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SITE_BASE = "https://ykhtskvch.github.io/london-slightly-elsewhere-mvp"
 TITLE_SUFFIX = " | London, Slightly Elsewhere"
+
+# Where the site is deployed. data/site.json is the only place this is
+# written down; moving to a custom domain is an edit to that file and a
+# rebuild. Nothing else in the build may hardcode the host or the prefix.
+_SITE = json.loads((ROOT / "data" / "site.json").read_text(encoding="utf-8"))
+ORIGIN = _SITE["origin"].rstrip("/")
+BASE_PATH = _SITE["basePath"]
+assert BASE_PATH.startswith("/") and BASE_PATH.endswith("/"), \
+    'site.json: basePath needs a leading and a trailing slash, e.g. "/" or "/repo-name/"'
+# Absolute URL of the site root, with a trailing slash.
+SITE_URL = f"{ORIGIN}{BASE_PATH}"
 
 # Routes whose detail page is built to the new design. Every route is now on
 # it; the tuple stays so build_route_pages.py can still tell the two apart if
@@ -560,9 +570,6 @@ LEGACY_PAGES = {
     "contact/index.html": ("../", None),
     "future-guides/index.html": ("../", "future-guides/"),
     "find-your-route/index.html": ("../", "find-your-route/"),
-    # The 404 is served at whatever depth the missing URL had, so its links
-    # and assets are absolute from the project root rather than relative.
-    "404.html": ("/london-slightly-elsewhere-mvp/", None),
 }
 
 
@@ -583,6 +590,15 @@ def legacy_page(path, base, current, almanac):
 
     main = re.search(r"<main\b[^>]*>(.*?)</main>", source, re.S)
     assert main, f"{path}: no <main> to convert"
+    inner = main.group(1)
+    # A lifted <main> is build output as well as source, so an absolute
+    # in-site link inside one would survive a change of deploy path. None of
+    # these pages has one — the 404, which needs absolute links, is generated
+    # instead — and this keeps it that way.
+    assert 'href="/' not in inner, (
+        f"{path}: absolute in-site link in a page whose markup is preserved. "
+        "Make it relative, or generate the page so it can use BASE_PATH."
+    )
 
     body_scripts = source.split("</main>", 1)[1]
     scripts = [
@@ -593,12 +609,37 @@ def legacy_page(path, base, current, almanac):
     ]
 
     body = (
-        f'      <main id="main">{main.group(1).rstrip()}\n      </main>\n'
+        f'      <main id="main">{inner.rstrip()}\n      </main>\n'
         f"      {apparatus(almanac, base, current=current)}"
     )
     if scripts:
         body += "\n" + "\n".join(scripts)
     return shell("\n".join(head_lines), body, base)
+
+
+def not_found_page(almanac):
+    """The 404 is served at whatever depth the missing URL had, so it is the
+    one page that cannot use relative paths. That makes it the one page whose
+    markup has to be generated rather than lifted: every address on it comes
+    from BASE_PATH."""
+    spec = almanac["notFound"]
+    head = "\n".join([
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        f'    <meta name="description" content="{e(spec["description"])}">',
+        f'    <title>{e(spec["pageTitle"])}{TITLE_SUFFIX}</title>',
+    ])
+    body = (
+        '      <main id="main">'
+        '<section class="page-intro">'
+        f'<p class="eyebrow">{e(spec["eyebrow"])}</p>'
+        f'<h1>{e(spec["title"])}</h1>'
+        f'<p>{e(spec["intro"])}</p>'
+        f'<p class="links-line"><a href="{BASE_PATH}{e(spec["href"])}">{e(spec["linkName"])}</a></p>'
+        "</section></main>\n"
+        f"      {apparatus(almanac, BASE_PATH)}"
+    )
+    return shell(head, body, BASE_PATH)
 
 
 def route_head_meta(route):
@@ -615,7 +656,7 @@ def route_head_meta(route):
     ]
     if image.exists():
         lines += [
-            f'    <meta property="og:image" content="{SITE_BASE}/assets/og/{route["slug"]}.png">',
+            f'    <meta property="og:image" content="{SITE_URL}assets/og/{route["slug"]}.png">',
             '    <meta property="og:image:width" content="1200">',
             '    <meta property="og:image:height" content="630">',
             '    <meta name="twitter:card" content="summary_large_image">',
@@ -940,6 +981,9 @@ def main():
         target = ROOT / relative
         target.write_text(legacy_page(target, base, current, almanac), encoding="utf-8")
     print(f"Converted {len(LEGACY_PAGES)} pages that were never designed.")
+
+    (ROOT / "404.html").write_text(not_found_page(almanac), encoding="utf-8")
+    print(f"Wrote 404.html, anchored at {BASE_PATH}")
 
     slugs = list(by_slug) if ALMANAC_ROUTES is None else list(ALMANAC_ROUTES)
     for slug in slugs:

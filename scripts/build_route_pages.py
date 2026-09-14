@@ -22,7 +22,7 @@ import pathlib
 import build_almanac_pages
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SITE_BASE = "https://ykhtskvch.github.io/london-slightly-elsewhere-mvp"
+SITE_URL = build_almanac_pages.SITE_URL  # from data/site.json
 TITLE_SUFFIX = " | London, Slightly Elsewhere"
 
 STATUS = {
@@ -98,7 +98,7 @@ def head(route):
     ]
     if image.exists():
         lines += [
-            f'    <meta property="og:image" content="{SITE_BASE}/assets/og/{route["slug"]}.png">',
+            f'    <meta property="og:image" content="{SITE_URL}assets/og/{route["slug"]}.png">',
             '    <meta property="og:image:width" content="1200">',
             '    <meta property="og:image:height" content="630">',
             '    <meta name="twitter:card" content="summary_large_image">',
