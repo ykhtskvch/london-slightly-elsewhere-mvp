@@ -1,0 +1,13 @@
+# Everything in this repository is served as the site, so anything committed
+# by accident is published by accident.
+
+# Python leaves these beside the build scripts on every run.
+__pycache__/
+*.pyc
+
+# generate_og_images.py writes this while rendering each card and removes it
+# at the end. It survives a crash halfway through.
+assets/og/_render.html
+
+# macOS.
+.DS_Store
