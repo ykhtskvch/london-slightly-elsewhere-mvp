@@ -237,6 +237,18 @@ def corrections(almanac, base, head=None, lead=True, body=None):
     return f'<section class="corrections">{"".join(parts)}</section>'
 
 
+def route_return(almanac, base):
+    """The way out, at the end of the reading rather than the end of the
+    document. The apparatus is the only other navigation on the site, and on
+    a full day out it sits ten screens down; somebody who has just finished a
+    route should not have to go looking for the next one.
+
+    A sentence, like every other link between pages here."""
+    spec = almanac["routeReturn"]
+    link = f'<a href="{base}{e(spec["href"])}">{e(spec["linkName"])}</a>'
+    return f'<p class="route-return">{e(spec["sentence"]).replace("{link}", link)}</p>'
+
+
 def apparatus(almanac, base, current=None):
     """Apparatus – one serif line and the service links in mono."""
     line = almanac["apparatus"]["line"]
@@ -402,6 +414,7 @@ def home(routes, almanac):
             f"{quiet}</section>"
         )
 
+    parts.append(route_return(almanac, base))
     parts.append(corrections(almanac, base))
     body = (
         f'      <main id="main">{"".join(parts)}</main>\n'
@@ -1146,7 +1159,7 @@ def route_page(route, almanac, venue_timing):
     body = (
         f'      <main id="main">'
         f'<header class="route-head">{"".join(head_block)}</header>'
-        f'{"".join(sections)}{closing}</main>\n'
+        f'{"".join(sections)}{route_return(almanac, base)}{closing}</main>\n'
         f"      {apparatus(almanac, base)}"
     )
     return shell(route_head_meta(route), body, base, path=f'routes/{route["slug"]}/')

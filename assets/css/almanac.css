@@ -319,6 +319,20 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
   white-space: nowrap;
 }
 
+/* --- The way out -------------------------------------------------------
+   A sentence, at the end of the reading rather than the end of the document.
+   Set at body size rather than quietly, because it is the only navigation
+   above the apparatus and on a full day out the apparatus is ten screens
+   down. */
+.route-return {
+  max-width: var(--measure-body);
+  padding-block: var(--space-26);
+  border-bottom: var(--rule) solid var(--rule-minor);
+  color: var(--ink-secondary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
 /* --- CorrectionsBand ----------------------------------------------------
    Prose and an address. No form. */
 .corrections {

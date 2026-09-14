@@ -108,6 +108,12 @@
     "linkName": "Browse the routes",
     "href": "routes/"
   },
+  "_routeReturn": "The way back to the rest of the site from the end of a long page. The apparatus is the only other navigation there is, and on a full day out it sits ten screens down.",
+  "routeReturn": {
+    "sentence": "The rest of them are in {link}, in the order I trust it.",
+    "linkName": "the index",
+    "href": "routes/"
+  },
   "corrections": {
     "lead": "River first. Pub later. Routes with a beginning, a useful pause, and no obligation to make a big day of it.",
     "body": "If you go, tell me what was too loud, too long, unexpectedly good or not worth the trip. Corrections go into the next edition with your wording where I can keep it.",

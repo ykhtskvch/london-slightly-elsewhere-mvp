@@ -232,8 +232,22 @@ design's mono treatment: Find a route, Browse routes, Feedback, About, Terms
 used here, What next?, Privacy, Accessibility. The spec names five.
 
 Reverting to the specified five is an edit to `apparatus.links` in
-`data/almanac.json` — but do it only once the index is reachable some other
+`data/almanac.json` – but do it only once the index is reachable some other
 way.
+
+**Since then**, one other way exists. Removing the header left a long route
+page with no navigation until its very last element: the full day out to
+Marlow is 10,145px tall and the apparatus began at 10,082, with a single
+internal link above it in the whole document. A sentence now closes the
+reading on every route page and on the homepage: *"The rest of them are in
+the index, in the order I trust it."* It also gives the homepage the way to
+`/routes/` it never had, which is what this section was written about.
+
+Worth noting what the handoff actually forbids. Rule 06 says nothing appears
+above **the editor's note** – a banner, a promotional nav line, a route
+counter. The editor's note exists only on the homepage. A route page has
+none, so a header there would break the spirit of the rule rather than its
+letter. That remains open if the sentence proves not to be enough.
 
 ### 2.4 No dark theme
 
