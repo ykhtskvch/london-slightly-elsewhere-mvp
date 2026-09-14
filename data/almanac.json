@@ -41,14 +41,14 @@
     "legacyNote": "Not a style guide. Each of these is doing a specific job, and most of them are there to protect you from a bad day out.",
     "legacy": [
       { "term": "Old room", "body": "Not the same as an old pub. An old pub can be ruined by one refit; an old room survives its owners. You know one when your voice drops slightly on entering." },
-      { "term": "Easy exit", "body": "A named station within a short walk of every stage, and — more importantly — permission. Leaving a route early is a version of the route, not a failure of it." },
+      { "term": "Easy exit", "body": "A named station within a short walk of every stage, and – more importantly – permission. Leaving a route early is a version of the route, not a failure of it." },
       { "term": "The useful version", "body": "What the route page owes you: names, minutes, and what to do when the pub is full. Mood is the reason to go; the useful version is how." },
       { "term": "What not to expect", "body": "Written before what to expect, and taken more seriously. Most bad days out are caused by accurate places and inaccurate hopes." },
       { "term": "Field-checked", "body": "Walked, in person, recently enough to say so with a date. Nothing else on this site borrows that word, because assembling a route from knowledge is not the same as standing in it." },
-      { "term": "Pilot", "body": "Walked once, in person, but not lately. The shape has been stood in; some live details — hours, prices, whether the place still exists — need checking before you go." },
+      { "term": "Pilot", "body": "Walked once, in person, but not lately. The shape has been stood in; some live details – hours, prices, whether the place still exists – need checking before you go." },
       { "term": "Prototype", "body": "An honest draft. The shape is right; the details have not been stood next to. Treat every fact on a prototype as a rumour with good posture." },
       { "term": "A warm finish", "body": "The last stop, chosen so that the day has an ending rather than a trailing-off. Usually an old room. Never a queue." },
-      { "term": "Slightly elsewhere", "body": "The feeling this site is for. Not another city — just enough sideways distance from your usual London that the evening acquires a border, and therefore a shape." }
+      { "term": "Slightly elsewhere", "body": "The feeling this site is for. Not another city – just enough sideways distance from your usual London that the evening acquires a border, and therefore a shape." }
     ],
     "closing": "If a route uses a word that is not on this page, that is a mistake and worth telling me about."
   },
@@ -68,7 +68,7 @@
         "head": "Analytics and cookies",
         "whenAnalyticsOff": [
           "There are no analytics, advertising pixels or non-essential cookies in this pilot. Accordingly, there is no consent banner.",
-          "If that changes, this notice changes with it, in the same breath — not afterwards."
+          "If that changes, this notice changes with it, in the same breath – not afterwards."
         ],
         "whenAnalyticsOn": [
           "Visits are counted by GoatCounter, an analytics service hosted in the European Union. It records which page was opened, where you arrived from, your country, and the kind of browser and device you used.",

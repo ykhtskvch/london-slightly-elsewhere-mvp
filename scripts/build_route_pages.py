@@ -10,7 +10,7 @@ title, meta description, JSON-LD and card copy behind, and the browse grid
 still listed 16 of the 24 routes.
 
 The markup below deliberately mirrors renderRoute() and routeCard() in
-assets/js/route-page.js and assets/js/app.js — status labels, quick-fact
+assets/js/route-page.js and assets/js/app.js – status labels, quick-fact
 selection, the at-a-glance flow labels and the card fields must stay in step
 with them, or a visitor without JS sees different facts from one with.
 """
@@ -32,9 +32,9 @@ STATUS = {
         "Personally field-checked route · live details can still change",
         "Field-checked route.",
     ),
-    "prototype": ("Prototype route", "Prototype route — not yet field-checked", "Prototype."),
+    "prototype": ("Prototype route", "Prototype route – not yet field-checked", "Prototype."),
 }
-PILOT = ("Pilot route", "Pilot route — walked once; verify live details before going", "Pilot edition.")
+PILOT = ("Pilot route", "Pilot route – walked once; verify live details before going", "Pilot edition.")
 
 CARD_STATUS = {
     "published": "Published",
@@ -143,7 +143,7 @@ def fallback(route, detail):
     ]
     note = route.get("fieldNote")
     if note and note.get("text"):
-        flag = "" if note.get("verified") else '<span class="verify-flag">unverified — details not yet reconfirmed</span>'
+        flag = "" if note.get("verified") else '<span class="verify-flag">unverified – details not yet reconfirmed</span>'
         parts.append(
             f'<aside class="field-note"><p class="eyebrow">Last walked{flag}</p><p>{e(note["text"])}</p></aside>'
         )

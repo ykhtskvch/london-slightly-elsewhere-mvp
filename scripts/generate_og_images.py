@@ -141,7 +141,7 @@ def escape(value):
 
 
 def card_facts(route):
-    """Station, time, effort, cost — the first four of the five, in the fixed
+    """Station, time, effort, cost – the first four of the five, in the fixed
     order. Toilets are left off: thirteen routes have no toilet information,
     and a card that carries five facts for some routes and four for others
     would be a worse preview than one that always carries four."""

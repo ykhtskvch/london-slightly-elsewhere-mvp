@@ -1,7 +1,7 @@
 /* Counting, without reading anything off the visitor's device.
  *
  * GoatCounter's count.js sets no cookies, but its own filter reads
- * localStorage on every page load — the "skipgc" key behind its
+ * localStorage on every page load – the "skipgc" key behind its
  * #toggle-goatcounter opt-out. This file replaces that filter with one that
  * touches no storage at all, so a visit to this site stores nothing and
  * reads nothing.

@@ -1,4 +1,4 @@
-/* ConditionFilter — the index filter written as a sentence.
+/* ConditionFilter – the index filter written as a sentence.
  *
  * The only JavaScript on any page in the field-guide design, and the only
  * thing on the index that needs it. The rows themselves are in the HTML, so
@@ -7,7 +7,7 @@
  * string and a control that looks live but does nothing is the thing this
  * redesign exists to remove.
  *
- * Selection applies immediately — no Apply button — and lives in the query
+ * Selection applies immediately – no Apply button – and lives in the query
  * string, so a filtered index can be linked.
  *
  * A route matches a word only if it is tagged with it. Where the data has no
@@ -103,7 +103,7 @@
     }
 
     // The result line reports both how many match and how many of those have
-    // been walked — the fact the index is ordered by.
+    // been walked – the fact the index is ordered by.
     const walkedClause = `${spell(walked)} of them I have walked.`;
     let line;
     if (selected.size === 0) {

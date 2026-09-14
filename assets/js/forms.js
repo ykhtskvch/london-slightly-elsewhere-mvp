@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         if (!response.ok) throw new Error("Form submission failed");
         form.reset();
-        showMessage(message, "Thank you — your note has been sent.", "success");
+        showMessage(message, "Thank you – your note has been sent.", "success");
       } catch (error) {
         showMessage(message, "The response was not sent because the form service could not be reached. Try again when your connection is stable.", "error");
       } finally {

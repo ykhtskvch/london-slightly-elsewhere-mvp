@@ -180,7 +180,7 @@ for (const route of routes) {
     if (!isString(almanac.caveat)) addError(route, "an unwalked route needs almanac.caveat");
     if ("plate" in almanac) addError(route, "photographs appear only on walked routes");
     const seen = absenceSentences.get(almanac.absence);
-    if (seen) addError(route, `almanac.absence repeats the sentence used by ${seen} — each absence is written for its own route`);
+    if (seen) addError(route, `almanac.absence repeats the sentence used by ${seen} – each absence is written for its own route`);
     else if (isString(almanac.absence)) absenceSentences.set(almanac.absence, route.slug);
   }
 }

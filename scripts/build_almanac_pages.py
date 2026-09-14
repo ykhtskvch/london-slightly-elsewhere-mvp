@@ -80,10 +80,10 @@ FLOW_LABELS = {
 # is carried over verbatim from route-page.js so nothing new is claimed.
 STATUS_LINE = {
     "published": "Self-guided route.",
-    "field-checked": "Personally field-checked route — live details can still change.",
-    "prototype": "Prototype route — not yet field-checked.",
+    "field-checked": "Personally field-checked route – live details can still change.",
+    "prototype": "Prototype route – not yet field-checked.",
 }
-PILOT_LINE = "Pilot route — walked once; verify live details before going."
+PILOT_LINE = "Pilot route – walked once; verify live details before going."
 
 
 HUB_NAMES = {
@@ -116,7 +116,7 @@ def external(href, text, quiet=True, event=None):
     technology in words instead.
 
     `event` names the link for GoatCounter. It is only worth setting on a
-    link whose click cannot be seen any other way — an outward one. The
+    link whose click cannot be seen any other way – an outward one. The
     attribute is inert unless analytics is switched on."""
     cls = ' class="quiet"' if quiet else ""
     tag = f' data-goatcounter-click="{e(event)}"' if event and GOATCOUNTER else ""
@@ -130,7 +130,7 @@ def fact_line_parts(route):
     """The FactLine sentence and its values. Authored per route where an
     almanac block exists; otherwise assembled from the fields the data has,
     in the same fixed order. Toilets are simply absent for the routes that
-    carry no toilet information — a fact is left out rather than invented."""
+    carry no toilet information – a fact is left out rather than invented."""
     almanac = route.get("almanac")
     if almanac:
         return almanac["factLine"]["sentence"], almanac["factLine"]
@@ -152,7 +152,7 @@ def fact_line_parts(route):
 
 
 def fact_line(route, base, major, with_link):
-    """FactLine — the facts as one sentence, always in the order station,
+    """FactLine – the facts as one sentence, always in the order station,
     time, effort, cost, toilets, with the values in ink at 500. Prose, and it
     stays prose."""
     sentence, facts = fact_line_parts(route)
@@ -194,7 +194,7 @@ def plate(route, base, lazy=True):
 
 
 def entry(route, base, lazy=True):
-    """RouteEntry.walked — roughly three times the length of an unwalked
+    """RouteEntry.walked – roughly three times the length of an unwalked
     entry. The inequality is the content."""
     a = route["almanac"]
     body = "".join(f'<p class="entry__body">{e(p)}</p>' for p in a.get("body", []))
@@ -210,7 +210,7 @@ def entry(route, base, lazy=True):
 
 
 def entry_quiet(route, base):
-    """RouteEntry.unwalked — an AbsenceMark where the photograph would be,
+    """RouteEntry.unwalked – an AbsenceMark where the photograph would be,
     carrying a sentence written for this route."""
     a = route["almanac"]
     return (
@@ -225,7 +225,7 @@ def entry_quiet(route, base):
 
 
 def corrections(almanac, base, head=None, lead=True, body=None):
-    """CorrectionsBand — prose and an address, never a form."""
+    """CorrectionsBand – prose and an address, never a form."""
     terms = f'<a href="{base}terms-used-here/">{e(almanac["corrections"]["termsLinkName"])}</a>'
     scale = e(almanac["corrections"]["scale"]).replace("{termsLink}", terms)
     parts = [f'<h2 class="section-head">{e(head)}</h2>'] if head else []
@@ -238,7 +238,7 @@ def corrections(almanac, base, head=None, lead=True, body=None):
 
 
 def apparatus(almanac, base, current=None):
-    """Apparatus — one serif line and the service links in mono."""
+    """Apparatus – one serif line and the service links in mono."""
     line = almanac["apparatus"]["line"]
     sentence = (
         f'{e(line["before"])}<a href="{base}{e(line["href"])}">{e(line["linkName"])}</a>'
@@ -367,7 +367,7 @@ def home(routes, almanac):
     head = "\n".join([
         '    <meta charset="utf-8">',
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
-        '    <meta name="description" content="Independent routes for neighbourhood days, green escapes and full days out by public transport — by mood, not by algorithm.">',
+        '    <meta name="description" content="Independent routes for neighbourhood days, green escapes and full days out by public transport – by mood, not by algorithm.">',
         "    <title>London, Slightly Elsewhere</title>",
         "    <script type=\"application/ld+json\">"
         + json.dumps({
@@ -415,7 +415,7 @@ def home(routes, almanac):
 # The index lists every route, but only the routes with an `almanac` block
 # carry authored copy. Everything below is derived from fields the data
 # already has, so no claim is made that the data does not support. Where a
-# fact is missing it is left out rather than guessed at — see
+# fact is missing it is left out rather than guessed at – see
 # DESIGN-CONFLICTS.md.
 
 # One effort scale of three words, mapped from the three scales the data
@@ -611,8 +611,8 @@ def terms_page(almanac):
 #
 # About, Feedback, Privacy, Accessibility, the finder, the 404 and the
 # future-guides page have content but no design. Rather than rewrite their
-# markup — which would mean re-typing two long forms and the six-filter
-# finder, and risking the JavaScript that drives them — the converter lifts
+# markup – which would mean re-typing two long forms and the six-filter
+# finder, and risking the JavaScript that drives them – the converter lifts
 # each page's <main> unchanged and drops it into the new shell. The old class
 # names those pages and assets/js/finder.js and forms.js use are restyled in
 # almanac.css instead. Running it twice is safe: it re-reads the same <main>.
@@ -647,8 +647,8 @@ def legacy_page(path, base, current, almanac, site_path):
     inner = main.group(1)
     # A lifted <main> is build output as well as source, so an absolute
     # in-site link inside one would survive a change of deploy path. None of
-    # these pages has one — the 404, which needs absolute links, is generated
-    # instead — and this keeps it that way.
+    # these pages has one – the 404, which needs absolute links, is generated
+    # instead – and this keeps it that way.
     assert 'href="/' not in inner, (
         f"{path}: absolute in-site link in a page whose markup is preserved. "
         "Make it relative, or generate the page so it can use BASE_PATH."
@@ -745,7 +745,7 @@ def check_nothing_is_stored():
             found = STORAGE_USE.findall(path.read_text(encoding="utf-8"))
             if found:
                 problems.append(
-                    f"{where} loads {src}, which uses {', '.join(sorted(set(found)))} — "
+                    f"{where} loads {src}, which uses {', '.join(sorted(set(found)))} – "
                     "the privacy notice says no page stores or reads anything on the device"
                 )
 
@@ -890,7 +890,7 @@ def route_page(route, almanac, venue_timing):
     # A photograph only where the route has been walked; the AbsenceMark only
     # where a sentence has been written for this route. A shared template
     # would turn the admission into a widget, so a route without one shows
-    # neither — the status line above already says where it stands.
+    # neither – the status line above already says where it stands.
     if a.get("walked"):
         head_block.append(plate(route, base, lazy=False))
     elif a.get("absence"):
@@ -906,7 +906,7 @@ def route_page(route, almanac, venue_timing):
     note = route.get("fieldNote")
     if note and note.get("text"):
         flag = "" if note.get("verified") else paragraph(
-            "unverified — details not yet reconfirmed", quiet=True
+            "unverified – details not yet reconfirmed", quiet=True
         )
         sections.append(section("Last walked.", flag, paragraph(note["text"])))
 
@@ -990,7 +990,7 @@ def route_page(route, almanac, venue_timing):
             links.append(external(navigation["gpxUrl"], "Download GPX"))
         sections.append(section(
             "Start without guessing.",
-            definition("Suggested arrival", f'{arrival["station"]} — {arrival["stationExit"]}'),
+            definition("Suggested arrival", f'{arrival["station"]} – {arrival["stationExit"]}'),
             definition("Set your first pin", arrival["pinLabel"], meta=arrival["pinQuery"]),
             definition("Once you arrive", arrival["firstMove"]),
             f'<p class="links-line">{"".join(links)}</p>',
@@ -1070,7 +1070,7 @@ def route_page(route, almanac, venue_timing):
         ]
         early = (route.get("hike") or {}).get("earlyExit") if is_day_walk else None
         if early:
-            note = f' — {early["note"]}' if early.get("note") else ""
+            note = f' – {early["note"]}' if early.get("note") else ""
             blocks.append(paragraph(f'Earlier exit: {early["label"]}{note}'))
         blocks.append(
             f'<p class="links-line">{external(maps_search(finish["nearestStation"]), "Open exit station")}</p>'
@@ -1126,7 +1126,7 @@ def route_page(route, almanac, venue_timing):
     final = []
     if route.get("soundtrack"):
         final.append(
-            f'<p class="quiet-line">This day sounds like: {e(route["soundtrack"]["artist"])} — '
+            f'<p class="quiet-line">This day sounds like: {e(route["soundtrack"]["artist"])} – '
             f'<em>{e(route["soundtrack"]["track"])}</em></p>'
         )
     sections.append(section(copy["finalEditorialNote"], *final))
@@ -1137,7 +1137,7 @@ def route_page(route, almanac, venue_timing):
         head="Two things help most.",
         lead=False,
         body=[
-            '<p class="corrections__body">What was closed, and where you bailed — more useful '
+            '<p class="corrections__body">What was closed, and where you bailed – more useful '
             f'than a compliment. <a href="{feedback}">Give feedback on this route</a>.</p>',
             "Walked by a person. Wrong by the time you read it, in small ways. Tell us which.",
         ],
