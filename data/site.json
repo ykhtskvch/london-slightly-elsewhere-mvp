@@ -1,10 +1,10 @@
 {
   "_comment": "Where the site lives. The only place the deploy address is written down: the build scripts read it, and nothing else may hardcode it. Moving to a custom domain is an edit to these two lines plus a rebuild.",
 
-  "origin": "https://ykhtskvch.github.io",
+  "origin": "https://slightlyelsewhere.co.uk",
 
   "_basePath": "Path prefix the site is served under, with a leading and a trailing slash. A GitHub Pages project site sits under its repository name; on a domain of its own this becomes \"/\". Used for absolute in-site URLs: og:image, and the 404, which is served at whatever depth the missing URL had and so cannot use relative paths.",
-  "basePath": "/london-slightly-elsewhere-mvp/",
+  "basePath": "/",
 
   "_analytics": "Null means no analytics script is written into any page, which is the state the privacy notice currently describes. To switch GoatCounter on, paste the counter URL it gives you – https://YOURCODE.goatcounter.com/count – and rebuild. Update the privacy notice in the same commit: the moment this is set, the page saying there are no analytics becomes untrue.",
   "analytics": {

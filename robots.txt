@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ykhtskvch.github.io/london-slightly-elsewhere-mvp/sitemap.xml
+Sitemap: https://slightlyelsewhere.co.uk/sitemap.xml
