@@ -23,7 +23,10 @@ import re
 from urllib.parse import quote, urlencode
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-TITLE_SUFFIX = " | London, Slightly Elsewhere"
+SITE_NAME = "London, Slightly Elsewhere"
+# The <title> suffix. og:site_name carries the same name for social cards,
+# so an og:title never repeats it.
+TITLE_SUFFIX = f" | {SITE_NAME}"
 
 # Where the site is deployed. data/site.json is the only place this is
 # written down; moving to a custom domain is an edit to that file and a
@@ -370,6 +373,38 @@ def maps_route(stops):
 # --- pages --------------------------------------------------------------
 
 
+def social_tags(title, description, path, image="site.png", og_type="website"):
+    """The og: and twitter: block for a page that is not a route.
+
+    These pages had none at all, so a link to the site root — the first link
+    anybody shares — expanded to nothing in a messenger. Each page brings its
+    own title and description; the picture is shared between them, because a
+    picture's job here is to say which publication this is, and a privacy
+    notice has no facts of its own to put on a card.
+
+    The image is named only when the file is on disk, the rule the route
+    pages already follow, so a card that was never drawn is never promised.
+    """
+    lines = [
+        f'    <meta property="og:type" content="{og_type}">',
+        f'    <meta property="og:title" content="{e(title)}">',
+        f'    <meta property="og:description" content="{e(description)}">',
+        f'    <meta property="og:url" content="{SITE_URL}{path}">',
+        f'    <meta property="og:site_name" content="{e(SITE_NAME)}">',
+        '    <meta property="og:locale" content="en_GB">',
+    ]
+    if (ROOT / "assets" / "og" / image).exists():
+        lines += [
+            f'    <meta property="og:image" content="{SITE_URL}assets/og/{image}">',
+            '    <meta property="og:image:width" content="1200">',
+            '    <meta property="og:image:height" content="630">',
+            '    <meta name="twitter:card" content="summary_large_image">',
+        ]
+    else:
+        lines.append('    <meta name="twitter:card" content="summary">')
+    return lines
+
+
 def shell(head, body, base, narrow=False, path=None):
     """`path` is where this page sits under the site root, with a trailing
     slash and no leading one: "" for the homepage, "routes/putney/" for a
@@ -406,10 +441,15 @@ def home(routes, almanac):
     walked = [route for route in featured if route["almanac"]["walked"]]
     unwalked = [route for route in featured if not route["almanac"]["walked"]]
 
+    description = (
+        "Independent routes for neighbourhood days, green escapes and full "
+        "days out by public transport – by mood, not by algorithm."
+    )
     head = "\n".join([
         '    <meta charset="utf-8">',
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
-        '    <meta name="description" content="Independent routes for neighbourhood days, green escapes and full days out by public transport – by mood, not by algorithm.">',
+        f'    <meta name="description" content="{description}">',
+        *social_tags("London, Slightly Elsewhere", description, ""),
         "    <title>London, Slightly Elsewhere</title>",
         "    <script type=\"application/ld+json\">"
         + json.dumps({
@@ -599,6 +639,11 @@ def index_page(routes, almanac):
         '    <meta charset="utf-8">',
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
         '    <meta name="description" content="Browse independent London days and full days out by public transport.">',
+        *social_tags(
+            spec["title"],
+            "Browse independent London days and full days out by public transport.",
+            "routes/",
+        ),
         "    <title>Browse routes | London, Slightly Elsewhere</title>",
     ])
 
@@ -629,6 +674,12 @@ def terms_page(almanac):
         '    <meta charset="utf-8">',
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
         '    <meta name="description" content="Definitions for the words this site uses on purpose, and what each one is trying to protect you from.">',
+        *social_tags(
+            spec["title"],
+            "Definitions for the words this site uses on purpose, and what "
+            "each one is trying to protect you from.",
+            "terms-used-here/",
+        ),
         "    <title>Terms used here | London, Slightly Elsewhere</title>",
     ])
 
@@ -678,9 +729,18 @@ def legacy_page(path, base, current, almanac, site_path):
     description = re.search(r'<meta name="description"[^>]*>', source)
     if description:
         head_lines.append(f"    {description.group(0)}")
-    for tag in re.findall(r'<meta (?:property|name)="(?:og:|twitter:)[^>]*>', source):
-        head_lines.append(f"    {tag}")
     title = re.search(r"<title>(.*?)</title>", source, re.S)
+    # Generated every time rather than lifted from the source, even though
+    # these pages keep their own <main>. This file is its own input: any og:
+    # tag found here was written by the previous run, so lifting one would
+    # freeze whatever the build first happened to emit and quietly ignore
+    # every later change. None of the six sources ever carried any.
+    summary = re.search(r'<meta name="description" content="([^"]*)"', source)
+    head_lines += social_tags(
+        html.unescape(title.group(1)).replace(TITLE_SUFFIX, ""),
+        html.unescape(summary.group(1)) if summary else "",
+        site_path or "",
+    )
     head_lines.append(f"    <title>{title.group(1)}</title>")
     for ld in re.findall(r'<script type="application/ld\+json">.*?</script>', source, re.S):
         head_lines.append(f"    {ld}")
@@ -876,6 +936,11 @@ def privacy_page(almanac):
         '    <meta charset="utf-8">',
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
         '    <meta name="description" content="What London, Slightly Elsewhere stores, counts and links to.">',
+        *social_tags(
+            spec["title"],
+            "What London, Slightly Elsewhere stores, counts and links to.",
+            "privacy/",
+        ),
         f"    <title>Privacy{TITLE_SUFFIX}</title>",
     ])
     body = (
@@ -926,8 +991,11 @@ def route_head_meta(route):
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
         f'    <meta name="description" content="{e(seo["description"])}">',
         '    <meta property="og:type" content="article">',
-        f'    <meta property="og:title" content="{e(seo["title"] + TITLE_SUFFIX)}">',
+        f'    <meta property="og:title" content="{e(seo["title"])}">',
         f'    <meta property="og:description" content="{e(social)}">',
+        f'    <meta property="og:url" content="{SITE_URL}routes/{route["slug"]}/">',
+        f'    <meta property="og:site_name" content="{e(SITE_NAME)}">',
+        '    <meta property="og:locale" content="en_GB">',
     ]
     if image.exists():
         lines += [

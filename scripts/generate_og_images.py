@@ -150,19 +150,8 @@ def card_facts(route):
     return sep.join(escape(fact) for fact in facts)
 
 
-def render_route(route):
-    walked = bool((route.get("almanac") or {}).get("walked"))
-    html = TEMPLATE.format(
-        paper=PAPER, ink=INK, ink_tertiary=INK_TERTIARY, muted=MUTED,
-        numerals=NUMERALS, red_lead=RED_LEAD,
-        walked_word="Walked" if walked else "Not walked",
-        walked_class="walked" if walked else "",
-        title=escape(route["title"]),
-        facts=card_facts(route),
-    )
-    RENDER_FILE.write_text(html, encoding="utf-8")
-
-    out_path = OG_DIR / f"{route['slug']}.png"
+def shoot(out_path):
+    """Render whatever is in RENDER_FILE to a 1200x630 png."""
     subprocess.run(
         [
             CHROME,
@@ -179,17 +168,81 @@ def render_route(route):
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+
+
+def site_facts(routes):
+    """The tally, spelled out the way the index spells it.
+
+    condition-filter.js writes the same sentence under the filter. The words
+    for the numbers are repeated here rather than shared, because the only
+    other way to reach them from Python would be to parse the JavaScript.
+    Both counts come from routes.json, so the two can disagree about wording
+    but never about the facts."""
+    words = (
+        "zero one two three four five six seven eight nine ten eleven twelve "
+        "thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty "
+        "twenty-one twenty-two twenty-three twenty-four"
+    ).split()
+    spell = lambda n: words[n] if n < len(words) else str(n)
+    walked = sum(1 for route in routes if (route.get("almanac") or {}).get("walked"))
+    return (
+        f"{spell(len(routes)).capitalize()} routes, "
+        f"and {spell(walked)} of them I have walked."
+    )
+
+
+def render_site(routes):
+    """One card for everything that is not a route: the homepage, the index,
+    the glossary, privacy and the pages the handoff never designed.
+
+    They had no og: tags at all, so a link to the site root — the first link
+    anybody shares — expanded to nothing. Each page keeps its own og:title and
+    og:description; what they share is the picture, because the picture's job
+    is to say which publication this is. A route earns its own card by having
+    its own facts; a privacy notice does not.
+
+    The line under the rule is the index's own title, and the tally is the
+    sentence the index already carries. Neither is written for the card."""
+    almanac = json.loads((ROOT / "data" / "almanac.json").read_text(encoding="utf-8"))
+    html = TEMPLATE.format(
+        paper=PAPER, ink=INK, ink_tertiary=INK_TERTIARY, muted=MUTED,
+        numerals=NUMERALS, red_lead=RED_LEAD,
+        # The imprint carries the address, the way a printed one does. It comes
+        # from site.json, so moving the site moves the card with it.
+        walked_word=escape(builder.ORIGIN.split("//", 1)[-1]),
+        walked_class="",
+        title=escape(almanac["index"]["title"]),
+        facts=escape(site_facts(routes)),
+    )
+    RENDER_FILE.write_text(html, encoding="utf-8")
+    shoot(OG_DIR / "site.png")
+    print("  site.png · the homepage, the index, and every page without facts")
+
+
+def render_route(route):
+    walked = bool((route.get("almanac") or {}).get("walked"))
+    html = TEMPLATE.format(
+        paper=PAPER, ink=INK, ink_tertiary=INK_TERTIARY, muted=MUTED,
+        numerals=NUMERALS, red_lead=RED_LEAD,
+        walked_word="Walked" if walked else "Not walked",
+        walked_class="walked" if walked else "",
+        title=escape(route["title"]),
+        facts=card_facts(route),
+    )
+    RENDER_FILE.write_text(html, encoding="utf-8")
+    shoot(OG_DIR / f"{route['slug']}.png")
     print(f"  {route['slug']}.png{' · walked' if walked else ''}")
 
 
 def main():
     OG_DIR.mkdir(parents=True, exist_ok=True)
     routes = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-    print(f"Generating {len(routes)} OG cards → {OG_DIR.relative_to(ROOT)}/")
+    print(f"Generating {len(routes) + 1} OG cards → {OG_DIR.relative_to(ROOT)}/")
     for route in routes:
         render_route(route)
+    render_site(routes)
     RENDER_FILE.unlink(missing_ok=True)
-    print("Done. Rebuild the pages so the eight new cards get their og:image.")
+    print("Done. Rebuild the pages so the cards reach their og:image tags.")
 
 
 if __name__ == "__main__":
