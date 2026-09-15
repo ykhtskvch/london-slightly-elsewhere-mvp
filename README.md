@@ -50,9 +50,13 @@ Then open `http://localhost:8000`.
 - `assets/js/finder.js` — the deterministic six-filter scoring logic.
 - `scripts/validate-routes.js` — dependency-free schema checks for route data.
 - `assets/js/route-page.js` — renders all detail pages from JSON.
-- `assets/js/theme.js` — light/dark preference with system fallback.
+- `assets/js/theme.js` — loaded by no page. The design has one palette, and
+  the privacy notice says nothing is stored on the device. It is still in the
+  repository only because the dormant `build_route_pages.py` template names it.
 - `assets/js/config.js` — add form endpoints here before public launch.
-- `routes/<slug>/index.html` — thin route page shells; set `data-route-id` to the JSON route id.
+- `routes/<slug>/index.html` — generated in full by the build from
+  `data/routes.json`. Not edited by hand, and not a shell any more: the pages
+  load no JavaScript and read without it.
 
 ## Navigation data
 
@@ -95,9 +99,12 @@ The two generators skip each other's pages, so the order does not matter.
 `build_almanac_pages.py` refuses to finish if any built page would store or
 read something on a visitor's device: it follows every local `<script src>`
 and fails on `localStorage`, `sessionStorage`, `document.cookie` or
-`indexedDB`, and it fails if GoatCounter's script is ever loaded without the
-`no_onload` setting and `analytics.js` that neutralise its own storage read.
-The privacy notice makes that promise, so the build keeps it.
+`indexedDB`. Every script the site loads is in the repository, GoatCounter's
+`count.js` included, so nothing is exempt. It also fails if that script is
+loaded without the `no_onload` setting and `analytics.js`, which together
+install the filter honouring Do Not Track and Global Privacy Control, and
+fails if the CDN copy is ever used instead of the vendored one. The privacy
+notice makes those promises, so the build keeps them.
 `DESIGN.md` says which pages are on which design, and `DESIGN-CONFLICTS.md`
 records what the redesign still needs decided.
 
@@ -136,7 +143,7 @@ Upload the contents of this directory to any static host. The site uses relative
 
 - Test homepage, finder, every route link and mobile layout.
 - Test a first-date query, rainy-day query and no-filter state.
-- Test light theme, dark theme and reduced-motion mode.
+- Test reduced-motion mode. There is one palette and no dark theme.
 - Test keyboard navigation, 200% zoom and a 360px viewport.
 - Check all external official links.
 - Use `field-checked` status only after a real route check.
