@@ -74,7 +74,9 @@ Do not publish a regular happy hour unless the venue’s own current page confir
 2. Give it a stable `id` and `slug`.
 3. Set `routeType` to `london-day` or `day-walk`; use `soundtrack: null` unless an editorial soundtrack has been chosen.
 4. Add it to the JSON array.
-5. Copy one route directory, rename it to the slug, and update `data-route-id`.
+5. Nothing to copy: the build writes `routes/<slug>/index.html` in full from
+   the data. Add an `almanac` block for the field-guide copy — the build
+   prints what is still missing.
 6. For a `day-walk`, add the required `travel` and `hike` objects before it can pass validation. Use only checked journey and route sources; do not invent a continuous Google Maps route or GPX.
 7. Personally field-test it before changing `status` to `field-checked`; reserve `published` for a final public editorial review.
 

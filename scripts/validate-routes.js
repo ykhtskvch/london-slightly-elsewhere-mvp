@@ -65,9 +65,22 @@ for (const route of routes) {
   ].filter(Boolean);
   for (const url of urls) if (!isUrl(url)) addError(route, `invalid external URL: ${url}`);
 
-  const shell = path.join(root, "routes", route.slug || "", "index.html");
-  if (!fs.existsSync(shell)) addError(route, "missing route detail shell");
-  else if (!fs.readFileSync(shell, "utf8").includes(`data-route-id="${route.id}"`)) addError(route, "route detail shell references a different route id");
+  // The page has to exist and has to be this route's page. How it says so
+  // depends on which generator wrote it. A thin shell built by
+  // build_route_pages.py names the route in data-route-id, because
+  // route-page.js reads that to know what to render. A page built by
+  // build_almanac_pages.py carries no such attribute — it is written out in
+  // full and loads no JavaScript at all — so it identifies itself by its
+  // canonical URL, which is the thing that actually breaks if a page is ever
+  // written into the wrong directory.
+  const page = path.join(root, "routes", route.slug || "", "index.html");
+  if (!fs.existsSync(page)) addError(route, "missing route detail page");
+  else {
+    const html = fs.readFileSync(page, "utf8");
+    const named = html.includes(`data-route-id="${route.id}"`);
+    const canonical = new RegExp(`<link rel="canonical" href="[^"]*/routes/${route.slug}/">`).test(html);
+    if (!named && !canonical) addError(route, "route detail page does not identify itself as this route");
+  }
 
   if (route.routeType === "london-day") {
     const filters = route.filters || {};
