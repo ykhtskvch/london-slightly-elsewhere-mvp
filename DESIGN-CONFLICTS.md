@@ -647,6 +647,66 @@ is written down.
 routes have no authored sentence, and no arrangement of type gives twenty-one
 identical records individuality. That is copy.
 
+### 2.17 What an outside redesign backlog proposed, and what was taken
+
+A second document arrived on 15/09/2026 — `REDESIGN_BACKLOG.md`, written
+elsewhere — proposing a move from "digital book" to "editorial travel
+product" at 35% magazine / 65% product. It is competent work, and it does
+not know this site. Five of its items are now backlog block 8. The rest was
+declined, and the reasons are here so the argument is not had twice.
+
+It also contradicts itself once: §1 says to avoid the generic travel-startup
+look — rounded cards, decorative colour — and §3 then specifies primary and
+secondary buttons, chips, badges, radii and accordions, which is that look.
+
+**Taken** (block 8): rename "The index" to "Routes" in the navigation, since
+the index is an editor's word and routes is what a person is looking for;
+related routes at the foot of a route page, which closes a real dead end;
+pick-by-mood entries on the homepage, which need no new mechanism because
+the index filter already keeps its state in the query string; one line of
+"what this is" on the first screen; `<details>` for genuinely secondary
+material on a route page. Its KEEP / SHORTEN / STRUCTURE / HIDE / DELETE
+matrix is a good instrument and is worth running.
+
+**Declined, and why:**
+
+- **Inter for body and UI, Newsreader for headings only.** A full resetting
+  of the site, into the face the anti-slop brief names as the safe default.
+  The mono is what makes a fact line scannable and what keeps a fact from
+  reading as prose. The two-family rule it asks for is already met.
+- **Buttons, chips, status badges, radii.** Buttons were put side by side
+  with the alternative and declined (6.9). A badge for status is exactly the
+  honesty-as-widget the handoff forbids most bluntly: status here is a
+  sentence — "Walked, and I would send you" — not a pill. Radii are the
+  first thing that would make this look like everywhere else.
+- **A hero that explains the product in three seconds, with the premise and
+  the field-checking moved below the routes and cut to two or three
+  sentences.** The editor's note is not methodology, it is the product: the
+  only reason to believe this site over any other. Burying it under two CTAs
+  makes the site the thing it declared itself not to be. The grain of truth
+  — that a first-time reader meets a confession before they know where they
+  are — is taken as 8.4, as one line rather than a hero.
+- **A hero image for every route, and one card ratio.** Twenty-two routes
+  have no photograph because the author has not stood there. A uniform hero
+  image means stock or someone else's pictures, which is the lie this site
+  has spent months removing. The absence is the content (1.3, 1.6a).
+- **Sticky mobile navigation.** Rule 05 is the one handoff rule the concept
+  kept. The street argument is real and is answered by a map link at each
+  stop, not by a bar taking a tenth of a phone. Worth testing on Putney
+  before deciding, not assuming.
+- **Word limits: 25 for the homepage intro, 30 for a route intro, 40–60 for
+  a stop, homepage copy down 50%.** Those are metrics for a product where
+  the words are packaging. Here the words are the goods.
+
+**What it misses.** It schedules content migration as milestone M4, after
+three design milestones. The bottleneck is not the design system: it is that
+21 routes have no authored sentence, no absence line and no fact sentence
+(1.6a, 1.7, 6.5). No route card makes twenty-one identical records
+different. Its own content audit would find this on the first page. And its
+§5 P0 — put the repeated facts into structured fields — is already done:
+duration, difficulty, budget, weather, start and distance have been in
+`routes.json` and in the fact line since the redesign began.
+
 ---
 
 ## 3 · What is left
