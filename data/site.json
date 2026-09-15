@@ -9,6 +9,13 @@
   "_contact": "The address the privacy notice and the contact page give out. Written here once; the build puts it on the privacy page and refuses to finish if any page offers a different one.",
   "contact": "hello@slightlyelsewhere.co.uk",
 
+  "_forms": "Form endpoints. Null means the form is shut: forms.js disables its fields and says so, and the privacy notice describes that state. assets/js/config.js is generated from this, so the two cannot disagree. Filling one in opens that form, rewrites the notice and makes the build demand that every TO CONFIRM in the open copy has been answered.",
+  "forms": {
+    "feedbackEndpoint": null,
+    "contactEndpoint": null,
+    "emailEndpoint": null
+  },
+
   "_analytics": "Null means no analytics script is written into any page, which is the state the privacy notice currently describes. To switch GoatCounter on, paste the counter URL it gives you – https://YOURCODE.goatcounter.com/count – and rebuild. Update the privacy notice in the same commit: the moment this is set, the page saying there are no analytics becomes untrue.",
   "analytics": {
     "goatcounter": "https://slightlyelsewhere.goatcounter.com/count"

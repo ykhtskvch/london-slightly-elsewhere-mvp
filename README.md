@@ -53,7 +53,9 @@ Then open `http://localhost:8000`.
 - `assets/js/theme.js` — loaded by no page. The design has one palette, and
   the privacy notice says nothing is stored on the device. It is still in the
   repository only because the dormant `build_route_pages.py` template names it.
-- `assets/js/config.js` — add form endpoints here before public launch.
+- `assets/js/config.js` — generated from `data/site.json`. Do not edit: set
+  `forms.*` there and rebuild. Null means that form is shut, and `forms.js`
+  disables its fields and says so on the page.
 - `routes/<slug>/index.html` — generated in full by the build from
   `data/routes.json`. Not edited by hand, and not a shell any more: the pages
   load no JavaScript and read without it.
@@ -114,10 +116,15 @@ The forms deliberately do not send data yet. Their controls are disabled and the
 
 Before sharing publicly:
 
-1. Choose a free form endpoint compatible with static sites.
-2. Add the relevant URLs to `assets/js/config.js` as `emailEndpoint`, `feedbackEndpoint` and `contactEndpoint`.
-3. Submit a test entry from a deployed preview.
-4. Add a privacy notice that names the form processor and states what is stored.
+1. Choose a form endpoint compatible with static sites.
+2. Put the URL in `data/site.json` under `forms` and rebuild. `config.js` is
+   written from it, and the privacy notice switches to its open wording in the
+   same build.
+3. Answer every `TO CONFIRM` in the notice's open wording first. The build
+   refuses to open a form while one is left, and it checks before writing
+   anything, so a failed build cannot leave the form open and the notice
+   unanswered.
+4. Submit a test entry from the deployed site.
 
 ## Community validation
 
