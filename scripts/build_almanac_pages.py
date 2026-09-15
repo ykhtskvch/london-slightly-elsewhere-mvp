@@ -177,14 +177,27 @@ def plate(route, base, lazy=True):
         # in it, for somebody who cannot see it. They are not the same
         # sentence, so a photograph without its own alt stops the build.
         assert art.get("alt"), f'{route["slug"]}: almanac.plate needs an alt beside the image'
-        src = f'{base}{art["image"]}' if not art["image"].startswith(("http", "/")) else art["image"]
+        local = not art["image"].startswith(("http", "/"))
+        src = f'{base}{art["image"]}' if local else art["image"]
         # The first photograph on a page is inside the opening screen, so it
         # is fetched straight away; the rest wait until they are scrolled to.
         loading = ' loading="lazy"' if lazy else ""
-        frame = (
-            f'<div class="plate__frame"><img src="{e(src)}" alt="{e(art["alt"])}"'
-            f' width="1200" height="800"{loading} decoding="async"></div>'
+        img = (
+            f'<img src="{e(src)}" alt="{e(art["alt"])}"'
+            f' width="1200" height="800"{loading} decoding="async">'
         )
+        # The WebP twin is offered only when it is actually on disk, so the
+        # markup can never point at a file nobody made. The JPEG stays: it is
+        # the fallback, and it is what the OG cards use, because some social
+        # previewers still handle WebP badly. scripts/convert_photos.py makes
+        # the twins; the build says at the end if one is missing.
+        twin = pathlib.Path(art["image"]).with_suffix(".webp") if local else None
+        if twin and (ROOT / twin).exists():
+            img = (
+                f'<picture><source srcset="{e(base + twin.as_posix())}"'
+                f' type="image/webp">{img}</picture>'
+            )
+        frame = f'<div class="plate__frame">{img}</div>'
     else:
         frame = (
             '<div class="plate__frame plate__frame--empty">'
@@ -737,6 +750,31 @@ STORAGE_USE = re.compile(
 )
 
 
+def report_photographs_without_a_webp(routes):
+    """Say which photographs are still served as JPEG alone.
+
+    This prints rather than stops: a missing twin costs weight, not function,
+    because the JPEG is the fallback and plate() only offers a WebP that is
+    on disk. Stopping the build over it would punish adding a photograph.
+    """
+    missing = [
+        image
+        for route in routes
+        for image in [route.get("almanac", {}).get("plate", {}).get("image")]
+        if image
+        and not image.startswith(("http", "/"))
+        and not (ROOT / pathlib.Path(image).with_suffix(".webp")).exists()
+    ]
+    if missing:
+        line = (
+            "photograph has no WebP beside it" if len(missing) == 1
+            else "photographs have no WebP beside them"
+        )
+        print(f"\n{len(missing)} {line} — run scripts/convert_photos.py:")
+        for image in missing:
+            print(f"  {image}")
+
+
 def check_leading_comes_from_tokens():
     """Leading drifted three times because it was written as a number next to
     the rule that needed it, so the same role ended up with two values: the
@@ -1268,6 +1306,7 @@ def main():
         for slug, fields in outstanding:
             print(f"  {slug}: {', '.join(fields)}")
 
+    report_photographs_without_a_webp(routes)
     check_leading_comes_from_tokens()
     check_nothing_is_stored()
     print("Checked: no page stores or reads anything on a visitor's device.")

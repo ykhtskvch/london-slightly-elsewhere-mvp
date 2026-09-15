@@ -33,6 +33,10 @@ Then open `http://localhost:8000`.
   a redesigned page, and the index reads in full without it.
 - `scripts/generate_icons.py` — draws the favicon at every size from the
   palette. Run it after changing the colours; the build does not.
+- `scripts/convert_photos.py` — gives every photograph in `assets/photos` a
+  WebP twin, about 40% lighter. Run it after adding one; the build does not,
+  but it says which photographs are still missing theirs. The JPEG stays as
+  the fallback and as what the OG cards use.
 - `assets/css/almanac-tokens.css` — design tokens for the redesign. Nothing
   in `almanac.css` may use a value that is not defined there.
 - `data/venue-timing.json` — one editable record per venue for happy-hour checks, current deals and official source links.

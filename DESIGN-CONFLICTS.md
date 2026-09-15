@@ -524,6 +524,35 @@ another**: exactly one row tinted each time, and the tint followed the focus
 when the two disagreed. The `:active` rule sits last and was verified as a
 rule rather than in use — a press cannot be held open for a measurement.
 
+### 2.14 WebP beside the JPEG, not instead of it
+
+Both photographs now ship as WebP as well, 40% lighter (356 KB → 213 KB), and
+`<picture>` hands the browser the WebP with the JPEG behind it. Three
+decisions are folded into that:
+
+- **The JPEG stays.** It is the fallback, and it is what the OG cards use:
+  some social previewers still handle WebP badly, so
+  `generate_og_images.py` was deliberately left alone.
+- **The WebP is offered only when the file is on disk**, checked at build
+  time, so the markup can never point at a twin nobody made. Removing one and
+  rebuilding drops that plate back to a bare `<img>`; this was tried rather
+  than assumed.
+- **No AVIF.** It would be smaller again, but it needs a Pillow plugin and a
+  third source in every plate, for two photographs. The brief asks for
+  WebP or AVIF, not both.
+
+Quality is 82 at method 6, which measures 38.5 dB PSNR against the JPEG —
+above the point where the difference stops being visible, and checked rather
+than chosen by eye. Nothing carries metadata: the JPEGs had their GPS
+stripped before they were committed, and the converter passes no `exif` or
+`icc_profile`, so the copies do not put any of it back.
+
+The Anaconda Python this site is built on ships a Pillow without WebP, so
+`convert_photos.py` stops with the command for making a throwaway
+environment that has one. It is run by hand, like `generate_icons.py` — the
+build only reports a photograph that is missing its twin, because a missing
+twin costs weight, not function.
+
 ---
 
 ## 3 · What is left
@@ -538,9 +567,9 @@ Every page is converted. What remains is copy and one asset job, not layout.
   on derived facts (1.6–1.8, 1.6a).
 - **Toilet information for thirteen London days**, and a short form of the
   eight full-day toilet notes.
-- **Photographs.** Three hatched placeholders are live (1.3).
-- **OG images.** `generate_og_images.py` still draws the old palette and
-  fonts, so link previews look like the previous design.
+- **Photographs.** Both walked routes with a plate now carry a real one, in
+  JPEG and WebP (2.14). No hatched placeholder is live any more; the next
+  route that gets walked will need one, and its own caption and alt (1.3).
 - **`/routes/seventeen/`**, left on the old design per the spec — the only
   thing keeping `styles.css`, Fraunces and Work Sans in the build.
 - **The two filters.** The ConditionFilter on the index and the six-filter
