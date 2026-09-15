@@ -2,7 +2,7 @@
 """Draw the site icon at every size a browser asks for.
 
 The mark is the design system reduced to what survives at 16 pixels: paper,
-one ink rule, and a single red-lead mark sitting on it. A route, and one place
+one ink rule, and a single accent mark sitting on it. A route, and one place
 on it worth stopping at. No letterform, because a favicon cannot load the
 site's typeface; no ornament, because the design does not allow any.
 
@@ -22,7 +22,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 PAPER = "#f1f0ea"
 INK = "#1c1c19"
-RED_LEAD = "#a3341a"
+ACCENT = "#1e3d6b"  # the site's one accent, from almanac-tokens.css
 
 # Geometry on a 32-unit grid, so one unit is one pixel at the smallest size
 # the icon is used at.
@@ -38,7 +38,7 @@ def svg():
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {GRID} {GRID}">
   <rect width="{GRID}" height="{GRID}" fill="{PAPER}"/>
   <rect x="{RULE_X1}" y="{RULE_Y}" width="{RULE_X2 - RULE_X1}" height="{RULE_H}" fill="{INK}"/>
-  <circle cx="{DOT_X}" cy="{DOT_Y}" r="{DOT_R}" fill="{RED_LEAD}"/>
+  <circle cx="{DOT_X}" cy="{DOT_Y}" r="{DOT_R}" fill="{ACCENT}"/>
 </svg>
 """
 
@@ -57,7 +57,7 @@ def raster(size):
     draw.ellipse(
         [(DOT_X - DOT_R) * unit, (DOT_Y - DOT_R) * unit,
          (DOT_X + DOT_R) * unit, (DOT_Y + DOT_R) * unit],
-        fill=RED_LEAD,
+        fill=ACCENT,
     )
     return image.resize((size, size), Image.LANCZOS)
 

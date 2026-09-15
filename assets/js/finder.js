@@ -80,5 +80,10 @@ function resultCard(item, index, hasPreferences) {
     : "";
   const type = route.routeType === "day-walk" ? "Full day out" : "London day";
   const facts = route.routeType === "day-walk" ? [`${route.hike.distanceKm} km`, `About ${route.travel.typicalMinutes} min from ${label("departureHub", route.travel.departureHubs[0])}`, label("difficulty", route.hike.difficulty), route.hike.landscape.slice(0, 2).map(value => label("landscape", value)).join(" + "), label("pub", route.hike.pubOptions[0])] : [route.quickFacts.duration, `${route.quickFacts.walkingLevel} walk`, route.quickFacts.noiseLevel, route.quickFacts.budget, `Start: ${route.quickFacts.startStation}`];
-  return `<article class="result-card route-${e(route.slug)}"><div class="result-heading"><div><p class="eyebrow">${e(type)}${ranking ? ` · ${ranking}` : ""}</p><h2>${e(route.title)}</h2></div><span class="result-kicker">${e(window.routeApp.statusLabel(route.status))}</span></div><p>${e(route.subtitle)}</p>${matchLine}<div class="facts">${facts.map(fact => `<span class="fact">${e(fact)}</span>`).join("")}</div><p class="caveat">${e(route.editorial.whatNotToExpect)}</p><p><a class="button soft" href="${window.routeApp.routeHref(route)}">See the route</a></p></article>`;
+  // Two type roles in the card and colour for the third thing. The title is
+  // the link, as in the index; the status is the same walked / not walked
+  // split the index uses, so the two lists say the same thing about a route.
+  const walked = Boolean(route.almanac && route.almanac.walked);
+  const status = [walked ? "Walked" : "Not walked yet", type, ranking].filter(Boolean).join(" · ");
+  return `<article class="result-card route-${e(route.slug)}"><div class="result-heading"><h2><a href="${window.routeApp.routeHref(route)}">${e(route.title)}</a></h2><p class="result-status${walked ? " result-status--walked" : ""}">${e(status)}</p></div><p>${e(route.subtitle)}</p>${matchLine}<div class="facts">${facts.map(fact => `<span class="fact">${e(fact)}</span>`).join("")}</div><p class="caveat">${e(route.editorial.whatNotToExpect)}</p></article>`;
 }

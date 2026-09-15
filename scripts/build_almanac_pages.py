@@ -265,21 +265,38 @@ def corrections(almanac, base, head=None, lead=True, body=None):
     return f'<section class="corrections">{"".join(parts)}</section>'
 
 
-def running_head(almanac, base):
-    """A running head, in the sense a book means it: the publication on the
-    left, where you are in it on the right, small and quiet above a rule.
+_SITE_HEAD = None
 
-    Route pages only. Rule 06 of the handoff forbids anything above the
-    editor's note, and the editor's note exists only on the homepage; a route
-    page has none. It is set in the same mono as the apparatus at the foot of
-    the page, so the two read as the same piece of furniture, and it does not
-    stick to the viewport — rule 05 rules out panels that follow the reader.
-    """
+
+def site_head(base, path):
+    """The header, on every page.
+
+    The handoff had none: rule 06 put nothing above the editor's note, and a
+    route page carried only a running head with two links. That suited a
+    magazine. This site is a tool for choosing a day out — 24 routes, a
+    filter, a finder — and a tool needs to say where you are and where else
+    you can go, on every page, from the first screen. So: the publication on
+    the left, four places on the right, set in the same mono as the apparatus
+    so the top and the foot of a page are one piece of furniture. It does not
+    stick to the viewport; rule 05 still stands.
+
+    `path` marks the current page, so the reader is told where they are
+    rather than offered a link to it."""
+    global _SITE_HEAD
+    if _SITE_HEAD is None:
+        _SITE_HEAD = load("almanac.json")["siteHead"]
+    spec = _SITE_HEAD
     links = "".join(
-        f'<a class="quiet" href="{base}{e(item["href"])}">{e(item["name"])}</a>'
-        for item in almanac["runningHead"]
+        f'<a href="{base}{e(item["href"])}"'
+        + (' aria-current="page"' if path is not None and item["href"] == path else "")
+        + f'>{e(item["name"])}</a>'
+        for item in spec["links"]
     )
-    return f'<nav class="running-head" aria-label="Primary">{links}</nav>'
+    return (
+        '<nav class="site-head" aria-label="Primary">'
+        f'<a class="site-head__name" href="{base}">{e(spec["name"])}</a>'
+        f'<span class="site-head__links">{links}</span></nav>'
+    )
 
 
 def route_return(almanac, base):
@@ -536,6 +553,7 @@ def shell(head, body, base, narrow=False, path=None):
   <body data-base-path="{base}">
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="{page_class}">
+      {site_head(base, path)}
 {body}
     </div>
   </body>
@@ -686,7 +704,7 @@ def index_row(route, number, base):
         f' data-tags="{e("|".join(condition_tags(route)))}">'
         f'<span class="index-row__number" aria-hidden="true">{number:02d}</span>'
         '<div class="index-row__body">'
-        f'<h3 class="index-row__title">{e(route["title"])}</h3>'
+        f'<h3 class="index-row__title"><a href="{base}routes/{e(route["slug"])}/">{e(route["title"])}</a></h3>'
         f'<p class="index-row__summary">{e(route["subtitle"])}</p>'
         f'<p class="meta">{facts}</p>'
         f'<p class="index-row__confidence">{confidence}</p>'
@@ -1462,7 +1480,6 @@ def route_page(route, almanac, venue_timing):
     )
 
     body = (
-        f'      {running_head(almanac, base)}\n'
         f'      <main id="main">'
         f'<header class="route-head">{"".join(head_block)}</header>'
         f'{"".join(sections)}{route_return(almanac, base)}{closing}</main>\n'

@@ -1,6 +1,23 @@
 # Design decisions — London, Slightly Elsewhere
 
-This file applies the Anti-Slop Design Brief to this project. Future pages and components should follow it.
+## The concept
+
+**A tool for choosing a day out, not a magazine for reading.** Twenty-four
+routes, a filter, a finder: the reader is choosing, and a page has to say
+where they are and where else they can go, from the first screen. That
+decides everything below where the documents disagree — see
+`DESIGN-CONFLICTS.md` §2.16 for what it overrides and why.
+
+What follows from it on every page: a site head with the publication and
+four places; one accent (`--accent`, ink-blue) for links and for the one mark
+that needs colour, and no red anywhere; the title of a route is its link;
+no block carries more than two type roles, serif for words and mono for
+facts, with colour for a third thing. What stays because it is what makes
+the site honest: paper, one column, one rule weight, no buttons, no icons,
+the walked / not walked split, the absence lines, every word.
+
+The Anti-Slop Design Brief governs copy, accessibility, performance and
+trust. On form, the concept governs.
 
 ## Which design a page is on
 

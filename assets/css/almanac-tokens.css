@@ -60,7 +60,7 @@
   --muted: #63625b;         /* apparatus, absence lines, colophon */
   --numerals: #83827b;      /* digits and separators only — never prose */
   --rule-minor: #c9c8c0;    /* rule between entries */
-  --red-lead: #a3341a;      /* links and marginal marks, max 3 per viewport */
+  --accent: #1e3d6b;        /* links and the one mark that needs colour; 9.5:1 on paper */
   --hover-paper: #e9e8e2;   /* row hover */
   --active-paper: #e1e0d9;  /* row active */
   --hatch: #dedcd4;         /* stripe of the temporary photo placeholder */

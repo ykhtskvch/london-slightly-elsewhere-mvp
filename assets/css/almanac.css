@@ -60,12 +60,13 @@ h1, h2, h3 {
   letter-spacing: normal;
 }
 
-/* Links. Two treatments only. The editorial link is red-lead and carries the
-   author's confidence in its wording; the quiet link is for apparatus and for
-   the repeated utility links on a route page, which would otherwise push the
-   page past three red elements per viewport. Hover moves either to ink. */
+/* Links. Two treatments. The editorial link takes the accent — one calm
+   ink-blue, which reads as "a way somewhere" and not as "warning", so it can
+   appear as often as a page of 24 routes needs it. The quiet link is for the
+   apparatus and for repeated utility links, which stay ink-secondary so the
+   page's real links are the ones in colour. Hover moves either to ink. */
 a {
-  color: var(--red-lead);
+  color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: var(--rule);
   text-decoration-color: var(--numerals);
@@ -324,21 +325,25 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
    links, one rule. A book's running head rather than a site's navigation
    bar, and deliberately not sticky. Route pages only — the homepage opens
    with the editor's note and nothing may sit above it. */
-.running-head {
+.site-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--space-8) var(--space-16);
+  gap: var(--space-8) var(--space-22);
   padding-block: var(--space-16);
   border-bottom: var(--rule) solid var(--rule-minor);
   font-family: var(--apparatus);
-  font-size: var(--fs-apparatus);
+  font-size: var(--fs-meta);
   line-height: var(--lh-mono);
 }
-
-.running-head a { color: var(--muted); text-decoration-color: var(--rule-minor); }
-.running-head a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+.site-head__name { color: var(--ink); text-decoration: none; }
+.site-head__name:hover { text-decoration: underline; text-decoration-color: var(--ink); }
+.site-head__links { display: flex; flex-wrap: wrap; gap: var(--space-8) var(--space-22); }
+.site-head__links a { color: var(--ink-secondary); text-decoration-color: var(--rule-minor); }
+.site-head__links a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+/* Where you are is stated, not offered. */
+.site-head__links a[aria-current="page"] { color: var(--ink); text-decoration: none; }
 
 /* --- The way out -------------------------------------------------------
    A sentence, at the end of the reading rather than the end of the document.
@@ -473,8 +478,8 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 }
 
 .filter__word[aria-pressed="true"] {
-  color: var(--red-lead);
-  text-decoration-color: var(--red-lead);
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
 .filter__sep { color: var(--numerals); }
@@ -560,6 +565,18 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 }
 
 .index-row--walked .index-row__title { font-size: 26px; line-height: var(--lh-row-title); }
+
+/* In a catalogue the title is the link: in the accent, no underline at rest
+   — twenty-four underlined headings would be a fence — and underlined on
+   hover so the answer to "is this it?" arrives before the click. */
+.index-row__title a { color: var(--accent); text-decoration: none; }
+.index-row__title a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
 
 .index-row__summary {
   color: var(--ink-secondary);
@@ -883,7 +900,7 @@ a.button {
   border: 0;
   background: none;
   font: inherit;
-  color: var(--red-lead);
+  color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: var(--rule);
   text-decoration-color: var(--numerals);
@@ -904,7 +921,7 @@ button[type="submit"], button[type="reset"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover, button[type="reset"]:hover { color: var(--red-lead); border-color: var(--red-lead); }
+button[type="submit"]:hover, button[type="reset"]:hover { color: var(--accent); border-color: var(--accent); }
 button:disabled { color: var(--muted); border-color: var(--rule-minor); cursor: not-allowed; }
 
 .button-row, .filter-actions {
@@ -1022,8 +1039,8 @@ input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
 }
 
 .chip input:checked + span, .route-type-option input:checked + span {
-  color: var(--red-lead);
-  text-decoration-color: var(--red-lead);
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
 .chip input:focus-visible + span, .route-type-option input:focus-visible + span {
@@ -1055,16 +1072,54 @@ input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
   border-top: var(--rule) solid var(--rule-minor);
 }
 
+/* Two type roles in the card — serif for words, mono for facts — and the one
+   thing that needs marking, walked or not, marked by colour rather than by a
+   third face. The eyebrow, the italic caveat and the boxed link are gone; the
+   title is the link, as it is in the index. */
 .result-card h2 { font-size: 22px; line-height: var(--lh-route-title-quiet); }
+.result-card h2 a { color: var(--accent); text-decoration: none; }
+.result-card h2 a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
 .result-card > p { color: var(--ink-secondary); font-size: 17px; line-height: var(--lh-lead); }
 .result-heading { display: flex; flex-direction: column; gap: var(--space-4); }
+.result-status {
+  font-family: var(--editorial);
+  font-size: var(--fs-serif-small);
+  line-height: var(--lh-caption);
+  color: var(--muted);
+}
+.result-status--walked { color: var(--accent); }
+.result-card .caveat { font-style: normal; }
 
 /* One Eyebrow per page, and only as imprint: the one in .page-intro keeps
    the mono caps treatment. The rest — the labels that sat above a heading on
-   these pages, and the type-and-ranking line the finder generates — keep
-   their words but lose the micro-label look. */
-.section .eyebrow, .form-card .eyebrow, .idea-card .eyebrow,
-.result-card .eyebrow, .result-kicker, .match, .match-chips {
+   these pages, and the match line the finder generates — keep their words
+   but lose the micro-label look. */
+.section .eyebrow, .form-card .eyebrow, .idea-card .eyebrow, .match {
+  font-family: var(--apparatus);
+  font-size: var(--fs-meta);
+  line-height: var(--lh-mono);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ink-tertiary);
+}
+
+/* Fact chips become one mono line with the separators in numerals. */
+.facts { display: block; }
+.fact {
+  font-family: var(--apparatus);
+  font-size: var(--fs-meta);
+  line-height: var(--lh-mono);
+  color: var(--ink-tertiary);
+}
+.fact + .fact::before { content: " · "; color: var(--numerals); }
+
+.match-chips {
   font-family: var(--apparatus);
   font-size: var(--fs-meta);
   line-height: var(--lh-mono);
@@ -1110,12 +1165,18 @@ input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
      11px mono apparatus links are too small for padding alone to reach it,
      so they become inline-flex with a minimum height instead. */
   a { padding-block: 15px; }
-  .apparatus__links a, .apparatus__line a, .running-head a {
+  .apparatus__links a, .apparatus__line a, .site-head a {
     display: inline-flex;
     align-items: center;
     min-height: var(--tap);
     padding-block: 0;
   }
+  /* Four links at 12.5px mono add up to 279px; at the desktop gap they
+     overrun a 335px column and the fourth drops to a third row, which put
+     the header at 181px on a phone. At 16px they fit in one row under the
+     name, and the 44px rows already keep the tap targets apart. */
+  .site-head { row-gap: 0; }
+  .site-head__links { gap: 0 var(--space-16); }
   .apparatus__links { gap: var(--space-12) var(--space-16); }
   .stops > li { grid-template-columns: 26px 1fr; gap: var(--space-16); }
   .index-row { grid-template-columns: 26px minmax(0, 1fr); gap: var(--space-16); }

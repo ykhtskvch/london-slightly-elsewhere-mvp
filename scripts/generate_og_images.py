@@ -36,7 +36,7 @@ INK = "#1c1c19"
 INK_TERTIARY = "#44433c"
 MUTED = "#63625b"
 NUMERALS = "#83827b"
-RED_LEAD = "#a3341a"
+ACCENT = "#1e3d6b"
 
 TEMPLATE = """<!doctype html>
 <html>
@@ -84,7 +84,7 @@ TEMPLATE = """<!doctype html>
     text-transform: uppercase;
     color: {muted};
   }}
-  .walked {{ color: {red_lead}; }}
+  .walked {{ color: {accent}; }}
   .title-box {{
     flex: 1;
     display: flex;
@@ -206,7 +206,7 @@ def render_site(routes):
     almanac = json.loads((ROOT / "data" / "almanac.json").read_text(encoding="utf-8"))
     html = TEMPLATE.format(
         paper=PAPER, ink=INK, ink_tertiary=INK_TERTIARY, muted=MUTED,
-        numerals=NUMERALS, red_lead=RED_LEAD,
+        numerals=NUMERALS, accent=ACCENT,
         # The imprint carries the address, the way a printed one does. It comes
         # from site.json, so moving the site moves the card with it.
         walked_word=escape(builder.ORIGIN.split("//", 1)[-1]),
@@ -223,7 +223,7 @@ def render_route(route):
     walked = bool((route.get("almanac") or {}).get("walked"))
     html = TEMPLATE.format(
         paper=PAPER, ink=INK, ink_tertiary=INK_TERTIARY, muted=MUTED,
-        numerals=NUMERALS, red_lead=RED_LEAD,
+        numerals=NUMERALS, accent=ACCENT,
         walked_word="Walked" if walked else "Not walked",
         walked_class="walked" if walked else "",
         title=escape(route["title"]),

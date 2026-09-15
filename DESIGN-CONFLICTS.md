@@ -588,6 +588,65 @@ correct request to the counter — which proves the sending path survived the
 patch without sending anything. In the browser: two scripts, both
 same-origin, no third party, no cookies, both storages empty.
 
+### 2.16 The concept: a tool for choosing a day, not a magazine for reading
+
+The handoff was drawn for reading — one column, one road through it, nothing
+above the editor's note, no navigation but a footer, links in red and no more
+than three to a screen. That is a magazine. This site is 24 routes, a filter
+and a finder: a tool for choosing, and a tool has to say where you are and
+where else you can go, on every page, from the first screen. The author named
+the mismatch on 15/09/2026 — "it is not a magazine, not an almanac; people
+have to navigate through a wall of text" — and the mismatch was already in
+this log as 1.2, 1.7 and 6.5. Form had come apart from use.
+
+So the concept now governs where the two disagree, and four of the handoff's
+rules are overridden by name:
+
+- **Rule 06 (nothing above the editor's note).** Every page, the homepage
+  included, opens with a site head: the publication on the left, four places
+  on the right — the index, the terms, about, feedback — in the same mono as
+  the apparatus so the top and the foot of a page are one piece of furniture.
+  Where you are is stated in ink without an underline, not offered as a link.
+  The running head it replaces (6.6b) was a patch on the same problem. Rule
+  05 stands: nothing sticks to the viewport.
+- **Red-lead, three to a screen.** Retired. One accent, ink-blue `#1e3d6b`,
+  9.5:1 on paper: it reads as "a way somewhere" rather than as "warning", so
+  a page can carry as many links as its content has. The cap was a rule the
+  content broke on its own — eight on the index at 24 rows — and a rule the
+  content breaks is a bad rule, not bad content. The favicon and the walked
+  mark on the OG cards follow, so red is now nowhere.
+- **The link as a sentence.** Kept, and no longer the only way in: in a
+  catalogue the title is the link. Index titles and finder titles are set in
+  the accent with no underline at rest — twenty-four underlined headings
+  would be a fence — and underline on hover. The confidence sentence keeps
+  its wording and its link, so each index row has two ways into one route.
+  That is a small redundancy for a screen reader, accepted for now.
+- **Type roles.** No block carries more than two: serif for words, mono for
+  facts. Where a third thing needs marking — walked or not — colour marks
+  it. The finder card, which had four treatments because the handoff never
+  designed it, now has two and a coloured status line; its eyebrow, italic
+  caveat and boxed link are gone.
+
+What the concept does not touch, because it is what makes the site honest
+rather than what makes it a magazine: paper, one column, one rule weight, no
+buttons, no icons, no radius, the walked / not walked split, the absence
+lines, the tokens, the build and its checks, and every word.
+
+**Buttons were considered and not added.** A boxed control under every row
+reads as a listing site and carries no information; the title in colour is
+the same convention every news site uses and adds no element. Both were put
+side by side before deciding. It is a twenty-line change if the live site
+says otherwise.
+
+**This also settles 7.1–7.5.** The anti-slop brief governs copy,
+accessibility, performance and trust, as it always did. On form, neither the
+brief nor the handoff governs: the concept does, and this section is where it
+is written down.
+
+**What it does not fix** is 6.5. Rows 4–24 of the index are alike because 21
+routes have no authored sentence, and no arrangement of type gives twenty-one
+identical records individuality. That is copy.
+
 ---
 
 ## 3 · What is left
