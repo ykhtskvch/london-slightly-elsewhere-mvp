@@ -33,6 +33,10 @@ Then open `http://localhost:8000`.
   a redesigned page, and the index reads in full without it.
 - `scripts/generate_icons.py` — draws the favicon at every size from the
   palette. Run it after changing the colours; the build does not.
+- `scripts/vendor_count_js.py` — fetches GoatCounter's `count.js`, removes
+  the two lines that touch browser storage, and writes it into `assets/js`
+  so the site serves it itself. Run it after a GoatCounter update and read
+  the diff; it stops rather than writing a copy it could not patch.
 - `scripts/generate_og_images.py` — draws the link-preview card for every
   route plus one `site.png` for every page that is not a route. Run it after
   a title, a fact or the deploy address changes; the build does not.

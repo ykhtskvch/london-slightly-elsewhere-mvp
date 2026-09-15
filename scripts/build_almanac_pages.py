@@ -53,7 +53,7 @@ def analytics_tags(base):
     return (
         f'\n    <script data-goatcounter="{GOATCOUNTER}"'
         " data-goatcounter-settings='{\"no_onload\":true}'"
-        ' defer src="https://gc.zgo.at/count.js"></script>'
+        f' defer src="{base}assets/js/count.js"></script>'
         f'\n    <script defer src="{base}assets/js/analytics.js"></script>'
     )
 
@@ -868,10 +868,12 @@ def check_nothing_is_stored():
     This is how theme.js went unnoticed: it stored a light/dark choice, and
     the notice said otherwise for as long as one page still loaded it.
 
-    The only script from elsewhere is GoatCounter's count.js, which does read
-    localStorage in its own filter. analytics.js replaces that filter and
-    no_onload keeps the original from ever running, so the second check below
-    makes sure those two are never separated.
+    Every script the site loads is now in the repository, GoatCounter's
+    count.js included: it is vendored by scripts/vendor_count_js.py with its
+    two storage lines taken out, so the scan below covers it like any other
+    file. The checks after the loop keep the arrangement that makes it work —
+    no_onload and analytics.js together, and never the CDN copy, which still
+    writes to the device from a branch no filter of ours can reach.
     """
     problems = []
 
@@ -902,11 +904,23 @@ def check_nothing_is_stored():
                     "the privacy notice says no page stores or reads anything on the device"
                 )
 
-        if "gc.zgo.at/count.js" in text:
+        if "assets/js/count.js" in text:
             if "no_onload" not in text:
-                problems.append(f"{where} loads count.js without no_onload: its own filter would read localStorage")
+                problems.append(
+                    f"{where} loads count.js without no_onload: it would count on load, "
+                    "before the filter that honours Do Not Track is in place"
+                )
             if "assets/js/analytics.js" not in text:
-                problems.append(f"{where} loads count.js without analytics.js: nothing replaces the filter that reads localStorage")
+                problems.append(
+                    f"{where} loads count.js without analytics.js: nothing would install "
+                    "the filter, so Do Not Track and Global Privacy Control would be ignored"
+                )
+        if "gc.zgo.at" in text:
+            problems.append(
+                f"{where} loads count.js from the CDN. The copy in assets/js is the one "
+                "with the #toggle-goatcounter block taken out; the CDN copy still writes "
+                "to the device. See scripts/vendor_count_js.py"
+            )
 
     if problems:
         raise SystemExit(

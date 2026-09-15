@@ -553,6 +553,41 @@ environment that has one. It is run by hand, like `generate_icons.py` — the
 build only reports a photograph that is missing its twin, because a missing
 twin costs weight, not function.
 
+### 2.15 count.js is served by this site, with two lines taken out
+
+The privacy notice says nothing is stored on the visitor's device and
+nothing is read from it, on any page. From the CDN that could not be kept.
+GoatCounter's count.js reads `skipgc` in two places, and only one of them is
+the filter analytics.js replaces. The other is top level, inside the
+`#toggle-goatcounter` branch, and it runs before any of our code. Somebody
+using that opt-out would get an alert saying tracking was off, have
+something written to their device, and go on being counted, because our
+filter never reads the key: a promise made by a third party that the site
+does not keep.
+
+So the file is vendored by `scripts/vendor_count_js.py`, which removes the
+`skipgc` line from the default filter and the whole `#toggle-goatcounter`
+block, and nothing else. It refuses to write anything if either block has
+moved upstream, and refuses again if the patched copy still mentions a
+storage API. The licence is ISC, which permits this, and the header stays.
+
+Three things follow:
+
+- **The claim is now provable by the build.** Every script the site loads is
+  in the repository, so `check_nothing_is_stored()` scans count.js like any
+  other file. A new check refuses the CDN copy by name.
+- **No third-party requests are left on any page** — the same policy that
+  already self-hosts the fonts, now complete.
+- **The opt-out is Do Not Track and Global Privacy Control**, which are
+  browser settings rather than a URL nobody would guess, and need no
+  storage. The notice says so, and now nothing contradicts it.
+
+Checked rather than assumed: the patched file parses, `count`, `filter` and
+`bind_events` are all still defined, and `goatcounter.url()` builds a
+correct request to the counter — which proves the sending path survived the
+patch without sending anything. In the browser: two scripts, both
+same-origin, no third party, no cookies, both storages empty.
+
 ---
 
 ## 3 · What is left
