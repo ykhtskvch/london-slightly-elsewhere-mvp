@@ -931,6 +931,48 @@ button:disabled { color: var(--muted); border-color: var(--rule-minor); cursor: 
   margin-top: var(--space-16);
 }
 
+/* A folded section. The marker is a word in the apparatus mono at the end of
+   the heading line, not a triangle: the design has no icons. Nothing moves
+   and nothing fades — the same rule as every other state here. */
+.route-section--folded summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  /* The whole row is the control, so it has to clear 44px on a phone; the
+     heading's own line box comes to 29. */
+  min-height: var(--tap);
+  padding-block: var(--space-8);
+  cursor: pointer;
+  list-style: none;
+}
+
+.route-section--folded summary::-webkit-details-marker { display: none; }
+
+.route-section--folded summary::after {
+  content: "read it";
+  flex: none;
+  font-family: var(--apparatus);
+  font-size: var(--fs-apparatus);
+  line-height: var(--lh-mono);
+  color: var(--accent);
+}
+
+.route-section--folded details[open] summary::after { content: "close it"; }
+.route-section--folded summary:hover::after { color: var(--ink); }
+
+.route-section--folded summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.route-section__folded-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding-top: var(--space-16);
+}
+
 /* Forms. One column, ruled fields, no panel. */
 .form-card { max-width: var(--measure-body); }
 .form-grid { display: flex; flex-direction: column; gap: var(--space-16); }

@@ -707,6 +707,56 @@ different. Its own content audit would find this on the first page. And its
 duration, difficulty, budget, weather, start and distance have been in
 `routes.json` and in the fact line since the redesign began.
 
+### 2.18 Folding, not cutting
+
+The author said there was too much text. Measured rather than agreed with:
+24 route pages, 32,884 words, 1,370 to a page, and a third of that is the
+walk itself. The rest is advice around it.
+
+Two things were expected and one was not. Expected: the sections were built
+around the shape of the data — Best for, Not ideal for, What not to expect,
+Notes before you go, Choose the shape of the day, When the plan changes —
+and six of them answered three questions. They are now three sections named
+for the questions, and the overlaps that were six screens apart sit side by
+side where they can be seen.
+
+Not expected: **there is almost no literal duplication.** A three-word
+overlap detector run over every pair of copy fields in every route found two
+pairs on Putney and one systemic pair on five routes. The sections repeated
+each other's *purpose*, not their sentences, so de-duplicating saves almost
+nothing — 4% from merged headings. Saying otherwise, which this log did in
+an earlier draft, was an impression rather than a measurement.
+
+So the answer to "too much text" is not deletion but **progressive
+disclosure**, which is backlog 8.5: the sections a reader consults rather
+than reads — when to go, how the day can change, what an event costs today —
+fold into `<details>`. That is 25% off the first reading of a route page
+with no sentence deleted. The markup stays: browser search finds it, screen
+readers read it, no JavaScript is involved, and the headings keep their
+level so the page outline is identical open or closed. The control is a word
+in the apparatus mono, "read it" / "close it", because the design has no
+icons, and its row clears 44px.
+
+One duplication was real and invisible to a word-overlap test because it is
+a paraphrase: "Once you arrive" and the first stop's own direction both say
+how to get from the station to the start. 60% word overlap on Putney, 44% on
+Kew, the same instruction in substance on all 24, about 530 words across the
+site. The route's own first stop keeps it, because that is where the map
+link is.
+
+Two bugs surfaced that were never about length. Putney's head said
+"Personally field-checked – July 2026" while its field note said "unverified
+– details not yet reconfirmed", because `fieldNote.verified` was left false
+when `almanac.walked` was authored — 4.6 again, one route out of 24. The
+flag now agrees with the three fields around it that the author wrote, and
+`check_status_vocabularies_agree()` stops the build if the two vocabularies
+ever disagree again. And the string sent to Google Maps was being printed
+under the pin as though it were content; it now lives only in the link.
+
+What is left is the author's: about 90 words in four places where the voice
+restates the voice — most of all the shape of the day, which the page tells
+four times over.
+
 ---
 
 ## 3 · What is left

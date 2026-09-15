@@ -261,7 +261,11 @@ def corrections(almanac, base, head=None, lead=True, body=None):
         parts.append(f'<p class="corrections__lead">{e(almanac["corrections"]["lead"])}</p>')
     for line in body or [almanac["corrections"]["body"]]:
         parts.append(line if line.startswith("<") else f'<p class="corrections__body">{e(line)}</p>')
-    parts.append(f'<p class="corrections__scale">{scale}</p>')
+    # The three effort words are explained in the glossary, which the
+    # apparatus links to from every page. Repeating the explanation under
+    # every route was 23 words shown 24 times and read once.
+    if lead:
+        parts.append(f'<p class="corrections__scale">{scale}</p>')
     return f'<section class="corrections">{"".join(parts)}</section>'
 
 
@@ -359,9 +363,26 @@ def ruled_list(values):
     return f'<ul class="ruled-list">{items}</ul>'
 
 
-def section(head, *blocks, ruled=False):
+def section(head, *blocks, ruled=False, folded=False):
+    """`folded` closes the section behind a <details>.
+
+    A route page runs to about 1,400 words, and a third of that is the walk
+    itself; the rest answers questions a reader has only sometimes — what if
+    it rains, what if I want to leave, when is the best time to go. Folding
+    those puts them one click away instead of eight screens down, and deletes
+    nothing: <details> is in the markup, findable by the browser's own search
+    and by a screen reader, and it works with no JavaScript at all.
+
+    The heading keeps its level and its words, so the outline a screen reader
+    announces is the same open or closed."""
     cls = "section-head section-head--ruled" if ruled else "section-head"
     inner = "".join(block for block in blocks if block)
+    if folded:
+        return (
+            '<section class="route-section route-section--folded">'
+            f'<details><summary><h2 class="{cls}">{e(head)}</h2></summary>'
+            f'<div class="route-section__folded-body">{inner}</div></details></section>'
+        )
     return f'<section class="route-section"><h2 class="{cls}">{e(head)}</h2>{inner}</section>'
 
 
@@ -962,6 +983,28 @@ def report_photographs_without_a_webp(routes):
             print(f"  {image}")
 
 
+def check_status_vocabularies_agree(routes):
+    """A route may not be walked and unverified on the same page.
+
+    Putney said "Personally field-checked – July 2026" in its head and
+    "unverified – details not yet reconfirmed" six lines below, because
+    fieldNote.verified was left false when almanac.walked was authored. Two
+    vocabularies for one fact is 4.6; this is the half of it a build can
+    police."""
+    wrong = [
+        r["slug"] for r in routes
+        if (r.get("fieldNote") or {}).get("text")
+        and bool((r.get("almanac") or {}).get("walked"))
+        and not (r.get("fieldNote") or {}).get("verified")
+    ]
+    if wrong:
+        raise SystemExit(
+            "Build stopped. These routes are marked walked but their field note still "
+            "says unverified, so the page contradicts itself:\n  " + "\n  ".join(wrong)
+            + "\n\nSet fieldNote.verified in data/routes.json, or unset almanac.walked."
+        )
+
+
 def check_leading_comes_from_tokens():
     """Leading drifted three times because it was written as a number next to
     the rule that needed it, so the same role ended up with two values: the
@@ -1256,13 +1299,12 @@ def route_page(route, almanac, venue_timing):
         community_head = f"{count} {'walker has' if count == 1 else 'walkers have'} reported this route."
         community_body = (
             f"Most recent report: {community.get('lastReported') or 'date not yet recorded'}. "
-            "Community reports are reviewed; they do not change the Field-checked label."
+            "Reports are reviewed; only my own walk marks a route walked."
         )
     else:
         community_head = "No community walks reported yet."
         community_body = (
-            "Walked it? A concise field note helps keep the route current. Community "
-            "reports never change the Field-checked label automatically."
+            "Walked it? A field note keeps the route current."
         )
     sections.append(section(
         community_head,
@@ -1327,20 +1369,31 @@ def route_page(route, almanac, venue_timing):
         sections.append(section(
             "Start without guessing.",
             definition("Suggested arrival", f'{arrival["station"]} – {arrival["stationExit"]}'),
-            definition("Set your first pin", arrival["pinLabel"], meta=arrival["pinQuery"]),
-            definition("Once you arrive", arrival["firstMove"]),
+            # pinQuery is the string sent to Google Maps. It was printed
+            # under the pin as if it were content; it belongs in the link.
+            definition("Set your first pin", arrival["pinLabel"]),
             f'<p class="links-line">{"".join(links)}</p>',
             paragraph(navigation["disclaimer"], quiet=True),
-            paragraph(
-                "We never request your location. Google Maps can use it privately, if you "
-                "have already given Maps permission.",
-                quiet=True,
-            ),
+            paragraph("We never ask for your location.", quiet=True),
         ))
 
     sections.append(section(editorial["vibeSummary"], paragraph(route["routeNarrative"])))
-    sections.append(section("Best for.", ruled_list(editorial["bestFor"])))
-    sections.append(section("Not ideal for.", ruled_list(editorial["notIdealFor"])))
+
+    # Who it suits. Was three sections — Best for, Not ideal for, What not to
+    # expect — with the audience notes another six screens down under "Notes
+    # before you go". All four answer one question, and split apart they said
+    # the same things twice: "a second or third date" appeared in both the
+    # list and the note.
+    sections.append(section(
+        "Who it suits, and who it does not.",
+        ruled_list(editorial["bestFor"]),
+        '<h3 class="subhead">Not ideal for</h3>',
+        ruled_list(editorial["notIdealFor"]),
+        paragraph(editorial["whatNotToExpect"], quiet=True),
+        definition("On a date", copy["dateNotes"]),
+        definition("With friends", copy["friendGroupNotes"]),
+        definition("Alone", copy["soloNotes"]),
+    ))
 
     stops_html = []
     map_start = (navigation or {}).get("arrival", {}).get("mapOriginQuery") or (
@@ -1421,10 +1474,22 @@ def route_page(route, almanac, venue_timing):
             f'<p class="links-line">{external(timing["sourceUrl"], timing["sourceLabel"])}</p>',
             f'<p class="meta">{e(timing["label"])}<span class="separator"> · </span>'
             f'checked {e(timing["checked"])}</p>',
+            folded=True,
         ))
 
+    # Before you go: the two facts you check while deciding when.
     sections.append(section(
-        "Choose the shape of the day.",
+        "Before you go.",
+        definition("Best time", facts["bestTime"]),
+        definition("Food and drink", copy["foodDrinkNotes"]),
+        folded=True,
+    ))
+
+    # How the day can change. Was two sections — the versions, and the three
+    # contingencies — plus the practical warnings stranded at the bottom of
+    # "What not to expect", which is not what that section was about.
+    sections.append(section(
+        "How the day can change.",
         *[
             definition(
                 version["label"],
@@ -1434,29 +1499,12 @@ def route_page(route, almanac, venue_timing):
             )
             for version in route["versions"]
         ],
-    ))
-
-    sections.append(section(
-        "Notes before you go.",
-        definition("Best time", facts["bestTime"]),
-        definition("Date notes", copy["dateNotes"]),
-        definition("Friends", copy["friendGroupNotes"]),
-        definition("Solo", copy["soloNotes"]),
-        definition("Food and drink", copy["foodDrinkNotes"]),
-    ))
-
-    sections.append(section(
-        "When the plan changes.",
         definition("If it rains", copy["rainyDayBackup"]),
         definition("If it goes well", copy["continueIfGoingWell"]),
         definition("If you want to leave early", copy["exitEarly"]),
-    ))
-
-    sections.append(section(
-        "What not to expect.",
-        paragraph(editorial["whatNotToExpect"]),
-        '<h3 class="subhead">Practical warnings</h3>',
+        '<h3 class="subhead">Check before you set off</h3>',
         ruled_list(editorial["practicalWarnings"]),
+        folded=True,
     ))
 
     final = []
@@ -1475,7 +1523,6 @@ def route_page(route, almanac, venue_timing):
         body=[
             '<p class="corrections__body">What was closed, and where you bailed – more useful '
             f'than a compliment. <a href="{feedback}">Give feedback on this route</a>.</p>',
-            "Walked by a person. Wrong by the time you read it, in small ways. Tell us which.",
         ],
     )
 
@@ -1560,6 +1607,7 @@ def main():
     print('Wrote assets/js/config.js (' + ('forms open: ' + ', '.join(
         name for name, url in FORMS.items() if url) if FORMS_OPEN else 'every form shut') + ').')
 
+    check_status_vocabularies_agree(routes)
     check_one_contact_address()
     check_no_form_opens_behind_the_notice()
     report_photographs_without_a_webp(routes)
