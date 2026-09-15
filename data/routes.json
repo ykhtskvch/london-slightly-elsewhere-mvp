@@ -90,10 +90,10 @@
       "whyNow": "Best when there is enough light for a river walk and enough appetite for dinner before the music begins.",
       "specialBecause": "It gives an evening shape without making the shape compulsory: each stage is a complete ending.",
       "whatNotToExpect": "More atmospheric than glamorous; the live-music version depends on the current listing.",
-      "practicalWarnings": ["Check Al Forno’s opening hours and whether a booking helps on gig nights.", "Check the Half Moon’s current listing and tickets before setting off.", "The river can feel colder and windier than the rest of Putney.", "Do not assume a ticket, seat or quiet corner is available."],
+      "practicalWarnings": ["Check Al Forno’s opening hours and whether a booking helps on gig nights.", "The river can feel colder and windier than the rest of Putney.", "Do not assume a ticket, seat or quiet corner is available."],
       "tags": ["riverside", "old-pubs", "live-music", "good-for-talking"]
     },
-    "routeNarrative": "Start with the river so the evening has room to arrive. Take one proper pause in a pub, eat somewhere warm and straightforward, then decide whether the night should remain a conversation or become an event. The no-gig version is still the route, not a consolation prize.",
+    "routeNarrative": "Start with the river so the evening has room to arrive.",
     "stops": [
       {
         "name": "Putney Bridge – south side",
@@ -170,14 +170,14 @@
       }
     ],
     "copy": {
-      "dateNotes": "Good for a second or third date: walking removes some face-to-face pressure, and either person can leave after the first drink without turning it into a statement.",
+      "dateNotes": "Walking removes some face-to-face pressure, and either person can leave after the first drink without turning it into a statement.",
       "friendGroupNotes": "Best for two to four people. For larger groups, verify seating before making the pub stop the plan.",
       "soloNotes": "The no-gig version works alone if you enjoy river walking and sitting somewhere with a book. The gig is a bonus, not a requirement.",
       "foodDrinkNotes": "Al Forno is the no-fuss dinner anchor between the pub pause and the gig. Check current kitchen hours and booking expectations before relying on it.",
       "rainyDayBackup": "Reduce the walk to one brief river section, move to The Duke’s Head or Al Forno early, and keep the gig branch only if weather, transport and tickets still make sense.",
       "continueIfGoingWell": "Extend the river walk or take a second verified pub stop. Do not add a third venue just because the route has space.",
-      "exitEarly": "Leave after the first drink or use Putney station as a practical exit.",
-      "finalEditorialNote": "River first, pub later, dinner in the middle, gig if it goes well."
+      "exitEarly": "Putney station is the practical exit.",
+      "finalEditorialNote": ""
     },
     "logic": {
       "fallbackIfClosed": "Keep the river walk and pub pause; if Al Forno or the gig is unavailable, end after the first drink or use another currently open, verified room.",
@@ -804,7 +804,7 @@
       "whyNow": "It lets King’s Cross be useful without making the route about the station or its restaurants.",
       "specialBecause": "The move from canal infrastructure to churchyard gives a short walk an actual change of mood.",
       "whatNotToExpect": "Not secret, not untouched and not worth forcing after the nature reserve closes.",
-      "practicalWarnings": ["Check Camley Street Natural Park access before relying on it.", "The route has not been field-tested yet.", "Check current pub hours and noise before going."],
+      "practicalWarnings": ["The route has not been field-tested yet.", "Check current pub hours and noise before going."],
       "tags": ["canal-side", "old-city", "easy-exit", "for-two"]
     },
     "routeNarrative": "Begin in the part of King’s Cross that looks newly made, then let the route become smaller and stranger. The water and gasholder are the first conversation; the churchyard is the quiet pause; the pub is nearby enough that the plan never feels trapped.",
@@ -884,7 +884,7 @@
       }
     ],
     "copy": {
-      "dateNotes": "Good for a second or third date because the first hour is visibly structured but every point creates a natural exit.",
+      "dateNotes": "The first hour is visibly structured, but every point creates a natural exit.",
       "friendGroupNotes": "Works for two to four people if everyone is content with a short walk rather than a packed itinerary.",
       "soloNotes": "The daytime version works alone, though the close-by pub finish is less essential.",
       "foodDrinkNotes": "Treat the pub as drinks first. Check current food and seating before making it dinner.",

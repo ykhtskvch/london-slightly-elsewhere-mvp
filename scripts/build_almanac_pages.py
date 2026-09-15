@@ -1513,7 +1513,12 @@ def route_page(route, almanac, venue_timing):
             f'<p class="quiet-line">This day sounds like: {e(route["soundtrack"]["artist"])} – '
             f'<em>{e(route["soundtrack"]["track"])}</em></p>'
         )
-    sections.append(section(copy["finalEditorialNote"], *final))
+    # A closing note only earns a section when it has something of its own to
+    # say: on Putney it restated the shape of the day a fourth time. The five
+    # routes with a soundtrack keep the section either way, since the
+    # soundtrack line lives in it.
+    if copy["finalEditorialNote"] or final:
+        sections.append(section(copy["finalEditorialNote"] or "One more thing.", *final))
 
     closing = corrections(
         almanac,
