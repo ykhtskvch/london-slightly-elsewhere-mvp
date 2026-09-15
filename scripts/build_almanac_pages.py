@@ -423,6 +423,33 @@ def check_open_forms_are_described():
                 )
 
 
+def check_no_form_opens_behind_the_notice():
+    """A form is open if it can reach a processor — by either route.
+
+    config.js is generated, so the JavaScript path cannot drift from
+    site.json. The other path is an `action` on the <form> itself, which is
+    how a form submits without JavaScript, and which has to be written by hand
+    because the feedback page keeps its own markup. That hand-written
+    attribute is a second switch, and it would open the form while site.json
+    still said shut and the notice still said "not connected to a processor".
+
+    So the two have to agree: every outward form action must be an endpoint
+    site.json knows about, and it is checked against the built pages rather
+    than the source."""
+    known = {url for url in FORMS.values() if url}
+    wrong = []
+    for page in sorted(ROOT.rglob("*.html")):
+        for action in re.findall(r'<form[^>]+action="(https?://[^"]+)"', page.read_text(encoding="utf-8")):
+            if action.split("?")[0] not in known:
+                wrong.append(f"{page.relative_to(ROOT)} posts to {action}")
+    if wrong:
+        raise SystemExit(
+            "Build stopped. A form posts somewhere data/site.json does not list, so the "
+            "privacy notice would describe a form that is shut while this one is open:\n  "
+            + "\n  ".join(wrong)
+        )
+
+
 def contact_link(text):
     """Replace {contact} with the address from site.json, as a mailto link.
 
@@ -1480,6 +1507,7 @@ def main():
         name for name, url in FORMS.items() if url) if FORMS_OPEN else 'every form shut') + ').')
 
     check_one_contact_address()
+    check_no_form_opens_behind_the_notice()
     report_photographs_without_a_webp(routes)
     check_leading_comes_from_tokens()
     check_nothing_is_stored()

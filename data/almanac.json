@@ -166,10 +166,11 @@
         ],
         "whenFormsOpen": [
           "The feedback form is handled by Formspree, which receives what you type and passes it to me by email. Only the feedback form is open; the contact and What next? forms are shut, and their fields are disabled.",
-          "What is sent is what you fill in: the route, your answers, your note, and an email address if you choose to give one. The email address is optional and is used only to reply to you.",
-          "Formspree is in the United States, so a submission leaves the UK. TO CONFIRM: the safeguard for that transfer, and how long they keep a submission.",
+          "What is sent is what you fill in: the route, your answers, your note, and an email address if you choose to give one. The email address is optional, and it is used only to reply to you.",
+          "Formspree hosts its service on Amazon Web Services in the United States, so a submission leaves the UK. The transfer is covered by Standard Contractual Clauses, which Formspree states it relies on as a processor.",
+          "TO CONFIRM: how long a submission is kept before it is deleted.",
           "Nothing from the form is stored on your device, and nothing about it is read from your device.",
-          "To have a submission deleted, write to {contact}."
+          "To have a submission deleted sooner, write to {contact}."
         ]
       },
       {
