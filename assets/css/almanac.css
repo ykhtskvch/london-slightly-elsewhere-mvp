@@ -575,6 +575,23 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 
 .index-row--walked .index-row__confidence { color: var(--ink-tertiary); }
 
+/* The row answers, but it follows the link rather than the pointer. A row is
+   not a link — its link is the last line of it, and wrapping a heading, a
+   summary, a fact line and a confidence note in one anchor would give screen
+   readers a forty-word link name. So the tint appears when the thing you
+   would actually open is under the cursor or under the keyboard focus, and
+   its job is to say which of twenty-four rows that is. It lands on the row
+   box, which is exactly as wide as the rules above and below it, so nothing
+   moves and no rule changes length. Motion is a colour change with no
+   duration, as the spec asks. */
+.index-row:has(a:focus-visible) { background: var(--hover-paper); }
+
+@media (hover: hover) {
+  .index-row:has(a:hover) { background: var(--hover-paper); }
+}
+
+.index-row:has(a:active) { background: var(--active-paper); }
+
 .index-scale {
   max-width: var(--measure-body);
   padding-block: var(--space-22) var(--space-26);

@@ -496,6 +496,34 @@ rule-minor; every message carried the mark; correcting a field cleared both
 the mark and the rule; the summary measured at ink-secondary 16px against
 fine print at muted 15.5px. The endpoint was put back to `null` afterwards.
 
+### 2.13 The index row answers, but it follows the link, not the pointer
+
+`--hover-paper` and `--active-paper` were declared in the tokens and used
+nowhere. The handoff draws a tint behind an index row, which reads as though
+the row is the target — but the row is not a link. Its link is the last line
+of it, and wrapping the heading, the summary, the fact line and the confidence
+note in one anchor would hand a screen reader a forty-word link name. Making
+the row clickable would also be a new behaviour, which this migration does not
+add.
+
+So the tint is bound to the link rather than to the pointer:
+`.index-row:has(a:hover)`, `:has(a:focus-visible)`, `:has(a:active)`. It
+appears when the thing you would actually open is under the cursor or under
+the keyboard focus, and what it contributes is the answer to "which of
+twenty-four rows am I in" — which the focus ring alone, drawn around five
+words at the foot of a row, does not give. Each row has exactly one link, so
+the tint is never ambiguous.
+
+It lands on the row box, which is exactly as wide as the rules above and below
+it, so nothing shifts and no rule changes length. Hover is inside
+`@media (hover: hover)` so it does not stick on a touch screen; focus is not,
+because a keyboard can be attached to anything.
+
+**Measured with the pointer on one row's link and the keyboard focus on
+another**: exactly one row tinted each time, and the tint followed the focus
+when the two disagreed. The `:active` rule sits last and was verified as a
+rule rather than in use — a press cannot be held open for a measurement.
+
 ---
 
 ## 3 · What is left
