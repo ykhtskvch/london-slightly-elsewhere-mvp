@@ -8,6 +8,6 @@
 
   "_analytics": "Null means no analytics script is written into any page, which is the state the privacy notice currently describes. To switch GoatCounter on, paste the counter URL it gives you – https://YOURCODE.goatcounter.com/count – and rebuild. Update the privacy notice in the same commit: the moment this is set, the page saying there are no analytics becomes untrue.",
   "analytics": {
-    "goatcounter": null
+    "goatcounter": "https://slightlyelsewhere.goatcounter.com/count"
   }
 }

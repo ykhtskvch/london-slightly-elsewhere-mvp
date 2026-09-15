@@ -54,7 +54,7 @@
   },
   "_privacy": "The analytics section is chosen by whether analytics.goatcounter is set in site.json, so this page cannot describe a state the site is not in. Update `updated` whenever you change any of it.",
   "privacy": {
-    "updated": "Last updated 14/09/2026",
+    "updated": "Last updated 15/09/2026",
     "title": "Privacy, without fog.",
     "intro": "This pilot collects less data because that is the sensible default.",
     "sections": [
