@@ -94,7 +94,7 @@
       {
         "head": "Contact",
         "body": [
-          "This is a private validation pilot and is not yet collecting personal data. A dedicated privacy contact will be added before any public form is switched on."
+          "This is a private validation pilot and is not yet collecting personal data. Write to {contact} about anything on this page."
         ]
       }
     ]

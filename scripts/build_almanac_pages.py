@@ -46,6 +46,11 @@ SITE_URL = f"{ORIGIN}{BASE_PATH}"
 # order, so count.js is always ready by the time ours runs.
 GOATCOUNTER = (_SITE.get("analytics") or {}).get("goatcounter")
 
+# The one address the site gives out. Written in site.json so the privacy
+# notice and the contact page cannot drift apart; check_one_contact_address()
+# refuses to finish if any page offers a different one.
+CONTACT = _SITE.get("contact")
+
 
 def analytics_tags(base):
     if not GOATCOUNTER:
@@ -371,6 +376,38 @@ def maps_route(stops):
 
 
 # --- pages --------------------------------------------------------------
+
+
+def contact_link(text):
+    """Replace {contact} with the address from site.json, as a mailto link.
+
+    The notice used to promise that a contact "will be added"; the address is
+    a fact about the site rather than copy, so it lives with the deploy
+    address and is substituted here, the way {termsLink} already is."""
+    if "{contact}" not in text:
+        return text
+    assert CONTACT, "data/site.json needs a contact address: the privacy notice asks for one"
+    return text.replace(
+        "{contact}", f'<a href="mailto:{e(CONTACT)}">{e(CONTACT)}</a>'
+    )
+
+
+def check_one_contact_address():
+    """Every address the site offers has to be the address in site.json.
+
+    The privacy notice gets it from there, but the contact page is one of the
+    pages whose markup is preserved, so its address is written by hand. Two
+    copies of a fact drift; this is what stops them."""
+    wrong = []
+    for page in sorted(ROOT.rglob("*.html")):
+        for found in re.findall(r"mailto:([^\"'?\s]+)", page.read_text(encoding="utf-8")):
+            if CONTACT and found != CONTACT:
+                wrong.append(f"{page.relative_to(ROOT)} offers {found}")
+    if wrong:
+        raise SystemExit(
+            f"Build stopped. site.json says the contact address is {CONTACT}:\n  "
+            + "\n  ".join(wrong)
+        )
 
 
 def social_tags(title, description, path, image="site.png", og_type="website"):
@@ -944,7 +981,7 @@ def privacy_page(almanac):
         else:
             paragraphs = section["whenAnalyticsOn" if GOATCOUNTER else "whenAnalyticsOff"]
         blocks.append(f'<h2>{e(section["head"])}</h2>')
-        blocks += [f"<p>{e(text)}</p>" for text in paragraphs]
+        blocks += [f"<p>{contact_link(e(text))}</p>" for text in paragraphs]
 
     head = "\n".join([
         '    <meta charset="utf-8">',
@@ -1388,6 +1425,7 @@ def main():
         for slug, fields in outstanding:
             print(f"  {slug}: {', '.join(fields)}")
 
+    check_one_contact_address()
     report_photographs_without_a_webp(routes)
     check_leading_comes_from_tokens()
     check_nothing_is_stored()
