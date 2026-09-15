@@ -11,7 +11,7 @@
 
   "_forms": "Form endpoints. Null means the form is shut: forms.js disables its fields and says so, and the privacy notice describes that state. assets/js/config.js is generated from this, so the two cannot disagree. Filling one in opens that form, rewrites the notice and makes the build demand that every TO CONFIRM in the open copy has been answered.",
   "forms": {
-    "feedbackEndpoint": null,
+    "feedbackEndpoint": "https://formspree.io/f/xgavwvvw",
     "contactEndpoint": null,
     "emailEndpoint": null
   },

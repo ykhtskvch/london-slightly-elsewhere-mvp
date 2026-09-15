@@ -1082,6 +1082,38 @@ def privacy_page(almanac):
     return shell(head, body, "../", path="privacy/")
 
 
+def thanks_page(almanac):
+    """Where the feedback form lands a reader who has no JavaScript.
+
+    The form posts straight to Formspree, and `_next` sends the reader back
+    here rather than to a page with somebody else's name on it. With
+    JavaScript the page is never reached: forms.js posts in the background
+    and writes the same news into the page itself.
+
+    Not in the sitemap, and noindex: it is a destination, not something to
+    find."""
+    spec = almanac["thanks"]
+    base = "../../"
+    head = "\n".join([
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        f'    <meta name="description" content="{e(spec["intro"])}">',
+        '    <meta name="robots" content="noindex">',
+        f'    <title>{e(spec["pageTitle"])}{TITLE_SUFFIX}</title>',
+    ])
+    body = (
+        '      <main id="main">'
+        '<section class="page-intro">'
+        f'<p class="eyebrow">{e(spec["eyebrow"])}</p>'
+        f'<h1>{e(spec["title"])}</h1>'
+        f'<p>{e(spec["intro"])}</p>'
+        f'<p class="links-line"><a href="{base}{e(spec["href"])}">{e(spec["linkName"])}</a></p>'
+        "</section></main>\n"
+        f"      {apparatus(almanac, base)}"
+    )
+    return shell(head, body, base, path="feedback/thank-you/")
+
+
 def not_found_page(almanac):
     """The 404 is served at whatever depth the missing URL had, so it is the
     one page that cannot use relative paths. That makes it the one page whose
@@ -1467,6 +1499,11 @@ def main():
 
     (ROOT / "privacy" / "index.html").write_text(privacy_page(almanac), encoding="utf-8")
     print(f"Wrote privacy/index.html (analytics {'described' if GOATCOUNTER else 'absent'})")
+
+    thanks = ROOT / "feedback" / "thank-you"
+    thanks.mkdir(parents=True, exist_ok=True)
+    (thanks / "index.html").write_text(thanks_page(almanac), encoding="utf-8")
+    print("Wrote feedback/thank-you/index.html (where a form posts without JavaScript).")
 
     (ROOT / "404.html").write_text(not_found_page(almanac), encoding="utf-8")
     print(f"Wrote 404.html, anchored at {BASE_PATH}")

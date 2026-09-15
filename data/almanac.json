@@ -168,7 +168,7 @@
           "The feedback form is handled by Formspree, which receives what you type and passes it to me by email. Only the feedback form is open; the contact and What next? forms are shut, and their fields are disabled.",
           "What is sent is what you fill in: the route, your answers, your note, and an email address if you choose to give one. The email address is optional, and it is used only to reply to you.",
           "Formspree hosts its service on Amazon Web Services in the United States, so a submission leaves the UK. The transfer is covered by Standard Contractual Clauses, which Formspree states it relies on as a processor.",
-          "TO CONFIRM: how long a submission is kept before it is deleted.",
+          "A submission is deleted once the route has been corrected, and within six months whatever happens.",
           "Nothing from the form is stored on your device, and nothing about it is read from your device.",
           "To have a submission deleted sooner, write to {contact}."
         ]
@@ -261,5 +261,13 @@
         "href": "accessibility/"
       }
     ]
+  },
+  "thanks": {
+    "eyebrow": "Feedback",
+    "title": "Thank you – that is exactly what is useful.",
+    "intro": "Your note has been sent. I read these myself, and the route gets corrected before anything else changes on it.",
+    "linkName": "the index",
+    "href": "routes/",
+    "pageTitle": "Thank you"
   }
 }

@@ -3,6 +3,6 @@
 // shut, and forms.js disables its fields and says so on the page.
 window.SITE_CONFIG = {
   emailEndpoint: null,
-  feedbackEndpoint: null,
+  feedbackEndpoint: "https://formspree.io/f/xgavwvvw",
   contactEndpoint: null
 };
