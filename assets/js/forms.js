@@ -65,7 +65,15 @@ function validateField(field, error) {
   else if (field.type === "email" && field.validity.typeMismatch) text = "Enter an email address in the format name@example.com.";
   const valid = text === "";
   field.setAttribute("aria-invalid", String(!valid));
-  error.textContent = text;
+  error.replaceChildren();
+  if (!valid) {
+    // The message opens with a mark rather than relying on its colour: a
+    // reader who cannot separate the red from the grey still sees, and hears,
+    // that this line asks for a change.
+    const mark = document.createElement("b");
+    mark.textContent = "Not yet.";
+    error.append(mark, " ", text);
+  }
   error.hidden = valid;
   return valid;
 }
@@ -99,7 +107,15 @@ async function fillRouteChoices(select) {
 }
 
 function showMessage(message, text, type = "status") {
-  message.textContent = text;
+  message.replaceChildren();
+  // A failure opens with the same mark the fields use, so the line that says
+  // nothing was sent cannot be mistaken for the small print below it.
+  if (type === "error") {
+    const mark = document.createElement("b");
+    mark.textContent = "Not sent.";
+    message.append(mark, " ");
+  }
+  message.append(text);
   message.classList.remove("success", "error", "status");
   message.classList.add("show", type);
 }

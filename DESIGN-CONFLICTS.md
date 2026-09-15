@@ -450,6 +450,52 @@ and Work Sans. The two are never loaded together. This is what lets the
 migration happen a page at a time; it also means the site carries four font
 files and two type systems until it is finished.
 
+### 2.12 The rule has one weight and now two shapes, and errors are not red
+
+The design gives red-lead to links and marginal marks and caps it at three per
+viewport. Form errors were taking it as a third job: red text under the field,
+red border on the field, nothing else. That fails twice over. For a reader who
+cannot separate the red from the grey, an error looks like a caption and the
+field looks normal — WCAG 1.4.1. For everyone else, red on this site means
+"you can click this", so a red sentence that is not a link teaches the reader
+that the colour means nothing.
+
+Three ways out were available: a prefix in the message, a stronger border, or
+an icon. Icons are out by the spec. A stronger border means a second rule
+weight, which is out by the spec for a better reason than habit — one weight
+is what keeps the page looking printed. So the rule keeps its single weight
+and gains a second **shape**:
+
+- **A field that needs changing takes a dashed ink rule.** Same 1px, same
+  colour as focus, different shape — the printer's mark for something still
+  to be filled in. It is legible in greyscale, and it cannot be confused with
+  focus, which stays solid.
+- **The message opens with a mark in the apparatus voice** — `NOT YET.` in
+  mono, 11px, uppercase, against the serif of the message itself. Shape again,
+  not colour. The uppercase is `text-transform`, so a screen reader still
+  reads "Not yet." and not four letters.
+- **Neither is red.** The message is ink-secondary, the reading colour. Red
+  now does two jobs on the site instead of three (backlog 6.4).
+
+The summary line under the button was a separate problem found in the same
+pass: `.form-message` was grouped with `.fine-print`, so the one line saying
+nothing had been sent was the same grey at the same size as the standing small
+print directly beneath it. It now sets in the reading colour at caveat size,
+and a failure opens with the same mark: `NOT SENT.` The existing wording of
+every message is unchanged — the mark is added in front of it.
+
+Existing wiring was already right and was left alone: `aria-describedby` is
+bound to the message, `aria-invalid` is set on the field, focus moves to the
+first field that needs changing, and the summary is a `role="status"` live
+region.
+
+**Checked on the live form**, which needed an endpoint in `config.js` to
+unlock — this state had never actually been seen before (backlog 6.3). Five
+invalid fields took the dashed ink rule while three valid ones kept the solid
+rule-minor; every message carried the mark; correcting a field cleared both
+the mark and the rule; the summary measured at ink-secondary 16px against
+fine print at muted 15.5px. The endpoint was put back to `null` afterwards.
+
 ---
 
 ## 3 · What is left

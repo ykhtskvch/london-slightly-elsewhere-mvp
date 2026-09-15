@@ -850,7 +850,7 @@ a.quiet:hover { color: var(--ink); text-decoration-color: var(--ink); }
 .prose strong, .section strong { font-weight: 500; color: var(--ink); }
 
 .fine-print, .caveat, .navigation-disclaimer, .arrival-privacy, .status-legend,
-.results-meta, .soundtrack, .form-message {
+.results-meta, .soundtrack {
   color: var(--muted);
   font-size: var(--fs-caption);
   line-height: var(--lh-caption);
@@ -922,11 +922,48 @@ input, select, textarea {
 
 textarea { min-height: 7rem; resize: vertical; }
 input:focus, select:focus, textarea:focus { border-color: var(--ink); }
-input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--red-lead); }
+/* A field that needs changing is marked by the shape of its rule, not by its
+   colour: same one weight, dashed — the mark for something still to be filled
+   in. Colour on its own would fail WCAG 1.4.1, and red belongs to links, so an
+   error that is only red is both unreadable to one reader and a false link to
+   another. Dashed also keeps the error apart from focus, which is solid ink. */
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] {
+  border-style: dashed;
+  border-color: var(--ink);
+}
 input:disabled, select:disabled, textarea:disabled { color: var(--muted); }
 
-.field-error { margin-top: var(--space-4); color: var(--red-lead); font-size: var(--fs-caption); }
-.form-message { margin-top: var(--space-16); padding-top: var(--space-12); border-top: var(--rule) solid var(--rule-minor); }
+.field-error {
+  margin-top: var(--space-4);
+  color: var(--ink-secondary);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+/* What happened when you pressed Send is not small print. It used to be set
+   with .fine-print: the same grey at the same size, sitting directly above the
+   actual small print, so the one line saying nothing was sent read as
+   boilerplate. */
+.form-message {
+  margin-top: var(--space-16);
+  padding-block: var(--space-12);
+  border-top: var(--rule) solid var(--rule-minor);
+  color: var(--ink-secondary);
+  font-size: var(--fs-caveat);
+  line-height: var(--lh-caption);
+}
+
+/* The mark that says this line is a correction and not a caption. It is the
+   apparatus voice — mono, small, upright — so it is told apart by its shape at
+   any setting, greyscale included. */
+.field-error b, .form-message b {
+  font-family: var(--apparatus);
+  font-size: var(--fs-apparatus);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
 .form-message:not(.show) { display: none; }
 
 /* The finder. Its chips become the same selectable words the index filter
