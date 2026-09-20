@@ -11,3 +11,6 @@ assets/og/_render.html
 
 # macOS.
 .DS_Store
+
+# render_maps.py caches OpenStreetMap tiles here between runs.
+.map-tiles/

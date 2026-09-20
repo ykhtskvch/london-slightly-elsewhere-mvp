@@ -49,6 +49,14 @@ Then open `http://localhost:8000`.
   WebP twin, about 40% lighter. Run it after adding one; the build does not,
   but it says which photographs are still missing theirs. The JPEG stays as
   the fallback and as what the OG cards use.
+- `scripts/render_maps.py` — draws the sketch map on every walk page into
+  `assets/maps`: OpenStreetMap tiles, the stops as numbered pins in walking
+  order, a dashed line joining them that is not the walked path. Run it from
+  the Pillow venv after adding or moving a stop; the build does not, it only
+  shows a map that exists. Places come from Nominatim and are cached in
+  `data/stop-coordinates.json` — hand-edit a wrong pin there (`"source":
+  "hand"`) and run again. A route whose stop cannot be placed is skipped
+  and reported rather than drawn wrong.
 - `assets/css/almanac-tokens.css` — design tokens for the redesign. Nothing
   in `almanac.css` may use a value that is not defined there.
 - `data/venue-timing.json` — one editable record per venue for happy-hour checks, current deals and official source links.

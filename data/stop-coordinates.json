@@ -1,0 +1,793 @@
+{
+  "Putney Bridge south side London SW15": {
+    "lat": 51.466,
+    "lon": -0.214,
+    "source": "hand",
+    "matched": "South end of Putney Bridge (Nominatim placed the Fulham end)",
+    "displayName": ""
+  },
+  "Putney Embankment London SW15": {
+    "lat": 51.4668497,
+    "lon": -0.2152862,
+    "source": "nominatim:0",
+    "matched": "Putney Embankment London SW15",
+    "displayName": "Putney Embankment Foreshore, Putney, London Borough of Wandsworth, Greater London, England, SW15 1EJ, United Kingdom"
+  },
+  "The Duke's Head 8 Lower Richmond Road Putney SW15 1JN": {
+    "lat": 51.4672904,
+    "lon": -0.2171022,
+    "source": "nominatim:1",
+    "matched": "8 Lower Richmond Road Putney SW15 1JN",
+    "displayName": "Duke's Head, 8, Lower Richmond Road, Putney, London Borough of Wandsworth, Greater London, England, SW15 1JN, United Kingdom"
+  },
+  "Al Forno 90 Putney High Street London SW15 1SR": {
+    "lat": 51.4635931,
+    "lon": -0.2158676,
+    "source": "nominatim:1",
+    "matched": "90 Putney High Street London SW15 1SR",
+    "displayName": "Chipotle, 88-90, Putney High Street, Putney, London Borough of Wandsworth, Greater London, England, SW15 1RB, United Kingdom"
+  },
+  "The Half Moon Putney 93 Lower Richmond Road SW15 1EU": {
+    "lat": 51.4672637,
+    "lon": -0.2200723,
+    "source": "nominatim:0",
+    "matched": "The Half Moon Putney 93 Lower Richmond Road SW15 1EU",
+    "displayName": "The Half Moon, 93, Lower Richmond Road, Putney, London Borough of Wandsworth, Greater London, England, SW15 1EU, United Kingdom"
+  },
+  "Russell Square Gardens London WC1B": {
+    "lat": 51.5230529,
+    "lon": -0.1242529,
+    "source": "nominatim:2",
+    "matched": "Russell Square, London",
+    "displayName": "Russell Square, Colonnade, Bloomsbury, London Borough of Camden, Greater London, England, WC1N 1JA, United Kingdom"
+  },
+  "London Review Bookshop 14 Bury Place London WC1A 2JL": {
+    "lat": 51.5185458,
+    "lon": -0.1242424,
+    "source": "nominatim:0",
+    "matched": "London Review Bookshop 14 Bury Place London WC1A 2JL",
+    "displayName": "London Review Bookshop, 14, Bury Place, St Giles, Bloomsbury, London Borough of Camden, Greater London, England, WC1A 2JL, United Kingdom"
+  },
+  "British Museum Great Russell Street entrance WC1B 3DG": {
+    "lat": 51.5193708,
+    "lon": -0.1268624,
+    "source": "nominatim:1",
+    "matched": "WC1B 3DG",
+    "displayName": "WC1B 3DG, London Borough of Camden, Greater London, England, United Kingdom"
+  },
+  "The Lamb 94 Lamb's Conduit Street London WC1N 3LZ": {
+    "lat": 51.5230834,
+    "lon": -0.1190469,
+    "source": "nominatim:0",
+    "matched": "The Lamb 94 Lamb's Conduit Street London WC1N 3LZ",
+    "displayName": "The Lamb, 94, Lamb's Conduit Street, Holborn, London Borough of Camden, Greater London, England, WC1N 3LZ, United Kingdom"
+  },
+  "The Magdala 2A South Hill Park Hampstead NW3 2SB": {
+    "lat": 51.5556283,
+    "lon": -0.1655534,
+    "source": "nominatim:2",
+    "matched": "NW3 2SB",
+    "displayName": "NW3 2SB, London Borough of Camden, Greater London, England, United Kingdom"
+  },
+  "Well Walk Theatre 49 Willow Road Hampstead NW3 1TS": {
+    "lat": 51.557677,
+    "lon": -0.174217,
+    "source": "nominatim:1",
+    "matched": "49 Willow Road Hampstead NW3 1TS",
+    "displayName": "Willow Road, Belsize Park, London Borough of Camden, Greater London, England, NW3 1TS, United Kingdom"
+  },
+  "Burgh House New End Square Hampstead NW3 1LT": {
+    "lat": 51.5581914,
+    "lon": -0.1750378,
+    "source": "nominatim:0",
+    "matched": "Burgh House New End Square Hampstead NW3 1LT",
+    "displayName": "Burgh House and Hampstead Museum, New End Square, Belsize Park, London Borough of Camden, Greater London, England, NW3 1LT, United Kingdom"
+  },
+  "Kenwood House Hampstead Heath London NW3": {
+    "lat": 51.5715493,
+    "lon": -0.1673367,
+    "source": "nominatim:2",
+    "matched": "Kenwood House Hampstead, London",
+    "displayName": "Kenwood House, Lime Avenue, North End, Highgate, London Borough of Camden, Greater London, England, NW3 7JR, United Kingdom"
+  },
+  "The Old White Bear 1 Well Road Hampstead NW3 1LJ": {
+    "lat": 51.5585653,
+    "lon": -0.175842,
+    "source": "nominatim:0",
+    "matched": "The Old White Bear 1 Well Road Hampstead NW3 1LJ",
+    "displayName": "The Old White Bear, 1, Well Road, Vale of Health, North End, Belsize Park, London Borough of Camden, Greater London, England, NW3 1LJ, United Kingdom"
+  },
+  "Canada Water station London SE16": {
+    "lat": 51.4984711,
+    "lon": -0.0490974,
+    "source": "nominatim:0",
+    "matched": "Canada Water station London SE16",
+    "displayName": "Canada Water Station, Surrey Quays Road, Canada Water, Rotherhithe, London Borough of Southwark, Greater London, England, SE16 7AN, United Kingdom"
+  },
+  "Greenland Dock London SE16": {
+    "lat": 51.4938069,
+    "lon": -0.0406593,
+    "source": "nominatim:0",
+    "matched": "Greenland Dock London SE16",
+    "displayName": "Historical landmarks at Greenland Dock, Greenland Quay, Surrey Quays, Rotherhithe, London Borough of Southwark, Greater London, England, SE16 7RW, United Kingdom"
+  },
+  "Surrey Docks Farm 10 Rotherhithe Street London SE16 5ET": {
+    "lat": 51.4996,
+    "lon": -0.0334,
+    "source": "hand",
+    "matched": "Surrey Docks Farm gate (Nominatim placed the whole street)",
+    "displayName": ""
+  },
+  "Brunel Museum Rotherhithe London SE16": {
+    "lat": 51.5016428,
+    "lon": -0.0528638,
+    "source": "nominatim:0",
+    "matched": "Brunel Museum Rotherhithe London SE16",
+    "displayName": "Brunel Museum, Railway Avenue, Canada Water, Rotherhithe, London Borough of Southwark, Greater London, England, SE16 4LF, United Kingdom"
+  },
+  "The Mayflower 117 Rotherhithe Street London SE16 4NF": {
+    "lat": 51.5018051,
+    "lon": -0.0535913,
+    "source": "nominatim:0",
+    "matched": "The Mayflower 117 Rotherhithe Street London SE16 4NF",
+    "displayName": "The Mayflower, 117, Rotherhithe Street, Canada Water, Rotherhithe, London Borough of Southwark, Greater London, England, SE16 4NF, United Kingdom"
+  },
+  "Crystal Palace station London SE19": {
+    "lat": 51.4176595,
+    "lon": -0.0712666,
+    "source": "nominatim:0",
+    "matched": "Crystal Palace station London SE19",
+    "displayName": "Crystal Palace, Orchard Grove, Crystal Palace, London Borough of Bromley, Greater London, England, SE20 8BQ, United Kingdom"
+  },
+  "Crystal Palace Dinosaurs London SE19": {
+    "lat": 51.4175977,
+    "lon": -0.0673007,
+    "source": "nominatim:0",
+    "matched": "Crystal Palace Dinosaurs London SE19",
+    "displayName": "Crystal Palace Dinosaurs, Geological strata bridge, Crystal Palace, London Borough of Bromley, Greater London, England, SE20 8DN, United Kingdom"
+  },
+  "Crystal Palace Park terraces London SE19": {
+    "lat": 51.423,
+    "lon": -0.0755,
+    "source": "hand",
+    "matched": "APPROXIMATE — the terraces below Crystal Palace Parade; Nominatim gave the park centre",
+    "displayName": ""
+  },
+  "Westow Hill Crystal Palace London SE19": {
+    "lat": 51.4190385,
+    "lon": -0.0792958,
+    "source": "nominatim:0",
+    "matched": "Westow Hill Crystal Palace London SE19",
+    "displayName": "Westow Hill, Church Road, Upper Norwood, London Borough of Bromley, Greater London, England, SE19 3AA, United Kingdom"
+  },
+  "Westow House 79 Westow Hill Crystal Palace SE19 1TX": {
+    "lat": 51.4199246,
+    "lon": -0.0791605,
+    "source": "nominatim:2",
+    "matched": "SE19 1TX",
+    "displayName": "SE19 1TX, London Borough of Lambeth, Greater London, England, United Kingdom"
+  },
+  "Stoke Newington Church Street London N16": {
+    "lat": 51.562202,
+    "lon": -0.0791303,
+    "source": "nominatim:0",
+    "matched": "Stoke Newington Church Street London N16",
+    "displayName": "Royal Mail, Stoke Newington Church Street, Stoke Newington, London Borough of Hackney, Greater London, England, N16 0UD, United Kingdom"
+  },
+  "Stoke Newington Bookshop 159 Church Street London N16 0UH": {
+    "lat": 51.5614504,
+    "lon": -0.0818053,
+    "source": "nominatim:1",
+    "matched": "159 Church Street London N16 0UH",
+    "displayName": "UK Supermarket, 159, Stoke Newington Church Street, Stoke Newington, London Borough of Hackney, Greater London, England, N16 0UH, United Kingdom"
+  },
+  "Abney Park Cemetery Stoke Newington London N16": {
+    "lat": 51.5644164,
+    "lon": -0.077726,
+    "source": "nominatim:1",
+    "matched": "Abney Park Cemetery Stoke Newington, London",
+    "displayName": "Abney Park, West Hackney, London Borough of Hackney, Greater London, England, United Kingdom"
+  },
+  "Clissold Park London N16": {
+    "lat": 51.5610346,
+    "lon": -0.0882763,
+    "source": "nominatim:1",
+    "matched": "Clissold Park, London",
+    "displayName": "Clissold Park, Stoke Newington, London Borough of Hackney, Greater London, England, United Kingdom"
+  },
+  "The Auld Shillelagh 105 Church Street London N16 0AS": {
+    "lat": 51.5620215,
+    "lon": -0.079539,
+    "source": "nominatim:0",
+    "matched": "The Auld Shillelagh 105 Church Street London N16 0AS",
+    "displayName": "The Auld Shillelagh, 105, Stoke Newington Church Street, Stoke Newington, London Borough of Hackney, Greater London, England, N16 0UD, United Kingdom"
+  },
+  "Walthamstow Market High Street London E17": {
+    "lat": 51.5831587,
+    "lon": -0.0291719,
+    "source": "nominatim:0",
+    "matched": "Walthamstow Market High Street London E17",
+    "displayName": "Walthamstow Market / High Street, Mission Grove, Leyton, London Borough of Waltham Forest, Greater London, England, E17 7FX, United Kingdom"
+  },
+  "Orford Road Walthamstow Village London E17": {
+    "lat": 51.583992,
+    "lon": -0.0113383,
+    "source": "nominatim:0",
+    "matched": "Orford Road Walthamstow Village London E17",
+    "displayName": "Orford Road, Walthamstow Village, Upper Walthamstow, Leyton, London Borough of Waltham Forest, Greater London, England, E17 9LP, United Kingdom"
+  },
+  "The Nag's Head 9 Orford Road Walthamstow E17 9NL": {
+    "lat": 51.5840647,
+    "lon": -0.0110725,
+    "source": "nominatim:0",
+    "matched": "The Nag's Head 9 Orford Road Walthamstow E17 9NL",
+    "displayName": "The Nag's Head, 9, Orford Road, Walthamstow Village, Upper Walthamstow, Leyton, Walthamstow, Greater London, England, E17 9LP, United Kingdom"
+  },
+  "Royal Arsenal Riverside Woolwich London SE18": {
+    "lat": 51.4957018,
+    "lon": 0.0761581,
+    "source": "nominatim:0",
+    "matched": "Royal Arsenal Riverside Woolwich London SE18",
+    "displayName": "Location Point, Marlborough Road, Royal Arsenal Riverside, Glyndon, Plumstead, Royal Borough of Greenwich, Greater London, England, SE18 6PL, United Kingdom"
+  },
+  "Thames Path Woolwich to Thames Barrier London": {
+    "lat": 51.495401,
+    "lon": 0.073,
+    "source": "nominatim:4",
+    "matched": "Thames Path Woolwich, London",
+    "displayName": "Royal Arsenal Thames Path Garden, Glyndon, Plumstead, Royal Borough of Greenwich, Greater London, England, United Kingdom"
+  },
+  "Thames Barrier London SE7": {
+    "lat": 51.4968875,
+    "lon": 0.0372873,
+    "source": "nominatim:0",
+    "matched": "Thames Barrier London SE7",
+    "displayName": "Thames Barrier, Charlton Riverside, Royal Borough of Greenwich, Greater London, England, SE7 8NJ, United Kingdom"
+  },
+  "Anchor & Hope Riverside Charlton London SE7": {
+    "lat": 51.4933,
+    "lon": 0.0287,
+    "source": "hand",
+    "matched": "APPROXIMATE — river end of Anchor & Hope Lane; Nominatim gave a postbox on the lane",
+    "displayName": ""
+  },
+  "Charterhouse Square London EC1M": {
+    "lat": 51.5209294,
+    "lon": -0.0999515,
+    "source": "nominatim:0",
+    "matched": "Charterhouse Square London EC1M",
+    "displayName": "Royal Mail, Charterhouse Square, Farringdon, Clerkenwell, London Borough of Islington, Greater London, England, EC1M 6AX, United Kingdom"
+  },
+  "St Bartholomew the Great London EC1A 9DS": {
+    "lat": 51.5188876,
+    "lon": -0.0995637,
+    "source": "nominatim:0",
+    "matched": "St Bartholomew the Great London EC1A 9DS",
+    "displayName": "St Bartholomew-The Great, Churchyard Path, West Smithfield, St Paul's, City of London, Greater London, England, EC1A 9DS, United Kingdom"
+  },
+  "St John's Gate Clerkenwell London EC1M": {
+    "lat": 51.522006,
+    "lon": -0.1025564,
+    "source": "nominatim:1",
+    "matched": "St John's Gate Clerkenwell, London",
+    "displayName": "Museum of the Order of St John, St John's Lane, Farringdon, Clerkenwell, London Borough of Islington, Greater London, England, EC1M 4DA, United Kingdom"
+  },
+  "Ye Olde Mitre Ely Court London EC1N 6SJ": {
+    "lat": 51.5184299,
+    "lon": -0.1073828,
+    "source": "nominatim:0",
+    "matched": "Ye Olde Mitre Ely Court London EC1N 6SJ",
+    "displayName": "Ye Olde Mitre, 1, Ely Court, Hatton Garden, Holborn, London Borough of Camden, Greater London, England, EC1N 6SJ, United Kingdom"
+  },
+  "The Quality Chop House 88-94 Farringdon Road London EC1R 3EA": {
+    "lat": 51.5247249,
+    "lon": -0.1099784,
+    "source": "nominatim:2",
+    "matched": "EC1R 3EA",
+    "displayName": "EC1R 3EA, London Borough of Islington, Greater London, England, United Kingdom"
+  },
+  "Granary Square London N1C": {
+    "lat": 51.5352384,
+    "lon": -0.1254006,
+    "source": "nominatim:1",
+    "matched": "Granary Square, London",
+    "displayName": "Granary Square, King's Cross, London Borough of Camden, Greater London, England, United Kingdom"
+  },
+  "Gasholder Park Kings Cross London N1C": {
+    "lat": 51.537017,
+    "lon": -0.1281453,
+    "source": "nominatim:3",
+    "matched": "Gasholder Park, London",
+    "displayName": "Gasholder Park, King's Cross, London Borough of Camden, Greater London, England, United Kingdom"
+  },
+  "Camley Street Natural Park London N1C 4PW": {
+    "lat": 51.53558,
+    "lon": -0.12774,
+    "source": "nominatim:1",
+    "matched": "N1C 4PW",
+    "displayName": "N1C 4PW, London Borough of Camden, Greater London, England, United Kingdom"
+  },
+  "St Pancras Old Church London NW1 2BA": {
+    "lat": 51.5349628,
+    "lon": -0.1300949,
+    "source": "nominatim:0",
+    "matched": "St Pancras Old Church London NW1 2BA",
+    "displayName": "St Pancras Old Church, Pancras Road, Somers Town, London Borough of Camden, Greater London, England, NW1 1UL, United Kingdom"
+  },
+  "The Queen's Head 66 Acton Street London WC1X 9NB": {
+    "lat": 51.5284524,
+    "lon": -0.1181488,
+    "source": "nominatim:0",
+    "matched": "The Queen's Head 66 Acton Street London WC1X 9NB",
+    "displayName": "The Queen's Head, 66, Acton Street, King's Cross, London Borough of Camden, Greater London, England, WC1X 9NB, United Kingdom"
+  },
+  "Harringay Green Lanes station London N4": {
+    "lat": 51.5778,
+    "lon": -0.0987,
+    "source": "hand",
+    "matched": "Station on Green Lanes",
+    "displayName": ""
+  },
+  "The Salisbury Hotel 1 Grand Parade Green Lanes London N4 1RN": {
+    "lat": 51.582235,
+    "lon": -0.0993762,
+    "source": "nominatim:1",
+    "matched": "1 Grand Parade Green Lanes London N4 1RN",
+    "displayName": "The Salisbury, 1, Green Lanes, Harringay, London Borough of Haringey, Greater London, England, N4 1JX, United Kingdom"
+  },
+  "Green Lanes Harringay London N4": {
+    "lat": 51.5752365,
+    "lon": -0.0984014,
+    "source": "nominatim:0",
+    "matched": "Green Lanes Harringay London N4",
+    "displayName": "Green Lanes, Harringay, London Borough of Haringey, Greater London, England, N4 1DP, United Kingdom"
+  },
+  "Gökyüzü 26-28 Grand Parade Green Lanes London N4 1LG": {
+    "lat": 51.5805385,
+    "lon": -0.0991481,
+    "source": "nominatim:2",
+    "matched": "N4 1LG",
+    "displayName": "N4 1LG, London Borough of Haringey, Greater London, England, United Kingdom"
+  },
+  "Brixton Underground station London SW9": {
+    "lat": 51.4625,
+    "lon": -0.1146,
+    "source": "hand",
+    "matched": "Station entrance on Brixton Road",
+    "displayName": ""
+  },
+  "Kentish Town station London NW5": {
+    "lat": 51.5509174,
+    "lon": -0.139061,
+    "source": "nominatim:1",
+    "matched": "Kentish Town station, London",
+    "displayName": "Kentish Town Station, Leighton Road, Kentish Town, London Borough of Camden, Greater London, England, NW5 2QQ, United Kingdom"
+  },
+  "The Southampton Arms 139 Highgate Road London NW5 1LE": {
+    "lat": 51.5560582,
+    "lon": -0.1461998,
+    "source": "nominatim:0",
+    "matched": "The Southampton Arms 139 Highgate Road London NW5 1LE",
+    "displayName": "The Southampton Arms, 139, Highgate Road, Dartmouth Park, London Borough of Camden, Greater London, England, NW5 1LE, United Kingdom"
+  },
+  "The Pineapple 51 Leverton Street London NW5 2NX": {
+    "lat": 51.5529728,
+    "lon": -0.1396355,
+    "source": "nominatim:0",
+    "matched": "The Pineapple 51 Leverton Street London NW5 2NX",
+    "displayName": "The Pineapple, 51, Leverton Street, Kentish Town, London Borough of Camden, Greater London, England, NW5 2NX, United Kingdom"
+  },
+  "The Fiddler's Elbow 1 Malden Road London NW5 3HS": {
+    "lat": 51.5460892,
+    "lon": -0.1510821,
+    "source": "nominatim:0",
+    "matched": "The Fiddler's Elbow 1 Malden Road London NW5 3HS",
+    "displayName": "The Fiddler's Elbow, 1, Malden Road, West Kentish Town, Kentish Town, London Borough of Camden, Greater London, England, NW5 3HS, United Kingdom"
+  },
+  "Deptford station London SE8": {
+    "lat": 51.479,
+    "lon": -0.0266,
+    "source": "hand",
+    "matched": "Deptford station (Nominatim placed the pumping station)",
+    "displayName": ""
+  },
+  "Deptford High Street London SE8": {
+    "lat": 51.4810021,
+    "lon": -0.0262818,
+    "source": "nominatim:0",
+    "matched": "Deptford High Street London SE8",
+    "displayName": "Royal Mail, Deptford High Street, Hughesfield Estate, Deptford, London Borough of Lewisham, Greater London, England, SE8 3PR, United Kingdom"
+  },
+  "St Nicholas Church Deptford London SE8": {
+    "lat": 51.482,
+    "lon": -0.0228,
+    "source": "hand",
+    "matched": "Church at Deptford Green / Stowage, read off the tiles; Nominatim found a church in Sutton",
+    "displayName": ""
+  },
+  "The Dog & Bell 116 Prince Street London SE8 3JD": {
+    "lat": 51.4832625,
+    "lon": -0.0257342,
+    "source": "nominatim:0",
+    "matched": "The Dog & Bell 116 Prince Street London SE8 3JD",
+    "displayName": "The Dog & Bell, 116, Prince Street, Hughesfield Estate, Deptford, London Borough of Lewisham, Greater London, England, SE8 3JD, United Kingdom"
+  },
+  "Buster Mantis 3-4 Resolution Way London SE8 4NT": {
+    "lat": 51.4787077,
+    "lon": -0.0257079,
+    "source": "nominatim:0",
+    "matched": "Buster Mantis 3-4 Resolution Way London SE8 4NT",
+    "displayName": "Buster Mantis, 3-4, Resolution Way, Albury Court, Deptford, London Borough of Lewisham, Greater London, England, SE8 4NT, United Kingdom"
+  },
+  "Little Venice London W2": {
+    "lat": 51.5211948,
+    "lon": -0.1824045,
+    "source": "nominatim:0",
+    "matched": "Little Venice London W2",
+    "displayName": "Little Venice, Kensal Town, Paddington, City of Westminster, Greater London, England, W2 6NE, United Kingdom"
+  },
+  "The Prince Alfred 5a Formosa Street London W9 1EE": {
+    "lat": 51.5244269,
+    "lon": -0.1848853,
+    "source": "nominatim:1",
+    "matched": "5a Formosa Street London W9 1EE",
+    "displayName": "Prince Alfred, 5A, Formosa Street, Kensal Town, Maida Vale, City of Westminster, Greater London, England, W9 1EE, United Kingdom"
+  },
+  "Regent's Canal towpath Little Venice to Kensal Green": {
+    "lat": 51.5218,
+    "lon": -0.202,
+    "source": "hand",
+    "matched": "APPROXIMATE — Paddington Arm towpath at Great Western Road; Nominatim gave Primrose Hill",
+    "displayName": ""
+  },
+  "Kensal Green Cemetery London NW10": {
+    "lat": 51.528407,
+    "lon": -0.2174097,
+    "source": "nominatim:0",
+    "matched": "Kensal Green Cemetery London NW10",
+    "displayName": "Kensal Green Cemetery, Harrow Road, North Kensington, Royal Borough of Kensington and Chelsea, Greater London, England, NW10 5DX, United Kingdom"
+  },
+  "Parlour 5 Regent Street London NW10 5LG": {
+    "lat": 51.5286801,
+    "lon": -0.2165074,
+    "source": "nominatim:0",
+    "matched": "Parlour 5 Regent Street London NW10 5LG",
+    "displayName": "Parlour Kensal, 5, Regent Street, Brondesbury, London Borough of Brent, Greater London, England, NW10 5LG, United Kingdom"
+  },
+  "Kew Green London TW9": {
+    "lat": 51.4838148,
+    "lon": -0.2894172,
+    "source": "nominatim:0",
+    "matched": "Kew Green London TW9",
+    "displayName": "Royal Mail, Kew Green, Kew, London Borough of Richmond upon Thames, Greater London, England, TW9 3AA, United Kingdom"
+  },
+  "The City Barge 27 Strand-on-the-Green Chiswick London W4 3PH": {
+    "lat": 51.486424,
+    "lon": -0.2798847,
+    "source": "nominatim:1",
+    "matched": "27 Strand-on-the-Green Chiswick London W4 3PH",
+    "displayName": "Strand-on-the-Green, London Borough of Hounslow, Greater London, England, W4 3RE, United Kingdom"
+  },
+  "Chiswick Mall London W4": {
+    "lat": 51.4883458,
+    "lon": -0.2460041,
+    "source": "nominatim:0",
+    "matched": "Chiswick Mall London W4",
+    "displayName": "W4 48, Chiswick Mall, London Borough of Hounslow, Greater London, England, W4 2PS, United Kingdom"
+  },
+  "Chiswick House and Gardens Burlington Lane London W4 2RP": {
+    "lat": 51.4845189,
+    "lon": -0.2569593,
+    "source": "nominatim:1",
+    "matched": "W4 2RP",
+    "displayName": "W4 2RP, London Borough of Hounslow, Greater London, England, United Kingdom"
+  },
+  "George and Devonshire 8 Burlington Lane Chiswick London W4 2QE": {
+    "lat": 51.4863638,
+    "lon": -0.2520898,
+    "source": "nominatim:0",
+    "matched": "George and Devonshire 8 Burlington Lane Chiswick London W4 2QE",
+    "displayName": "George and Devonshire, 8, Burlington Lane, London Borough of Hounslow, Greater London, England, W4 2QE, United Kingdom"
+  },
+  "The Old Pack Horse 434 Chiswick High Road London W4 5TF": {
+    "lat": 51.4928508,
+    "lon": -0.2666303,
+    "source": "nominatim:0",
+    "matched": "The Old Pack Horse 434 Chiswick High Road London W4 5TF",
+    "displayName": "The Old Pack Horse, 434, Chiswick High Road, Strand-on-the-Green, London Borough of Hounslow, Greater London, England, W4 5TF, United Kingdom"
+  },
+  "Higginson Park Marlow SL7": {
+    "lat": 51.5673018,
+    "lon": -0.7772369,
+    "source": "nominatim:1",
+    "matched": "Higginson Park Marlow",
+    "displayName": "Higginson Park, Marlow, Buckinghamshire, England, United Kingdom"
+  },
+  "Marlow Bridge SL7": {
+    "lat": 51.5676733,
+    "lon": -0.7734518,
+    "source": "nominatim:0",
+    "matched": "Marlow Bridge SL7",
+    "displayName": "Marlow Bridge, Marlow, Buckinghamshire, England, SL7 2BL, United Kingdom"
+  },
+  "Temple Lock Marlow": {
+    "lat": 51.5520535,
+    "lon": -0.7939653,
+    "source": "nominatim:0",
+    "matched": "Temple Lock Marlow",
+    "displayName": "Temple Lock, Temple Footbridge, Great Marlow, Hurley, Buckinghamshire, England, SL7 2SR, United Kingdom"
+  },
+  "Hambleden Lock RG9": {
+    "lat": 51.5599182,
+    "lon": -0.8732811,
+    "source": "nominatim:1",
+    "matched": "Hambleden Lock",
+    "displayName": "Hambleden Lock, Aston, Remenham, Wokingham, England, United Kingdom"
+  },
+  "The Stag and Huntsman Hambleden RG9 6RP": {
+    "lat": 51.5726016,
+    "lon": -0.8689279,
+    "source": "nominatim:1",
+    "matched": "RG9 6RP",
+    "displayName": "RG9 6RP, Hambleden, Buckinghamshire, England, United Kingdom"
+  },
+  "Meades Water Gardens Chesham HP5": {
+    "lat": 51.7058,
+    "lon": -0.614,
+    "source": "hand",
+    "matched": "APPROXIMATE — beside the Chess in Chesham town centre; not in Nominatim",
+    "displayName": ""
+  },
+  "Box Hill and Westhumble station RH5 6BT": {
+    "lat": 51.2539871,
+    "lon": -0.3286722,
+    "source": "nominatim:1",
+    "matched": "RH5 6BT",
+    "displayName": "RH5 6BT, Mole Valley, Surrey, England, United Kingdom"
+  },
+  "Mickleham Downs Surrey": {
+    "lat": 51.2700896,
+    "lon": -0.3138033,
+    "source": "nominatim:0",
+    "matched": "Mickleham Downs Surrey",
+    "displayName": "Mickleham Downs, Mickleham, Mole Valley, Surrey, England, RH5 6DP, United Kingdom"
+  },
+  "Headley Heath Surrey": {
+    "lat": 51.2661285,
+    "lon": -0.2820321,
+    "source": "nominatim:0",
+    "matched": "Headley Heath Surrey",
+    "displayName": "Headley Heath, Headley, Mole Valley, Surrey, England, United Kingdom"
+  },
+  "Box Hill viewpoint Tadworth KT20 7LB": {
+    "lat": 51.2478275,
+    "lon": -0.2998353,
+    "source": "nominatim:1",
+    "matched": "KT20 7LB",
+    "displayName": "KT20 7LB, Mole Valley, Surrey, England, United Kingdom"
+  },
+  "The Stepping Stones Westhumble RH5 6BS": {
+    "lat": 51.252894,
+    "lon": -0.3245016,
+    "source": "nominatim:0",
+    "matched": "The Stepping Stones Westhumble RH5 6BS",
+    "displayName": "The Stepping Stones, Westhumble Street, Westhumble, Mole Valley, Surrey, England, RH5 6BS, United Kingdom"
+  },
+  "Shoebury Garrison East Beach SS3": {
+    "lat": 51.5289476,
+    "lon": 0.7870197,
+    "source": "nominatim:3",
+    "matched": "Shoebury Garrison",
+    "displayName": "New Garrison Road, North Shoebury, Shoeburyness, Southend-on-Sea, Essex, England, SS3 9BT, United Kingdom"
+  },
+  "Thorpe Bay seafront SS1": {
+    "lat": 51.5376596,
+    "lon": 0.7619363,
+    "source": "nominatim:2",
+    "matched": "Thorpe Bay",
+    "displayName": "Thorpe Bay, Acacia Drive, North Shoebury, Shoeburyness, Southend-on-Sea, Essex, England, SS1 3LU, United Kingdom"
+  },
+  "Southend Pier SS1": {
+    "lat": 51.5336012,
+    "lon": 0.7157537,
+    "source": "nominatim:0",
+    "matched": "Southend Pier SS1",
+    "displayName": "Pier Hill, Southchurch, Southend-on-Sea, Essex, England, SS1 2AL, United Kingdom"
+  },
+  "Chalkwell Beach SS0": {
+    "lat": 51.5384127,
+    "lon": 0.671898,
+    "source": "nominatim:1",
+    "matched": "Chalkwell Beach",
+    "displayName": "Saltwater Beach Cafe, 111, Chalkwell Esplanade, Westcliff-on-Sea, Leigh on Sea, Southend-on-Sea, Essex, England, SS0 8JJ, United Kingdom"
+  },
+  "Old Leigh SS9": {
+    "lat": 51.5397266,
+    "lon": 0.6503737,
+    "source": "nominatim:0",
+    "matched": "Old Leigh SS9",
+    "displayName": "Old Leigh, Leigh-on-Sea, Leigh on Sea, Southend-on-Sea, Essex, England, SS9 2EN, United Kingdom"
+  },
+  "Theydon Plain Epping Forest": {
+    "lat": 51.6741352,
+    "lon": 0.0906218,
+    "source": "nominatim:0",
+    "matched": "Theydon Plain Epping Forest",
+    "displayName": "Theydon Plain, Theydon Bois, Debden Green, Epping Forest, Essex, England, United Kingdom"
+  },
+  "Oak Trail Epping Forest": {
+    "lat": 51.6665,
+    "lon": 0.07,
+    "source": "hand",
+    "matched": "APPROXIMATE — forest between Theydon Plain and High Beach; Nominatim found a trail in Lisburn",
+    "displayName": ""
+  },
+  "High Beach Epping Forest": {
+    "lat": 51.6615191,
+    "lon": 0.0311699,
+    "source": "nominatim:0",
+    "matched": "High Beach Epping Forest",
+    "displayName": "High Beach, Waltham Abbey, Sewardstonebury, Epping Forest, Essex, England, IG10 4BF, United Kingdom"
+  },
+  "Chingford Plain Epping Forest": {
+    "lat": 51.6369347,
+    "lon": 0.0189909,
+    "source": "nominatim:0",
+    "matched": "Chingford Plain Epping Forest",
+    "displayName": "Chingford Plain, Waltham Abbey, London Borough of Waltham Forest, Greater London, Essex, England, United Kingdom"
+  },
+  "Chingford rail station E4": {
+    "lat": 51.6334,
+    "lon": 0.0104,
+    "source": "hand",
+    "matched": "Chingford station forecourt",
+    "displayName": ""
+  },
+  "Manor Farm Ruislip HA4": {
+    "lat": 51.5785135,
+    "lon": -0.4276763,
+    "source": "nominatim:1",
+    "matched": "Manor Farm Ruislip",
+    "displayName": "Manor Farm, Ickenham, London Borough of Hillingdon, Greater London, England, HA4 8BD, United Kingdom"
+  },
+  "Ruislip Woods National Nature Reserve": {
+    "lat": 51.5978813,
+    "lon": -0.4370618,
+    "source": "nominatim:0",
+    "matched": "Ruislip Woods National Nature Reserve",
+    "displayName": "Ruislip Woods National Nature Reserve, London Borough of Hillingdon, Greater London, England, United Kingdom"
+  },
+  "Ruislip Lido HA4 7TY": {
+    "lat": 51.5906695,
+    "lon": -0.4334675,
+    "source": "nominatim:0",
+    "matched": "Ruislip Lido HA4 7TY",
+    "displayName": "Ruislip Lido, Reservoir Road, Northwood, London Borough of Hillingdon, Greater London, England, HA4 7TY, United Kingdom"
+  },
+  "St Mary's Church Harefield UB9": {
+    "lat": 51.595273,
+    "lon": -0.4806884,
+    "source": "nominatim:1",
+    "matched": "St Mary's Church Harefield",
+    "displayName": "St. Mary's, U26, London Borough of Hillingdon, Greater London, England, UB9 6DU, United Kingdom"
+  },
+  "Lee Valley Ice Centre Lea Bridge Road London E10 7QL": {
+    "lat": 51.5632706,
+    "lon": -0.043308,
+    "source": "nominatim:0",
+    "matched": "Lee Valley Ice Centre Lea Bridge Road London E10 7QL",
+    "displayName": "Lee Valley Ice Centre, Lea Bridge Road, Leyton, London Borough of Waltham Forest, Greater London, England, E5 9RH, United Kingdom"
+  },
+  "Hackney Marshes Centre E9 5PF": {
+    "lat": 51.5527479,
+    "lon": -0.0255018,
+    "source": "nominatim:0",
+    "matched": "Hackney Marshes Centre E9 5PF",
+    "displayName": "Hackney Marshes Centre, Homerton Road, Clapton Park, Hackney Wick, London Borough of Hackney, Greater London, England, E9 5PF, United Kingdom"
+  },
+  "Walthamstow Marshes Lea Bridge Road E10": {
+    "lat": 51.5713154,
+    "lon": -0.0535811,
+    "source": "nominatim:4",
+    "matched": "Walthamstow Marshes",
+    "displayName": "Walthamstow Marshes, Leyton, London Borough of Waltham Forest, Greater London, England, United Kingdom"
+  },
+  "Walthamstow Wetlands 2 Forest Road London N17 9NH": {
+    "lat": 51.5855068,
+    "lon": -0.0541376,
+    "source": "nominatim:0",
+    "matched": "Walthamstow Wetlands 2 Forest Road London N17 9NH",
+    "displayName": "Walthamstow Wetlands Visitor Centre, 2, Forest Road, London Borough of Waltham Forest, Greater London, England, N17 9NH, United Kingdom"
+  },
+  "Tottenham Hale station N17": {
+    "lat": 51.5884152,
+    "lon": -0.0629009,
+    "source": "nominatim:0",
+    "matched": "Tottenham Hale station N17",
+    "displayName": "Station Road, Tottenham Hale, West Green, London Borough of Haringey, Greater London, England, N17 9JU, United Kingdom"
+  },
+  "Harold Wood Park RM3": {
+    "lat": 51.5877879,
+    "lon": 0.2369497,
+    "source": "nominatim:1",
+    "matched": "Harold Wood Park",
+    "displayName": "Harold Wood Park, Harold Wood, London Borough of Havering, Greater London, England, United Kingdom"
+  },
+  "Pages Wood Havering": {
+    "lat": 51.58548,
+    "lon": 0.2495519,
+    "source": "nominatim:0",
+    "matched": "Pages Wood Havering",
+    "displayName": "Pages Wood, Harold Wood, London Borough of Havering, Greater London, England, United Kingdom"
+  },
+  "Upminster Bridge station RM14": {
+    "lat": 51.5571416,
+    "lon": 0.249618,
+    "source": "nominatim:0",
+    "matched": "Upminster Bridge station RM14",
+    "displayName": "Station Road, Upminster Bridge, Upminster, London Borough of Havering, Greater London, England, RM14 2UB, United Kingdom"
+  },
+  "Rainham Hall Broadway RM13 9YN": {
+    "lat": 51.5179341,
+    "lon": 0.1907929,
+    "source": "nominatim:0",
+    "matched": "Rainham Hall Broadway RM13 9YN",
+    "displayName": "Rainham Hall, Broadway, Rainham, London Borough of Havering, Greater London, England, RM13 9YN, United Kingdom"
+  },
+  "Rainham rail station RM13": {
+    "lat": 51.5167,
+    "lon": 0.1906,
+    "source": "hand",
+    "matched": "Rainham (Havering) station",
+    "displayName": ""
+  },
+  "Brixton Village London SW9 8PS": {
+    "lat": 51.4623912,
+    "lon": -0.1118382,
+    "source": "nominatim:0",
+    "matched": "Brixton Village London SW9 8PS",
+    "displayName": "Brixton Village, Atlantic Road, Brixton, London Borough of Lambeth, Greater London, England, SW9 8PR, United Kingdom"
+  },
+  "The Effra Hall Tavern 38a Kellett Road London SW2 1EB": {
+    "lat": 51.459874,
+    "lon": -0.1131337,
+    "source": "nominatim:2",
+    "matched": "SW2 1EB",
+    "displayName": "SW2 1EB, London Borough of Lambeth, Greater London, England, United Kingdom"
+  },
+  "The Windmill 22 Blenheim Gardens London SW2 5BZ": {
+    "lat": 51.4538169,
+    "lon": -0.1216056,
+    "source": "nominatim:1",
+    "matched": "22 Blenheim Gardens London SW2 5BZ",
+    "displayName": "Blenheim Gardens, Blenheim Gardens Estate, Brixton, London Borough of Lambeth, Greater London, England, SW2 5ET, United Kingdom"
+  },
+  "Latimer Buckinghamshire": {
+    "lat": 51.6794507,
+    "lon": -0.5499596,
+    "source": "nominatim:0",
+    "matched": "Latimer Buckinghamshire",
+    "displayName": "Latimer, Buckinghamshire, England, HP5 1TY, United Kingdom"
+  },
+  "The Bedford Arms Chenies WD3 6EQ": {
+    "lat": 51.6739605,
+    "lon": -0.5285085,
+    "source": "nominatim:0",
+    "matched": "The Bedford Arms Chenies WD3 6EQ",
+    "displayName": "The Bedford Arms, Latimer Road, Chenies, Chesham and Villages Community Board, Latimer, Buckinghamshire, England, WD3 6EQ, United Kingdom"
+  },
+  "Sarratt Bottom Hertfordshire": {
+    "lat": 51.6803598,
+    "lon": -0.5088396,
+    "source": "nominatim:0",
+    "matched": "Sarratt Bottom Hertfordshire",
+    "displayName": "Sarratt Bottom, Sarratt, Three Rivers, Hertfordshire, England, WD3 6BX, United Kingdom"
+  },
+  "Rickmansworth Underground station WD3 1QY": {
+    "lat": 51.6404228,
+    "lon": -0.4736272,
+    "source": "nominatim:1",
+    "matched": "WD3 1QY",
+    "displayName": "WD3 1QY, Batchworth, Rickmansworth, Three Rivers, Hertfordshire, England, United Kingdom"
+  }
+}

@@ -1286,6 +1286,29 @@ textarea:disabled {
   border-top: var(--border-thin) solid var(--colour-border);
 }
 
+.route-map {
+  min-width: 0;
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.route-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--border-thin) solid var(--colour-border);
+  border-radius: var(--radius-lg);
+  background: var(--colour-accent-tint);
+}
+
+.route-map figcaption {
+  max-width: var(--content-measure);
+  color: var(--colour-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-loose);
+}
+
 .stops {
   margin: 0;
   padding: 0;

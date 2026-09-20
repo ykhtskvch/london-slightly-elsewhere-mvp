@@ -360,6 +360,33 @@ def route_media(route, base, card=True):
     )
 
 
+def route_map(route, base):
+    """The sketch map render_maps.py drew, when it has: numbered pins in
+    walking order on OpenStreetMap tiles, joined by a dashed line that is
+    not the walked path. Nothing is shown for a route without one."""
+    jpg = ROOT / "assets" / "maps" / f"{route['slug']}.jpg"
+    if not jpg.exists():
+        return ""
+    stops = route["stops"]
+    count = len(stops)
+    alt = (
+        f"Sketch map of the walk: {count} numbered stops in order, "
+        f"from {stops[0]['name']} to {stops[-1]['name']}, on an OpenStreetMap background."
+    )
+    src = f"{base}assets/maps/{route['slug']}"
+    webp = ""
+    if jpg.with_suffix(".webp").exists():
+        webp = f'<source srcset="{e(src)}.webp" type="image/webp">'
+    return (
+        '<figure class="route-map">'
+        f'<picture>{webp}<img src="{e(src)}.jpg" alt="{e(alt)}" width="1200" height="800" '
+        'loading="lazy" decoding="async"></picture>'
+        '<figcaption>Stops in walking order. The dashed line joins them and is not the walked '
+        'path; use the live route for that. Map © OpenStreetMap contributors.</figcaption>'
+        '</figure>'
+    )
+
+
 def route_card(route, base, heading_level=3, finder=False, hidden=False):
     """The single card used by Home, Walks, Find a walk and related walks."""
     discovery = discovery_for(route)
@@ -1694,7 +1721,7 @@ def route_page(route, routes, almanac, venue_timing):
             + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
             + "</div></li>"
         )
-    sections.append(section("The route.", f'<ol class="stops">{"".join(stops_html)}</ol>'))
+    sections.append(section("The route.", route_map(route, base), f'<ol class="stops">{"".join(stops_html)}</ol>'))
 
     if is_day_walk:
         hike = route["hike"]
