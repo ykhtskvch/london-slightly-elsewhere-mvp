@@ -5,6 +5,16 @@
 > history and editorial context; their prohibitions on cards, primary buttons,
 > radii, a homepage hero and product navigation are no longer implementation
 > requirements.
+>
+> **Addendum, 20/09/2026, evening.** The earlier generator is gone:
+> `build_route_pages.py` built no page (every route is on the current
+> design, and `/routes/seventeen/` is a hand-kept file), so it and the five
+> scripts only its template named — `app.js`, `browse.js`, `home.js`,
+> `route-page.js`, `theme.js` — were removed in `3bbad40`. The ConditionFilter
+> of 2.13 and its index rows had already gone the same day (`d912484`,
+> `466f759`): the index is the card grid with the location control, and the
+> finder is the one filter. Where the notes below say a file is kept because
+> the dormant template names it, or that two filters remain, that is history.
 
 # Where the field-guide design met this codebase
 
