@@ -1484,11 +1484,17 @@ def route_page(route, routes, almanac, venue_timing):
     map_event = (
         f' data-goatcounter-click="maps/{e(route["slug"])}"' if GOATCOUNTER else ""
     )
+    walked = route_walked(route)
+    # One "start" action for the page. A walked route earns the primary
+    # button and, on a phone, a floating copy that follows the reader; a
+    # draft gets directions as a secondary action under a kicker that
+    # already says to verify the details.
     map_cta = ""
     if map_url:
         map_cta = (
-            f'<a class="button button--primary primary-map"{map_event} href="{e(map_url)}" '
-            'rel="noopener" target="_blank">Start in Google Maps'
+            f'<a class="button {"button--primary primary-map" if walked else "button--secondary"}"'
+            f'{map_event} href="{e(map_url)}" rel="noopener" target="_blank">'
+            f'{"Start in Google Maps" if walked else "Directions to the start"}'
             '<span class="visually-hidden"> (opens in a new tab)</span></a>'
         )
     head_block = (
@@ -1497,36 +1503,45 @@ def route_page(route, routes, almanac, venue_timing):
         f'<p class="route-head__kicker">{e(status)}</p>'
         f'<h1 class="route-head__title">{e(route["title"])}</h1>'
         f'<p class="route-head__lead">{e(route["subtitle"])}</p>'
-        '<div class="route-meta" aria-label="Walk summary">'
-        f'<span class="route-meta__item"><strong>{e(route_distance(route))}</strong><small>Distance</small></span>'
-        f'<span class="route-meta__item"><strong>{e(facts["duration"])}</strong><small>Time</small></span>'
-        f'<span class="route-meta__item"><strong>{e(route_difficulty(route))}</strong><small>Effort</small></span>'
-        '</div>'
-        f'<p class="route-journey"><span>{e(route_start(route))}</span>'
-        f'<span aria-hidden="true">→</span><span>{e(route_finish(route))}</span></p>'
-        f'<div class="route-actions">{map_cta}<a class="button button--secondary" href="{base}routes/">All walks</a></div>'
-        f'<p class="quiet-line">Last checked: {e(last_checked)}. Verify opening hours and access before going.</p>'
         '</div>'
         f'{route_media(route, base, card=False)}'
         '</header>'
     )
 
-    terrain = route["hike"].get("terrainNotes") if is_day_walk else facts.get("walkingLevel", "")
-    essentials = (
-        '<section class="essentials" aria-labelledby="essentials-title">'
-        '<div class="section-heading"><div><p class="eyebrow">Before you decide</p>'
-        '<h2 id="essentials-title">Walk essentials</h2></div></div>'
-        '<div class="essentials__grid">'
-        f'<div class="essential"><span>Distance</span><strong>{e(route_distance(route))}</strong></div>'
-        f'<div class="essential"><span>Time</span><strong>{e(facts["duration"])}</strong></div>'
-        f'<div class="essential"><span>Start</span><strong>{e(route_start(route))}</strong></div>'
-        f'<div class="essential"><span>Finish</span><strong>{e(route_finish(route))}</strong></div>'
-        f'<div class="essential"><span>Terrain / effort</span><strong>{e(terrain)}</strong></div>'
-        f'<div class="essential"><span>Best time</span><strong>{e(facts["bestTime"])}</strong></div>'
-        '</div>'
-        f'<p class="meta"><span class="visually-hidden">Route at a glance: </span>{flow}</p>'
-        '</section>'
+    # The essentials live once, in a rail: beside the route on a wide
+    # screen and sticky there, between the title and the route on a phone.
+    # Terrain notes for a day walk stay in their own section below.
+    facts_list = [
+        ("Distance", route_distance(route)),
+        ("Time", facts["duration"]),
+        ("Effort", route_difficulty(route)),
+        ("Start", route_start(route)),
+        ("Finish", route_finish(route)),
+        ("Best time", facts["bestTime"]),
+    ]
+    facts_html = "".join(
+        f'<div class="route-rail__fact"><dt>{e(term)}</dt><dd>{e(value)}</dd></div>'
+        for term, value in facts_list
     )
+    rail = (
+        '<aside class="route-rail" aria-labelledby="essentials-title">'
+        '<div class="route-rail__inner">'
+        '<p class="eyebrow">Before you decide</p>'
+        '<h2 id="essentials-title" class="route-rail__title">Walk essentials</h2>'
+        f'<dl class="route-rail__facts">{facts_html}</dl>'
+        f'<p class="meta"><span class="visually-hidden">Route at a glance: </span>{flow}</p>'
+        f'<div class="route-actions">{map_cta}<a class="quiet" href="{base}routes/">All walks</a></div>'
+        f'<p class="quiet-line">Last checked: {e(last_checked)}. Verify opening hours and access before going.</p>'
+        '</div></aside>'
+    )
+    startbar = ""
+    if map_cta and walked:
+        startbar = (
+            '<div class="route-startbar">'
+            f'<a class="button button--primary primary-map"{map_event} href="{e(map_url)}" '
+            'rel="noopener" target="_blank">Start in Google Maps'
+            '<span class="visually-hidden"> (opens in a new tab)</span></a></div>'
+        )
 
     warnings = ruled_list(editorial["practicalWarnings"])
     sections = [
@@ -1783,8 +1798,9 @@ def route_page(route, routes, almanac, venue_timing):
 
     body = (
         f'      <main id="main">'
-        f'{head_block}{essentials}<div class="route-content">{"".join(sections)}</div>'
-        f'{related_block}{closing}</main>\n'
+        f'{head_block}<div class="route-layout">{rail}'
+        f'<div class="route-content">{"".join(sections)}</div></div>'
+        f'{related_block}{closing}{startbar}</main>\n'
         f"      {apparatus(almanac, base, current='routes/')}"
     )
     return shell(route_head_meta(route), body, base, path=f'routes/{route["slug"]}/')

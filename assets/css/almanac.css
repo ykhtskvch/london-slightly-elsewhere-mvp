@@ -1128,77 +1128,11 @@ textarea:disabled {
   border-radius: var(--radius-lg);
 }
 
-.route-meta {
-  min-width: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
-  margin: var(--space-5) 0 0;
-}
-
-.route-meta__item,
-.essential {
-  min-width: 0;
-  padding: var(--space-4);
-  border: var(--border-thin) solid var(--colour-border);
-  border-radius: var(--radius-md);
-  background: var(--colour-surface);
-}
-
-.route-meta__item {
-  display: grid;
-  align-content: start;
-  gap: var(--space-1);
-}
-
-.route-meta__item dt,
-.essential dt,
-.route-meta__item > span:first-child,
-.essential > span:first-child {
-  color: var(--colour-muted);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: var(--leading-ui);
-  text-transform: uppercase;
-}
-
-.route-meta__item dd,
-.essential dd,
-.route-meta__item > strong,
-.essential > strong {
-  display: block;
-  margin: var(--space-1) 0 0;
-  color: var(--colour-ink);
-  font-weight: 700;
-  line-height: var(--leading-ui);
-}
-
-.route-meta__item small {
-  color: var(--colour-muted);
-  font-size: var(--text-xs);
-  font-weight: 650;
-  line-height: var(--leading-ui);
-  text-transform: uppercase;
-}
-
-.route-journey {
-  max-width: 48rem;
+.route-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2);
-  margin-top: var(--space-4);
-  color: var(--colour-ink);
-  font-weight: 650;
-}
-
-.route-journey > [aria-hidden="true"] {
-  color: var(--colour-accent);
-}
-
-.route-actions {
-  margin-top: var(--space-5);
+  gap: var(--space-3) var(--space-4);
 }
 
 .primary-map {
@@ -1206,21 +1140,84 @@ textarea:disabled {
   padding-inline: var(--space-5);
 }
 
-.essentials {
+/* The essentials rail: one place for the facts, the start action and the
+   date of the last check. Below the title on a phone, beside the route and
+   sticky on a wide screen. */
+
+.route-layout {
   min-width: 0;
-  padding-block: var(--space-10);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.route-rail {
+  min-width: 0;
+  padding-block: var(--space-8);
   border-bottom: var(--border-thin) solid var(--colour-border);
 }
 
-.essentials__grid {
-  min-width: 0;
+.route-rail__inner {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
-.essentials > .meta {
-  margin-top: var(--space-4);
+.route-rail__title {
+  font-size: var(--text-xl);
+  line-height: var(--lh-section-head);
+}
+
+.route-rail__facts {
+  display: grid;
+  margin: 0;
+  border-top: var(--border-thin) solid var(--colour-border);
+}
+
+.route-rail__fact {
+  display: grid;
+  grid-template-columns: minmax(6rem, 0.4fr) minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  border-bottom: var(--border-thin) solid var(--colour-border);
+}
+
+.route-rail__fact dt {
+  color: var(--colour-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: var(--lh-numerals);
+  text-transform: uppercase;
+  padding-top: 0.2em;
+}
+
+.route-rail__fact dd {
+  margin: 0;
+  color: var(--colour-ink);
+  font-size: var(--text-sm);
+  font-weight: 650;
+  line-height: var(--lh-numerals);
+}
+
+.route-rail .route-actions {
+  margin-top: var(--space-2);
+}
+
+/* A walked route's start action follows the reader on a phone, as a pill
+   floating above the page until the main content ends. */
+
+.route-startbar {
+  position: sticky;
+  bottom: var(--space-4);
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  padding-block: var(--space-2);
+  pointer-events: none;
+}
+
+.route-startbar .button {
+  pointer-events: auto;
+  box-shadow: var(--shadow-md);
 }
 
 .route-content {
@@ -1901,11 +1898,6 @@ a.quiet:hover {
     align-items: start;
   }
 
-  .route-meta,
-  .essentials__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .definition {
     grid-template-columns: minmax(9rem, 0.38fr) minmax(0, 1fr);
     gap: var(--space-5);
@@ -1976,9 +1968,36 @@ a.quiet:hover {
     align-items: center;
   }
 
-  .route-meta,
-  .essentials__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .route-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 21rem);
+    column-gap: var(--space-12);
+    align-items: start;
+  }
+
+  .route-rail {
+    order: 2;
+    position: sticky;
+    top: 5.75rem;
+    max-height: calc(100svh - 7rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-block: var(--space-4) 0;
+    border-bottom: 0;
+  }
+
+  .route-rail__inner {
+    padding: var(--space-5);
+    border: var(--border-thin) solid var(--colour-border);
+    border-radius: var(--radius-lg);
+    background: var(--colour-surface);
+  }
+
+  .route-content {
+    order: 1;
+  }
+
+  .route-startbar {
+    display: none;
   }
 }
 
@@ -2017,6 +2036,7 @@ a.quiet:hover {
   .site-head,
   .mobile-nav,
   .route-actions,
+  .route-startbar,
   .button,
   .apparatus__links {
     display: none !important;
