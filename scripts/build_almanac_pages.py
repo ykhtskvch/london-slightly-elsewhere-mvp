@@ -328,36 +328,31 @@ def walked_first(routes):
 
 
 def route_media(route, base, card=True):
-    """A real route photograph where one exists. A card without one shows
-    nothing rather than a placeholder; the route hero keeps its fallback."""
+    """A real route photograph where one exists, and nothing where none
+    does: a card shows no media block, a route hero runs in one column.
+    The drafts hold their place with words, not a hatch."""
     art = (route.get("almanac") or {}).get("plate") or {}
     short = discovery_for(route)["cardTitle"]
     classes = "route-card__media" if card else "route-head__visual"
-    if art.get("image"):
-        source = pathlib.Path(art["image"])
-        src = f"{base}{source.as_posix()}"
-        priority = ' loading="lazy"' if card else ' fetchpriority="high"'
-        img = (
-            f'<img src="{e(src)}" alt="{e(art.get("alt") or short)}" '
-            f'width="1200" height="800"{priority} decoding="async">'
-        )
-        twin = source.with_suffix(".webp")
-        if (ROOT / twin).exists():
-            img = (
-                f'<picture><source srcset="{e(base + twin.as_posix())}" type="image/webp">'
-                f"{img}</picture>"
-            )
-        caption = ""
-        if not card and art.get("caption"):
-            caption = f'<figcaption>{e(art["caption"])}</figcaption>'
-        return f'<figure class="{classes}">{img}{caption}</figure>'
-    if card:
+    if not art.get("image"):
         return ""
-    return (
-        f'<div class="{classes} route-card__media--fallback" aria-hidden="true">'
-        '<span class="route-card__trail"></span>'
-        f'<span class="route-card__fallback-name">{e(short)}</span></div>'
+    source = pathlib.Path(art["image"])
+    src = f"{base}{source.as_posix()}"
+    priority = ' loading="lazy"' if card else ' fetchpriority="high"'
+    img = (
+        f'<img src="{e(src)}" alt="{e(art.get("alt") or short)}" '
+        f'width="1200" height="800"{priority} decoding="async">'
     )
+    twin = source.with_suffix(".webp")
+    if (ROOT / twin).exists():
+        img = (
+            f'<picture><source srcset="{e(base + twin.as_posix())}" type="image/webp">'
+            f"{img}</picture>"
+        )
+    caption = ""
+    if not card and art.get("caption"):
+        caption = f'<figcaption>{e(art["caption"])}</figcaption>'
+    return f'<figure class="{classes}">{img}{caption}</figure>'
 
 
 def route_map(route, base):
@@ -456,7 +451,7 @@ def site_head(base, path):
         f'<nav class="site-head__desktop site-head__links" aria-label="Primary">{desktop}</nav>'
         f'<a class="site-head__mobile-cta"{current(find_current)} '
         f'href="{base}find-your-route/">Find a walk</a>'
-        '<details class="mobile-nav"><summary>Menu</summary>'
+        '<details class="mobile-nav"><summary><span class="visually-hidden">Menu</span></summary>'
         f'<nav class="mobile-nav__panel" aria-label="Mobile primary">{mobile}</nav>'
         '</details></header>'
     )
@@ -1578,14 +1573,15 @@ def route_page(route, routes, almanac, venue_timing):
             f'{"Start in Google Maps" if walked else "Directions to the start"}'
             '<span class="visually-hidden"> (opens in a new tab)</span></a>'
         )
+    visual = route_media(route, base, card=False)
     head_block = (
-        '<header class="route-head">'
+        f'<header class="route-head{" route-head--with-visual" if visual else ""}">'
         '<div class="route-head__content">'
         f'<p class="route-head__kicker">{e(status)}</p>'
         f'<h1 class="route-head__title">{e(route["title"])}</h1>'
         f'<p class="route-head__lead">{e(route["subtitle"])}</p>'
         '</div>'
-        f'{route_media(route, base, card=False)}'
+        f'{visual}'
         '</header>'
     )
 
