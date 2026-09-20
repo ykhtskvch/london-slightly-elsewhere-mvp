@@ -999,12 +999,15 @@ def finder_page(routes, almanac):
         f'<div class="choice-grid">{choices("mood", mood_choices)}</div></fieldset></div>'
         '<div class="finder-group"><fieldset><legend>Where?</legend>'
         f'<div class="choice-grid">{choices("location", location_choices)}</div></fieldset></div>'
-        '<div class="button-row"><button class="button button--primary" type="submit">Show matching walks</button>'
+        # Filtering is live, so there is nothing to submit. On a phone the
+        # results sit below a tall panel: a jump link carries the count down.
+        '<div class="button-row"><a class="button button--primary finder-jump" href="#finder-results-title" data-finder-jump>'
+        'Show matching walks <span aria-hidden="true">↓</span></a>'
         '<button class="button button--secondary" type="reset">Clear choices</button></div>'
         '</form>'
         '<section class="finder-results" aria-labelledby="finder-results-title">'
         '<div class="section-heading"><div><p class="eyebrow">Your shortlist</p>'
-        '<h2 id="finder-results-title">Walks to consider</h2></div></div>'
+        '<h2 id="finder-results-title" tabindex="-1">Walks to consider</h2></div></div>'
         '<p class="quiet-line" data-results-meta role="status">Three good places to start. Choose anything that matters to narrow them down.</p>'
         f'<div class="route-grid" data-finder-results>{cards}</div>'
         f'<noscript><p class="finder-empty">Filtering needs JavaScript. You can still <a href="{base}routes/">browse every walk</a>.</p></noscript>'

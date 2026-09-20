@@ -56,6 +56,7 @@
     const form = document.querySelector("[data-finder-form]");
     const target = document.querySelector("[data-finder-results]");
     const meta = document.querySelector("[data-results-meta]");
+    const jump = form.querySelector("[data-finder-jump]");
     if (!form || !target || !meta) return;
 
     const cards = [...target.querySelectorAll("[data-finder-card]")];
@@ -91,6 +92,11 @@
 
       const visible = new Set(results.map(item => item.card));
       for (const card of cards) card.hidden = !visible.has(card);
+      if (jump) {
+        const count = results.length;
+        jump.innerHTML = (count === 1 ? "Show one walk" : `Show ${count} walks`)
+          + ' <span aria-hidden="true">\u2193</span>';
+      }
       if (updateUrl) writeUrl(selected);
     };
 
@@ -112,6 +118,14 @@
       event.preventDefault();
       applyFilters("Finder filters submitted");
     });
+
+    if (jump) {
+      jump.addEventListener("click", () => {
+        const heading = document.getElementById("finder-results-title");
+        if (heading) heading.focus({ preventScroll: true });
+        track("finder/jump", "Jumped to matching walks");
+      });
+    }
 
     form.addEventListener("reset", () => {
       window.setTimeout(() => {

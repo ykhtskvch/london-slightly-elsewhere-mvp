@@ -911,6 +911,16 @@ textarea:disabled {
   gap: var(--space-3);
 }
 
+/* Two columns from the narrowest phone: eleven single-column choices
+   pushed the results a full screen down. */
+.choice-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#finder-results-title {
+  scroll-margin-top: 5.75rem;
+}
+
 .choice,
 .route-type-option,
 .chip {
@@ -1951,6 +1961,10 @@ a.quiet:hover {
 
   .finder-results .route-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .finder-jump {
+    display: none;
   }
 
   .finder-panel,
