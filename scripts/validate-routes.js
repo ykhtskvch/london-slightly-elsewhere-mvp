@@ -120,12 +120,8 @@ for (const route of routes) {
   ].filter(Boolean);
   for (const url of urls) if (!isUrl(url)) addError(route, `invalid external URL: ${url}`);
 
-  // The page has to exist and has to be this route's page. How it says so
-  // depends on which generator wrote it. A thin shell built by
-  // build_route_pages.py names the route in data-route-id, because
-  // route-page.js reads that to know what to render. A page built by
-  // build_almanac_pages.py carries no such attribute — it is written out in
-  // full and loads no JavaScript at all — so it identifies itself by its
+  // The page has to exist and has to be this route's page. It is written
+  // out in full by build_almanac_pages.py and identifies itself by its
   // canonical URL, which is the thing that actually breaks if a page is ever
   // written into the wrong directory.
   const page = path.join(root, "routes", route.slug || "", "index.html");

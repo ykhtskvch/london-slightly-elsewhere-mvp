@@ -114,11 +114,6 @@
       applyFilters("Finder filters changed");
     });
 
-    form.addEventListener("submit", event => {
-      event.preventDefault();
-      applyFilters("Finder filters submitted");
-    });
-
     if (jump) {
       jump.addEventListener("click", () => {
         const heading = document.getElementById("finder-results-title");

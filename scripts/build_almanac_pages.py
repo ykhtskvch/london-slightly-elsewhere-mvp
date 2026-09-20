@@ -1,19 +1,11 @@
 #!/usr/bin/env python3
-"""Build the pages that have moved to the field-guide design.
+"""Build every page of the site.
 
-The previous generator (build_route_pages.py) writes a thin shell that
-route-page.js fills in from data/routes.json once it loads. The redesign
-requires every page to be readable with JavaScript disabled, so the pages
-listed in ALMANAC_ROUTES are written out in full here instead, and they load
-neither app.js nor route-page.js.
-
-Both generators read the same data/routes.json. A route is built by exactly
-one of them: ALMANAC_ROUTES decides which. Pages still on the previous design
-keep assets/css/styles.css; the redesigned pages load almanac-tokens.css and
-almanac.css and never both stylesheets at once.
-
-build_route_pages.py imports ALMANAC_ROUTES from here and skips those routes,
-so the two can be run in either order.
+Each page is written out in full from data/routes.json and data/almanac.json
+and reads without JavaScript; the scripts a page loads only add to it. An
+earlier generator wrote thin shells that route-page.js filled in from the
+data at run time; it and its scripts are gone, and /routes/seventeen/, the
+one page still on that design, is a hand-kept file with its own stylesheet.
 """
 
 import html
@@ -69,14 +61,12 @@ def analytics_tags(base):
         f'\n    <script defer src="{base}assets/js/analytics.js"></script>'
     )
 
-# Routes whose detail page is built to the new design. Every route is now on
-# it; the tuple stays so build_route_pages.py can still tell the two apart if
-# a page is ever moved back.
-ALMANAC_ROUTES = None  # None means every route in the data.
+# Every route in the data is built; None means all of them.
+ALMANAC_ROUTES = None
 
 FACT_ORDER = ("station", "time", "effort", "cost", "toilets")
 
-# Kept in step with FLOW_LABELS in build_route_pages.py: the same stop types
+# The same stop types
 # must read the same way on a redesigned page and on one that has not moved
 # yet.
 FLOW_LABELS = {
@@ -1285,8 +1275,6 @@ def legacy_page(path, base, current, almanac, site_path):
     scripts = [
         f'      <script src="{src}"></script>'
         for src in re.findall(r'<script src="([^"]+)"></script>', body_scripts)
-        # The theme toggle is gone: the design has one palette.
-        if "theme.js" not in src
     ]
 
     body = (

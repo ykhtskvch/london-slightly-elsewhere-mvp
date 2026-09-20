@@ -64,11 +64,9 @@ Then open `http://localhost:8000`.
   server-rendered cards, including closest-match behaviour.
 - `scripts/validate-routes.js` — dependency-free schema and discovery-data
   coverage checks.
-- `assets/js/route-page.js` — dormant legacy renderer; normal walk pages are
-  pre-rendered by `build_almanac_pages.py`.
-- `assets/js/theme.js` — loaded by no page. The design has one palette, and
-  the privacy notice says nothing is stored on the device. It is still in the
-  repository only because the dormant `build_route_pages.py` template names it.
+- `assets/js/site-head.js` — loaded by every page: closes the phone menu on
+  a tap elsewhere or Escape, and parks a walk page's floating start button
+  while the essentials rail is on screen.
 - `assets/js/config.js` — generated from `data/site.json`. Do not edit: set
   `forms.*` there and rebuild. Null means that form is shut, and `forms.js`
   disables its fields and says so on the page.
@@ -110,10 +108,8 @@ Do not publish a regular happy hour unless the venue’s own current page confir
 Rebuild the pages and run the data checks before sharing a change:
 
 ```bash
-python3 scripts/build_route_pages.py && python3 scripts/build_almanac_pages.py && node scripts/validate-routes.js && node scripts/validate-site.js
+python3 scripts/build_almanac_pages.py && node scripts/validate-routes.js && node scripts/validate-site.js
 ```
-
-The two generators skip each other's pages, so the order does not matter.
 
 Route link-preview images are a separate, less frequent build. The renderer
 uses Pillow (`python3 -m pip install Pillow`) and writes all 24 cards

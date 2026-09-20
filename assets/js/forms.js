@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const routeSelect = document.getElementById("route");
-  if (routeSelect) fillRouteChoices(routeSelect);
+  if (routeSelect) preselectRoute(routeSelect);
 
   document.querySelectorAll("[data-static-form]").forEach(form => {
     form.noValidate = true;
@@ -105,14 +105,10 @@ function requiredMessage(name) {
   return messages[name] || "Complete this field so the response can be processed.";
 }
 
-// The markup carries a hand-written route list so the form still works
-// without JS; it goes stale as routes are added, so replace it from the data.
-async function fillRouteChoices(select) {
-  try {
-    const routes = await window.routeApp.loadRoutes();
-    const placeholder = select.querySelector("option[value='']");
-    select.replaceChildren(placeholder, ...routes.map(route => new Option(route.title)));
-  } catch {}
+// The route list is written into the markup by the build from the data, so
+// it is current without a fetch. A walk page links here with ?route=<title>;
+// choose it.
+function preselectRoute(select) {
   const requested = new URLSearchParams(location.search).get("route");
   if (requested && [...select.options].some(option => option.value === requested)) select.value = requested;
 }
