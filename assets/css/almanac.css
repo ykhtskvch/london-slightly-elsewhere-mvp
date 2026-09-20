@@ -253,7 +253,7 @@ a:hover {
   margin-top: 0.2rem;
   color: var(--colour-muted);
   font-family: var(--font-body);
-  font-size: 0.67rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.05em;
   line-height: var(--leading-button);
@@ -505,6 +505,20 @@ textarea:disabled {
   line-height: var(--leading-readable);
 }
 
+.home-hero__actions {
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+}
+
+.home-hero__or {
+  color: var(--colour-muted);
+}
+
+.home-hero__or a {
+  color: var(--colour-accent-ink);
+  font-weight: 600;
+}
+
 .home-hero__aside {
   align-self: end;
   padding: var(--space-6);
@@ -728,6 +742,14 @@ textarea:disabled {
 .route-card__journey {
   color: var(--colour-muted);
   font-size: var(--text-sm);
+}
+
+.route-card__journey-label {
+  color: var(--colour-accent-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .route-card__tags {
@@ -1891,18 +1913,30 @@ a.quiet:hover {
 }
 
 .apparatus__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, max-content));
+  gap: var(--space-4) var(--space-10);
+}
+
+.apparatus__group {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+}
+
+.apparatus__group > .eyebrow {
+  margin-bottom: var(--space-1);
 }
 
 .apparatus__links a {
   min-height: var(--target-size);
   display: inline-flex;
   align-items: center;
+  width: fit-content;
   color: var(--colour-text);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 500;
+  text-decoration-color: var(--colour-border-strong);
 }
 
 .apparatus__note {

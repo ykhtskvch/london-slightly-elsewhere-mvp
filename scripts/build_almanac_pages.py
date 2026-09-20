@@ -419,8 +419,8 @@ def route_card(route, base, heading_level=3, finder=False, hidden=False):
         f'<p class="route-card__summary">{e(route["subtitle"])}</p>'
         f'<p class="route-card__meta">{e(route_distance(route))} <span aria-hidden="true">·</span> '
         f'{e(route["quickFacts"]["duration"])}</p>'
-        f'<p class="route-card__journey"><span>{e(route_start(route))}</span>'
-        f'<span aria-hidden="true">→</span><span>{e(route_finish(route))}</span></p>'
+        f'<p class="route-card__journey"><span class="route-card__journey-label">Start</span> '
+        f'{e(route_start(route))}</p>'
         f'<div class="route-card__tags">{tags}</div>'
         '</div>'
         f'{route_media(route, base, card=True)}'
@@ -442,9 +442,11 @@ def site_head(base, path):
         f'<a{current(about_current)} href="{base}about/">About</a>'
         f'<a class="site-head__cta"{current(find_current)} href="{base}find-your-route/">Find a walk</a>'
     )
+    feedback_current = path == "feedback/"
     mobile = (
         f'<a{current(walks_current)} href="{base}routes/">Walks</a>'
         f'<a{current(about_current)} href="{base}about/">About</a>'
+        f'<a{current(feedback_current)} href="{base}feedback/">Feedback</a>'
     )
     return (
         '<header class="site-head">'
@@ -473,19 +475,26 @@ def route_return(almanac, base):
 
 def apparatus(almanac, base, current=None):
     """Secondary navigation and a compact independent-project note."""
-    items = [
-        ("Walks", "routes/"),
-        ("Find a walk", "find-your-route/"),
-        ("About", "about/"),
-        ("Feedback", "feedback/"),
-        ("Terms used here", "terms-used-here/"),
-        ("Privacy", "privacy/"),
-        ("Accessibility", "accessibility/"),
+    groups = [
+        ("The walks", [
+            ("Walks", "routes/"),
+            ("Find a walk", "find-your-route/"),
+            ("About", "about/"),
+            ("Feedback", "feedback/"),
+        ]),
+        ("The site", [
+            ("Terms used here", "terms-used-here/"),
+            ("Privacy", "privacy/"),
+            ("Accessibility", "accessibility/"),
+        ]),
     ]
     links = ""
-    for name, href in items:
-        active = ' aria-current="page"' if href == current else ""
-        links += f'<a{active} href="{base}{href}">{e(name)}</a>'
+    for heading, items in groups:
+        group = ""
+        for name, href in items:
+            active = ' aria-current="page"' if href == current else ""
+            group += f'<a{active} href="{base}{href}">{e(name)}</a>'
+        links += f'<div class="apparatus__group"><p class="eyebrow">{e(heading)}</p>{group}</div>'
     return (
         '<footer class="apparatus">'
         '<div class="apparatus__brand"><strong>London, Slightly Elsewhere</strong>'
@@ -876,7 +885,8 @@ def shell(head, body, base, narrow=False, path=None):
     <link rel="icon" href="{base}assets/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{base}assets/icon-180.png">
     <link rel="stylesheet" href="{base}assets/css/almanac-tokens.css">
-    <link rel="stylesheet" href="{base}assets/css/almanac.css">{analytics_tags(base)}
+    <link rel="stylesheet" href="{base}assets/css/almanac.css">
+    <script defer src="{base}assets/js/site-head.js"></script>{analytics_tags(base)}
   </head>
   <body data-base-path="{base}">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -991,9 +1001,9 @@ def home(routes, almanac):
         '<p class="home-hero__eyebrow">Independent walks in and around London</p>'
         '<h1 class="home-hero__title">Where shall we go this weekend?</h1>'
         '<p class="home-hero__lead">Curated walks in and around London, walked in person where noted, with good stops along the way.</p>'
-        '<div class="button-row">'
+        '<div class="button-row home-hero__actions">'
         f'<a class="button button--primary" href="{base}find-your-route/">Find a walk</a>'
-        f'<a class="button button--secondary" href="{base}routes/">Browse all walks</a>'
+        f'<span class="home-hero__or">or <a href="{base}routes/">browse all {len(routes)} walks</a></span>'
         '</div></div>'
         f'{home_standing(routes, base)}</section>',
         '<section class="discovery-section">'
