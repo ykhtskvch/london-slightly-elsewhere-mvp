@@ -135,7 +135,7 @@
   },
   "_privacy": "The analytics section is chosen by whether analytics.goatcounter is set in site.json, so this page cannot describe a state the site is not in. Update `updated` whenever you change any of it.",
   "privacy": {
-    "updated": "Last updated 15/09/2026",
+    "updated": "Last updated 20/09/2026",
     "title": "Privacy, without fog.",
     "intro": "This pilot collects less data because that is the sensible default.",
     "sections": [
@@ -154,7 +154,7 @@
         "whenAnalyticsOn": [
           "Visits are counted by GoatCounter, an analytics service hosted in the European Union. It records which page was opened, where you arrived from, your country, and the kind of browser and device you used.",
           "It does not record your IP address; that is discarded once the visit has been counted. It does not set anything on your device, so it cannot recognise you on a later visit. Counting is done with a hash on the server that changes every day.",
-          "One thing is counted beyond page views: opening a route in Google Maps. It is the only way to tell which routes people actually set out on, rather than which ones they read about.",
+          "A few interactions are counted beyond page views: opening a walk in Google Maps, applying choices in Find a walk, choosing a finder result, and a successful feedback submission. The finder events contain the selected categories, not text you typed.",
           "There are no cookies and no advertising pixels. Nothing is stored on your device and nothing is read from it, so there is no consent banner to click.",
           "If you would rather not be counted, turn on Do Not Track or Global Privacy Control in your browser. This site honours both."
         ]
@@ -183,7 +183,7 @@
       {
         "head": "Contact",
         "body": [
-          "This is a private validation pilot and is not yet collecting personal data. Write to {contact} about anything on this page."
+          "This is an independent project. Write to {contact} about anything on this page or to ask for feedback data to be removed."
         ]
       }
     ]

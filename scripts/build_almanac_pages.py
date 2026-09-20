@@ -270,36 +270,156 @@ def corrections(almanac, base, head=None, lead=True, body=None):
 
 
 _SITE_HEAD = None
+_DISCOVERY = None
+
+
+MOOD_LABELS = {
+    "green": "Green & quiet",
+    "riverside-canal": "Riverside / canal",
+    "urban": "Urban",
+    "architecture": "Architecture",
+    "pub": "Pub at the end",
+    "quiet": "Quiet",
+}
+
+
+def discovery_for(route):
+    """Controlled browse/finder language, kept separate from route prose."""
+    global _DISCOVERY
+    if _DISCOVERY is None:
+        _DISCOVERY = {item["slug"]: item for item in load("discovery.json")}
+    return _DISCOVERY[route["slug"]]
+
+
+def route_distance(route):
+    if route["routeType"] == "day-walk":
+        value = route["hike"]["distanceKm"]
+        return f"{value:g} km" if isinstance(value, float) else f"{value} km"
+    return re.sub(r"^Approx\.?\s*", "", route["quickFacts"]["walkingDistance"], flags=re.I)
+
+
+def route_start(route):
+    return route["travel"]["arrivalStation"] if route["routeType"] == "day-walk" else route["quickFacts"]["startStation"]
+
+
+def route_finish(route):
+    if route["routeType"] == "day-walk":
+        return route["travel"]["returnStation"]
+    return route["quickFacts"]["endStation"]
+
+
+def route_difficulty(route):
+    if route["routeType"] == "day-walk":
+        return route["hike"]["difficulty"].replace("-", " ").title()
+    return effort_word(route).replace("a proper walk", "Proper walk").capitalize()
+
+
+def route_status_label(route):
+    walked = route["status"] in {"field-checked", "published"}
+    return "Walked in person" if walked else "Not yet field-walked"
+
+
+def route_media(route, base, card=True):
+    """A real route photograph where one exists, otherwise an honest fallback."""
+    art = (route.get("almanac") or {}).get("plate") or {}
+    short = discovery_for(route)["cardTitle"]
+    classes = "route-card__media" if card else "route-head__visual"
+    if art.get("image"):
+        source = pathlib.Path(art["image"])
+        src = f"{base}{source.as_posix()}"
+        priority = ' loading="lazy"' if card else ' fetchpriority="high"'
+        img = (
+            f'<img src="{e(src)}" alt="{e(art.get("alt") or short)}" '
+            f'width="1200" height="800"{priority} decoding="async">'
+        )
+        twin = source.with_suffix(".webp")
+        if (ROOT / twin).exists():
+            img = (
+                f'<picture><source srcset="{e(base + twin.as_posix())}" type="image/webp">'
+                f"{img}</picture>"
+            )
+        caption = ""
+        if not card and art.get("caption"):
+            caption = f'<figcaption>{e(art["caption"])}</figcaption>'
+        return f'<figure class="{classes}">{img}{caption}</figure>'
+    return (
+        f'<div class="{classes} route-card__media--fallback" aria-hidden="true">'
+        '<span class="route-card__trail"></span>'
+        f'<span class="route-card__fallback-name">{e(short)}</span></div>'
+    )
+
+
+def route_card(route, base, heading_level=3, finder=False, hidden=False):
+    """The single card used by Home, Walks, Find a walk and related walks."""
+    discovery = discovery_for(route)
+    title_tag = f"h{heading_level}"
+    location = discovery["location"]
+    location_label = "London" if location == "london" else "Outside London"
+    tags = "".join(
+        f'<span class="route-card__tag">{e(MOOD_LABELS[mood])}</span>'
+        for mood in discovery["moods"][:3]
+    )
+    attrs = [
+        'data-route-card',
+        f'data-location="{e(location)}"',
+    ]
+    if finder:
+        attrs += [
+            'data-finder-card',
+            f'data-time="{e(discovery["timeBand"])}"',
+            f'data-moods="{e("|".join(discovery["moods"]))}"',
+            f'data-route-slug="{e(route["slug"])}"',
+        ]
+    if hidden:
+        attrs.append("hidden")
+    return (
+        f'<article class="route-card" {" ".join(attrs)}>'
+        f'<a class="route-card__link" href="{base}routes/{e(route["slug"])}/" '
+        f'aria-label="View walk: {e(discovery["cardTitle"])}">'
+        '<div class="route-card__content">'
+        f'<p class="route-card__eyebrow">{e(location_label)} <span aria-hidden="true">·</span> '
+        f'<span class="route-card__status">{e(route_status_label(route))}</span></p>'
+        f'<{title_tag} class="route-card__title">{e(discovery["cardTitle"])}</{title_tag}>'
+        f'<p class="route-card__summary">{e(route["subtitle"])}</p>'
+        f'<p class="route-card__meta">{e(route_distance(route))} <span aria-hidden="true">·</span> '
+        f'{e(route["quickFacts"]["duration"])}</p>'
+        f'<p class="route-card__journey"><span>{e(route_start(route))}</span>'
+        f'<span aria-hidden="true">→</span><span>{e(route_finish(route))}</span></p>'
+        f'<div class="route-card__tags">{tags}</div>'
+        '</div>'
+        f'{route_media(route, base, card=True)}'
+        '</a></article>'
+    )
 
 
 def site_head(base, path):
-    """The header, on every page.
+    """Consistent, product-led navigation with a no-JavaScript mobile menu."""
+    walks_current = path == "routes/" or bool(path and path.startswith("routes/"))
+    find_current = path == "find-your-route/"
+    about_current = path == "about/"
 
-    The handoff had none: rule 06 put nothing above the editor's note, and a
-    route page carried only a running head with two links. That suited a
-    magazine. This site is a tool for choosing a day out — 24 routes, a
-    filter, a finder — and a tool needs to say where you are and where else
-    you can go, on every page, from the first screen. So: the publication on
-    the left, four places on the right, set in the same mono as the apparatus
-    so the top and the foot of a page are one piece of furniture. It does not
-    stick to the viewport; rule 05 still stands.
+    def current(active):
+        return ' aria-current="page"' if active else ""
 
-    `path` marks the current page, so the reader is told where they are
-    rather than offered a link to it."""
-    global _SITE_HEAD
-    if _SITE_HEAD is None:
-        _SITE_HEAD = load("almanac.json")["siteHead"]
-    spec = _SITE_HEAD
-    links = "".join(
-        f'<a href="{base}{e(item["href"])}"'
-        + (' aria-current="page"' if path is not None and item["href"] == path else "")
-        + f'>{e(item["name"])}</a>'
-        for item in spec["links"]
+    desktop = (
+        f'<a{current(walks_current)} href="{base}routes/">Walks</a>'
+        f'<a{current(about_current)} href="{base}about/">About</a>'
+        f'<a class="site-head__cta"{current(find_current)} href="{base}find-your-route/">Find a walk</a>'
+    )
+    mobile = (
+        f'<a{current(walks_current)} href="{base}routes/">Walks</a>'
+        f'<a{current(about_current)} href="{base}about/">About</a>'
     )
     return (
-        '<nav class="site-head" aria-label="Primary">'
-        f'<a class="site-head__name" href="{base}">{e(spec["name"])}</a>'
-        f'<span class="site-head__links">{links}</span></nav>'
+        '<header class="site-head">'
+        f'<a class="site-head__name" href="{base}">London, Slightly Elsewhere'
+        '<span class="site-head__tagline">Walks with good stops</span></a>'
+        f'<nav class="site-head__desktop site-head__links" aria-label="Primary">{desktop}</nav>'
+        f'<a class="site-head__mobile-cta"{current(find_current)} '
+        f'href="{base}find-your-route/">Find a walk</a>'
+        '<details class="mobile-nav"><summary>Menu</summary>'
+        f'<nav class="mobile-nav__panel" aria-label="Mobile primary">{mobile}</nav>'
+        '</details></header>'
     )
 
 
@@ -316,23 +436,27 @@ def route_return(almanac, base):
 
 
 def apparatus(almanac, base, current=None):
-    """Apparatus – one serif line and the service links in mono."""
-    line = almanac["apparatus"]["line"]
-    sentence = (
-        f'{e(line["before"])}<a href="{base}{e(line["href"])}">{e(line["linkName"])}</a>'
-        f'{e(line["after"])}'
-    )
-    here = ' aria-current="page"'
-    links = "".join(
-        f'<a{here if item["href"] == current else ""}'
-        f' href="{base}{e(item["href"])}">{e(item["name"])}</a>'
-        for item in almanac["apparatus"]["links"]
-    )
+    """Secondary navigation and a compact independent-project note."""
+    items = [
+        ("Walks", "routes/"),
+        ("Find a walk", "find-your-route/"),
+        ("About", "about/"),
+        ("Feedback", "feedback/"),
+        ("Terms used here", "terms-used-here/"),
+        ("Privacy", "privacy/"),
+        ("Accessibility", "accessibility/"),
+    ]
+    links = ""
+    for name, href in items:
+        active = ' aria-current="page"' if href == current else ""
+        links += f'<a{active} href="{base}{href}">{e(name)}</a>'
     return (
         '<footer class="apparatus">'
-        f'<span class="apparatus__line">{sentence}</span>'
+        '<div class="apparatus__brand"><strong>London, Slightly Elsewhere</strong>'
+        '<span>Independent walks, checked at the speed of weekends.</span></div>'
         f'<nav class="apparatus__links" aria-label="Footer">{links}</nav>'
-        "</footer>"
+        '<p class="apparatus__note">Independent project · London · 2026</p>'
+        '</footer>'
     )
 
 
@@ -520,7 +644,7 @@ def check_one_contact_address():
         )
 
 
-def social_tags(title, description, path, image="site.png", og_type="website"):
+def social_tags(title, description, path, image="site-redesign.png", og_type="website"):
     """The og: and twitter: block for a page that is not a route.
 
     These pages had none at all, so a link to the site root — the first link
@@ -531,6 +655,9 @@ def social_tags(title, description, path, image="site.png", og_type="website"):
 
     The image is named only when the file is on disk, the rule the route
     pages already follow, so a card that was never drawn is never promised.
+    The shared cover is a versioned design asset rather than generated copy:
+    route facts can be rebuilt deterministically, while the publication image
+    changes only when the visual direction changes.
     """
     lines = [
         f'    <meta property="og:type" content="{og_type}">',
@@ -586,13 +713,8 @@ def home(routes, almanac):
     base = "./"
     by_slug = {route["slug"]: route for route in routes}
     featured = [by_slug[slug] for slug in almanac["home"]["featured"]]
-    walked = [route for route in featured if route["almanac"]["walked"]]
-    unwalked = [route for route in featured if not route["almanac"]["walked"]]
 
-    description = (
-        "Independent routes for neighbourhood days, green escapes and full "
-        "days out by public transport – by mood, not by algorithm."
-    )
+    description = "Curated walks in and around London, walked in person where noted, with good stops along the way."
     head = "\n".join([
         '    <meta charset="utf-8">',
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
@@ -612,28 +734,53 @@ def home(routes, almanac):
         + "</script>",
     ])
 
-    # The h1 is hidden rather than absent: the design puts the editor's note
-    # first and allows nothing above it, but the page still needs a level-one
-    # heading for assistive technology and for search.
-    parts = [
-        '<h1 class="visually-hidden">London, Slightly Elsewhere</h1>',
-        '<section class="editor-note">'
-        f'<p class="editor-note__body">{e(almanac["home"]["editorNote"])}</p>'
-        f'<p class="editor-note__colophon">{e(almanac["home"]["colophon"])}</p>'
-        "</section>",
+    cards = "".join(route_card(route, base, heading_level=3) for route in featured)
+    moods = [
+        ("Green & quiet", "green", "Parks, heaths and a little less city noise."),
+        ("Canal-side", "riverside-canal", "Towpaths, rivers and somewhere to pause."),
+        ("Urban", "urban", "Streets with enough character to carry the day."),
+        ("Architecture", "architecture", "Old rooms, odd buildings and useful detours."),
+        ("Pub at the end", "pub", "A walk that knows where it wants to finish."),
+        ("Outside London", "quiet", "A train out and a proper day on foot."),
     ]
-    # The first photograph is inside the opening screen, so it is not lazy.
-    parts += [entry(route, base, lazy=i > 0) for i, route in enumerate(walked)]
-    if unwalked:
-        quiet = "".join(entry_quiet(route, base) for route in unwalked)
-        parts.append(
-            '<section class="entry-group">'
-            f'<h2 class="section-head section-head--ruled">{e(almanac["home"]["unwalkedHead"])}</h2>'
-            f"{quiet}</section>"
-        )
-
-    parts.append(route_return(almanac, base))
-    parts.append(corrections(almanac, base))
+    mood_links = "".join(
+        '<a class="mood-link" '
+        f'href="{base}find-your-route/?'
+        + ('location=outside-london' if label == "Outside London" else f'mood={e(mood)}')
+        + f'"><strong>{e(label)}</strong><span>{e(copy)}</span></a>'
+        for label, mood, copy in moods
+    )
+    parts = [
+        '<section class="home-hero">'
+        '<div class="home-hero__copy">'
+        '<p class="home-hero__eyebrow">Independent walks in and around London</p>'
+        '<h1 class="home-hero__title">Where shall we go this weekend?</h1>'
+        '<p class="home-hero__lead">Curated walks in and around London, walked in person where noted, with good stops along the way.</p>'
+        '<div class="button-row">'
+        f'<a class="button button--primary" href="{base}find-your-route/">Find a walk</a>'
+        f'<a class="button button--secondary" href="{base}routes/">Browse all walks</a>'
+        '</div></div>'
+        '<aside class="home-hero__aside">'
+        '<p class="eyebrow">The useful version</p>'
+        '<p><strong>A clear start, an honest distance and somewhere worth stopping.</strong></p>'
+        '<p>No rankings, no endless planning, and no pretending a desk-checked route was walked.</p>'
+        '</aside></section>',
+        '<section class="discovery-section">'
+        '<div class="section-heading"><div><p class="eyebrow">Three good starting points</p>'
+        '<h2>For this weekend</h2></div>'
+        f'<a href="{base}routes/">See all {len(routes)} walks</a></div>'
+        f'<div class="route-grid">{cards}</div></section>',
+        '<section class="discovery-section">'
+        '<div class="section-heading"><div><p class="eyebrow">Start with a feeling</p>'
+        '<h2>Choose by mood</h2></div><p>Pick one thing that sounds right. You can narrow it down afterwards.</p></div>'
+        f'<div class="mood-grid">{mood_links}</div></section>',
+        '<section class="discovery-section">'
+        '<div class="trust-panel"><div><p class="eyebrow">How these walks are chosen</p>'
+        '<h2>Useful first. Atmospheric second.</h2></div>'
+        '<div><h3>Walked where stated</h3><p>Field-checked walks are marked clearly. Drafts stay honest about what still needs testing.</p></div>'
+        '<div><h3>Independent by design</h3><p>No paid placements or algorithmic rankings: just routes with a beginning, a pause and an easy way home.</p></div>'
+        '</div></section>',
+    ]
     body = (
         f'      <main id="main">{"".join(parts)}</main>\n'
         f"      {apparatus(almanac, base)}"
@@ -757,59 +904,103 @@ def condition_filter(almanac):
 
 def index_page(routes, almanac):
     base = "../"
-    spec = almanac["index"]
-    walked = [route for route in routes if (route.get("almanac") or {}).get("walked")]
-    unwalked = [route for route in routes if not (route.get("almanac") or {}).get("walked")]
-
-    number = 0
-    groups = []
-    for head, note, members in (
-        (spec["walkedHead"], None, walked),
-        (spec["unwalkedHead"], spec["unwalkedNote"], unwalked),
-    ):
-        if not members:
-            continue
-        rows = []
-        for route in members:
-            number += 1
-            rows.append(index_row(route, number, base))
-        note_html = f'<p class="section-note">{e(note)}</p>' if note else ""
-        groups.append(
-            '<section class="index-group" data-group>'
-            f'<h2 class="section-head">{e(head)}</h2>{note_html}{"".join(rows)}'
-            "</section>"
-        )
-
-    terms = f'<a href="{base}terms-used-here/">{e(almanac["corrections"]["termsLinkName"])}</a>'
-    scale = e(spec["scale"]).replace("{termsLink}", terms)
+    cards = "".join(route_card(route, base, heading_level=2) for route in routes)
 
     head = "\n".join([
         '    <meta charset="utf-8">',
         '    <meta name="viewport" content="width=device-width, initial-scale=1">',
-        '    <meta name="description" content="Browse independent London days and full days out by public transport.">',
+        '    <meta name="description" content="Browse independent walks in London and full days out by public transport.">',
         *social_tags(
-            spec["title"],
-            "Browse independent London days and full days out by public transport.",
+            "Walks",
+            "Browse independent walks in London and full days out by public transport.",
             "routes/",
         ),
-        "    <title>Browse routes | London, Slightly Elsewhere</title>",
+        "    <title>Walks | London, Slightly Elsewhere</title>",
     ])
 
     body = (
         '      <main id="main">'
-        '<header class="index-head">'
-        f'<p class="eyebrow">{e(spec["eyebrow"])}</p>'
-        f'<h1 class="index-head__title">{e(spec["title"])}</h1>'
-        f'<p class="index-head__intro">{e(spec["intro"])}</p>'
-        "</header>"
-        f'{condition_filter(almanac)}'
-        f'<div data-index>{"".join(groups)}</div>'
-        f'<p class="index-scale">{scale}</p>'
+        '<header class="browse-head">'
+        '<p class="eyebrow">Browse all walks</p>'
+        '<h1>Walks</h1>'
+        '<p>Neighbourhood afternoons and full days out, with the details you need to compare them quickly.</p>'
+        '</header>'
+        '<div class="segmented-control" data-browse-controls aria-label="Filter walks by location">'
+        '<button type="button" data-location-filter="all" aria-pressed="true">All walks</button>'
+        '<button type="button" data-location-filter="london" aria-pressed="false">London</button>'
+        '<button type="button" data-location-filter="outside-london" aria-pressed="false">Outside London</button>'
+        '</div>'
+        f'<p class="quiet-line" data-browse-meta role="status">{len(routes)} walks</p>'
+        f'<section class="discovery-section"><div class="route-grid" data-index>{cards}</div></section>'
         "</main>\n"
         f"      {apparatus(almanac, base, current='routes/')}\n"
         f'      <script src="{base}assets/js/condition-filter.js"></script>'
     )
     return shell(head, body, base, path="routes/")
+
+
+def finder_page(routes, almanac):
+    base = "../"
+    cards = "".join(
+        route_card(route, base, heading_level=3, finder=True, hidden=index >= 3)
+        for index, route in enumerate(routes)
+    )
+    head = "\n".join([
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '    <meta name="description" content="Choose a walk by time, mood and location.">',
+        *social_tags("Find a walk", "Choose a walk by time, mood and location.", "find-your-route/"),
+        "    <title>Find a walk | London, Slightly Elsewhere</title>",
+    ])
+    time_choices = [
+        ("1-2-hours", "1–2 hours"),
+        ("half-day", "Half day"),
+        ("full-day", "Full day"),
+    ]
+    mood_choices = [
+        ("green", "Green"),
+        ("riverside-canal", "Riverside / canal"),
+        ("urban", "Urban"),
+        ("architecture", "Architecture"),
+        ("pub", "Pub"),
+        ("quiet", "Quiet"),
+    ]
+    location_choices = [("london", "London"), ("outside-london", "Outside London")]
+
+    def choices(name, values):
+        return "".join(
+            '<label class="choice">'
+            f'<input type="radio" name="{e(name)}" value="{e(value)}">'
+            f'<span>{e(label)}</span></label>'
+            for value, label in values
+        )
+
+    body = (
+        '      <main id="main">'
+        '<header class="page-intro"><p class="eyebrow">A smaller shortlist</p>'
+        '<h1>Find a walk</h1><p>Three quick choices, then a few walks that fit the day you actually have.</p></header>'
+        '<div class="finder-layout">'
+        '<form class="finder-panel" data-finder-form>'
+        '<div class="finder-group"><fieldset><legend>How long have you got?</legend>'
+        f'<div class="choice-grid">{choices("time", time_choices)}</div></fieldset></div>'
+        '<div class="finder-group"><fieldset><legend>What do you feel like?</legend>'
+        f'<div class="choice-grid">{choices("mood", mood_choices)}</div></fieldset></div>'
+        '<div class="finder-group"><fieldset><legend>Where?</legend>'
+        f'<div class="choice-grid">{choices("location", location_choices)}</div></fieldset></div>'
+        '<div class="button-row"><button class="button button--primary" type="submit">Show matching walks</button>'
+        '<button class="button button--secondary" type="reset">Clear choices</button></div>'
+        '</form>'
+        '<section class="finder-results" aria-labelledby="finder-results-title">'
+        '<div class="section-heading"><div><p class="eyebrow">Your shortlist</p>'
+        '<h2 id="finder-results-title">Walks to consider</h2></div></div>'
+        '<p class="quiet-line" data-results-meta role="status">Three good places to start. Choose anything that matters to narrow them down.</p>'
+        f'<div class="route-grid" data-finder-results>{cards}</div>'
+        f'<noscript><p class="finder-empty">Filtering needs JavaScript. You can still <a href="{base}routes/">browse every walk</a>.</p></noscript>'
+        '</section></div></main>\n'
+        f"      {apparatus(almanac, base, current='find-your-route/')}\n"
+        f'      <script src="{base}assets/js/finder.js"></script>'
+    )
+    return shell(head, body, base, path="find-your-route/")
 
 
 def terms_page(almanac):
@@ -865,7 +1056,6 @@ LEGACY_PAGES = {
     "feedback/index.html": ("../", "feedback/"),
     "contact/index.html": ("../", None),
     "future-guides/index.html": ("../", "future-guides/"),
-    "find-your-route/index.html": ("../", "find-your-route/"),
 }
 
 
@@ -1243,7 +1433,22 @@ def route_head_meta(route):
     return "\n".join(lines)
 
 
-def route_page(route, almanac, venue_timing):
+def related_routes(route, routes):
+    here = discovery_for(route)
+    here_moods = set(here["moods"])
+    candidates = []
+    for order, candidate in enumerate(routes):
+        if candidate["slug"] == route["slug"]:
+            continue
+        discovery = discovery_for(candidate)
+        overlap = len(here_moods & set(discovery["moods"]))
+        same_location = discovery["location"] == here["location"]
+        candidates.append((overlap, same_location, -order, candidate))
+    candidates.sort(key=lambda item: (item[0], item[1], item[2]), reverse=True)
+    return [item[3] for item in candidates[:3]]
+
+
+def route_page(route, routes, almanac, venue_timing):
     base = "../../"
     a = route.get("almanac") or {}
     is_day_walk = route["routeType"] == "day-walk"
@@ -1253,41 +1458,76 @@ def route_page(route, almanac, venue_timing):
     copy = route["copy"]
     feedback = e(f"{base}feedback/?route={quote(route['title'], safe='')}")
 
-    status = STATUS_LINE.get(route["status"], PILOT_LINE)
     last_checked = route["editorialControl"].get("lastChecked") or "Not yet field-checked"
     flow = '<span class="separator"> · </span>'.join(
         e(FLOW_LABELS.get(stop["type"], stop["type"])) for stop in route["stops"]
     )
 
-    head_block = [
-        f'<h1 class="route-head__title">{e(route["title"])}</h1>',
-        f'<p class="route-head__lead">{e(route["subtitle"])}</p>',
-        f'<p class="quiet-line">{e(status)}</p>',
-        f'<p class="quiet-line">Last checked: {e(last_checked)}. '
-        "Verify opening hours and access before going.</p>",
-    ]
-    # A photograph only where the route has been walked; the AbsenceMark only
-    # where a sentence has been written for this route. A shared template
-    # would turn the admission into a widget, so a route without one shows
-    # neither – the status line above already says where it stands.
-    if a.get("walked"):
-        head_block.append(plate(route, base, lazy=False))
-    elif a.get("absence"):
-        head_block.append(f'<p class="absence">{e(a["absence"])}</p>')
-    head_block.append(fact_line(route, base, major=True, with_link=False))
-    head_block.append(
-        '<p class="meta"><span class="visually-hidden">Route at a glance: </span>'
-        f"{flow}</p>"
+    status = route_status_label(route)
+    if route["status"] not in {"field-checked", "published"}:
+        status += " · verify live details"
+    map_url = None
+    if navigation:
+        map_url = maps_directions(None, navigation["arrival"]["pinQuery"], "transit")
+    map_event = (
+        f' data-goatcounter-click="maps/{e(route["slug"])}"' if GOATCOUNTER else ""
+    )
+    map_cta = ""
+    if map_url:
+        map_cta = (
+            f'<a class="button button--primary primary-map"{map_event} href="{e(map_url)}" '
+            'rel="noopener" target="_blank">Start in Google Maps'
+            '<span class="visually-hidden"> (opens in a new tab)</span></a>'
+        )
+    head_block = (
+        '<header class="route-head">'
+        '<div class="route-head__content">'
+        f'<p class="route-head__kicker">{e(status)}</p>'
+        f'<h1 class="route-head__title">{e(route["title"])}</h1>'
+        f'<p class="route-head__lead">{e(route["subtitle"])}</p>'
+        '<div class="route-meta" aria-label="Walk summary">'
+        f'<span class="route-meta__item"><strong>{e(route_distance(route))}</strong><small>Distance</small></span>'
+        f'<span class="route-meta__item"><strong>{e(facts["duration"])}</strong><small>Time</small></span>'
+        f'<span class="route-meta__item"><strong>{e(route_difficulty(route))}</strong><small>Effort</small></span>'
+        '</div>'
+        f'<p class="route-journey"><span>{e(route_start(route))}</span>'
+        f'<span aria-hidden="true">→</span><span>{e(route_finish(route))}</span></p>'
+        f'<div class="route-actions">{map_cta}<a class="button button--secondary" href="{base}routes/">All walks</a></div>'
+        f'<p class="quiet-line">Last checked: {e(last_checked)}. Verify opening hours and access before going.</p>'
+        '</div>'
+        f'{route_media(route, base, card=False)}'
+        '</header>'
     )
 
-    sections = []
+    terrain = route["hike"].get("terrainNotes") if is_day_walk else facts.get("walkingLevel", "")
+    essentials = (
+        '<section class="essentials" aria-labelledby="essentials-title">'
+        '<div class="section-heading"><div><p class="eyebrow">Before you decide</p>'
+        '<h2 id="essentials-title">Walk essentials</h2></div></div>'
+        '<div class="essentials__grid">'
+        f'<div class="essential"><span>Distance</span><strong>{e(route_distance(route))}</strong></div>'
+        f'<div class="essential"><span>Time</span><strong>{e(facts["duration"])}</strong></div>'
+        f'<div class="essential"><span>Start</span><strong>{e(route_start(route))}</strong></div>'
+        f'<div class="essential"><span>Finish</span><strong>{e(route_finish(route))}</strong></div>'
+        f'<div class="essential"><span>Terrain / effort</span><strong>{e(terrain)}</strong></div>'
+        f'<div class="essential"><span>Best time</span><strong>{e(facts["bestTime"])}</strong></div>'
+        '</div>'
+        f'<p class="meta"><span class="visually-hidden">Route at a glance: </span>{flow}</p>'
+        '</section>'
+    )
+
+    warnings = ruled_list(editorial["practicalWarnings"])
+    sections = [
+        section("Good to know.", warnings),
+    ]
 
     note = route.get("fieldNote")
     if note and note.get("text"):
         flag = "" if note.get("verified") else paragraph(
-            "unverified – details not yet reconfirmed", quiet=True
+            "Desk-checked or awaiting another field walk – details not yet reconfirmed.", quiet=True
         )
-        sections.append(section("Last walked.", flag, paragraph(note["text"])))
+        note_head = "Last walked." if note.get("verified") else "Desk-checked note."
+        sections.append(section(note_head, flag, paragraph(note["text"])))
 
     community = route.get("community") or {}
     count = int(community.get("reportCount") or 0)
@@ -1352,14 +1592,7 @@ def route_page(route, almanac, venue_timing):
             if route["routeType"] != "day-walk" and arrival.get("station") and 0 < len(mapped) <= 10
             else None
         )
-        # The one click on the site that no pageview can stand in for:
-        # somebody opening navigation for this route is the closest thing to
-        # evidence that they went.
-        links = [external(
-            maps_directions(None, arrival["pinQuery"], "transit"),
-            "Start in Google Maps",
-            event=f'maps/{route["slug"]}',
-        )]
+        links = []
         if whole_walk:
             links.append(external(whole_walk, "Open the whole walk"))
         if navigation.get("externalRouteUrl"):
@@ -1372,7 +1605,7 @@ def route_page(route, almanac, venue_timing):
             # pinQuery is the string sent to Google Maps. It was printed
             # under the pin as if it were content; it belongs in the link.
             definition("Set your first pin", arrival["pinLabel"]),
-            f'<p class="links-line">{"".join(links)}</p>',
+            f'<p class="links-line">{"".join(links)}</p>' if links else "",
             paragraph(navigation["disclaimer"], quiet=True),
             paragraph("We never ask for your location.", quiet=True),
         ))
@@ -1502,8 +1735,6 @@ def route_page(route, almanac, venue_timing):
         definition("If it rains", copy["rainyDayBackup"]),
         definition("If it goes well", copy["continueIfGoingWell"]),
         definition("If you want to leave early", copy["exitEarly"]),
-        '<h3 class="subhead">Check before you set off</h3>',
-        ruled_list(editorial["practicalWarnings"]),
         folded=True,
     ))
 
@@ -1520,22 +1751,29 @@ def route_page(route, almanac, venue_timing):
     if copy["finalEditorialNote"] or final:
         sections.append(section(copy["finalEditorialNote"] or "One more thing.", *final))
 
-    closing = corrections(
-        almanac,
-        base,
-        head="Two things help most.",
-        lead=False,
-        body=[
-            '<p class="corrections__body">What was closed, and where you bailed – more useful '
-            f'than a compliment. <a href="{feedback}">Give feedback on this route</a>.</p>',
-        ],
+    related = "".join(
+        route_card(candidate, base, heading_level=3)
+        for candidate in related_routes(route, routes)
+    )
+    related_block = (
+        '<section class="discovery-section related-walks">'
+        '<div class="section-heading"><div><p class="eyebrow">Keep walking</p>'
+        '<h2>If you liked this walk…</h2></div></div>'
+        f'<div class="route-grid">{related}</div></section>'
+    )
+    closing = (
+        '<section class="discovery-section"><div class="trust-panel">'
+        '<div><p class="eyebrow">Help keep it useful</p><h2>What changed?</h2></div>'
+        '<div><p>Closed gates, changed hours and the point where you bailed are more useful than polite applause.</p>'
+        f'<p><a class="button button--secondary" href="{feedback}">Give feedback on this walk</a></p></div>'
+        '</div></section>'
     )
 
     body = (
         f'      <main id="main">'
-        f'<header class="route-head">{"".join(head_block)}</header>'
-        f'{"".join(sections)}{route_return(almanac, base)}{closing}</main>\n'
-        f"      {apparatus(almanac, base)}"
+        f'{head_block}{essentials}<div class="route-content">{"".join(sections)}</div>'
+        f'{related_block}{closing}</main>\n'
+        f"      {apparatus(almanac, base, current='routes/')}"
     )
     return shell(route_head_meta(route), body, base, path=f'routes/{route["slug"]}/')
 
@@ -1553,7 +1791,12 @@ def main():
     print("Wrote index.html.")
 
     (ROOT / "routes" / "index.html").write_text(index_page(routes, almanac), encoding="utf-8")
-    print(f"Wrote routes/index.html with {len(routes)} rows.")
+    print(f"Wrote routes/index.html with {len(routes)} cards.")
+
+    (ROOT / "find-your-route" / "index.html").write_text(
+        finder_page(routes, almanac), encoding="utf-8"
+    )
+    print("Wrote find-your-route/index.html.")
 
     (ROOT / "terms-used-here" / "index.html").write_text(terms_page(almanac), encoding="utf-8")
     print("Wrote terms-used-here/index.html.")
@@ -1586,7 +1829,7 @@ def main():
         route = by_slug[slug]
         target = ROOT / "routes" / slug / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(route_page(route, almanac, venue_timing), encoding="utf-8")
+        target.write_text(route_page(route, routes, almanac, venue_timing), encoding="utf-8")
     print(f"Wrote {len(slugs)} route pages.")
 
     # Which routes still need copy written for them, rather than derived.

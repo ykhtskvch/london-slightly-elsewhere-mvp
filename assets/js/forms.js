@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const button = form.querySelector("button[type=submit]");
     const message = form.querySelector(".form-message");
     const fields = [...form.querySelectorAll("input, select, textarea")];
+    const isRouteFeedback = Boolean(
+      form.querySelector('[name="route"]') && form.querySelector('[name="feedback"]')
+    );
 
     fields.forEach(field => {
       const error = document.createElement("p");
@@ -49,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok) throw new Error("Form submission failed");
         form.reset();
         showMessage(message, "Thank you – your note has been sent.", "success");
+        if (isRouteFeedback) trackEvent("feedback/submitted", "Feedback submitted");
       } catch (error) {
         showMessage(message, "The response was not sent because the form service could not be reached. Try again when your connection is stable.", "error");
       } finally {
@@ -58,6 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+function trackEvent(path, title) {
+  try {
+    const counter = window.goatcounter;
+    if (!counter || typeof counter.count !== "function") return;
+    counter.count({ event: true, path, title });
+  } catch {}
+}
 
 function validateField(field, error) {
   let text = "";

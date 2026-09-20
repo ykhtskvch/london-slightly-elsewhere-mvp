@@ -1,89 +1,137 @@
-const cityOrders = { walking: ["very-low", "gentle", "medium", "urban-hike"], noise: ["quiet", "moderate", "lively", "loud"], budget: ["free-ish", "under-30", "30-70", "splurge"] };
-const labels = { routeType: { "london-day": "London day", "day-walk": "Full day out" }, distance: { "15-18": "15–18 km", "18-22": "18–22 km", "22-25": "22–25 km" }, travelTime: { "under-60": "Up to 60 minutes", "60-90": "60–90 minutes" }, departureHub: { marylebone: "Marylebone", paddington: "Paddington", euston: "Euston", "kings-cross-st-pancras": "King’s Cross St Pancras", "liverpool-street": "Liverpool Street", stratford: "Stratford", "london-bridge": "London Bridge", victoria: "Victoria", waterloo: "Waterloo", "metropolitan-line": "Metropolitan line", other: "Somewhere else" }, landscape: { wetlands: "Wetlands / marshes" }, difficulty: { easy: "Easy terrain", moderate: "Moderate", challenging: "Challenging" }, routeShape: { circular: "Circular", "point-to-point": "Station to station", either: "Either" }, pub: { "pub-mid-route": "Pub during the walk", "pub-finish": "Pub near the finish", "multiple-options": "More than one food stop", cafe: "Café or bakery", "bring-food": "Bring food" }, shortenable: { true: "Shorter fallback", false: "No shortening needed" } };
+(() => {
+  const PARAMS = ["time", "mood", "location"];
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const form = document.querySelector("[data-finder-form]");
-  const target = document.querySelector("[data-results]");
-  const meta = document.querySelector("[data-results-meta]");
-  if (!form || !target || !meta) return;
-  let routes;
-  try { routes = await window.routeApp.loadRoutes(); } catch { target.innerHTML = '<p class="empty-state">Route data could not load. Please try the deployed site or a local server.</p>'; return; }
-  const syncPanels = () => {
-    const type = new FormData(form).get("routeType");
-    form.dataset.routeType = type || "";
-    form.querySelectorAll("[data-route-filter-panel]").forEach(panel => {
-      const active = Boolean(type) && panel.dataset.routeFilterPanel === type;
-      panel.hidden = !active;
-      panel.setAttribute("aria-hidden", String(!active));
-      panel.querySelectorAll("input").forEach(input => { input.disabled = !active; });
-    });
+  const track = (path, title) => {
+    try {
+      const counter = window.goatcounter;
+      if (!counter || typeof counter.count !== "function") return;
+      counter.count({ event: true, path, title });
+    } catch {}
   };
-  syncPanels();
-  render(routes, {}, target, meta);
-  form.addEventListener("change", event => { if (event.target.name === "routeType") syncPanels(); });
-  form.addEventListener("submit", event => { event.preventDefault(); render(routes, preferences(form), target, meta); });
-  form.addEventListener("reset", () => window.setTimeout(() => { syncPanels(); render(routes, {}, target, meta); }, 0));
-});
 
-function preferences(form) { return Object.fromEntries(new FormData(form).entries()); }
+  const preferences = form => {
+    const data = new FormData(form);
+    return Object.fromEntries(PARAMS.flatMap(name => {
+      const value = data.get(name);
+      return value ? [[name, String(value)]] : [];
+    }));
+  };
 
-function render(routes, prefs, target, meta) {
-  const hasPreferences = Object.keys(prefs).length > 0;
-  const routeSet = prefs.routeType ? routes.filter(route => route.routeType === prefs.routeType) : routes;
-  const scored = routeSet.map(route => ({ route, ...scoreRoute(route, prefs) })).sort((a, b) => b.score - a.score);
-  const results = hasPreferences ? scored.slice(0, 3) : scored;
-  if (!results.length) { meta.textContent = "No routes of that kind are available yet."; target.innerHTML = '<p class="empty-state">The full-day finder is ready; carefully checked routes will appear here once they exist.</p>'; return; }
-  if (!hasPreferences) meta.textContent = `Browse ${routes.length} routes, or choose the kind of day to make the choice more specific.`;
-  else {
-    const missed = results[0].criteria.filter(item => item.status === "miss");
-    meta.textContent = missed.length ? `Closest match: ${results[0].route.title}. It misses on ${list(missed.map(item => item.label))}.` : `${count(results.length)}, ranked for the shape of day you picked.`;
-  }
-  target.innerHTML = results.map((item, index) => resultCard(item, index, hasPreferences)).join("");
-}
+  const cardValues = (card, name) => {
+    const value = name === "mood" ? card.dataset.moods : card.dataset[name];
+    return (value || "").split("|").filter(Boolean);
+  };
 
-function scoreRoute(route, prefs) { return route.routeType === "day-walk" ? scoreDayWalk(route, prefs) : scoreLondonDay(route, prefs); }
+  const score = (card, selected) => {
+    const entries = Object.entries(selected);
+    const matches = entries.reduce((total, [name, value]) => (
+      total + (cardValues(card, name).includes(value) ? 1 : 0)
+    ), 0);
+    return { matches, exact: matches === entries.length };
+  };
 
-function scoreLondonDay(route, prefs) {
-  let score = 50; const criteria = []; const f = route.filters;
-  if (prefs.occasion) score += occasionCriterion(f.occasion, prefs.occasion, criteria);
-  if (prefs.groupSize) score += includesCriterion(f.groupSize, prefs.groupSize, 10, -12, criteria, "groupSize");
-  for (const [key, penalty] of [["walking", -16], ["noise", -14], ["budget", -16]]) score += ordinalCriterion(prefs[key], f[key], cityOrders[key], 10, penalty, criteria, key);
-  if (prefs.weather) score += includesCriterion(f.weather, prefs.weather, 12, -13, criteria, "weather");
-  if (prefs.occasion === "first-date") { if (f.easyExit === "must-have") score += 12; if (f.booking === "booking-required" || f.noise === "loud") score -= 10; }
-  return { score, criteria };
-}
+  const readUrl = form => {
+    const params = new URLSearchParams(window.location.search);
+    for (const name of PARAMS) {
+      for (const input of form.querySelectorAll(`input[name="${name}"]`)) input.checked = false;
+      const value = params.get(name);
+      if (!value) continue;
+      const input = [...form.querySelectorAll(`input[name="${name}"]`)]
+        .find(candidate => candidate.value === value);
+      if (input) input.checked = true;
+    }
+  };
 
-function scoreDayWalk(route, prefs) {
-  let score = 50; const criteria = []; const f = route.filters;
-  for (const [key, weight] of [["distance", 24], ["travelTime", 22], ["departureHub", 20], ["difficulty", 20], ["landscape", 14], ["urbanPresence", 10], ["views", 10], ["pub", 10], ["routeShape", 6], ["journeyComplexity", 8]]) {
-    if (!prefs[key]) continue;
-    const actual = key === "departureHub" ? f.departureHubs : key === "pub" ? f.pub : f[key];
-    score += includesCriterion(Array.isArray(actual) ? actual : [actual], prefs[key], weight, -Math.round(weight * .65), criteria, key);
-  }
-  if (prefs.shortenable === "true") score += includesCriterion([String(f.shortenable)], "true", 12, -10, criteria, "shortenable");
-  return { score, criteria };
-}
+  const writeUrl = selected => {
+    const url = new URL(window.location.href);
+    for (const name of PARAMS) {
+      const value = selected[name];
+      if (value) url.searchParams.set(name, value);
+      else url.searchParams.delete(name);
+    }
+    window.history.replaceState(window.history.state, "", url);
+  };
 
-function includesCriterion(values, selected, match, miss, criteria, key) { const matched = values.includes(selected); criteria.push({ label: label(key, selected), status: matched ? "match" : "miss" }); return matched ? match : miss; }
-function occasionCriterion(values, selected, criteria) { const matched = values.includes(selected); const close = !matched && values.some(value => isRelatedOccasion(value, selected)); const status = matched ? "match" : close ? "close" : "miss"; criteria.push({ label: label("occasion", selected), status }); return matched ? 25 : close ? 10 : -10; }
-function isRelatedOccasion(actual, selected) { return [["first-date", "second-date"], ["friend-catch-up", "solo-day"], ["rainy-day", "neighbourhood-escape"]].some(group => group.includes(actual) && group.includes(selected)); }
-function ordinalCriterion(selected, actual, order, match, miss, criteria, key) { if (!selected) return 0; const distance = Math.abs(order.indexOf(selected) - order.indexOf(actual)); const status = distance === 0 ? "match" : distance === 1 ? "close" : "miss"; criteria.push({ label: label(key, selected), status }); return status === "match" ? match : status === "close" ? 2 : miss; }
-function label(key, value) { return labels[key]?.[value] || window.routeApp.titleCase(value); }
-function list(values) { return values.length === 1 ? values[0] : `${values.slice(0, -1).join(", ")} and ${values.at(-1)}`; }
-function count(total) { return total === 1 ? "One route" : `${["No", "One", "Two", "Three"][total] || total} routes`; }
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("[data-finder-form]");
+    const target = document.querySelector("[data-finder-results]");
+    const meta = document.querySelector("[data-results-meta]");
+    if (!form || !target || !meta) return;
 
-function resultCard(item, index, hasPreferences) {
-  const { route, criteria } = item; const e = window.routeApp.escape; const missed = criteria.filter(item => item.status === "miss");
-  const ranking = !hasPreferences ? "" : index === 0 ? (missed.length ? "Closest match" : "Best match") : "Worth a look";
-  const matchLine = hasPreferences
-    ? `<p class="match">${missed.length ? `Closest on ${list(criteria.filter(item => item.status !== "miss").map(item => item.label)) || "the overall shape"}.` : "Matches everything you picked."}</p>`
-    : "";
-  const type = route.routeType === "day-walk" ? "Full day out" : "London day";
-  const facts = route.routeType === "day-walk" ? [`${route.hike.distanceKm} km`, `About ${route.travel.typicalMinutes} min from ${label("departureHub", route.travel.departureHubs[0])}`, label("difficulty", route.hike.difficulty), route.hike.landscape.slice(0, 2).map(value => label("landscape", value)).join(" + "), label("pub", route.hike.pubOptions[0])] : [route.quickFacts.duration, `${route.quickFacts.walkingLevel} walk`, route.quickFacts.noiseLevel, route.quickFacts.budget, `Start: ${route.quickFacts.startStation}`];
-  // Two type roles in the card and colour for the third thing. The title is
-  // the link, as in the index; the status is the same walked / not walked
-  // split the index uses, so the two lists say the same thing about a route.
-  const walked = Boolean(route.almanac && route.almanac.walked);
-  const status = [walked ? "Walked" : "Not walked yet", type, ranking].filter(Boolean).join(" · ");
-  return `<article class="result-card route-${e(route.slug)}"><div class="result-heading"><h2><a href="${window.routeApp.routeHref(route)}">${e(route.title)}</a></h2><p class="result-status${walked ? " result-status--walked" : ""}">${e(status)}</p></div><p>${e(route.subtitle)}</p>${matchLine}<div class="facts">${facts.map(fact => `<span class="fact">${e(fact)}</span>`).join("")}</div><p class="caveat">${e(route.editorial.whatNotToExpect)}</p></article>`;
-}
+    const cards = [...target.querySelectorAll("[data-finder-card]")];
+
+    const render = (updateUrl = false) => {
+      const selected = preferences(form);
+      const selectedCount = Object.keys(selected).length;
+      const ranked = cards
+        .map((card, index) => ({ card, index, ...score(card, selected) }))
+        .sort((left, right) => right.matches - left.matches || left.index - right.index);
+
+      let results;
+      if (selectedCount === 0) {
+        results = ranked.slice(0, 3);
+        const total = results.length;
+        meta.textContent = total === 0
+          ? "No walks are available yet."
+          : total === 1
+            ? "One suggestion to start with."
+            : `${total} suggestions to start with.`;
+      } else {
+        const exact = ranked.filter(item => item.exact);
+        if (exact.length) {
+          results = exact.slice(0, 3);
+          meta.textContent = exact.length > results.length
+            ? `Showing ${results.length} of ${exact.length} matching walks.`
+            : exact.length === 1
+              ? "Showing one matching walk."
+              : `Showing ${exact.length} matching walks.`;
+        } else {
+          results = ranked.slice(0, 3);
+          meta.textContent = "Nothing quite matches — these are the closest walks.";
+        }
+      }
+
+      const visible = new Set(results.map(item => item.card));
+      for (const card of cards) card.hidden = !visible.has(card);
+      if (updateUrl) writeUrl(selected);
+    };
+
+    const applyFilters = title => {
+      render(true);
+      track("finder/filter-apply", title);
+    };
+
+    readUrl(form);
+    render();
+    track("finder/open", "Find a walk opened");
+
+    form.addEventListener("change", event => {
+      if (!PARAMS.includes(event.target.name)) return;
+      applyFilters("Finder filters changed");
+    });
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      applyFilters("Finder filters submitted");
+    });
+
+    form.addEventListener("reset", () => {
+      window.setTimeout(() => {
+        for (const name of PARAMS) {
+          for (const input of form.querySelectorAll(`input[name="${name}"]`)) input.checked = false;
+        }
+        applyFilters("Finder filters cleared");
+      }, 0);
+    });
+
+    const trackResult = event => {
+      const link = event.target.closest("a");
+      const card = link && link.closest("[data-finder-card]");
+      if (!card || !target.contains(card)) return;
+      const slug = card.dataset.routeSlug;
+      if (slug) track(`finder/result/${slug}`, "Finder result opened");
+    };
+    target.addEventListener("click", trackResult);
+    target.addEventListener("auxclick", trackResult);
+  });
+})();

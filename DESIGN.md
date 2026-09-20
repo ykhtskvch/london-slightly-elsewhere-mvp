@@ -1,79 +1,128 @@
-# Design decisions — London, Slightly Elsewhere
+# Slightly Elsewhere — product design system
 
-## The concept
+Status: authoritative from 20/09/2026. This replaces the earlier field-guide
+direction recorded in `DESIGN-CONFLICTS.md`.
 
-**A tool for choosing a day out, not a magazine for reading.** Twenty-four
-routes, a filter, a finder: the reader is choosing, and a page has to say
-where they are and where else they can go, from the first screen. That
-decides everything below where the documents disagree — see
-`DESIGN-CONFLICTS.md` §2.16 for what it overrides and why.
+## Product direction
 
-What follows from it on every page: a site head with the publication and
-four places; one accent (`--accent`, ink-blue) for links and for the one mark
-that needs colour, and no red anywhere; the title of a route is its link;
-no block carries more than two type roles, serif for words and mono for
-facts, with colour for a third thing. What stays because it is what makes
-the site honest: paper, one column, one rule weight, no buttons, no icons,
-the walked / not walked split, the absence lines, every word.
+Slightly Elsewhere is a modern walk-discovery product with an editorial voice.
+It should help somebody choose a viable day out quickly, then reward closer
+reading. It is not an old almanac, a long-form magazine homepage, or a copy of
+AllTrails.
 
-The Anti-Slop Design Brief governs copy, accessibility, performance and
-trust. On form, the concept governs.
+The primary flow is:
 
-## Which design a page is on
+`Home → Find a walk / Walks → Walk → Start in Google Maps`
 
-**Every page is on the field-guide design**, except `/routes/seventeen/` —
-the unlisted route, which the handoff says stays as it is.
+Use **walk** in interface copy. `route` remains an internal data and URL term.
 
-- Field-guide design: `assets/css/almanac-tokens.css` +
-  `assets/css/almanac.css`, Newsreader and IBM Plex Mono, one column. Built by
-  `scripts/build_almanac_pages.py`. Every page reads in full without
-  JavaScript; `condition-filter.js` enhances the index, and `finder.js` and
-  `forms.js` drive the finder and the forms as before.
-- Previous design: `assets/css/styles.css`, Fraunces and Work Sans, light and
-  dark, built by `scripts/build_route_pages.py`. Now used by one page.
+## Foundation
 
-The two stylesheets are never loaded together. The rules below still describe
-that one page and the project's editorial standards; the palette, the two type
-families, the dark theme and the 60–75 character measure are superseded
-everywhere else. `DESIGN-CONFLICTS.md` records where the two disagree, what
-was decided and why, and what still needs the author.
+The implementation source of truth is `assets/css/almanac-tokens.css`.
 
-## Project decisions
+- Display/headings: Newsreader.
+- UI/body: Work Sans.
+- Canvas `#f3efe6`, surface `#fffdf8`, ink `#17251f`, text `#263a31`,
+  muted `#5d6c64`, border `#c9d1ca`.
+- The only saturated accent is forest teal `#176b5b`; hover is `#0d5044` and
+  the pale supporting tint is `#e3f0ea`.
+- Spacing follows a 4px scale. Do not introduce one-off margins or padding.
+- Radius roles are 8, 14, 20 and 28px. Cards and filters use the same border,
+  radius and shadow families.
+- Body copy is 16px or larger. Touch targets are at least 44×44px.
+- Focus is always visible. Secondary text and control boundaries must meet
+  WCAG 2.2 AA contrast requirements.
 
-- **Subject and audience:** an independent route guide for London residents aged roughly 25–45 who want a date, catch-up, local escape or occasional full day out with more character and less planning theatre.
-- **The page's single job:** help a visitor choose one viable route — a London day or a longer day walk — and understand how to adapt or leave it without awkwardness.
-- **Aesthetic direction:** **London field notebook** — rain-washed paper, pub-sign enamel, river-map blue, marginal notes and practical route annotations. Editorial, but not broadsheet; warm, but not artisan-café beige.
-- **Signature element:** a route line with decision nodes. It appears once in the hero and returns functionally as the stop sequence on route pages.
-- **One deliberate risk:** one slightly displaced, rotated margin note in the homepage hero. Everything else stays aligned and quiet.
+## Type roles
 
-## Locked rules
+- Hero: fluid 42–82px Newsreader.
+- Page H1: fluid 32–44px Newsreader.
+- Section H2: fluid 26–32px Newsreader.
+- Card H3: 22px Newsreader.
+- Body: 16px Work Sans, 1.62 line-height.
+- UI/meta: 12–14px Work Sans with concise labels.
+- Buttons: 16px Work Sans, semibold.
+
+There are no mono UI labels and no third font family.
+
+## Navigation
+
+Primary navigation is always **Walks · About · Find a walk**. Find a walk is
+the CTA. On small screens it remains directly available while Walks and About
+sit inside a native disclosure menu. Feedback, Terms, Privacy and Accessibility
+belong in the footer.
+
+## Route card
+
+`route_card()` in `scripts/build_almanac_pages.py` is the only card component.
+Home, Walks, Find a walk and Related walks must all use it.
+
+Information order:
+
+1. Place or start-to-finish name.
+2. One-sentence character of the walk.
+3. Distance and duration.
+4. Start → finish.
+5. Up to three controlled mood tags.
+6. Photograph or the honest non-photographic fallback.
+
+Only real route photographs may be used. A missing image is not replaced with
+stock or an invented scene. Every photo uses the same crop and carries useful
+alt text; the fallback is decorative and hidden from assistive technology.
+
+## Page hierarchy
+
+### Home
+
+The first viewport contains the value proposition and two actions. It is
+followed by three weekend cards, six mood entry points, then a short trust
+explanation. Long manifesto copy belongs on About.
+
+### Walks
+
+Use a short header, the London / Outside London switch and the shared card
+grid. Every card remains in the HTML when JavaScript is unavailable.
+
+### Find a walk
+
+Ask only time, mood and location in the primary tool. Return no more than
+three suggestions. If no exact result exists, say so and show the closest
+walks. Filter state lives in the URL. Three initial suggestions remain useful
+without JavaScript.
+
+### Walk page
+
+Before editorial text, show title, atmospheric descriptor, distance, time,
+effort, start, finish and the primary **Start in Google Maps** action. Follow
+with Walk essentials and Good to know, then the story, stops and secondary
+detail. End with three related walks.
+
+## Content and trust
 
 - British English throughout.
-- Six-colour token palette only; no gradients.
-- Fraunces is the display face; Work Sans is the body face. Both are self-hosted variable fonts (latin subset only, no third-party font requests). No extra families.
-- Body copy is at least 16px with a 60–75 character measure.
-- Spacing uses 4px half-steps and 8px full steps.
-- Cards use background shift and named elevation before borders.
-- Touch targets are at least 44px.
-- Light, dark and reduced-motion states ship together.
-- Key content must still make sense before JavaScript loads.
-- The site uses no analytics or non-essential cookies during the pilot.
-- Do not publish company, address, review or accreditation claims until they are real and verified.
+- UI copy is short and functional; editorial copy may be atmospheric.
+- Field-checked and prototype status must never be blurred.
+- Do not invent timings, terrain, photographs, continuous map routes, reviews
+  or commercial relationships.
+- A full-day walk must state travel, terrain and practical exits.
+- Long practical material may use native `<details>`; decision information
+  must not be collapsed.
 
-## Copy tests
+## Interaction, privacy and analytics
 
-- One calm opinion per page.
-- No hype, fake empathy or generic discovery language.
-- Controls describe their outcome.
-- Every caveat says who or what the route is not for.
-- Dates use DD/MM/YYYY; distances use km, except miles or pints where natural.
-- Route cards always state their type and show the facts that matter for it. A soundtrack, when present, sits beneath the subtitle and is clearly editorial.
-- A full-day walk must show travel from London, terrain and useful route logistics; it is never published as an invented route line or GPX.
+- Core browse and walk content works without JavaScript.
+- Motion is subtle and respects `prefers-reduced-motion`.
+- No component may create horizontal overflow at 375px, 393px, 800px or
+  1440px.
+- GoatCounter tracks Maps starts, finder use/result selection and successful
+  route-feedback submissions. Events contain identifiers/categories, not free
+  text.
+- Owner QA begins at `?internal=1`; that marker propagates through same-origin
+  links and excludes the session without browser storage.
 
-## Pre-publish check
+## Release check
 
-1. Can the page be recognised without the logo?
-2. Is the route line doing real navigational work?
-3. Does the key flow work at 360px, keyboard-only, 200% zoom and without animation?
-4. Is every public form connected, specific about errors and covered by the privacy notice?
-5. Remove one decorative element before shipping.
+Rebuild, validate data and links, then test keyboard navigation and the four
+target widths. Verify Home → Find a walk → Walk → Google Maps and Home → Walks
+→ Walk. Do not reopen the visual direction after release without user evidence,
+analytics or a clear usability defect.

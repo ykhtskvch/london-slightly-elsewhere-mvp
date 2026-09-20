@@ -10,7 +10,7 @@
     <meta property="og:url" content="https://slightlyelsewhere.co.uk/accessibility/">
     <meta property="og:site_name" content="London, Slightly Elsewhere">
     <meta property="og:locale" content="en_GB">
-    <meta property="og:image" content="https://slightlyelsewhere.co.uk/assets/og/site.png">
+    <meta property="og:image" content="https://slightlyelsewhere.co.uk/assets/og/site-redesign.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
@@ -27,21 +27,21 @@
   <body data-base-path="../">
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="page">
-      <nav class="site-head" aria-label="Primary"><a class="site-head__name" href="../">London, Slightly Elsewhere</a><span class="site-head__links"><a href="../routes/">The index</a><a href="../terms-used-here/">Terms used here</a><a href="../about/">About</a><a href="../feedback/">Feedback</a></span></nav>
+      <header class="site-head"><a class="site-head__name" href="../">London, Slightly Elsewhere<span class="site-head__tagline">Walks with good stops</span></a><nav class="site-head__desktop site-head__links" aria-label="Primary"><a href="../routes/">Walks</a><a href="../about/">About</a><a class="site-head__cta" href="../find-your-route/">Find a walk</a></nav><a class="site-head__mobile-cta" href="../find-your-route/">Find a walk</a><details class="mobile-nav"><summary>Menu</summary><nav class="mobile-nav__panel" aria-label="Mobile primary"><a href="../routes/">Walks</a><a href="../about/">About</a></nav></details></header>
       <main id="main">
       <section class="page-intro"><p class="eyebrow">Statement dated 10/07/2026</p><h1>Accessibility is part of the route.</h1><p>The aim is WCAG 2.2 AA. This early pilot has not yet had an independent accessibility audit, so it should not claim full conformance.</p></section>
       <article class="section prose">
         <h2>What has been designed in</h2>
-        <ul><li>Semantic headings, landmarks and labelled controls.</li><li>Visible keyboard focus and touch targets of at least 44×44px.</li><li>Light and dark themes with text contrast considered in both.</li><li>Reduced motion when your device requests it.</li><li>Route information presented as text, not only through colour or maps.</li></ul>
+        <ul><li>Semantic headings, landmarks and labelled controls.</li><li>Visible keyboard focus and touch targets of at least 44×44px.</li><li>A high-contrast light palette, including controls and secondary text.</li><li>Reduced motion when your device requests it.</li><li>Walk information presented as text, not only through colour or maps.</li></ul>
         <h2>Known limitations</h2>
-        <p>The finder and full route detail currently use JavaScript. Essential summaries remain visible without it, but the complete interactive experience requires JavaScript. Forms are not yet connected.</p>
+        <p>Every walk page and the full browse collection remain readable without JavaScript. JavaScript enhances the finder and location filter; three useful suggestions remain available if it is blocked. The feedback form is connected to Formspree.</p>
         <h2>Testing still required</h2>
         <p>Before public launch the key flow should be checked with keyboard-only navigation, VoiceOver, 200% zoom and an automated axe or Lighthouse pass at 360px.</p>
         <h2>Report a barrier</h2>
         <p>A dedicated accessibility contact will be published before the public pilot. Until then, report problems through the same contact channel that supplied your test link.</p>
       </article>
       </main>
-      <footer class="apparatus"><span class="apparatus__line"><a href="../routes/seventeen/">One route</a> is not listed.</span><nav class="apparatus__links" aria-label="Footer"><a href="../find-your-route/">Find a route</a><a href="../routes/">Browse routes</a><a href="../feedback/">Feedback</a><a href="../about/">About</a><a href="../terms-used-here/">Terms used here</a><a href="../future-guides/">What next?</a><a href="../privacy/">Privacy</a><a aria-current="page" href="../accessibility/">Accessibility</a></nav></footer>
+      <footer class="apparatus"><div class="apparatus__brand"><strong>London, Slightly Elsewhere</strong><span>Independent walks, checked at the speed of weekends.</span></div><nav class="apparatus__links" aria-label="Footer"><a href="../routes/">Walks</a><a href="../find-your-route/">Find a walk</a><a href="../about/">About</a><a href="../feedback/">Feedback</a><a href="../terms-used-here/">Terms used here</a><a href="../privacy/">Privacy</a><a aria-current="page" href="../accessibility/">Accessibility</a></nav><p class="apparatus__note">Independent project · London · 2026</p></footer>
     </div>
   </body>
 </html>

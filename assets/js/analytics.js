@@ -16,6 +16,27 @@
  * no storage, and are a setting rather than a URL nobody would guess.
  */
 (function () {
+  var internal = new URLSearchParams(window.location.search).get("internal") === "1";
+
+  // Keep an owner's QA session out of analytics as it moves around the site.
+  // The marker lives only in the URL: nothing is stored on or read from the
+  // visitor's device.
+  var propagateInternal = function () {
+    if (!internal) return;
+    Array.prototype.slice.call(document.querySelectorAll("a[href]")).forEach(function (link) {
+      try {
+        var url = new URL(link.getAttribute("href"), window.location.href);
+        if (url.origin !== window.location.origin) return;
+        url.searchParams.set("internal", "1");
+        link.href = url.href;
+      } catch (_) {}
+    });
+  };
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", propagateInternal);
+  else
+    propagateInternal();
+
   var gc = window.goatcounter;
   if (!gc || !gc.count) return;
 
@@ -28,6 +49,8 @@
       /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2[0-9]|3[0-1])\.|^192\.168\.|^0\.0\.0\.0$)/
     )) return "localhost";
     if (location.protocol === "file:") return "localfile";
+
+    if (internal) return "internal";
 
     // The opt-out, in place of the one that needed storage.
     if (navigator.globalPrivacyControl) return "globalPrivacyControl";

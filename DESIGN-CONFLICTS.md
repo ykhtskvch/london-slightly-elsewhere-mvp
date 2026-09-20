@@ -1,4 +1,12 @@
-# Where the field-guide design meets this codebase
+# Archived field-guide decisions
+
+> **Superseded on 20/09/2026.** The user-approved product-redesign backlog and
+> the current `DESIGN.md` now govern the site. The notes below are retained as
+> history and editorial context; their prohibitions on cards, primary buttons,
+> radii, a homepage hero and product navigation are no longer implementation
+> requirements.
+
+# Where the field-guide design met this codebase
 
 The handoff (`Implementation Spec.dc.html`, versions 5a / 6a / 6b) was drawn
 against a three-route site. This one has 24 routes, a six-filter finder, a

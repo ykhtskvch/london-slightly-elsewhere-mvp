@@ -1,12 +1,15 @@
 # London, Slightly Elsewhere — static MVP
 
-This is a dependency-free static prototype for the route-finder MVP.
+This is the dependency-free static site for Slightly Elsewhere: a modern
+walk-discovery product with an editorial voice.
 
 The visual and interaction rules live in `DESIGN.md`. Read that file before adding a page or component.
 
 ## Run locally
 
-From this directory, run a static server rather than opening `index.html` directly. The route pages and finder load `data/routes.json` with `fetch`, which browsers block from `file://` URLs.
+From this directory, run a static server rather than opening `index.html`
+directly. The main pages are pre-rendered, while feedback route choices and
+the finder enhancements expect normal HTTP behaviour.
 
 ```bash
 ruby -run -e httpd . -p 8000
@@ -22,24 +25,26 @@ Then open `http://localhost:8000`.
   build may hardcode either. `analytics.goatcounter` is null until the privacy
   notice describes it.
 - `data/routes.json` — the single source of truth for all routes.
-- `data/almanac.json` — page-level copy for the pages on the field-guide
-  design; per-route copy for those pages lives under each route's `almanac`
-  key in `routes.json`.
+- `data/discovery.json` — controlled card titles, time bands, London/outside
+  location and mood tags for every walk. Validation requires exact coverage.
+- `data/almanac.json` — editorial, privacy, glossary and page-level copy;
+  per-walk authored material lives under each route's `almanac` key.
 - `scripts/build_almanac_pages.py` — builds every page. Route pages, the
-  homepage, the index and the glossary are generated in full; the pages the
-  handoff never designed keep their `<main>` and get the new shell. It prints
-  the routes still waiting for copy each time it runs.
-- `assets/js/condition-filter.js` — the index filter. The only JavaScript on
-  a redesigned page, and the index reads in full without it.
+  homepage, Walks, Find a walk and the glossary are generated in full; utility
+  pages keep their `<main>` and receive the shared shell. It also owns the one
+  Route Card component used everywhere.
+- `assets/js/condition-filter.js` — progressively enhances Walks with the
+  London / Outside London switch. All cards read without it.
 - `scripts/generate_icons.py` — draws the favicon at every size from the
   palette. Run it after changing the colours; the build does not.
 - `scripts/vendor_count_js.py` — fetches GoatCounter's `count.js`, removes
   the two lines that touch browser storage, and writes it into `assets/js`
   so the site serves it itself. Run it after a GoatCounter update and read
   the diff; it stops rather than writing a copy it could not patch.
-- `scripts/generate_og_images.py` — draws the link-preview card for every
-  route plus one `site.png` for every page that is not a route. Run it after
-  a title, a fact or the deploy address changes; the build does not.
+- `scripts/generate_og_images.py` — draws the fact-led link-preview card for
+  every route. Run it after a route title, fact or deploy address changes;
+  the build does not. Non-route pages share the intentionally versioned
+  `assets/og/site-redesign.png` editorial cover.
 - `scripts/convert_photos.py` — gives every photograph in `assets/photos` a
   WebP twin, about 40% lighter. Run it after adding one; the build does not,
   but it says which photographs are still missing theirs. The JPEG stays as
@@ -47,9 +52,12 @@ Then open `http://localhost:8000`.
 - `assets/css/almanac-tokens.css` — design tokens for the redesign. Nothing
   in `almanac.css` may use a value that is not defined there.
 - `data/venue-timing.json` — one editable record per venue for happy-hour checks, current deals and official source links.
-- `assets/js/finder.js` — the deterministic six-filter scoring logic.
-- `scripts/validate-routes.js` — dependency-free schema checks for route data.
-- `assets/js/route-page.js` — renders all detail pages from JSON.
+- `assets/js/finder.js` — deterministic time, mood and location matching over
+  server-rendered cards, including closest-match behaviour.
+- `scripts/validate-routes.js` — dependency-free schema and discovery-data
+  coverage checks.
+- `assets/js/route-page.js` — dormant legacy renderer; normal walk pages are
+  pre-rendered by `build_almanac_pages.py`.
 - `assets/js/theme.js` — loaded by no page. The design has one palette, and
   the privacy notice says nothing is stored on the device. It is still in the
   repository only because the dormant `build_route_pages.py` template names it.
@@ -84,19 +92,28 @@ Do not publish a regular happy hour unless the venue’s own current page confir
 2. Give it a stable `id` and `slug`.
 3. Set `routeType` to `london-day` or `day-walk`; use `soundtrack: null` unless an editorial soundtrack has been chosen.
 4. Add it to the JSON array.
-5. Nothing to copy: the build writes `routes/<slug>/index.html` in full from
-   the data. Add an `almanac` block for the field-guide copy — the build
-   prints what is still missing.
-6. For a `day-walk`, add the required `travel` and `hike` objects before it can pass validation. Use only checked journey and route sources; do not invent a continuous Google Maps route or GPX.
-7. Personally field-test it before changing `status` to `field-checked`; reserve `published` for a final public editorial review.
+5. Add one matching record to `data/discovery.json`; exact coverage is
+   required before validation passes.
+6. Nothing to copy: the build writes `routes/<slug>/index.html` in full from
+   the data. Add an `almanac` block for authored field notes where available.
+7. For a `day-walk`, add the required `travel` and `hike` objects before it can pass validation. Use only checked journey and route sources; do not invent a continuous Google Maps route or GPX.
+8. Personally field-test it before changing `status` to `field-checked`; reserve `published` for a final public editorial review.
 
 Rebuild the pages and run the data checks before sharing a change:
 
 ```bash
-python3 scripts/build_route_pages.py && python3 scripts/build_almanac_pages.py && node scripts/validate-routes.js
+python3 scripts/build_route_pages.py && python3 scripts/build_almanac_pages.py && node scripts/validate-routes.js && node scripts/validate-site.js
 ```
 
 The two generators skip each other's pages, so the order does not matter.
+
+Route link-preview images are a separate, less frequent build. The renderer
+uses Pillow (`python3 -m pip install Pillow`) and writes all 24 cards
+atomically:
+
+```bash
+python3 scripts/generate_og_images.py
+```
 
 `build_almanac_pages.py` refuses to finish if any built page would store or
 read something on a visitor's device: it follows every local `<script src>`
@@ -107,14 +124,15 @@ loaded without the `no_onload` setting and `analytics.js`, which together
 install the filter honouring Do Not Track and Global Privacy Control, and
 fails if the CDN copy is ever used instead of the vendored one. The privacy
 notice makes those promises, so the build keeps them.
-`DESIGN.md` says which pages are on which design, and `DESIGN-CONFLICTS.md`
-records what the redesign still needs decided.
+`DESIGN.md` is the current product and visual authority. `DESIGN-CONFLICTS.md`
+is retained as an archive of the superseded field-guide direction.
 
 ## Forms
 
-The forms deliberately do not send data yet. Their controls are disabled and the interface says that collection is closed. This avoids pretending that feedback works without an endpoint and avoids collecting personal data locally.
+Route feedback is connected to Formspree and described by the generated
+privacy notice. Contact and future-guide collection remain closed.
 
-Before sharing publicly:
+When opening another form:
 
 1. Choose a form endpoint compatible with static sites.
 2. Put the URL in `data/site.json` under `forms` and rebuild. `config.js` is
@@ -149,10 +167,10 @@ Upload the contents of this directory to any static host. The site uses relative
 ## Launch checks
 
 - Test homepage, finder, every route link and mobile layout.
-- Test a first-date query, rainy-day query and no-filter state.
+- Test exact, closest-match and no-filter finder states.
 - Test reduced-motion mode. There is one palette and no dark theme.
 - Test keyboard navigation, 200% zoom and a 360px viewport.
 - Check all external official links.
 - Use `field-checked` status only after a real route check.
-- Configure forms and test delivery before asking for email or feedback.
+- Test Formspree delivery before changing feedback copy or fields.
 - Update the privacy notice with the form processor, retention period and public contact.

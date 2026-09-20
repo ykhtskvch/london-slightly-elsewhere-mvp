@@ -1,0 +1,170 @@
+[
+  {
+    "slug": "putney",
+    "cardTitle": "Putney",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["riverside-canal", "pub"]
+  },
+  {
+    "slug": "bloomsbury",
+    "cardTitle": "Bloomsbury",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["urban", "architecture", "quiet"]
+  },
+  {
+    "slug": "hampstead",
+    "cardTitle": "Hampstead",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["green", "pub"]
+  },
+  {
+    "slug": "rotherhithe",
+    "cardTitle": "Rotherhithe",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["riverside-canal", "architecture", "pub", "quiet"]
+  },
+  {
+    "slug": "crystal-palace",
+    "cardTitle": "Crystal Palace",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["green", "urban", "pub"]
+  },
+  {
+    "slug": "stoke-newington",
+    "cardTitle": "Stoke Newington",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["green", "urban", "pub"]
+  },
+  {
+    "slug": "walthamstow",
+    "cardTitle": "Walthamstow",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["urban", "pub"]
+  },
+  {
+    "slug": "woolwich",
+    "cardTitle": "Woolwich",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["riverside-canal", "urban", "architecture", "quiet"]
+  },
+  {
+    "slug": "clerkenwell",
+    "cardTitle": "Clerkenwell",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["urban", "architecture", "pub"]
+  },
+  {
+    "slug": "kings-cross",
+    "cardTitle": "King’s Cross",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["riverside-canal", "urban", "architecture", "pub"]
+  },
+  {
+    "slug": "harringay-green-lanes",
+    "cardTitle": "Harringay Green Lanes",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["urban", "pub"]
+  },
+  {
+    "slug": "brixton",
+    "cardTitle": "Brixton",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["urban", "pub"]
+  },
+  {
+    "slug": "kentish-town",
+    "cardTitle": "Kentish Town",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["urban", "pub"]
+  },
+  {
+    "slug": "deptford",
+    "cardTitle": "Deptford",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["urban", "pub"]
+  },
+  {
+    "slug": "little-venice-kensal-green",
+    "cardTitle": "Little Venice to Kensal Green",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["riverside-canal", "pub", "quiet"]
+  },
+  {
+    "slug": "kew-old-chiswick",
+    "cardTitle": "Kew Without the Gardens",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["green", "riverside-canal", "architecture", "pub"]
+  },
+  {
+    "slug": "marlow-hambleden",
+    "cardTitle": "Marlow to Hambleden",
+    "timeBand": "full-day",
+    "location": "outside-london",
+    "moods": ["green", "riverside-canal", "pub", "quiet"]
+  },
+  {
+    "slug": "chesham-rickmansworth",
+    "cardTitle": "Chesham to Rickmansworth",
+    "timeBand": "full-day",
+    "location": "outside-london",
+    "moods": ["green", "riverside-canal", "pub", "quiet"]
+  },
+  {
+    "slug": "box-hill-headley",
+    "cardTitle": "Box Hill, Three Ridges",
+    "timeBand": "full-day",
+    "location": "outside-london",
+    "moods": ["green", "pub", "quiet"]
+  },
+  {
+    "slug": "shoeburyness-old-leigh",
+    "cardTitle": "Shoeburyness to Old Leigh",
+    "timeBand": "full-day",
+    "location": "outside-london",
+    "moods": ["pub", "quiet"]
+  },
+  {
+    "slug": "theydon-bois-chingford",
+    "cardTitle": "Theydon Bois to Chingford",
+    "timeBand": "full-day",
+    "location": "outside-london",
+    "moods": ["green", "quiet"]
+  },
+  {
+    "slug": "ruislip-harefield",
+    "cardTitle": "Ruislip to Harefield",
+    "timeBand": "full-day",
+    "location": "london",
+    "moods": ["green", "riverside-canal", "quiet"]
+  },
+  {
+    "slug": "lea-marshes-tottenham-hale",
+    "cardTitle": "Lea Marshes to Tottenham Hale",
+    "timeBand": "full-day",
+    "location": "london",
+    "moods": ["green", "riverside-canal", "quiet"]
+  },
+  {
+    "slug": "harold-wood-rainham",
+    "cardTitle": "Harold Wood to Rainham",
+    "timeBand": "full-day",
+    "location": "london",
+    "moods": ["green", "riverside-canal", "pub", "quiet"]
+  }
+]

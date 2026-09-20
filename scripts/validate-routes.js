@@ -5,6 +5,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const routes = JSON.parse(fs.readFileSync(path.join(root, "data/routes.json"), "utf8"));
+const discovery = JSON.parse(fs.readFileSync(path.join(root, "data/discovery.json"), "utf8"));
 const errors = [];
 
 const routeTypes = new Set(["london-day", "day-walk"]);
@@ -19,6 +20,9 @@ const landscapes = new Set(["coastline", "woodland", "hills", "river", "wetlands
 const views = new Set(["panoramic", "sea", "woodland", "rolling-countryside", "historic-villages"]);
 const urbanPresence = new Set(["mostly-nature", "lightly-settled", "mixed"]);
 const pubOptions = new Set(["pub-mid-route", "pub-finish", "multiple-options", "cafe", "bring-food"]);
+const discoveryTimeBands = new Set(["1-2-hours", "half-day", "full-day"]);
+const discoveryLocations = new Set(["london", "outside-london"]);
+const discoveryMoods = new Set(["green", "riverside-canal", "urban", "architecture", "pub", "quiet"]);
 
 const addError = (route, message) => errors.push(`${route?.slug || "data"}: ${message}`);
 const isString = value => typeof value === "string" && value.trim().length > 0;
@@ -144,6 +148,63 @@ for (const route of routes) {
   if (typeof filters.shortenable !== "boolean") addError(route, "filters.shortenable must be boolean");
 }
 
+// Discovery metadata is kept separate from the editorial route records so a
+// small, controlled filter vocabulary cannot drift into the author's copy.
+// Coverage is exact: every route has one entry, and an entry may not survive
+// after its route has been removed or renamed.
+const discoverySlugs = new Set();
+if (!Array.isArray(discovery)) {
+  errors.push("discovery: data/discovery.json must be an array");
+} else {
+  for (const item of discovery) {
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      errors.push("discovery: every entry must be an object");
+      continue;
+    }
+
+    const expectedKeys = ["cardTitle", "location", "moods", "slug", "timeBand"];
+    const actualKeys = Object.keys(item).sort();
+    if (actualKeys.join(",") !== expectedKeys.join(",")) {
+      errors.push(`discovery/${item.slug || "unknown"}: fields must be exactly ${expectedKeys.join(", ")}`);
+    }
+
+    if (!isString(item.slug)) {
+      errors.push("discovery: entry is missing slug");
+      continue;
+    }
+    if (discoverySlugs.has(item.slug)) {
+      errors.push(`discovery/${item.slug}: duplicate slug`);
+    } else {
+      discoverySlugs.add(item.slug);
+    }
+
+    if (!slugs.has(item.slug)) errors.push(`discovery/${item.slug}: no matching route`);
+    if (!isString(item.cardTitle)) errors.push(`discovery/${item.slug}: cardTitle is missing`);
+    if (!discoveryTimeBands.has(item.timeBand)) {
+      errors.push(`discovery/${item.slug}: unsupported timeBand`);
+    }
+    if (!discoveryLocations.has(item.location)) {
+      errors.push(`discovery/${item.slug}: unsupported location`);
+    }
+    if (!Array.isArray(item.moods) || item.moods.length < 1 || item.moods.length > 4) {
+      errors.push(`discovery/${item.slug}: moods must contain between one and four values`);
+    } else {
+      if (new Set(item.moods).size !== item.moods.length) {
+        errors.push(`discovery/${item.slug}: moods must not contain duplicates`);
+      }
+      if (item.moods.some(mood => !discoveryMoods.has(mood))) {
+        errors.push(`discovery/${item.slug}: moods contains an unsupported value`);
+      }
+    }
+  }
+}
+
+for (const route of routes) {
+  if (isString(route.slug) && !discoverySlugs.has(route.slug)) {
+    addError(route, "missing discovery entry");
+  }
+}
+
 // The `almanac` block drives the field-guide design. These checks are the
 // design's acceptance criteria expressed as data rules: the five facts in a
 // fixed order, one effort scale of three words, a photograph only where a
@@ -203,5 +264,5 @@ if (errors.length) {
   errors.forEach(error => console.error(`- ${error}`));
   process.exitCode = 1;
 } else {
-  console.log(`Route validation passed: ${routes.length} routes, ${routes.filter(route => route.routeType === "london-day").length} London days, ${routes.filter(route => route.routeType === "day-walk").length} full days out.`);
+  console.log(`Route validation passed: ${routes.length} routes, ${routes.filter(route => route.routeType === "london-day").length} London days, ${routes.filter(route => route.routeType === "day-walk").length} full days out, ${discovery.length} discovery entries.`);
 }
