@@ -127,18 +127,22 @@ def load(name):
 # --- components ---------------------------------------------------------
 
 
-def external(href, text, quiet=True, event=None):
+def external(href, text, quiet=True, event=None, context=None):
     """An outward link. The old markup signalled 'new tab' with a ↗ glyph;
     the design allows no icons, so the signal is given to assistive
     technology in words instead.
 
     `event` names the link for GoatCounter. It is only worth setting on a
     link whose click cannot be seen any other way – an outward one. The
-    attribute is inert unless analytics is switched on."""
+    attribute is inert unless analytics is switched on.
+
+    `context` is read out but not shown — the stop a repeated label belongs
+    to, so links with the same words are still telling apart."""
     cls = ' class="quiet"' if quiet else ""
     tag = f' data-goatcounter-click="{e(event)}"' if event and GOATCOUNTER else ""
+    hidden = f'<span class="visually-hidden"> {e(context)}</span>' if context else ""
     return (
-        f'<a{cls}{tag} href="{e(href)}" rel="noopener" target="_blank">{e(text)}'
+        f'<a{cls}{tag} href="{e(href)}" rel="noopener" target="_blank">{e(text)}{hidden}'
         '<span class="visually-hidden"> (opens in a new tab)</span></a>'
     )
 
@@ -656,12 +660,15 @@ def render_stops(stops, map_start=None, first_walking_label="Walk here from the 
         # is named and addressed in the text, and the sketch map above shows
         # where it sits; a second link to search for it added a choice and
         # nothing else.
+        # The visible label stays short; the stop's name rides along hidden,
+        # so a list of links reads "…to The Duke's Head", not eight of the
+        # same line.
         links = []
         if walking_url:
             label = first_walking_label if not has_mapped_stop else "Walk from the previous stop"
-            links.append(external(walking_url, label))
+            links.append(external(walking_url, label, context=f"to {stop['name']}"))
         if stop.get("officialUrl"):
-            links.append(external(stop["officialUrl"], "Official information"))
+            links.append(external(stop["officialUrl"], "Official information", context=f"for {stop['name']}"))
         approach = ""
         if stop.get("directionFromPrevious"):
             approach_label = "From the previous stop" if has_mapped_stop else "From the start"
@@ -892,6 +899,8 @@ def shell(head, body, base, narrow=False, path=None):
     <link rel="icon" href="{base}favicon.ico" sizes="32x32">
     <link rel="icon" href="{base}assets/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{base}assets/icon-180.png">
+    <link rel="preload" href="{base}assets/fonts/newsreader-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{base}assets/fonts/work-sans-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{base}assets/css/almanac-tokens.css">
     <link rel="stylesheet" href="{base}assets/css/almanac.css">
     <script defer src="{base}assets/js/site-head.js"></script>{analytics_tags(base)}
@@ -1957,10 +1966,18 @@ def route_page(route, routes, almanac, venue_timing):
         if early:
             note = f' – {early["note"]}' if early.get("note") else ""
             blocks.append(paragraph(f'Earlier exit: {early["label"]}{note}'))
-        finish_links = [external(
-            maps_search(finish.get("mapQuery") or finish["nearestStation"]),
-            finish.get("mapLinkLabel") or "Open exit station",
-        )]
+        if finish.get("mapQuery"):
+            finish_links = [external(maps_search(finish["mapQuery"]), finish.get("mapLinkLabel") or "Open exit station")]
+        else:
+            # "Putney Bridge Underground or Putney rail" is two stations; a
+            # search for the whole phrase finds neither. One link each.
+            stations = [name.strip() for name in re.split(r"\s+or\s+|\s+/\s+", finish["nearestStation"]) if name.strip()]
+            def station_query(name):
+                return name if re.search(r"station|pier|bus", name, re.I) else f"{name} station"
+            if len(stations) == 1:
+                finish_links = [external(maps_search(station_query(stations[0])), finish.get("mapLinkLabel") or "Open exit station")]
+            else:
+                finish_links = [external(maps_search(station_query(name)), f"Open {name}") for name in stations]
         if finish.get("officialUrl"):
             finish_links.append(external(finish["officialUrl"], "Check the current service"))
         blocks.append(f'<p class="links-line">{"".join(finish_links)}</p>')

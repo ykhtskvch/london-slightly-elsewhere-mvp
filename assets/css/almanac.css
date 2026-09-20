@@ -761,6 +761,13 @@ textarea:disabled {
   gap: var(--space-2);
 }
 
+/* margin-top: auto lines the facts up across a row of photographed cards.
+   A card with no photograph beside them is stretched to their height, and
+   auto would open a gap in its middle; its facts stay under the summary. */
+.route-card:not(:has(.route-card__media)) .route-card__meta {
+  margin-top: 0;
+}
+
 .route-card__tag {
   display: inline-flex;
   align-items: center;

@@ -49,6 +49,7 @@ TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 WIDTH, HEIGHT = 1200, 800   # shown at 704px wide on a desk and ~340px on a phone;
                             # pins are sized to still read at the phone scale
 PADDING = 110                # px kept clear around the outermost pin
+TIGHT_PADDING = 60           # accepted rather than dropping a zoom level
 MIN_ZOOM, MAX_ZOOM = 11, 17
 MAX_SPREAD_KM = {"london-day": 4.0, "day-walk": 14.0}
 
@@ -143,9 +144,14 @@ def to_world(lat, lon, zoom):
 
 
 def choose_zoom(points):
-    for zoom in range(MAX_ZOOM, MIN_ZOOM - 1, -1):
+    """The closest zoom that keeps every pin PADDING clear of the edge —
+    or, before giving up a level, one that keeps them TIGHT_PADDING clear.
+    Hampstead sat at 14 for the sake of 40px of margin at 15."""
+    def fits(zoom, padding):
         xs, ys = zip(*(to_world(lat, lon, zoom) for lat, lon in points))
-        if max(xs) - min(xs) <= WIDTH - 2 * PADDING and max(ys) - min(ys) <= HEIGHT - 2 * PADDING:
+        return max(xs) - min(xs) <= WIDTH - 2 * padding and max(ys) - min(ys) <= HEIGHT - 2 * padding
+    for zoom in range(MAX_ZOOM, MIN_ZOOM - 1, -1):
+        if fits(zoom, PADDING) or fits(zoom, TIGHT_PADDING):
             return zoom
     return MIN_ZOOM
 

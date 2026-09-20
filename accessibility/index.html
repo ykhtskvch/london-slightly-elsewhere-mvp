@@ -19,6 +19,8 @@
     <link rel="icon" href="../favicon.ico" sizes="32x32">
     <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="../assets/icon-180.png">
+    <link rel="preload" href="../assets/fonts/newsreader-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../assets/fonts/work-sans-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="../assets/css/almanac-tokens.css">
     <link rel="stylesheet" href="../assets/css/almanac.css">
     <script defer src="../assets/js/site-head.js"></script>
@@ -30,16 +32,16 @@
     <div class="page">
       <header class="site-head"><a class="site-head__name" href="../">London, Slightly Elsewhere<span class="site-head__tagline">Walks with good stops</span></a><nav class="site-head__desktop site-head__links" aria-label="Primary"><a href="../routes/">Walks</a><a href="../about/">About</a><a class="site-head__cta" href="../find-your-route/">Find a walk</a></nav><a class="site-head__mobile-cta" href="../find-your-route/">Find a walk</a><details class="mobile-nav"><summary><span class="visually-hidden">Menu</span></summary><nav class="mobile-nav__panel" aria-label="Mobile primary"><a href="../routes/">Walks</a><a href="../about/">About</a><a href="../feedback/">Feedback</a></nav></details></header>
       <main id="main">
-      <section class="page-intro"><p class="eyebrow">Statement dated 10/07/2026</p><h1>Accessibility is part of the route.</h1><p>The aim is WCAG 2.2 AA. This early pilot has not yet had an independent accessibility audit, so it should not claim full conformance.</p></section>
+      <section class="page-intro"><p class="eyebrow">Statement dated 20/09/2026</p><h1>Accessibility is part of the route.</h1><p>The aim is WCAG 2.2 AA. The site has not had an independent accessibility audit, so it does not claim full conformance; what has been checked, and how, is listed below.</p></section>
       <article class="section prose">
         <h2>What has been designed in</h2>
-        <ul><li>Semantic headings, landmarks and labelled controls.</li><li>Visible keyboard focus and touch targets of at least 44×44px.</li><li>A high-contrast light palette, including controls and secondary text.</li><li>Reduced motion when your device requests it.</li><li>Walk information presented as text, not only through colour or maps.</li></ul>
+        <ul><li>Semantic headings, landmarks and labelled controls.</li><li>Visible keyboard focus and touch targets of at least 44×44px.</li><li>A high-contrast light palette, including controls and secondary text.</li><li>Reduced motion when your device requests it.</li><li>Walk information presented as text. The sketch map on a walk page is a picture of the stops in order; every stop, and the order, is in the numbered list beneath it, and the map’s caption says what the line does and does not show.</li></ul>
         <h2>Known limitations</h2>
         <p>Every walk page and the full browse collection remain readable without JavaScript. JavaScript enhances the finder and location filter; three useful suggestions remain available if it is blocked. The feedback form is connected to Formspree.</p>
-        <h2>Testing still required</h2>
-        <p>Before public launch the key flow should be checked with keyboard-only navigation, VoiceOver, 200% zoom and an automated axe or Lighthouse pass at 360px.</p>
+        <h2>What has been checked, and what has not</h2>
+        <p>In September 2026 every page was checked at 375px and 1280px for text contrast (all text meets AA), touch targets of 24px or more, heading order, images without alternative text and horizontal overflow, and the keyboard route through the header, the finder and a walk page was walked with visible focus. Not yet done: a pass with VoiceOver or another screen reader, 200% zoom, and an automated axe or Lighthouse run. Those are next.</p>
         <h2>Report a barrier</h2>
-        <p>A dedicated accessibility contact will be published before the public pilot. Until then, report problems through the same contact channel that supplied your test link.</p>
+        <p>If something on the site stops you, say so through the <a href="../feedback/">feedback form</a> — the second form is fine for this — or write to the address on the <a href="../privacy/">privacy page</a>. A barrier is treated as a correction to the route.</p>
       </article>
       </main>
       <footer class="apparatus"><div class="apparatus__brand"><strong>London, Slightly Elsewhere</strong><span>Independent walks, checked at the speed of weekends.</span></div><nav class="apparatus__links" aria-label="Footer"><div class="apparatus__group"><p class="eyebrow">The walks</p><a href="../routes/">Walks</a><a href="../find-your-route/">Find a walk</a><a href="../about/">About</a><a href="../feedback/">Feedback</a></div><div class="apparatus__group"><p class="eyebrow">The site</p><a href="../terms-used-here/">Terms used here</a><a href="../privacy/">Privacy</a><a aria-current="page" href="../accessibility/">Accessibility</a></div></nav><p class="apparatus__note">Independent project · London · 2026</p></footer>
