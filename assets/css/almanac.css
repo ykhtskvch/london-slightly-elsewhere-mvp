@@ -1314,6 +1314,42 @@ textarea:disabled {
   font-size: var(--text-xl);
 }
 
+.stop-options {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--border-thin) solid var(--colour-border);
+}
+
+.stop-options > li {
+  padding-block: var(--space-4);
+  border-bottom: var(--border-thin) solid var(--colour-border);
+}
+
+.stop-option__title {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.optional-detour {
+  gap: var(--space-3);
+}
+
+.route-extension {
+  margin-block: var(--space-8);
+  padding-inline: clamp(var(--space-4), 4vw, var(--space-8));
+  border: var(--border-strong) solid var(--colour-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--colour-surface-raised);
+  box-shadow: var(--shadow-sm);
+}
+
+.route-extension > .eyebrow {
+  margin-bottom: calc(-1 * var(--space-2));
+}
+
 .good-to-know {
   display: grid;
   gap: var(--space-4);

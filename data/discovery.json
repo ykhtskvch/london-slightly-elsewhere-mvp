@@ -50,10 +50,10 @@
   },
   {
     "slug": "woolwich",
-    "cardTitle": "Woolwich",
+    "cardTitle": "Woolwich to the Tor",
     "timeBand": "half-day",
     "location": "london",
-    "moods": ["riverside-canal", "urban", "architecture", "quiet"]
+    "moods": ["riverside-canal", "urban", "pub", "quiet"]
   },
   {
     "slug": "clerkenwell",

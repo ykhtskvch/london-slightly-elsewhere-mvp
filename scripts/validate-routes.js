@@ -60,12 +60,63 @@ for (const route of routes) {
   if (route.quickFacts?.mainStops !== route.stops?.length) addError(route, "quickFacts.mainStops must match the stop count");
 
   const stops = Array.isArray(route.stops) ? route.stops : [];
+  for (const [stopIndex, stop] of stops.entries()) {
+    if (stop.choices === undefined) continue;
+    if (!Array.isArray(stop.choices) || stop.choices.length < 2) {
+      addError(route, `stops[${stopIndex}].choices must contain at least two options`);
+      continue;
+    }
+    for (const [choiceIndex, choice] of stop.choices.entries()) {
+      for (const key of ["name", "description", "mapQuery"]) {
+        if (!isString(choice?.[key])) addError(route, `stops[${stopIndex}].choices[${choiceIndex}].${key} is missing`);
+      }
+      if (choice?.meta !== undefined && !isString(choice.meta)) addError(route, `stops[${stopIndex}].choices[${choiceIndex}].meta must be a string`);
+    }
+  }
+
+  const optionalDetours = route.optionalDetours;
+  if (optionalDetours !== undefined) {
+    if (!Array.isArray(optionalDetours) || optionalDetours.length === 0) {
+      addError(route, "optionalDetours must be a non-empty array when supplied");
+    } else {
+      for (const [index, detour] of optionalDetours.entries()) {
+        for (const key of ["eyebrow", "name", "description", "mapQuery"]) {
+          if (!isString(detour?.[key])) addError(route, `optionalDetours[${index}].${key} is missing`);
+        }
+      }
+    }
+  }
+
+  const extension = route.extension;
+  if (extension !== undefined) {
+    if (!extension || typeof extension !== "object" || Array.isArray(extension)) {
+      addError(route, "extension must be an object when supplied");
+    } else {
+      for (const key of ["eyebrow", "title", "intro", "distance", "duration", "mapOriginQuery"]) {
+        if (!isString(extension[key])) addError(route, `extension.${key} is missing`);
+      }
+      if (!Array.isArray(extension.stops) || extension.stops.length === 0) {
+        addError(route, "extension.stops must be a non-empty array");
+      } else {
+        for (const [index, stop] of extension.stops.entries()) {
+          for (const key of ["name", "type", "duration", "description", "mapQuery"]) {
+            if (!isString(stop?.[key])) addError(route, `extension.stops[${index}].${key} is missing`);
+          }
+        }
+      }
+    }
+  }
+
   const urls = [
     route.navigation?.externalRouteUrl,
     route.navigation?.gpxUrl,
+    route.navigation?.finish?.officialUrl,
     route.travel?.officialSourceUrl,
     ...(route.links?.officialSources || []),
-    ...stops.map(stop => stop.officialUrl)
+    ...stops.map(stop => stop.officialUrl),
+    ...stops.flatMap(stop => Array.isArray(stop.choices) ? stop.choices.map(choice => choice.officialUrl) : []),
+    ...(Array.isArray(optionalDetours) ? optionalDetours : []).map(detour => detour.officialUrl),
+    ...(Array.isArray(extension?.stops) ? extension.stops : []).map(stop => stop.officialUrl)
   ].filter(Boolean);
   for (const url of urls) if (!isUrl(url)) addError(route, `invalid external URL: ${url}`);
 

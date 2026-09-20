@@ -89,6 +89,8 @@ FLOW_LABELS = {
     "cafe-or-pub": "warm finish",
     "garden": "free gardens",
     "view": "view",
+    "boat": "boat",
+    "exit": "exit",
 }
 
 # The status sentence, in the author's words rather than as a badge. Wording
@@ -576,6 +578,145 @@ def maps_route(stops):
     if waypoints:
         params["waypoints"] = "|".join(waypoints)
     return "https://www.google.com/maps/dir/?" + urlencode(params)
+
+
+def maps_route_from(origin, stops):
+    """A separate route whose first numbered stop is not its origin.
+
+    Optional extensions begin where the core walk ends. Keeping the origin
+    outside the numbered list lets the extension remain visibly optional
+    without dropping the walk from the finish to its first waypoint.
+    """
+    params = {
+        "api": "1",
+        "origin": origin,
+        "destination": stops[-1]["mapQuery"],
+        "travelmode": "walking",
+    }
+    waypoints = [stop["mapQuery"] for stop in stops[:-1]][:9]
+    if waypoints:
+        params["waypoints"] = "|".join(waypoints)
+    return "https://www.google.com/maps/dir/?" + urlencode(params)
+
+
+def render_stop_choices(choices, origin):
+    """Render mutually exclusive options inside one numbered route stop."""
+    if not choices:
+        return ""
+    items = []
+    for choice in choices:
+        links = []
+        if choice.get("mapQuery"):
+            if origin:
+                links.append(external(
+                    maps_directions(origin, choice["mapQuery"]),
+                    "Walk here from the start",
+                ))
+            links.append(external(maps_search(choice["mapQuery"]), "Open this point"))
+        if choice.get("officialUrl"):
+            links.append(external(choice["officialUrl"], "Official information"))
+        items.append(
+            '<li class="stop-option">'
+            f'<h4 class="stop-option__title">{e(choice["name"])}</h4>'
+            + (f'<p class="meta">{e(choice["meta"])}</p>' if choice.get("meta") else "")
+            + paragraph(choice["description"])
+            + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+            + "</li>"
+        )
+    return f'<ul class="stop-options">{"".join(items)}</ul>'
+
+
+def render_stops(stops, map_start=None, first_walking_label="Walk here from the start"):
+    """One accessible stop list, reused by the core walk and extensions."""
+    rendered = []
+    previous_query = map_start
+    has_mapped_stop = False
+    for stop in stops:
+        walking_url = None
+        if stop.get("mapQuery") and previous_query:
+            walking_url = maps_directions(previous_query, stop["mapQuery"])
+        elif stop.get("mapQuery"):
+            walking_url = maps_search(stop["mapQuery"])
+
+        meta = f'{e(stop["type"])}<span class="separator"> · </span>{e(stop["duration"])}'
+        if stop.get("walkingToNext"):
+            meta += f'<span class="separator"> · </span>{e(stop["walkingToNext"])} to next'
+
+        links = []
+        if walking_url:
+            label = first_walking_label if not has_mapped_stop else "Walk from the previous stop"
+            links.append(external(walking_url, label))
+        if stop.get("mapQuery"):
+            links.append(external(maps_search(stop["mapQuery"]), "Open this point"))
+        if stop.get("officialUrl"):
+            links.append(external(stop["officialUrl"], "Official information"))
+
+        rendered.append(
+            '<li><div class="stop__body">'
+            f'<h3 class="stop__title">{e(stop["name"])}</h3>'
+            f'<p class="meta">{meta}</p>'
+            + (paragraph(stop.get("locationNote"), quiet=True) if stop.get("locationNote") else "")
+            + (
+                paragraph(f'From the previous point: {stop["directionFromPrevious"]}', quiet=True)
+                if stop.get("directionFromPrevious")
+                else ""
+            )
+            + paragraph(stop["description"])
+            + render_stop_choices(stop.get("choices"), previous_query)
+            + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+            + "</div></li>"
+        )
+        if stop.get("mapQuery"):
+            previous_query = stop["mapQuery"]
+            has_mapped_stop = True
+    return f'<ol class="stops">{"".join(rendered)}</ol>'
+
+
+def optional_detours_section(detours):
+    if not detours:
+        return ""
+    rows = []
+    for detour in detours:
+        links = []
+        if detour.get("mapQuery"):
+            links.append(external(maps_search(detour["mapQuery"]), "Open this point"))
+        if detour.get("officialUrl"):
+            links.append(external(detour["officialUrl"], "Check the current programme"))
+        rows.append(
+            '<div class="definition optional-detour">'
+            f'<p class="eyebrow">{e(detour["eyebrow"])}</p>'
+            f'<h3 class="definition__term">{e(detour["name"])}</h3>'
+            f'<p class="definition__body">{e(detour["description"])}</p>'
+            + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+            + "</div>"
+        )
+    return section("Optional before you commit.", *rows)
+
+
+def extension_section(extension):
+    """A second, clearly bounded walk after the core route has finished."""
+    mapped = [stop for stop in extension["stops"] if stop.get("mapQuery")]
+    links = []
+    if extension.get("mapOriginQuery") and mapped:
+        links.append(external(
+            maps_route_from(extension["mapOriginQuery"], mapped),
+            "Open the Charlton extension",
+        ))
+    return (
+        '<section class="route-section route-extension">'
+        f'<p class="eyebrow">{e(extension["eyebrow"])}</p>'
+        f'<h2 class="section-head">{e(extension["title"])}</h2>'
+        f'<p>{e(extension["intro"])}</p>'
+        f'<p class="meta">{e(extension["distance"])}<span class="separator"> · </span>'
+        f'{e(extension["duration"])}</p>'
+        + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+        + render_stops(
+            extension["stops"],
+            extension.get("mapOriginQuery"),
+            first_walking_label="Walk here from Woolwich",
+        )
+        + "</section>"
+    )
 
 
 # --- pages --------------------------------------------------------------
@@ -1732,43 +1873,17 @@ def route_page(route, routes, almanac, venue_timing):
         definition("Alone", copy["soloNotes"]),
     ))
 
-    stops_html = []
     map_start = (navigation or {}).get("arrival", {}).get("mapOriginQuery") or (
         navigation or {}
     ).get("arrival", {}).get("station")
-    for index, stop in enumerate(route["stops"]):
-        previous = map_start if index == 0 else route["stops"][index - 1].get("mapQuery")
-        walking_url = None
-        if stop.get("mapQuery") and previous:
-            walking_url = maps_directions(previous, stop["mapQuery"])
-        elif stop.get("mapQuery"):
-            walking_url = maps_search(stop["mapQuery"])
-        meta = f'{e(stop["type"])}<span class="separator"> · </span>{e(stop["duration"])}'
-        if stop.get("walkingToNext"):
-            meta += f'<span class="separator"> · </span>{e(stop["walkingToNext"])} to next'
-        links = []
-        if walking_url:
-            label = "Walk here from the station" if index == 0 else "Walk from the previous stop"
-            links.append(external(walking_url, label))
-        if stop.get("mapQuery"):
-            links.append(external(maps_search(stop["mapQuery"]), "Open this point"))
-        if stop.get("officialUrl"):
-            links.append(external(stop["officialUrl"], "Official information"))
-        stops_html.append(
-            "<li><div class=\"stop__body\">"
-            f'<h3 class="stop__title">{e(stop["name"])}</h3>'
-            f'<p class="meta">{meta}</p>'
-            + (paragraph(stop.get("locationNote"), quiet=True) if stop.get("locationNote") else "")
-            + (
-                paragraph(f'From the previous point: {stop["directionFromPrevious"]}', quiet=True)
-                if stop.get("directionFromPrevious")
-                else ""
-            )
-            + paragraph(stop["description"])
-            + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
-            + "</div></li>"
-        )
-    sections.append(section("The route.", route_map(route, base), f'<ol class="stops">{"".join(stops_html)}</ol>'))
+    detours = optional_detours_section(route.get("optionalDetours"))
+    if detours:
+        sections.append(detours)
+    sections.append(section(
+        "The route.",
+        route_map(route, base),
+        render_stops(route["stops"], map_start, first_walking_label="Walk here from the station"),
+    ))
 
     if is_day_walk:
         hike = route["hike"]
@@ -1790,18 +1905,27 @@ def route_page(route, routes, almanac, venue_timing):
 
     if navigation:
         finish = navigation["finish"]
+        access_label = finish.get("accessLabel") or "Nearest practical station"
+        access_value = finish.get("accessValue") or finish["nearestStation"]
         blocks = [
-            definition(finish["label"], f'Nearest practical station: {finish["nearestStation"]}'),
+            definition(finish["label"], f'{access_label}: {access_value}'),
             paragraph(finish["exitNote"]),
         ]
         early = (route.get("hike") or {}).get("earlyExit") if is_day_walk else None
         if early:
             note = f' – {early["note"]}' if early.get("note") else ""
             blocks.append(paragraph(f'Earlier exit: {early["label"]}{note}'))
-        blocks.append(
-            f'<p class="links-line">{external(maps_search(finish["nearestStation"]), "Open exit station")}</p>'
-        )
+        finish_links = [external(
+            maps_search(finish.get("mapQuery") or finish["nearestStation"]),
+            finish.get("mapLinkLabel") or "Open exit station",
+        )]
+        if finish.get("officialUrl"):
+            finish_links.append(external(finish["officialUrl"], "Check the current service"))
+        blocks.append(f'<p class="links-line">{"".join(finish_links)}</p>')
         sections.append(section("Finish and easy exit.", *blocks))
+
+    if route.get("extension"):
+        sections.append(extension_section(route["extension"]))
 
     timing = venue_timing.get(route.get("valueTimingVenueId")) if route.get("valueTimingVenueId") else None
     if timing:

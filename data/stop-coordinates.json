@@ -789,5 +789,26 @@
     "source": "nominatim:1",
     "matched": "WD3 1QY",
     "displayName": "WD3 1QY, Batchworth, Rickmansworth, Three Rivers, Hertfordshire, England, United Kingdom"
+  },
+  "Thames Path Thamesmead London SE28": {
+    "lat": 51.5008,
+    "lon": 0.0845,
+    "source": "hand",
+    "matched": "Riverside waypoint between Royal Arsenal and Gallions Reach Park",
+    "displayName": "Thames Path, Thamesmead West, London"
+  },
+  "Gallions Reach Park Defence Close Thamesmead London SE28 0NT": {
+    "lat": 51.50213,
+    "lon": 0.09137,
+    "source": "hand",
+    "matched": "Gallions Hill, OpenStreetMap node 1938700732",
+    "displayName": "Gallions Hill viewpoint, Gallions Reach Park, Thamesmead, London"
+  },
+  "Woolwich Royal Arsenal Pier London SE18 6TL": {
+    "lat": 51.495886,
+    "lon": 0.0710496,
+    "source": "nominatim:0",
+    "matched": "Woolwich Royal Arsenal Pier London SE18 6TL",
+    "displayName": "Woolwich Arsenal Pier, Royal Arsenal Woolwich Pier, Royal Arsenal Riverside, Glyndon, Plumstead, Royal Borough of Greenwich, Greater London, England, SE18 6ST, United Kingdom"
   }
 }

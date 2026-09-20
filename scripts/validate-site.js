@@ -111,8 +111,11 @@ if (count(finder, /\bdata-finder-card\b/g) !== routes.length) {
 for (const route of routes) {
   const file = path.join(root, "routes", route.slug, "index.html");
   const source = fs.readFileSync(file, "utf8");
-  if (!source.includes('class="button button--primary primary-map"')) fail(file, "missing primary Maps CTA");
-  if (!source.includes('class="essentials"')) fail(file, "missing walk essentials");
+  const walked = ["field-checked", "published"].includes(route.status);
+  const mapClass = walked ? "button button--primary primary-map" : "button button--secondary";
+  const mapCta = `class="${mapClass}" data-goatcounter-click="maps/${route.slug}"`;
+  if (!source.includes(mapCta)) fail(file, `missing ${walked ? "primary" : "secondary"} Maps CTA`);
+  if (!source.includes('class="route-rail"')) fail(file, "missing walk essentials rail");
   const related = source.match(/<section class="discovery-section related-walks">([\s\S]*?)<\/section>/)?.[1] || "";
   if (count(related, /<article class="route-card"/g) !== 3) fail(file, "related walks must contain 3 cards");
 }
