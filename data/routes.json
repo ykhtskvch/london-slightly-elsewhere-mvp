@@ -2136,5 +2136,253 @@
     "logic": {"fallbackIfClosed": "If the Upminster pause does not work, eat carried food and either take the District line or continue only if conditions still support the Rainham section. Never chase a pub at the expense of daylight and path sense.", "conversationQuality": "excellent on the river and woodland sections", "commitmentLevel": "medium to high"},
     "links": {"officialSources": ["https://www.innerlondonramblers.org.uk/images/RingandLoop/guides/LL22-harold-wood-to-upminster-bridge-May23.pdf", "https://www.innerlondonramblers.org.uk/ideasforwalks/loop-guides.html", "https://www.nationaltrust.org.uk/visit/london/rainham-hall/enjoy-a-walk-to-rainham-hall"], "mapQuery": "Harold Wood station to Rainham rail station via London Loop, Upminster Bridge and Rainham Hall"},
     "editorialControl": {"fieldTested": false, "lastChecked": "Desk-checked – July 2026", "nextReview": null, "feedbackStatus": "prototype", "updateNotes": "Field-check the exact Upminster Bridge-to-Rainham joins, muddy sections, Rainham Hall approach, full distance and return timing before marking field-checked."}
+  },
+  {
+    "id": "maida-vale-after-dark",
+    "slug": "maida-vale-after-dark",
+    "routeType": "london-day",
+    "status": "field-checked",
+    "access": "free",
+    "soundtrack": {"artist": "Duffy", "track": "Warwick Avenue"},
+    "title": "Maida Vale After Dark",
+    "subtitle": "Fireplaces, film locations and a little bit of Little Venice.",
+    "almanac": {
+      "walked": true,
+      "lastWalked": null,
+      "effort": "gentle",
+      "linkName": "The whole twilight route to Paddington",
+      "indexNote": "Walked in person at dusk, including the pub rooms, canal section and theatre finish.",
+      "plate": {
+        "placeholder": "photo to follow – Maida Vale at dusk",
+        "caption": "No route photograph is attached yet; the Maida Vale, Little Venice and Canal Cafe Theatre sequence has been walked in person."
+      },
+      "body": ["This one depends on timing more than distance. Start while the stucco and mansion blocks are still visible, let the windows begin to glow, then alternate dark streets with genuinely old pub rooms before the canal opens the route up again. NewsRevue is the small, changeable ending; Paddington is simply how you get home."],
+      "factLine": {
+        "sentence": "Start at {station}, allow {time}, it is {effort}, reckon on {cost}, and plan toilets at {toilets}.",
+        "station": "Maida Vale",
+        "time": "2–3 hours before the show",
+        "effort": "gentle",
+        "cost": "dinner + theatre ticket",
+        "toilets": "the pubs and theatre"
+      }
+    },
+    "fieldNote": {
+      "verified": true,
+      "text": "Walked in person by Slightly Elsewhere. The order of the rooms matters here: Prince Alfred for dinner, the far-left room at the Warwick Castle for the fireplace, then back into the dark for Little Venice and the small theatre upstairs. Live opening, fire, food and performance details can still change."
+    },
+    "seo": {
+      "title": "Maida Vale After Dark – a field-checked twilight walk",
+      "shortTitle": "Maida Vale After Dark",
+      "description": "A personally field-checked evening walk through Maida Vale and Little Venice, with Victorian pub interiors, canal reflections and NewsRevue at Canal Cafe Theatre.",
+      "socialDescription": "Walk Maida Vale at dusk: old pub rooms, Little Venice and a small comedy theatre before an easy Paddington exit.",
+      "contentLocation": "Maida Vale, Warwick Avenue and Little Venice, London"
+    },
+    "quickFacts": {
+      "startStation": "Maida Vale Underground",
+      "endStation": "Paddington Station",
+      "duration": "2–3 hours before the show; longer with dinner",
+      "startBy": "30–45 minutes before dusk",
+      "walkingDistance": "Approx. 4–5 km",
+      "walkingLevel": "gentle, paved urban walking",
+      "noiseLevel": "quiet to moderate",
+      "budget": "£30–£70 plus theatre ticket",
+      "bestTime": "Dusk; especially good in autumn and winter",
+      "weather": ["evening", "cold", "rainy"],
+      "mainStops": 8
+    },
+    "navigation": {
+      "detailLevel": "anchor-by-anchor",
+      "arrival": {
+        "station": "Maida Vale Underground",
+        "mapOriginQuery": "Maida Vale Underground Station Elgin Avenue London W9 1JS",
+        "stationExit": "Leave onto Elgin Avenue, but look back at the station before walking away.",
+        "pinLabel": "Maida Vale Underground Station",
+        "pinQuery": "Maida Vale Underground Station Elgin Avenue London W9 1JS",
+        "firstMove": "Use the residential streets towards Lauderdale Road rather than staying on Maida Vale. The first section should feel like entering the neighbourhood, not following an arterial road."
+      },
+      "finish": {
+        "label": "Paddington Station after the show",
+        "nearestStation": "Paddington Underground and National Rail",
+        "accessLabel": "After NewsRevue",
+        "accessValue": "Walk directly to Paddington; do not add another venue",
+        "mapQuery": "London Paddington Station Praed Street London W2 1HQ",
+        "mapLinkLabel": "Open Paddington Station",
+        "officialUrl": "https://tfl.gov.uk/tube/stop/910GPADTON/paddington-underground-station?firstNextDay=False",
+        "exitNote": "After the show, walk straight to Paddington. The sudden change from a tiny upstairs theatre to a major London station is the ending; it does not need another stop attached to it."
+      },
+      "disclaimer": "Use live walking directions at street crossings and check each venue before setting out. The route is paved and gentle, but Canal Cafe Theatre is reached by stairs and is not a step-free finish. Pub fires, kitchens, events and performance times are never guaranteed."
+    },
+    "valueTimingVenueId": null,
+    "filters": {
+      "occasion": ["first-date", "second-date", "friend-catch-up", "neighbourhood-escape"],
+      "groupSize": ["1", "2", "3-4"],
+      "vibe": ["cosy", "low-key-romantic", "historic-london", "old-pubs", "canal-side", "moody", "good-for-talking", "local-london"],
+      "walking": "gentle",
+      "noise": "moderate",
+      "budget": "30-70",
+      "weather": ["cold", "evening", "rainy"],
+      "duration": ["3-4h", "half-day"],
+      "socialPressure": "medium",
+      "easyExit": "helpful",
+      "booking": "optional-booking"
+    },
+    "editorial": {
+      "vibeSummary": "Quiet streets, over-decorated old rooms, then canal water and a comedy show small enough to remain slightly improbable.",
+      "bestFor": ["A date that needs things to notice but room to talk", "An evening walk for someone who already knows central London", "Cold weather, when the fireplaces become part of the route"],
+      "notIdealFor": ["Anyone looking for a pub crawl", "A step-free evening", "A plan that cannot tolerate checking a theatre and dinner booking"],
+      "whyNow": "Begin just before dusk and the route changes while you are on it: façades are still legible, domestic windows begin to glow and the canal arrives after dark.",
+      "specialBecause": "It has a repeated cold-to-warm rhythm. Each interior feels more deliberate because the route keeps giving you the street back.",
+      "whatNotToExpect": "Not a grand Little Venice tour and not three compulsory drinks in sequence. The pubs are here for their rooms, with alcohol entirely optional.",
+      "practicalWarnings": ["Check and preferably book the current NewsRevue performance before setting out; its material and cast change regularly.", "Reserve Prince Alfred if dinner timing matters, and confirm its current kitchen hours.", "The Warwick Castle fireplace may not be lit, even in cold weather.", "Canal Cafe Theatre is upstairs and is not wheelchair-accessible; this route is not step-free."],
+      "tags": ["evening", "old-pubs", "canal-side", "historic-london", "good-for-talking", "field-checked"]
+    },
+    "routeNarrative": "Start with enough light to see why the houses are part of the walk: stucco fronts, crescents, tall windows and later red-brick mansion blocks. Then let Maida Vale alternate between polished residential history and rooms that are much more ornate than they need to be. Prince Alfred is the dinner, Warwick Castle is the fire, and neither needs to become a crawl. Outside again, Duffy, a green cabmen’s shelter and a few cultural footnotes carry the route to Little Venice. The water gives you ten quiet minutes before NewsRevue closes the evening upstairs. Paddington waits beyond it, large and practical.",
+    "optionalDetours": [
+      {
+        "eyebrow": "Optional first pause or wet-weather fallback",
+        "name": "The Warrington Hotel",
+        "description": "A Victorian room, stained glass and a marble fireplace make this a plausible early drink or shelter from rain. Keep it brief if Prince Alfred is the dinner stop. The venue advertises live music; check its current listings if an event or karaoke matters rather than relying on an old schedule.",
+        "mapQuery": "The Warrington Hotel 93 Warrington Crescent London W9 1EH",
+        "officialUrl": "https://thewarringtonhotel.co.uk/"
+      },
+      {
+        "eyebrow": "Starting early?",
+        "name": "Clifton Nurseries",
+        "description": "An old garden centre tucked behind residential streets, with a glasshouse and an unexpectedly enclosed atmosphere. It closes too early to belong to the default twilight route, so check the current time and use it only as an afternoon prelude.",
+        "mapQuery": "Clifton Nurseries 5A Clifton Villas London W9 2PH",
+        "officialUrl": "https://www.clifton.co.uk/"
+      }
+    ],
+    "stops": [
+      {
+        "name": "Maida Vale station – look back before leaving",
+        "type": "start",
+        "duration": "5 min",
+        "walkingToNext": "10–15 min",
+        "locationNote": "Elgin Avenue, London W9 1JS",
+        "mapQuery": "Maida Vale Underground Station Elgin Avenue London W9 1JS",
+        "directionFromPrevious": "Begin outside the station. Look back at the tiled façade, then leave the main road for the quieter streets leading towards Lauderdale Road.",
+        "description": "The early-20th-century Underground entrance already feels more decorative than it strictly needs to. Give it one glance, then let the houses take over; this is an opening note, not a transport-history lecture.",
+        "officialUrl": "https://historicengland.org.uk/listing/the-list/list-entry/1066834"
+      },
+      {
+        "name": "Lauderdale Road – architecture and two small footnotes",
+        "type": "walk",
+        "duration": "20–30 min",
+        "walkingToNext": "8–12 min",
+        "locationNote": "Lauderdale Road and Ashworth Road, London W9",
+        "mapQuery": "Lauderdale Road Synagogue 2 Ashworth Road London W9 1JY",
+        "directionFromPrevious": "Use Elgin Avenue only as needed, then weave through the residential streets to Lauderdale Road and the synagogue before continuing towards Warrington Crescent.",
+        "description": "Stucco villas, porticos, sash windows and later red-brick mansion blocks are the point of this section. The Spanish & Portuguese Synagogue is a brief architectural contrast. Somewhere among the Lauderdale Mansions, Alec Guinness entered the world long before becoming Obi-Wan Kenobi.",
+        "officialUrl": "https://historicengland.org.uk/listing/the-list/list-entry/1264017"
+      },
+      {
+        "name": "Warrington Crescent – Alan Turing’s birthplace",
+        "type": "view",
+        "duration": "5–10 min",
+        "walkingToNext": "5 min",
+        "locationNote": "2 Warrington Crescent, London W9 1ER",
+        "mapQuery": "2 Warrington Crescent London W9 1ER",
+        "directionFromPrevious": "Continue south-west to Warrington Crescent and look for the blue plaque at number 2; remain on the pavement and treat it as a waypoint, not a gathering place.",
+        "description": "One building on this very polished crescent has a less decorative claim to fame: Alan Turing was born here in 1912, when it was a nursing home. That contrast is enough; the route does not need his full biography.",
+        "officialUrl": "https://www.english-heritage.org.uk/visit/blue-plaques/alan-turing/"
+      },
+      {
+        "name": "Prince Alfred – dinner, then look around",
+        "type": "pub",
+        "duration": "60–90 min",
+        "walkingToNext": "6–8 min",
+        "locationNote": "5A Formosa Street, London W9 1EE",
+        "mapQuery": "The Prince Alfred 5a Formosa Street London W9 1EE",
+        "directionFromPrevious": "Follow Warrington Crescent south and turn for Formosa Street. If dinner timing matters, arrive for the table you booked rather than trying to recover the schedule later.",
+        "description": "If you want dinner on this route, this is the place to stop. Do not find a table immediately: first notice the separate drinking compartments, curved partitions, etched glass, woodwork and layered collection of pictures. It feels old because it is, not because somebody ordered a Victorian theme.",
+        "officialUrl": "https://www.theprincealfred.com/"
+      },
+      {
+        "name": "The Warwick Castle – the room on the left",
+        "type": "pub",
+        "duration": "30–45 min",
+        "walkingToNext": "5 min",
+        "locationNote": "6 Warwick Place, London W9 2PX",
+        "mapQuery": "The Warwick Castle 6 Warwick Place London W9 2PX",
+        "directionFromPrevious": "Walk south-east through the residential streets to Warwick Place. This is one atmospheric pause after dinner, not a second meal or a compulsory round.",
+        "description": "Wood panelling, stained glass and the warm counterpoint to the darker streets outside. If the fire is on, try the room on the far left. Come for the room rather than the drinking; tea, a soft drink or simply keeping the stop short preserves the route’s shape.",
+        "officialUrl": "https://www.warwickcastlemaidavale.com/"
+      },
+      {
+        "name": "Warwick Avenue – one song and a green shelter",
+        "type": "view",
+        "duration": "10–15 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "Warwick Avenue and Clifton Gardens, London W9",
+        "mapQuery": "Cabmen's Shelter Warwick Avenue Clifton Gardens London W9",
+        "directionFromPrevious": "Continue to Warwick Avenue, passing the station area and aiming for the small green shelter near Clifton Gardens before turning towards the canal.",
+        "description": "Duffy’s ‘Warwick Avenue’ is the obvious soundtrack here. Nearby St Saviour’s appears in The Human League’s ‘Love Action’ video; keep that as an Easter egg rather than a detour. The green hut is not a garden shed but an 1888 cabmen’s shelter, built so drivers could eat, rest and warm up without leaving their cabs far behind.",
+        "officialUrl": "https://historicengland.org.uk/listing/the-list/list-entry/1357368"
+      },
+      {
+        "name": "Little Venice – ten minutes of open water",
+        "type": "walk",
+        "duration": "15–25 min",
+        "walkingToNext": "5–10 min",
+        "locationNote": "The canal basin around Browning’s Pool, London W2",
+        "mapQuery": "Little Venice London W2",
+        "directionFromPrevious": "Walk south to the canal basin and take a short waterside loop rather than trying to cover every towpath. Keep the theatre time in hand.",
+        "description": "Narrowboats, bridges and reflections briefly open the route after its enclosed pub rooms. The name is often associated with Robert Browning, who lived nearby, although the exact origin is disputed. The Paddington connection starts early too: Michael Bond lived by the canal here, and Little Venice later appeared in Paddington 2.",
+        "officialUrl": "https://canalrivertrust.org.uk/canals-and-rivers/places-to-visit/little-venice"
+      },
+      {
+        "name": "Canal Cafe Theatre – NewsRevue",
+        "type": "finish",
+        "duration": "Allow for the booked performance",
+        "walkingToNext": "10–15 min to Paddington after the show",
+        "locationNote": "Bridge House, Delamere Terrace, London W2 6ND",
+        "mapQuery": "Canal Cafe Theatre Bridge House Delamere Terrace London W2 6ND",
+        "directionFromPrevious": "Leave the basin for Delamere Terrace and arrive with time to find the upstairs theatre. After the performance, use the separate Paddington finish directions rather than adding another stop.",
+        "description": "NewsRevue has been satirising the week’s news since 1979. Its cast changes regularly and the topical material changes weekly, so this ending can be different even when the walk is repeated. Book the current performance through the theatre rather than planning around a copied show time.",
+        "officialUrl": "https://canalcafetheatre.com/our-shows/newsrevue/"
+      }
+    ],
+    "versions": [
+      {"id": "newsrevue", "label": "Twilight walk + dinner + NewsRevue", "description": "The intended full evening: architecture in the last light, Prince Alfred dinner, one fireplace pause, Little Venice and the booked show.", "duration": "4–5½ hours including the show", "budget": "£30–£70 plus theatre ticket", "requiresTicketCheck": true},
+      {"id": "twilight-no-show", "label": "Twilight walk + dinner", "description": "Keep the streets, one dinner and the canal, then walk from Little Venice to Paddington if NewsRevue is unavailable.", "duration": "2½–4 hours", "budget": "£30–£70", "requiresTicketCheck": false}
+    ],
+    "copy": {
+      "dateNotes": "Particularly good for a date because the route supplies things to notice without demanding constant performance. Dinner is the only long commitment before the theatre.",
+      "friendGroupNotes": "Best with two to four people. Larger groups make the historic pub compartments and tiny theatre less convincing, and should book everything they can.",
+      "soloNotes": "Works alone if the show is the anchor. The residential sections are calm rather than isolated, but keep normal evening awareness and a live map.",
+      "foodDrinkNotes": "Prince Alfred is dinner. The Warrington is optional shelter or an early drink; Warwick Castle is one atmospheric room. None of the route depends on alcohol.",
+      "rainyDayBackup": "Rain is manageable because the indoor pauses are useful, though the canal section can be shortened. Use the Warrington only as a fallback and keep the theatre booking time visible.",
+      "continueIfGoingWell": "Keep the NewsRevue ending and walk straight to Paddington afterwards. A route this carefully paced is not improved by searching for one more bar.",
+      "exitEarly": "Warwick Avenue Underground is the clean early exit before the canal. Paddington is the practical finish if you skip the show after Little Venice.",
+      "finalEditorialNote": "The evening works because every warm room gives you the dark street back."
+    },
+    "logic": {
+      "fallbackIfClosed": "If Prince Alfred cannot feed you, eat nearby without promoting the Warrington and Warwick Castle into a compulsory crawl. If NewsRevue is unavailable, use the no-show version and finish at Paddington after the canal.",
+      "conversationQuality": "very good on the streets and canal; moderate in the theatre",
+      "commitmentLevel": "medium once dinner and the show are booked"
+    },
+    "links": {
+      "officialSources": [
+        "https://historicengland.org.uk/listing/the-list/list-entry/1066834",
+        "https://historicengland.org.uk/listing/the-list/list-entry/1264017",
+        "https://www.english-heritage.org.uk/visit/blue-plaques/alan-turing/",
+        "https://www.theprincealfred.com/",
+        "https://www.warwickcastlemaidavale.com/",
+        "https://historicengland.org.uk/listing/the-list/list-entry/1357368",
+        "https://canalrivertrust.org.uk/canals-and-rivers/places-to-visit/little-venice",
+        "https://canalcafetheatre.com/our-shows/newsrevue/",
+        "https://thewarringtonhotel.co.uk/",
+        "https://www.clifton.co.uk/"
+      ],
+      "mapQuery": "Maida Vale station to Canal Cafe Theatre via Warrington Crescent and Little Venice"
+    },
+    "editorialControl": {
+      "fieldTested": true,
+      "lastChecked": "Personally field-checked",
+      "nextReview": null,
+      "feedbackStatus": "field-checked",
+      "updateNotes": "Recheck venue hours, Prince Alfred food booking, whether either fireplace is in use, current Warrington events and the live NewsRevue booking page before publication reviews."
+    }
   }
 ]

@@ -838,5 +838,47 @@
     "source": "nominatim:0",
     "matched": "Charlton Station Charlton Church Lane London SE7 7QG",
     "displayName": "Charlton Station / Charlton Church Lane, Charlton Church Lane, Charlton, Royal Borough of Greenwich, Greater London, England, SE7 7AG, United Kingdom"
+  },
+  "Maida Vale Underground Station Elgin Avenue London W9 1JS": {
+    "lat": 51.5300329,
+    "lon": -0.1853101,
+    "source": "nominatim:1",
+    "matched": "W9 1JS",
+    "displayName": "W9 1JS, City of Westminster, Greater London, England, United Kingdom"
+  },
+  "Lauderdale Road Synagogue 2 Ashworth Road London W9 1JY": {
+    "lat": 51.5277846,
+    "lon": -0.1848974,
+    "source": "nominatim:1",
+    "matched": "2 Ashworth Road London W9 1JY",
+    "displayName": "The Judith Lady Montefiore College, 2, Ashworth Road, Kensal Town, Maida Vale, City of Westminster, Greater London, England, W9 1JY, United Kingdom"
+  },
+  "2 Warrington Crescent London W9 1ER": {
+    "lat": 51.5243103,
+    "lon": -0.1846331,
+    "source": "nominatim:0",
+    "matched": "2 Warrington Crescent London W9 1ER",
+    "displayName": "The Collonade, 2, Warrington Crescent, Kensal Town, Maida Vale, City of Westminster, Greater London, England, W9 1ER, United Kingdom"
+  },
+  "The Warwick Castle 6 Warwick Place London W9 2PX": {
+    "lat": 51.5220216,
+    "lon": -0.1838459,
+    "source": "nominatim:1",
+    "matched": "6 Warwick Place London W9 2PX",
+    "displayName": "Warwick Castle, 6, Warwick Place, Westbourne Green, Kensal Town, Maida Vale, City of Westminster, Greater London, England, W9 2PX, United Kingdom"
+  },
+  "Cabmen's Shelter Warwick Avenue Clifton Gardens London W9": {
+    "lat": 51.5232751,
+    "lon": -0.1838699,
+    "source": "nominatim:3",
+    "matched": "Cabmen's Shelter Warwick Avenue, London",
+    "displayName": "Cabmen's Shelter, Warwick Avenue, Westbourne Green, Kensal Town, Maida Vale, City of Westminster, Greater London, England, W9 2PT, United Kingdom"
+  },
+  "Canal Cafe Theatre Bridge House Delamere Terrace London W2 6ND": {
+    "lat": 51.52117,
+    "lon": -0.1847,
+    "source": "nominatim:1",
+    "matched": "W2 6ND",
+    "displayName": "W2 6ND, City of Westminster, Greater London, England, United Kingdom"
   }
 }

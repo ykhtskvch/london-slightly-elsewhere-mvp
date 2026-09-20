@@ -166,5 +166,12 @@
     "timeBand": "full-day",
     "location": "london",
     "moods": ["green", "riverside-canal", "pub", "quiet"]
+  },
+  {
+    "slug": "maida-vale-after-dark",
+    "cardTitle": "Maida Vale After Dark",
+    "timeBand": "half-day",
+    "location": "london",
+    "moods": ["architecture", "pub", "quiet", "riverside-canal"]
   }
 ]
