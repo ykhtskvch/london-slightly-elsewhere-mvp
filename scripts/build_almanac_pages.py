@@ -642,25 +642,30 @@ def render_stops(stops, map_start=None, first_walking_label="Walk here from the 
         if stop.get("walkingToNext"):
             meta += f'<span class="separator"> · </span>{e(stop["walkingToNext"])} to next'
 
+        # One Google link per stop — the walking directions. The place itself
+        # is named and addressed in the text, and the sketch map above shows
+        # where it sits; a second link to search for it added a choice and
+        # nothing else.
         links = []
         if walking_url:
             label = first_walking_label if not has_mapped_stop else "Walk from the previous stop"
             links.append(external(walking_url, label))
-        if stop.get("mapQuery"):
-            links.append(external(maps_search(stop["mapQuery"]), "Open this point"))
         if stop.get("officialUrl"):
             links.append(external(stop["officialUrl"], "Official information"))
+        approach = ""
+        if stop.get("directionFromPrevious"):
+            approach_label = "From the previous stop" if has_mapped_stop else "From the start"
+            approach = (
+                f'<p class="stop__approach"><strong>{approach_label}</strong> '
+                f'{e(stop["directionFromPrevious"])}</p>'
+            )
 
         rendered.append(
             '<li><div class="stop__body">'
             f'<h3 class="stop__title">{e(stop["name"])}</h3>'
             f'<p class="meta">{meta}</p>'
             + (paragraph(stop.get("locationNote"), quiet=True) if stop.get("locationNote") else "")
-            + (
-                paragraph(f'From the previous point: {stop["directionFromPrevious"]}', quiet=True)
-                if stop.get("directionFromPrevious")
-                else ""
-            )
+            + approach
             + paragraph(stop["description"])
             + render_stop_choices(stop.get("choices"), previous_query)
             + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
