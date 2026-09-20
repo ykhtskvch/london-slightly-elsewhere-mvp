@@ -1728,60 +1728,6 @@ a.quiet:hover {
   font-size: var(--text-lg);
 }
 
-.filter {
-  display: grid;
-  gap: var(--space-4);
-  padding-block: var(--space-6);
-  border-bottom: var(--border-thin) solid var(--colour-border);
-}
-
-.filter__sentence {
-  max-width: 54rem;
-  color: var(--colour-text);
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
-}
-
-.filter__word,
-.filter__clear {
-  min-height: var(--target-size);
-  margin: 0;
-  padding: var(--space-2) var(--space-4);
-  border: var(--border-thin) solid var(--colour-border-strong);
-  border-radius: var(--radius-pill);
-  background: var(--colour-surface);
-  color: var(--colour-ink);
-  font: inherit;
-  font-size: var(--text-sm);
-  font-weight: 650;
-  line-height: var(--leading-ui);
-}
-
-.filter__word:hover,
-.filter__clear:hover,
-.filter__word[aria-pressed="true"] {
-  border-color: var(--colour-accent);
-  background: var(--colour-accent-tint);
-  color: var(--colour-accent-ink);
-}
-
-.filter__sep {
-  color: var(--colour-muted);
-}
-
-.filter__result {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.filter__count {
-  color: var(--colour-muted);
-  font-size: var(--text-sm);
-}
-
 .index-group,
 .terms-group {
   display: grid;

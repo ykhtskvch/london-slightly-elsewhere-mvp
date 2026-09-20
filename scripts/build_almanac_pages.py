@@ -1138,28 +1138,6 @@ def index_row(route, number, base):
     )
 
 
-def condition_filter(almanac):
-    spec = almanac["index"]["filter"]
-    parts = [e(spec["lead"])]
-    for group in spec["groups"]:
-        words = []
-        for word in group["words"]:
-            words.append(
-                f'<button class="filter__word" type="button" aria-pressed="false"'
-                f' data-word="{e(word)}" data-axis="{e(group["axis"])}">{e(word)}</button>'
-            )
-        parts.append('<span class="filter__sep"> / </span>'.join(words))
-        parts.append(e(group["after"]))
-    return (
-        '<section class="filter" data-condition-filter hidden aria-label="Filter the index">'
-        f'<p class="filter__sentence">{"".join(parts)}</p>'
-        '<div class="filter__result">'
-        '<p class="filter__count" data-result role="status"></p>'
-        f'<button class="filter__clear" type="button" data-clear hidden>{e(spec["clear"])}</button>'
-        "</div></section>"
-    )
-
-
 def index_page(routes, almanac):
     base = "../"
     cards = "".join(route_card(route, base, heading_level=2) for route in walked_first(routes))
