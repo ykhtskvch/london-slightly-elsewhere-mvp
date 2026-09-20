@@ -79,12 +79,10 @@
       } else {
         const exact = ranked.filter(item => item.exact);
         if (exact.length) {
-          results = exact.slice(0, 3);
-          meta.textContent = exact.length > results.length
-            ? `Showing ${results.length} of ${exact.length} matching walks.`
-            : exact.length === 1
-              ? "Showing one matching walk."
-              : `Showing ${exact.length} matching walks.`;
+          results = exact;
+          meta.textContent = exact.length === 1
+            ? "Showing one matching walk."
+            : `Showing ${exact.length} matching walks.`;
         } else {
           results = ranked.slice(0, 3);
           meta.textContent = "Nothing quite matches — these are the closest walks.";
