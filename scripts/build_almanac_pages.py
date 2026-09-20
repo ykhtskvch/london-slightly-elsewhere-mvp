@@ -314,13 +314,22 @@ def route_difficulty(route):
     return effort_word(route).replace("a proper walk", "Proper walk").capitalize()
 
 
+def route_walked(route):
+    return route["status"] in {"field-checked", "published"}
+
+
 def route_status_label(route):
-    walked = route["status"] in {"field-checked", "published"}
-    return "Walked in person" if walked else "Not yet field-walked"
+    return "Walked in person" if route_walked(route) else "Not yet field-walked"
+
+
+def walked_first(routes):
+    """Walked routes ahead of drafts, each group in data order."""
+    return sorted(routes, key=lambda route: not route_walked(route))
 
 
 def route_media(route, base, card=True):
-    """A real route photograph where one exists, otherwise an honest fallback."""
+    """A real route photograph where one exists. A card without one shows
+    nothing rather than a placeholder; the route hero keeps its fallback."""
     art = (route.get("almanac") or {}).get("plate") or {}
     short = discovery_for(route)["cardTitle"]
     classes = "route-card__media" if card else "route-head__visual"
@@ -342,6 +351,8 @@ def route_media(route, base, card=True):
         if not card and art.get("caption"):
             caption = f'<figcaption>{e(art["caption"])}</figcaption>'
         return f'<figure class="{classes}">{img}{caption}</figure>'
+    if card:
+        return ""
     return (
         f'<div class="{classes} route-card__media--fallback" aria-hidden="true">'
         '<span class="route-card__trail"></span>'
@@ -378,7 +389,8 @@ def route_card(route, base, heading_level=3, finder=False, hidden=False):
         f'aria-label="View walk: {e(discovery["cardTitle"])}">'
         '<div class="route-card__content">'
         f'<p class="route-card__eyebrow">{e(location_label)} <span aria-hidden="true">·</span> '
-        f'<span class="route-card__status">{e(route_status_label(route))}</span></p>'
+        f'<span class="route-card__status{" route-card__status--walked" if route_walked(route) else ""}">'
+        f'{e(route_status_label(route))}</span></p>'
         f'<{title_tag} class="route-card__title">{e(discovery["cardTitle"])}</{title_tag}>'
         f'<p class="route-card__summary">{e(route["subtitle"])}</p>'
         f'<p class="route-card__meta">{e(route_distance(route))} <span aria-hidden="true">·</span> '
@@ -904,7 +916,7 @@ def condition_filter(almanac):
 
 def index_page(routes, almanac):
     base = "../"
-    cards = "".join(route_card(route, base, heading_level=2) for route in routes)
+    cards = "".join(route_card(route, base, heading_level=2) for route in walked_first(routes))
 
     head = "\n".join([
         '    <meta charset="utf-8">',
@@ -943,7 +955,7 @@ def finder_page(routes, almanac):
     base = "../"
     cards = "".join(
         route_card(route, base, heading_level=3, finder=True, hidden=index >= 3)
-        for index, route in enumerate(routes)
+        for index, route in enumerate(walked_first(routes))
     )
     head = "\n".join([
         '    <meta charset="utf-8">',

@@ -681,19 +681,25 @@ textarea:disabled {
 }
 
 .route-card__status {
+  color: var(--colour-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: var(--leading-ui);
+  text-transform: none;
+}
+
+.route-card__status--walked {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   min-height: 1.75rem;
   padding-inline: var(--space-3);
-  border: var(--border-thin) solid var(--colour-border-strong);
+  border: var(--border-thin) solid var(--colour-accent);
   border-radius: var(--radius-pill);
-  color: var(--colour-accent-ink);
-  font-size: var(--text-xs);
+  background: var(--colour-accent);
+  color: var(--colour-on-accent);
   font-weight: 700;
-  letter-spacing: normal;
-  line-height: var(--leading-ui);
-  text-transform: none;
 }
 
 .route-card__title {
