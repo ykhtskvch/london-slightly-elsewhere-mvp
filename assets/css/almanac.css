@@ -515,6 +515,9 @@ textarea:disabled {
 }
 
 .home-hero__or a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-size);
   color: var(--colour-accent-ink);
   font-weight: 600;
 }
@@ -1361,6 +1364,16 @@ textarea:disabled {
 
 .optional-detour {
   gap: var(--space-3);
+}
+
+/* Four children in a two-column definition: the eyebrow spans the row so
+   the description lands in the body column, not under the eyebrow. */
+.optional-detour > .eyebrow {
+  grid-column: 1 / -1;
+}
+
+.optional-detour > .links-line {
+  grid-column: 2;
 }
 
 .route-extension {

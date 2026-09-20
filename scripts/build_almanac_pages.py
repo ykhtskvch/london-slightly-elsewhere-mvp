@@ -608,22 +608,21 @@ def maps_route_from(origin, stops):
     return "https://www.google.com/maps/dir/?" + urlencode(params)
 
 
-def render_stop_choices(choices, origin):
-    """Render mutually exclusive options inside one numbered route stop."""
+def render_stop_choices(choices):
+    """Render mutually exclusive options inside one numbered route stop.
+
+    One link per option. The stop's own directions link already leads to
+    this corner; what an option needs is the venue's own page, or failing
+    that a pin, not a second set of directions to the same place."""
     if not choices:
         return ""
     items = []
     for choice in choices:
         links = []
-        if choice.get("mapQuery"):
-            if origin:
-                links.append(external(
-                    maps_directions(origin, choice["mapQuery"]),
-                    "Walk here from the start",
-                ))
-            links.append(external(maps_search(choice["mapQuery"]), "Open this point"))
         if choice.get("officialUrl"):
             links.append(external(choice["officialUrl"], "Official information"))
+        elif choice.get("mapQuery"):
+            links.append(external(maps_search(choice["mapQuery"]), "Open this point"))
         items.append(
             '<li class="stop-option">'
             f'<h4 class="stop-option__title">{e(choice["name"])}</h4>'
@@ -676,7 +675,7 @@ def render_stops(stops, map_start=None, first_walking_label="Walk here from the 
             + (paragraph(stop.get("locationNote"), quiet=True) if stop.get("locationNote") else "")
             + approach
             + paragraph(stop["description"])
-            + render_stop_choices(stop.get("choices"), previous_query)
+            + render_stop_choices(stop.get("choices"))
             + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
             + "</div></li>"
         )
