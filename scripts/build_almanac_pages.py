@@ -357,20 +357,22 @@ def route_media(route, base, card=True):
     return f'<figure class="{classes}">{img}{caption}</figure>'
 
 
-def route_map(route, base):
+def route_map(route, base, extension=False):
     """The sketch map render_maps.py drew, when it has: numbered pins in
     walking order on OpenStreetMap tiles, joined by a dashed line that is
-    not the walked path. Nothing is shown for a route without one."""
-    jpg = ROOT / "assets" / "maps" / f"{route['slug']}.jpg"
+    not the walked path. Nothing is shown for a route without one. An
+    extension has its own map, from the pin where the core walk ended."""
+    name = f"{route['slug']}-extension" if extension else route["slug"]
+    jpg = ROOT / "assets" / "maps" / f"{name}.jpg"
     if not jpg.exists():
         return ""
-    stops = route["stops"]
+    stops = route["extension"]["stops"] if extension else route["stops"]
     count = len(stops)
     alt = (
-        f"Sketch map of the walk: {count} numbered stops in order, "
+        f"Sketch map of the {'extension' if extension else 'walk'}: {count} numbered stops in order, "
         f"from {stops[0]['name']} to {stops[-1]['name']}, on an OpenStreetMap background."
     )
-    src = f"{base}assets/maps/{route['slug']}"
+    src = f"{base}assets/maps/{name}"
     webp = ""
     if jpg.with_suffix(".webp").exists():
         webp = f'<source srcset="{e(src)}.webp" type="image/webp">'
@@ -706,8 +708,9 @@ def optional_detours_section(detours):
     return section("Optional before you commit.", *rows)
 
 
-def extension_section(extension):
+def extension_section(route, base):
     """A second, clearly bounded walk after the core route has finished."""
+    extension = route["extension"]
     mapped = [stop for stop in extension["stops"] if stop.get("mapQuery")]
     links = []
     if extension.get("mapOriginQuery") and mapped:
@@ -715,20 +718,26 @@ def extension_section(extension):
             maps_route_from(extension["mapOriginQuery"], mapped),
             "Open the Charlton extension",
         ))
+    # Folded: it is optional, it is four more stops on a long page, and the
+    # summary already says how much further it goes.
     return (
-        '<section class="route-section route-extension">'
+        '<section class="route-section route-section--folded route-extension">'
+        '<details><summary><div>'
         f'<p class="eyebrow">{e(extension["eyebrow"])}</p>'
         f'<h2 class="section-head">{e(extension["title"])}</h2>'
-        f'<p>{e(extension["intro"])}</p>'
         f'<p class="meta">{e(extension["distance"])}<span class="separator"> · </span>'
         f'{e(extension["duration"])}</p>'
+        '</div></summary>'
+        '<div class="route-section__folded-body">'
+        f'<p>{e(extension["intro"])}</p>'
         + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+        + route_map(route, base, extension=True)
         + render_stops(
             extension["stops"],
             extension.get("mapOriginQuery"),
             first_walking_label="Walk here from Woolwich",
         )
-        + "</section>"
+        + "</div></details></section>"
     )
 
 
@@ -1329,6 +1338,18 @@ def legacy_page(path, base, current, almanac, site_path):
     main = re.search(r"<main\b[^>]*>(.*?)</main>", source, re.S)
     assert main, f"{path}: no <main> to convert"
     inner = main.group(1)
+    # The feedback form's route list is markup so it works without
+    # JavaScript; forms.js refreshes it from the data at run time. Refresh
+    # it here too, or the no-script list names routes by their old titles.
+    if ROUTE_TITLES:
+        options = '<option value="">Choose one</option>' + "".join(
+            f"<option>{e(title)}</option>" for title in ROUTE_TITLES
+        )
+        inner = re.sub(
+            r'(<select id="route" name="route" required>).*?(</select>)',
+            lambda m: m.group(1) + options + m.group(2),
+            inner, flags=re.S,
+        )
     # A lifted <main> is build output as well as source, so an absolute
     # in-site link inside one would survive a change of deploy path. None of
     # these pages has one – the 404, which needs absolute links, is generated
@@ -1747,6 +1768,25 @@ def route_page(route, routes, almanac, venue_timing):
         ("Distance", route_distance(route)),
         ("Time", facts["duration"]),
         ("Effort", route_difficulty(route)),
+    ]
+    if is_day_walk:
+        # A full day out has a few more facts worth deciding on, and they
+        # belong here with the others, not in a second table further down.
+        hike, travel = route["hike"], route["travel"]
+        if hike.get("walkingTime"):
+            facts_list.append(("Walking time", hike["walkingTime"]))
+        if hike.get("elevationGainM") is not None:
+            facts_list.append(("Elevation", f'{hike["elevationGainM"]} m gain'))
+        shape = "Station to station" if hike["routeShape"] == "point-to-point" else hike["routeShape"].capitalize()
+        facts_list.append(("Route shape", shape))
+        facts_list.append(("Shorter version", "Available" if hike["shortenable"] else "Not planned"))
+        journey = "one change" if travel["journeyComplexity"] == "one-change" else "direct"
+        facts_list.append((
+            "Leave from",
+            f'{" / ".join(format_hub(hub) for hub in travel["departureHubs"])} · '
+            f'about {travel["typicalMinutes"]} min, {journey}',
+        ))
+    facts_list += [
         ("Start", route_start(route)),
         ("Finish", route_finish(route)),
         ("Best time", facts["bestTime"]),
@@ -1801,29 +1841,28 @@ def route_page(route, routes, almanac, venue_timing):
             "Reports are reviewed; only my own walk marks a route walked."
         )
     else:
-        community_head = "No community walks reported yet."
-        community_body = (
-            "Walked it? A field note keeps the route current."
+        community_head = None
+    if community_head:
+        sections.append(section(
+            community_head,
+            paragraph(community_body),
+            f'<p class="links-line"><a href="{feedback}">Share a field note</a></p>',
+        ))
+    else:
+        # Nobody has written in yet. That is a line under the last section
+        # with a voice in it — the field note, or failing that "Good to
+        # know" — not a heading of its own on every page.
+        sections[-1] = sections[-1].replace(
+            "</section>",
+            f'<p class="quiet-line">No field notes from readers yet — '
+            f'<a href="{feedback}">share one</a> if you walk it.</p></section>',
         )
-    sections.append(section(
-        community_head,
-        paragraph(community_body),
-        f'<p class="links-line"><a href="{feedback}">Share a field note</a></p>',
-    ))
 
     if is_day_walk:
+        # The journey facts are in the rail; what remains is the advice about
+        # the service and where to check it, which no table can hold.
         travel = route["travel"]
-        hike = route["hike"]
-        journey = "one change" if travel["journeyComplexity"] == "one-change" else "direct"
-        shape = "Station to station" if hike["routeShape"] == "point-to-point" else hike["routeShape"]
-        blocks = [
-            definition("Leave from", " / ".join(format_hub(hub) for hub in travel["departureHubs"])),
-            definition("Typical journey", f'About {travel["typicalMinutes"]} min · {journey}'),
-            definition("Arrive at", travel["arrivalStation"]),
-            definition("Return from", travel["returnStation"]),
-            definition("Mode", travel["transportMode"].replace("-", " and ")),
-            paragraph(travel["serviceNote"], quiet=True),
-        ]
+        blocks = [paragraph(travel["serviceNote"])]
         if travel.get("officialSourceUrl"):
             blocks.append(
                 '<p class="links-line">'
@@ -1831,17 +1870,6 @@ def route_page(route, routes, almanac, venue_timing):
                 + "</p>"
             )
         sections.append(section("Start with the train, not a car.", *blocks))
-
-        walk_rows = [
-            definition("Distance", f'{hike["distanceKm"]} km'),
-            definition("Walking time", hike.get("walkingTime") or facts["duration"]),
-            definition("Difficulty", hike["difficulty"]),
-            definition("Route shape", shape),
-            definition("Shorter fallback", "Available" if hike["shortenable"] else "Not planned"),
-        ]
-        if hike.get("elevationGainM") is not None:
-            walk_rows.append(definition("Elevation", f'{hike["elevationGainM"]} m gain'))
-        sections.append(section("The walk itself.", *walk_rows))
 
     if navigation:
         arrival = navigation["arrival"]
@@ -1939,7 +1967,7 @@ def route_page(route, routes, almanac, venue_timing):
         sections.append(section("Finish and easy exit.", *blocks))
 
     if route.get("extension"):
-        sections.append(extension_section(route["extension"]))
+        sections.append(extension_section(route, base))
 
     timing = venue_timing.get(route.get("valueTimingVenueId")) if route.get("valueTimingVenueId") else None
     if timing:
@@ -2021,11 +2049,15 @@ def route_page(route, routes, almanac, venue_timing):
     return shell(route_head_meta(route), body, base, path=f'routes/{route["slug"]}/')
 
 
+ROUTE_TITLES = []
+
+
 def main():
     # Before anything is written: a failed build must not leave a form open
     # with the notice still carrying a question.
     check_open_forms_are_described()
     routes = load("routes.json")
+    ROUTE_TITLES[:] = [route["title"] for route in routes]
     almanac = load("almanac.json")
     venue_timing = load("venue-timing.json")
     by_slug = {route["slug"]: route for route in routes}

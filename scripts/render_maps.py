@@ -201,8 +201,19 @@ def spread_pins(pixels, radius):
     return placed
 
 
-def draw_route(canvas, pixels):
+def draw_route(canvas, pixels, origin=None):
+    """`origin` is a pin the numbering does not count — where an extension
+    begins, at the end of the core walk — drawn hollow."""
     draw = ImageDraw.Draw(canvas)
+    if origin:
+        (ox, oy), (x1, y1) = origin, pixels[0]
+        length = math.hypot(x1 - ox, y1 - oy)
+        dash, gap, pos = 18, 12, 0
+        while pos < length:
+            end = min(pos + dash, length)
+            t1, t2 = pos / length, end / length
+            draw.line([(ox + (x1 - ox) * t1, oy + (y1 - oy) * t1), (ox + (x1 - ox) * t2, oy + (y1 - oy) * t2)], fill=ACCENT, width=7)
+            pos += dash + gap
     # Dashed line between consecutive stops.
     for (x1, y1), (x2, y2) in zip(pixels, pixels[1:]):
         length = math.hypot(x2 - x1, y2 - y1)
@@ -223,6 +234,11 @@ def draw_route(canvas, pixels):
         draw.ellipse([x - radius - 4, y - radius - 4, x + radius + 4, y + radius + 4], fill=PAPER)
         draw.ellipse([x - radius, y - radius, x + radius, y + radius], fill=ACCENT)
         draw.text((x, y - 1), str(index), fill=PAPER, font=font, anchor="mm")
+    if origin:
+        ox, oy = origin
+        draw.ellipse([ox - radius - 4, oy - radius - 4, ox + radius + 4, oy + radius + 4], fill=PAPER)
+        draw.ellipse([ox - radius, oy - radius, ox + radius, oy + radius], fill=PAPER, outline=ACCENT, width=5)
+        draw.ellipse([ox - 8, oy - 8, ox + 8, oy + 8], fill=ACCENT)
     # Attribution belongs on the image itself, whatever surrounds it later.
     small = ImageFont.truetype(FONT, 24)
     text = "© OpenStreetMap contributors"
@@ -232,39 +248,64 @@ def draw_route(canvas, pixels):
     draw.text((WIDTH - w - 14, HEIGHT - h - 10), text, fill=INK, font=small)
 
 
-def render(route, cache):
-    stops = route["stops"]
+def place_all(queries, slug, cache, london, limit):
+    """Every query placed, or None with the reason printed."""
     placed = []
-    for stop in stops:
-        record = place(stop["mapQuery"], cache, route["routeType"] == "london-day")
+    for query in queries:
+        record = place(query, cache, london)
         if record["lat"] is None:
-            print(f"  !! {route['slug']}: cannot place '{stop['mapQuery']}' — map skipped")
+            print(f"  !! {slug}: cannot place '{query}' — map skipped")
             return None
         placed.append((record["lat"], record["lon"]))
-
     centre = (sum(p[0] for p in placed) / len(placed), sum(p[1] for p in placed) / len(placed))
-    limit = MAX_SPREAD_KM[route["routeType"]]
-    for stop, point in zip(stops, placed):
+    for query, point in zip(queries, placed):
         spread = km_between(centre, point)
         if spread > limit:
             print(
-                f"  !! {route['slug']}: '{stop['mapQuery']}' is {spread:.1f} km from the "
-                f"others ({cache[stop['mapQuery']]['displayName'][:60]}) — map skipped"
+                f"  !! {slug}: '{query}' is {spread:.1f} km from the "
+                f"others ({cache[query]['displayName'][:60]}) — map skipped"
             )
             return None
+    return placed
 
-    zoom = choose_zoom(placed)
-    world = [to_world(lat, lon, zoom) for lat, lon in placed]
+
+def draw_map(points, name, origin_index=None):
+    """Points in order; the one at origin_index, if any, is the hollow start."""
+    zoom = choose_zoom(points)
+    world = [to_world(lat, lon, zoom) for lat, lon in points]
     xs, ys = zip(*world)
     centre_x, centre_y = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
     canvas = soften(background(centre_x, centre_y, zoom))
     pixels = [(x - centre_x + WIDTH / 2, y - centre_y + HEIGHT / 2) for x, y in world]
-    draw_route(canvas, pixels)
+    origin = None
+    if origin_index is not None:
+        origin = pixels.pop(origin_index)
+    draw_route(canvas, pixels, origin)
 
     MAPS.mkdir(parents=True, exist_ok=True)
-    jpg = MAPS / f"{route['slug']}.jpg"
+    jpg = MAPS / f"{name}.jpg"
     canvas.save(jpg, "JPEG", quality=74, optimize=True, progressive=True)
     canvas.save(jpg.with_suffix(".webp"), "WEBP", quality=70, method=6)
+    return zoom
+
+
+def render(route, cache):
+    london = route["routeType"] == "london-day"
+    limit = MAX_SPREAD_KM[route["routeType"]]
+    placed = place_all([stop["mapQuery"] for stop in route["stops"]], route["slug"], cache, london, limit)
+    if placed is None:
+        return None
+    zoom = draw_map(placed, route["slug"])
+
+    # An optional extension gets a map of its own, from the pin where the
+    # core walk ended, so the core map keeps its zoom.
+    extension = route.get("extension")
+    if extension:
+        queries = [extension["mapOriginQuery"]] + [stop["mapQuery"] for stop in extension["stops"]]
+        ext = place_all(queries, f"{route['slug']}-extension", cache, london, limit)
+        if ext is not None:
+            ext_zoom = draw_map(ext, f"{route['slug']}-extension", origin_index=0)
+            print(f"{route['slug']}-extension: {len(extension['stops'])} stops at zoom {ext_zoom}")
     return zoom
 
 

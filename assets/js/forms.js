@@ -94,7 +94,6 @@ function requiredMessage(name) {
   const messages = {
     route: "Choose the route you tried.",
     worked_as_expected: "Tell us whether the route worked as expected.",
-    walked_on: "Tell us when you walked the route.",
     route_completed: "Tell us whether you completed this version of the route.",
     feedback: "Describe what was inaccurate, awkward or unexpectedly good.",
     area: "Name the neighbourhood or area.",

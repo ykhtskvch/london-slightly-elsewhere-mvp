@@ -16,3 +16,17 @@
     if (summary) summary.focus();
   });
 })();
+
+(() => {
+  // On a phone the walk's start button floats at the foot of the screen.
+  // While the essentials rail — which has the same button — is in view,
+  // the floating copy is a duplicate, so it stands down until the rail
+  // has scrolled past.
+  const bar = document.querySelector(".route-startbar");
+  const rail = document.querySelector(".route-rail");
+  if (!bar || !rail || !("IntersectionObserver" in window)) return;
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) bar.classList.toggle("route-startbar--parked", entry.isIntersecting);
+  });
+  observer.observe(rail);
+})();

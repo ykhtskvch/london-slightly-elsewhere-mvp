@@ -810,5 +810,33 @@
     "source": "nominatim:0",
     "matched": "Woolwich Royal Arsenal Pier London SE18 6TL",
     "displayName": "Woolwich Arsenal Pier, Royal Arsenal Woolwich Pier, Royal Arsenal Riverside, Glyndon, Plumstead, Royal Borough of Greenwich, Greater London, England, SE18 6ST, United Kingdom"
+  },
+  "Royal Artillery Barracks Repository Road Woolwich London SE18 4BH": {
+    "lat": 51.48664,
+    "lon": 0.06399,
+    "source": "nominatim:1",
+    "matched": "SE18 4BH",
+    "displayName": "SE18 4BH, Royal Borough of Greenwich, Greater London, England, United Kingdom"
+  },
+  "Ha-Ha Road Woolwich London SE18": {
+    "lat": 51.480489,
+    "lon": 0.0604571,
+    "source": "nominatim:0",
+    "matched": "Ha-Ha Road Woolwich London SE18",
+    "displayName": "Ha Ha Road, Woolwich Common, Shooters Hill, Royal Borough of Greenwich, Greater London, England, SE18 4HQ, United Kingdom"
+  },
+  "The Bugle Horn 6 The Village Charlton London SE7 8UD": {
+    "lat": 51.4816113,
+    "lon": 0.0365713,
+    "source": "nominatim:0",
+    "matched": "The Bugle Horn 6 The Village Charlton London SE7 8UD",
+    "displayName": "The Bugle Horn, 6, The Village, Charlton, Royal Borough of Greenwich, Greater London, England, SE7 8UD, United Kingdom"
+  },
+  "Charlton Station Charlton Church Lane London SE7 7QG": {
+    "lat": 51.4873152,
+    "lon": 0.0315379,
+    "source": "nominatim:0",
+    "matched": "Charlton Station Charlton Church Lane London SE7 7QG",
+    "displayName": "Charlton Station / Charlton Church Lane, Charlton Church Lane, Charlton, Royal Borough of Greenwich, Greater London, England, SE7 7AG, United Kingdom"
   }
 }
