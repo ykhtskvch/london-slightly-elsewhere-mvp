@@ -748,6 +748,61 @@ def shell(head, body, base, narrow=False, path=None):
 """
 
 
+MONTHS = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+]
+
+
+def latest_field_walk(routes):
+    """The walked route whose lastChecked names the most recent month, as
+    (route, "August 2026"); None when no walked route carries a date."""
+    dated = []
+    for route in routes:
+        if not route_walked(route):
+            continue
+        found = re.search(r"(" + "|".join(MONTHS) + r")\s+(\d{4})", route["editorialControl"].get("lastChecked") or "")
+        if found:
+            dated.append(((int(found.group(2)), MONTHS.index(found.group(1))), route, f"{found.group(1)} {found.group(2)}"))
+    if not dated:
+        return None
+    _, route, label = max(dated, key=lambda item: item[0])
+    return route, label
+
+
+def home_standing(routes, base):
+    """The hero's aside states where the guide stands, in numbers the data
+    can back, instead of restating the lead a third time."""
+    walked = [route for route in routes if route_walked(route)]
+    total, count = len(routes), len(walked)
+    walked_phrase = (
+        "none walked in person yet" if count == 0
+        else "one walked in person" if count == 1
+        else f"{count} walked in person"
+    )
+    drafts = total - count
+    drafts_phrase = (
+        "" if drafts == 0
+        else " The other one is a draft, and says so." if drafts == 1
+        else f" The other {drafts} are drafts, and say so."
+    )
+    latest = latest_field_walk(routes)
+    latest_line = ""
+    if latest:
+        route, label = latest
+        latest_line = (
+            f'<p>Latest field walk: <a href="{base}routes/{e(route["slug"])}/">'
+            f'{e(discovery_for(route)["cardTitle"])}</a>, {e(label)}.</p>'
+        )
+    return (
+        '<aside class="home-hero__aside" aria-label="Where the guide stands">'
+        '<p class="eyebrow">Where things stand</p>'
+        f'<p><strong>{total} walks, {walked_phrase}.</strong>{e(drafts_phrase)}</p>'
+        f'{latest_line}'
+        '</aside>'
+    )
+
+
 def home(routes, almanac):
     base = "./"
     by_slug = {route["slug"]: route for route in routes}
@@ -799,14 +854,10 @@ def home(routes, almanac):
         f'<a class="button button--primary" href="{base}find-your-route/">Find a walk</a>'
         f'<a class="button button--secondary" href="{base}routes/">Browse all walks</a>'
         '</div></div>'
-        '<aside class="home-hero__aside">'
-        '<p class="eyebrow">The useful version</p>'
-        '<p><strong>A clear start, an honest distance and somewhere worth stopping.</strong></p>'
-        '<p>No rankings, no endless planning, and no pretending a desk-checked route was walked.</p>'
-        '</aside></section>',
+        f'{home_standing(routes, base)}</section>',
         '<section class="discovery-section">'
         '<div class="section-heading"><div><p class="eyebrow">Three good starting points</p>'
-        '<h2>For this weekend</h2></div>'
+        '<h2>Start here</h2></div>'
         f'<a href="{base}routes/">See all {len(routes)} walks</a></div>'
         f'<div class="route-grid">{cards}</div></section>',
         '<section class="discovery-section">'
