@@ -992,7 +992,8 @@ textarea:disabled {
   text-align: center;
 }
 
-.route-section--folded summary {
+.route-section--folded summary,
+.route-notes summary {
   min-height: var(--target-size);
   display: flex;
   align-items: center;
@@ -1003,15 +1004,18 @@ textarea:disabled {
   font-weight: 700;
 }
 
-.route-section--folded summary::marker {
+.route-section--folded summary::marker,
+.route-notes summary::marker {
   content: "";
 }
 
-.route-section--folded summary::-webkit-details-marker {
+.route-section--folded summary::-webkit-details-marker,
+.route-notes summary::-webkit-details-marker {
   display: none;
 }
 
-.route-section--folded summary::after {
+.route-section--folded summary::after,
+.route-notes summary::after {
   content: "";
   flex: 0 0 auto;
   width: 0.7rem;
@@ -1022,11 +1026,13 @@ textarea:disabled {
   transform: translateY(-0.2rem) rotate(45deg);
 }
 
-.route-section--folded details[open] summary::after {
+.route-section--folded details[open] summary::after,
+.route-notes[open] summary::after {
   transform: translateY(0.15rem) rotate(-135deg);
 }
 
-.route-section--folded summary:hover .section-head {
+.route-section--folded summary:hover .section-head,
+.route-notes summary:hover .subhead {
   color: var(--colour-accent);
 }
 
@@ -1165,6 +1171,43 @@ textarea:disabled {
 
 .route-rail .route-actions {
   margin-top: var(--space-2);
+}
+
+.route-rail__toggle {
+  display: none;
+}
+
+/* The Walks page's location control: sticky on a phone, where the list
+   runs eight screens and the control would otherwise be at the top of it. */
+.browse-controls {
+  position: sticky;
+  top: calc(4.5rem + var(--border-thin));
+  z-index: 90;
+  margin-inline: calc(-1 * var(--page-gutter));
+  padding: var(--space-2) var(--page-gutter);
+  background: var(--colour-header-glass);
+  backdrop-filter: blur(12px);
+}
+
+@media (max-width: 63.99rem) {
+  .route-rail--folded .route-rail__fact:nth-child(n + 5) {
+    display: none;
+  }
+
+  .route-rail__toggle:not([hidden]) {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--target-size);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--colour-accent-ink);
+    font-weight: 650;
+    text-decoration: underline;
+    text-decoration-color: var(--colour-accent);
+    text-underline-offset: 0.25em;
+    cursor: pointer;
+  }
 }
 
 /* A walked route's start action follows the reader on a phone, as a pill
@@ -1917,6 +1960,14 @@ a.quiet:hover {
 
   .route-startbar {
     display: none;
+  }
+
+  .browse-controls {
+    position: static;
+    margin-inline: 0;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
   }
 }
 

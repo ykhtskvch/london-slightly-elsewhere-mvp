@@ -30,3 +30,20 @@
   });
   observer.observe(rail);
 })();
+
+(() => {
+  // A long essentials rail on a phone shows four rows; the rest wait
+  // behind a button. The button is hidden in the markup, so without this
+  // script every row simply shows.
+  const rail = document.querySelector(".route-rail");
+  const toggle = rail && rail.querySelector("[data-rail-toggle]");
+  if (!rail || !toggle) return;
+  const more = toggle.textContent;
+  rail.classList.add("route-rail--folded");
+  toggle.hidden = false;
+  toggle.addEventListener("click", () => {
+    const folded = rail.classList.toggle("route-rail--folded");
+    toggle.setAttribute("aria-expanded", String(!folded));
+    toggle.textContent = folded ? more : "Show fewer";
+  });
+})();
