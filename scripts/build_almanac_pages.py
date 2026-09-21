@@ -676,6 +676,7 @@ def render_stops(stops, map_start=None, first_walking_label="Walk here from the 
             + paragraph(stop["description"])
             + render_stop_choices(stop.get("choices"))
             + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+            + optional_detour_rows(stop.get("optionalDetours"), embedded=True)
             + "</div></li>"
         )
         if stop.get("mapQuery"):
@@ -684,7 +685,7 @@ def render_stops(stops, map_start=None, first_walking_label="Walk here from the 
     return f'<ol class="stops">{"".join(rendered)}</ol>'
 
 
-def optional_detours_section(detours):
+def optional_detour_rows(detours, embedded=False):
     if not detours:
         return ""
     rows = []
@@ -694,15 +695,30 @@ def optional_detours_section(detours):
             links.append(external(maps_search(detour["mapQuery"]), "Open this point"))
         if detour.get("officialUrl"):
             links.append(external(detour["officialUrl"], "Check the current programme"))
+        description = f'<p class="definition__body">{e(detour["description"])}</p>'
+        link_line = f'<p class="links-line">{"".join(links)}</p>' if links else ""
+        if embedded:
+            # Keep stop-level detours in one column on narrow screens. At the
+            # regular definition breakpoint this wrapper becomes the body
+            # column, with its links directly underneath the description.
+            detail = f'<div class="definition__body">{paragraph(detour["description"])}{link_line}</div>'
+        else:
+            detail = description + link_line
         rows.append(
             '<div class="definition optional-detour">'
             f'<p class="eyebrow">{e(detour["eyebrow"])}</p>'
             f'<h3 class="definition__term">{e(detour["name"])}</h3>'
-            f'<p class="definition__body">{e(detour["description"])}</p>'
-            + (f'<p class="links-line">{"".join(links)}</p>' if links else "")
+            + detail
             + "</div>"
         )
-    return section("Optional before you commit.", *rows)
+    return "".join(rows)
+
+
+def optional_detours_section(detours):
+    rows = optional_detour_rows(detours)
+    if not rows:
+        return ""
+    return section("Optional before you commit.", rows)
 
 
 def extension_section(route, base):

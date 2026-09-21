@@ -880,5 +880,54 @@
     "source": "nominatim:1",
     "matched": "W2 6ND",
     "displayName": "W2 6ND, City of Westminster, Greater London, England, United Kingdom"
+  },
+  "Grand Union Canal towpath Great Western Road London W10": {
+    "lat": 51.5218,
+    "lon": -0.202,
+    "source": "hand",
+    "matched": "APPROXIMATE — Paddington Arm towpath at Great Western Road; Nominatim placed this back near Little Venice",
+    "displayName": ""
+  },
+  "Kensal Green Cemetery Harrow Road London W10 4RA": {
+    "lat": 51.528407,
+    "lon": -0.2174097,
+    "source": "nominatim:0",
+    "matched": "Kensal Green Cemetery Harrow Road London W10 4RA",
+    "displayName": "Kensal Green Cemetery, Harrow Road, North Kensington, Royal Borough of Kensington and Chelsea, Greater London, England, NW10 5DX, United Kingdom"
+  },
+  "The Belvedere at Paradise 19 Kilburn Lane London W10 4AE": {
+    "lat": 51.5288525,
+    "lon": -0.2162893,
+    "source": "nominatim:1",
+    "matched": "19 Kilburn Lane London W10 4AE",
+    "displayName": "Paradise by way of Kensal Green, 19, Kilburn Lane, Kensal Town, Queen's Park, City of Westminster, Greater London, England, W10 4AE, United Kingdom"
+  },
+  "Kensal Rise Library Bathurst Gardens London NW10 5JA": {
+    "lat": 51.5338494,
+    "lon": -0.2261117,
+    "source": "nominatim:0",
+    "matched": "Kensal Rise Library Bathurst Gardens London NW10 5JA",
+    "displayName": "The Reading Rooms, Bathurst Gardens, Brondesbury Park, Brondesbury, London Borough of Brent, Greater London, England, NW10 5ES, United Kingdom"
+  },
+  "Roundwood Park Harlesden Road London NW10 3SH": {
+    "lat": 51.5404184,
+    "lon": -0.2383175,
+    "source": "nominatim:0",
+    "matched": "Roundwood Park Harlesden Road London NW10 3SH",
+    "displayName": "Roundwood Park, Harlesden Road, Willesden Green, Harlesden, London Borough of Brent, Greater London, England, NW10 3SH, United Kingdom"
+  },
+  "Centro Galego de Londres 869 Harrow Road London NW10 5NG": {
+    "lat": 51.532137,
+    "lon": -0.2367,
+    "source": "nominatim:0",
+    "matched": "Centro Galego de Londres 869 Harrow Road London NW10 5NG",
+    "displayName": "Centro Galego de Londres, 869, Harrow Road, Harlesden, London Borough of Brent, Greater London, England, NW10 5NG, United Kingdom"
+  },
+  "Willesden Junction Station Approach London NW10 4UY": {
+    "lat": 51.5321956,
+    "lon": -0.2435041,
+    "source": "nominatim:0",
+    "matched": "Willesden Junction Station Approach London NW10 4UY",
+    "displayName": "Willesden Junction, Station Approach, Harlesden, London Borough of Brent, Greater London, England, NW10 4UY, United Kingdom"
   }
 }

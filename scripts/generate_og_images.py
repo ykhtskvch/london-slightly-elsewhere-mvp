@@ -6,10 +6,11 @@ route facts as the site. They are rendered directly to PNG so the build never
 needs to open (or interfere with) a desktop browser.
 
 Requires Pillow: ``python3 -m pip install Pillow``.
-Usage: ``python3 scripts/generate_og_images.py``.
+Usage: ``python3 scripts/generate_og_images.py [route-slug ...]``.
 """
 
 import json
+import sys
 from pathlib import Path
 
 try:
@@ -102,7 +103,13 @@ def title_layout(draw, title):
 
 
 def fact_line(draw, route):
-    facts = builder.index_facts(route)[:4]
+    almanac = route.get("almanac")
+    if almanac:
+        authored = almanac["factLine"]
+        facts = [authored[key] for key in ("station", "time", "effort", "cost")]
+    else:
+        quick = route["quickFacts"]
+        facts = [builder.route_start(route), quick["duration"], builder.effort_word(route), quick["budget"]]
     text = "  ·  ".join(facts)
     max_width = WIDTH - (PADDING * 2)
     for size in range(25, 15, -1):
@@ -149,9 +156,15 @@ def render_route(route):
     print(f"  {target.name}{' · walked' if walked else ''}")
 
 
-def main():
+def main(argv):
     OG_DIR.mkdir(parents=True, exist_ok=True)
     routes = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+    wanted = set(argv)
+    if wanted:
+        routes = [route for route in routes if route["slug"] in wanted]
+        missing = wanted - {route["slug"] for route in routes}
+        if missing:
+            raise SystemExit(f"No such route: {', '.join(sorted(missing))}")
     print(f"Generating {len(routes)} route OG cards → {OG_DIR.relative_to(ROOT)}/")
     for route in routes:
         render_route(route)
@@ -159,4 +172,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

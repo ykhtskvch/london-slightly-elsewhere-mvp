@@ -61,16 +61,29 @@ for (const route of routes) {
 
   const stops = Array.isArray(route.stops) ? route.stops : [];
   for (const [stopIndex, stop] of stops.entries()) {
-    if (stop.choices === undefined) continue;
-    if (!Array.isArray(stop.choices) || stop.choices.length < 2) {
-      addError(route, `stops[${stopIndex}].choices must contain at least two options`);
-      continue;
-    }
-    for (const [choiceIndex, choice] of stop.choices.entries()) {
-      for (const key of ["name", "description", "mapQuery"]) {
-        if (!isString(choice?.[key])) addError(route, `stops[${stopIndex}].choices[${choiceIndex}].${key} is missing`);
+    if (stop.choices !== undefined) {
+      if (!Array.isArray(stop.choices) || stop.choices.length < 2) {
+        addError(route, `stops[${stopIndex}].choices must contain at least two options`);
+      } else {
+        for (const [choiceIndex, choice] of stop.choices.entries()) {
+          for (const key of ["name", "description", "mapQuery"]) {
+            if (!isString(choice?.[key])) addError(route, `stops[${stopIndex}].choices[${choiceIndex}].${key} is missing`);
+          }
+          if (choice?.meta !== undefined && !isString(choice.meta)) addError(route, `stops[${stopIndex}].choices[${choiceIndex}].meta must be a string`);
+        }
       }
-      if (choice?.meta !== undefined && !isString(choice.meta)) addError(route, `stops[${stopIndex}].choices[${choiceIndex}].meta must be a string`);
+    }
+
+    if (stop.optionalDetours !== undefined) {
+      if (!Array.isArray(stop.optionalDetours) || stop.optionalDetours.length === 0) {
+        addError(route, `stops[${stopIndex}].optionalDetours must be a non-empty array when supplied`);
+      } else {
+        for (const [detourIndex, detour] of stop.optionalDetours.entries()) {
+          for (const key of ["eyebrow", "name", "description", "mapQuery"]) {
+            if (!isString(detour?.[key])) addError(route, `stops[${stopIndex}].optionalDetours[${detourIndex}].${key} is missing`);
+          }
+        }
+      }
     }
   }
 
@@ -115,6 +128,7 @@ for (const route of routes) {
     ...(route.links?.officialSources || []),
     ...stops.map(stop => stop.officialUrl),
     ...stops.flatMap(stop => Array.isArray(stop.choices) ? stop.choices.map(choice => choice.officialUrl) : []),
+    ...stops.flatMap(stop => Array.isArray(stop.optionalDetours) ? stop.optionalDetours.map(detour => detour.officialUrl) : []),
     ...(Array.isArray(optionalDetours) ? optionalDetours : []).map(detour => detour.officialUrl),
     ...(Array.isArray(extension?.stops) ? extension.stops : []).map(stop => stop.officialUrl)
   ].filter(Boolean);

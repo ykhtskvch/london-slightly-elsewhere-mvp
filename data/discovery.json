@@ -99,10 +99,10 @@
   },
   {
     "slug": "little-venice-kensal-green",
-    "cardTitle": "Little Venice to Kensal Green",
+    "cardTitle": "Little Venice to Harlesden",
     "timeBand": "half-day",
     "location": "london",
-    "moods": ["riverside-canal", "pub", "quiet"]
+    "moods": ["riverside-canal", "green", "urban", "quiet"]
   },
   {
     "slug": "kew-old-chiswick",
