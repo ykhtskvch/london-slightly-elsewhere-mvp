@@ -932,12 +932,14 @@ def latest_field_walk(routes):
     """The walked route whose lastChecked names the most recent month, as
     (route, "August 2026"); None when no walked route carries a date."""
     dated = []
-    for route in routes:
+    for index, route in enumerate(routes):
         if not route_walked(route):
             continue
         found = re.search(r"(" + "|".join(MONTHS) + r")\s+(\d{4})", route["editorialControl"].get("lastChecked") or "")
         if found:
-            dated.append(((int(found.group(2)), MONTHS.index(found.group(1))), route, f"{found.group(1)} {found.group(2)}"))
+            # Two walks in one month: the later entry in the data is the
+            # newer one, since routes are added at the end.
+            dated.append(((int(found.group(2)), MONTHS.index(found.group(1)), index), route, f"{found.group(1)} {found.group(2)}"))
     if not dated:
         return None
     _, route, label = max(dated, key=lambda item: item[0])
@@ -1102,11 +1104,12 @@ def index_page(routes, almanac):
         '<h1>Walks</h1>'
         '<p>Neighbourhood afternoons and full days out, with the details you need to compare them quickly.</p>'
         '</header>'
+        '<div class="browse-controls">'
         '<div class="segmented-control" data-browse-controls aria-label="Filter walks by location">'
         '<button type="button" data-location-filter="all" aria-pressed="true">All walks</button>'
         '<button type="button" data-location-filter="london" aria-pressed="false">London</button>'
         '<button type="button" data-location-filter="outside-london" aria-pressed="false">Outside London</button>'
-        '</div>'
+        '</div></div>'
         f'<p class="quiet-line" data-browse-meta role="status">{len(routes)} walks</p>'
         f'<section class="discovery-section"><div class="route-grid" data-index>{cards}</div></section>'
         "</main>\n"
@@ -1694,6 +1697,9 @@ def route_page(route, routes, almanac, venue_timing):
         ("Distance", route_distance(route)),
         ("Time", facts["duration"]),
         ("Effort", route_difficulty(route)),
+        ("Start", route_start(route)),
+        ("Finish", route_finish(route)),
+        ("Best time", facts["bestTime"]),
     ]
     if is_day_walk:
         # A full day out has a few more facts worth deciding on, and they
@@ -1712,21 +1718,25 @@ def route_page(route, routes, almanac, venue_timing):
             f'{" / ".join(format_hub(hub) for hub in travel["departureHubs"])} · '
             f'about {travel["typicalMinutes"]} min, {journey}',
         ))
-    facts_list += [
-        ("Start", route_start(route)),
-        ("Finish", route_finish(route)),
-        ("Best time", facts["bestTime"]),
-    ]
     facts_html = "".join(
         f'<div class="route-rail__fact"><dt>{e(term)}</dt><dd>{e(value)}</dd></div>'
         for term, value in facts_list
+    )
+    # On a phone a long rail (a day walk's eleven rows) shows four and a
+    # button for the rest; site-head.js reveals the button. Without it,
+    # every row shows. Six rows or fewer are not worth a fold.
+    more = len(facts_list) - 4
+    rail_toggle = (
+        f'<button class="route-rail__toggle" type="button" data-rail-toggle aria-expanded="false" hidden>'
+        f'Show {more} more</button>'
+        if len(facts_list) > 6 else ""
     )
     rail = (
         '<aside class="route-rail" aria-labelledby="essentials-title">'
         '<div class="route-rail__inner">'
         '<p class="eyebrow">Before you decide</p>'
         '<h2 id="essentials-title" class="route-rail__title">Walk essentials</h2>'
-        f'<dl class="route-rail__facts">{facts_html}</dl>'
+        f'<dl class="route-rail__facts">{facts_html}</dl>{rail_toggle}'
         f'<p class="meta"><span class="visually-hidden">Route at a glance: </span>{flow}</p>'
         f'<div class="route-actions">{map_cta}<a class="quiet" href="{base}routes/">All walks</a></div>'
         f'<p class="quiet-line">Last checked: {e(last_checked)}. Verify opening hours and access before going.</p>'
@@ -1836,9 +1846,14 @@ def route_page(route, routes, almanac, venue_timing):
         '<h3 class="subhead">Not ideal for</h3>',
         ruled_list(editorial["notIdealFor"]),
         paragraph(editorial["whatNotToExpect"], quiet=True),
-        definition("On a date", copy["dateNotes"]),
-        definition("With friends", copy["friendGroupNotes"]),
-        definition("Alone", copy["soloNotes"]),
+        # Three notes on company, a screen of their own on a phone: folded
+        # like the sections further down, open to anyone who wants them.
+        '<details class="route-notes"><summary><h3 class="subhead">On a date, with friends, or alone</h3></summary>'
+        '<div class="route-section__folded-body">'
+        + definition("On a date", copy["dateNotes"])
+        + definition("With friends", copy["friendGroupNotes"])
+        + definition("Alone", copy["soloNotes"])
+        + "</div></details>",
     ))
 
     map_start = (navigation or {}).get("arrival", {}).get("mapOriginQuery") or (
@@ -1942,18 +1957,19 @@ def route_page(route, routes, almanac, venue_timing):
         folded=True,
     ))
 
-    final = []
+    # The closing note is a sign-off, not a heading: one line in the display
+    # face, with the soundtrack under it where a route has one. It used to be
+    # an <h2> with nothing beneath it on nineteen pages.
+    closing = []
+    if copy["finalEditorialNote"]:
+        closing.append(f'<p class="route-closing">{e(copy["finalEditorialNote"])}</p>')
     if route.get("soundtrack"):
-        final.append(
+        closing.append(
             f'<p class="quiet-line">This day sounds like: {e(route["soundtrack"]["artist"])} – '
             f'<em>{e(route["soundtrack"]["track"])}</em></p>'
         )
-    # A closing note only earns a section when it has something of its own to
-    # say: on Putney it restated the shape of the day a fourth time. The five
-    # routes with a soundtrack keep the section either way, since the
-    # soundtrack line lives in it.
-    if copy["finalEditorialNote"] or final:
-        sections.append(section(copy["finalEditorialNote"] or "One more thing.", *final))
+    if closing:
+        sections.append(f'<section class="route-section route-section--closing">{"".join(closing)}</section>')
 
     related = "".join(
         route_card(candidate, base, heading_level=3)

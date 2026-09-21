@@ -17,46 +17,7 @@
     "walkedHead": "Walked, and I would send you.",
     "unwalkedHead": "Put together from places I know.",
     "unwalkedNote": "Order and timings are my guess. No photographs, because I have not stood there with this route in mind.",
-    "scale": "Three words for effort, used the same way on every route: flat, gentle, a proper walk. They are defined in {termsLink}.",
-    "filter": {
-      "lead": "Show me routes that are ",
-      "clear": "clear the sentence",
-      "groups": [
-        {
-          "axis": "effort",
-          "words": [
-            "gentle",
-            "flat",
-            "a proper walk"
-          ],
-          "after": ", take "
-        },
-        {
-          "axis": "duration",
-          "words": [
-            "an afternoon",
-            "most of a day"
-          ],
-          "after": ", cost "
-        },
-        {
-          "axis": "cost",
-          "words": [
-            "next to nothing",
-            "under £30"
-          ],
-          "after": ", and work "
-        },
-        {
-          "axis": "condition",
-          "words": [
-            "after rain",
-            "in the cold"
-          ],
-          "after": "."
-        }
-      ]
-    }
+    "scale": "Three words for effort, used the same way on every route: flat, gentle, a proper walk. They are defined in {termsLink}."
   },
   "terms": {
     "title": "Terms used here.",
