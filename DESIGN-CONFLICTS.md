@@ -812,12 +812,18 @@ visually apart, a place name is not repeated for effect — were already how
 the site is built, and this change keeps to them by not touching a page
 body at all.
 
+**Training crawlers stay allowed — decided, 21 September 2026.** GPTBot,
+ClaudeBot, Google-Extended and the rest get the same `Allow: /` as
+everyone; `robots.txt` names no user agent. Until now that was the absence
+of a rule; the author has made it the rule. The reasoning: the site exists
+to be found, blocking a training crawler gains it nothing, and search
+crawlers are separate user agents anyway, so the decision that matters —
+those stay open — was never in question. The validator refuses only a rule
+that would block a search crawler; a future rule against a training one
+would pass it, and would need this paragraph rewritten first.
+
 Left open, and not the build's to decide: Search Console needs the author's
-Google account; and whether **training** crawlers (GPTBot, ClaudeBot,
-Google-Extended) stay allowed. They are today, by the absence of a rule
-rather than by a decision. Search crawlers are separate user agents, so
-either answer leaves search alone; the validator refuses only a rule that
-would block those.
+Google account.
 
 ## 3 · What is left
 

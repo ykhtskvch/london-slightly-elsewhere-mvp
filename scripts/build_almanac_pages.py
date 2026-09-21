@@ -1423,9 +1423,11 @@ def llms_txt(routes):
 
 
 def robots():
-    """Nothing is disallowed. Naming the unlisted route here would publish it
-    more loudly than leaving it alone: robots.txt is the first file a curious
-    person opens."""
+    """Nothing is disallowed, and no user agent is named. Naming the unlisted
+    route here would publish it more loudly than leaving it alone: robots.txt
+    is the first file a curious person opens. Training crawlers are allowed
+    on purpose, not by omission — DESIGN-CONFLICTS 2.19 has the reasoning;
+    change that before changing this."""
     return f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n"
 
 
