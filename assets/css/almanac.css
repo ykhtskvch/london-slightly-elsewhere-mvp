@@ -1189,6 +1189,20 @@ textarea:disabled {
   backdrop-filter: blur(12px);
 }
 
+/* On a narrow phone the three segments share the width instead of
+   wrapping "Outside London" onto a second row of the pill. */
+@media (max-width: 35.99rem) {
+  .segmented-control {
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .segmented-control button {
+    flex: 1 1 auto;
+    padding-inline: var(--space-3);
+  }
+}
+
 @media (max-width: 63.99rem) {
   .route-rail--folded .route-rail__fact:nth-child(n + 5) {
     display: none;
