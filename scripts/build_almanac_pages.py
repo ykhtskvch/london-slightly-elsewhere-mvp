@@ -1926,18 +1926,19 @@ def route_page(route, routes, almanac, venue_timing):
         folded=True,
     ))
 
-    final = []
+    # The closing note is a sign-off, not a heading: one line in the display
+    # face, with the soundtrack under it where a route has one. It used to be
+    # an <h2> with nothing beneath it on nineteen pages.
+    closing = []
+    if copy["finalEditorialNote"]:
+        closing.append(f'<p class="route-closing">{e(copy["finalEditorialNote"])}</p>')
     if route.get("soundtrack"):
-        final.append(
+        closing.append(
             f'<p class="quiet-line">This day sounds like: {e(route["soundtrack"]["artist"])} – '
             f'<em>{e(route["soundtrack"]["track"])}</em></p>'
         )
-    # A closing note only earns a section when it has something of its own to
-    # say: on Putney it restated the shape of the day a fourth time. The five
-    # routes with a soundtrack keep the section either way, since the
-    # soundtrack line lives in it.
-    if copy["finalEditorialNote"] or final:
-        sections.append(section(copy["finalEditorialNote"] or "One more thing.", *final))
+    if closing:
+        sections.append(f'<section class="route-section route-section--closing">{"".join(closing)}</section>')
 
     related = "".join(
         route_card(candidate, base, heading_level=3)
