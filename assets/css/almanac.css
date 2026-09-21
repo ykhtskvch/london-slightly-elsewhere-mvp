@@ -518,7 +518,6 @@ textarea:disabled {
 }
 
 .home-hero__aside {
-  align-self: end;
   padding: var(--space-6);
   border: var(--border-thin) solid var(--colour-border);
   border-radius: var(--radius-lg);
@@ -1907,7 +1906,7 @@ a.quiet:hover {
 @media (min-width: 64rem) {
   .home-hero {
     grid-template-columns: minmax(0, 1.45fr) minmax(17rem, 0.55fr);
-    align-items: end;
+    align-items: center;
   }
 
   .route-grid {

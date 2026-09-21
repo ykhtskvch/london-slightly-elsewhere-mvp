@@ -13,7 +13,8 @@
 > `route-page.js`, `theme.js` — were removed in `3bbad40`. The ConditionFilter
 > of 2.13 and its index rows had already gone the same day (`d912484`,
 > `466f759`): the index is the card grid with the location control, and the
-> finder is the one filter. Where the notes below say a file is kept because
+> finder is the one filter; its sentence, for the record, read “Show me routes that are [gentle / flat / a proper walk], take [an afternoon / most of a day], cost [next to nothing / under £30], and work [after rain / in the cold].”
+> (`almanac.json → index.filter`, removed 21/09). Where the notes below say a file is kept because
 > the dormant template names it, or that two filters remain, that is history.
 
 # Where the field-guide design met this codebase
