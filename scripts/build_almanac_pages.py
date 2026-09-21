@@ -889,7 +889,7 @@ def shell(head, body, base, narrow=False, path=None):
     <link rel="icon" href="{base}favicon.ico" sizes="32x32">
     <link rel="icon" href="{base}assets/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{base}assets/icon-180.png">
-    <link rel="preload" href="{base}assets/fonts/newsreader-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{base}assets/fonts/fraunces-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{base}assets/fonts/work-sans-variable-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{base}assets/css/almanac-tokens.css">
     <link rel="stylesheet" href="{base}assets/css/almanac.css">

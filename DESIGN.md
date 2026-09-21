@@ -1,6 +1,6 @@
 # Slightly Elsewhere — product design system
 
-Status: authoritative from 20/09/2026. This replaces the earlier field-guide
+Status: authoritative from 21/09/2026. This replaces the earlier field-guide
 direction recorded in `DESIGN-CONFLICTS.md`.
 
 ## Product direction
@@ -20,7 +20,8 @@ Use **walk** in interface copy. `route` remains an internal data and URL term.
 
 The implementation source of truth is `assets/css/almanac-tokens.css`.
 
-- Display/headings: Newsreader.
+- Display/headings: Fraunces, kept to medium weights so its warmth and slight
+  eccentricity do not turn into a retro or artisan style.
 - UI/body: Work Sans.
 - Canvas `#f3efe6`, surface `#fffdf8`, ink `#17251f`, text `#263a31`,
   muted `#5d6c64`, border `#c9d1ca`.
@@ -35,10 +36,10 @@ The implementation source of truth is `assets/css/almanac-tokens.css`.
 
 ## Type roles
 
-- Hero: fluid 42–82px Newsreader.
-- Page H1: fluid 32–44px Newsreader.
-- Section H2: fluid 26–32px Newsreader.
-- Card H3: 22px Newsreader.
+- Hero: fluid 42–82px Fraunces, medium weight.
+- Page H1: fluid 32–44px Fraunces.
+- Section H2: fluid 26–32px Fraunces.
+- Card H3: 22px Fraunces.
 - Body: 16px Work Sans, 1.62 line-height.
 - UI/meta: 12–14px Work Sans with concise labels.
 - Buttons: 16px Work Sans, semibold.
