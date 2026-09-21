@@ -120,6 +120,86 @@ for (const route of routes) {
   if (count(related, /<article class="route-card"/g) !== 3) fail(file, "related walks must contain 3 cards");
 }
 
+// Crawlability. Nothing here is hard to get right once; all of it is easy
+// to break later without noticing, which is the only way it would break.
+const site = JSON.parse(fs.readFileSync(path.join(root, "data/site.json"), "utf8"));
+const siteUrl = `${site.origin}${site.basePath}`;
+const noindex = source => /<meta name="robots" content="[^"]*\bnoindex\b/.test(source);
+const pageFor = url => {
+  if (!url.startsWith(siteUrl)) return null;
+  const rest = url.slice(siteUrl.length);
+  return path.join(root, rest, rest === "" || rest.endsWith("/") ? "index.html" : "");
+};
+
+const sitemapFile = path.join(root, "sitemap.xml");
+const sitemap = fs.readFileSync(sitemapFile, "utf8");
+const listed = new Set();
+for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+  const url = match[1];
+  const page = pageFor(url);
+  if (!page) { fail(sitemapFile, `${url} is not under ${siteUrl}`); continue; }
+  listed.add(page);
+  if (!fs.existsSync(page)) { fail(sitemapFile, `${url} has no page`); continue; }
+  const source = fs.readFileSync(page, "utf8");
+  if (noindex(source)) fail(page, "listed in the sitemap but marked noindex");
+  const canonical = source.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  if (canonical !== url) fail(page, `canonical is ${canonical || "missing"}, sitemap says ${url}`);
+}
+for (const file of htmlFiles) {
+  const source = fs.readFileSync(file, "utf8");
+  if (relative(file) === "404.html" || noindex(source) || listed.has(file)) continue;
+  fail(file, "indexable page missing from the sitemap");
+}
+
+const robotsFile = path.join(root, "robots.txt");
+const robots = fs.readFileSync(robotsFile, "utf8");
+if (!robots.includes(`Sitemap: ${siteUrl}sitemap.xml`)) fail(robotsFile, "does not name the sitemap");
+const searchBots = ["*", "googlebot", "bingbot", "oai-searchbot", "claude-searchbot", "claude-user"];
+let agents = [];
+for (const line of robots.split("\n")) {
+  const [, field, value] = line.match(/^\s*([a-z-]+)\s*:\s*(.*?)\s*$/i) || [];
+  if (!field) { agents = []; continue; }
+  if (field.toLowerCase() === "user-agent") agents.push(value.toLowerCase());
+  if (field.toLowerCase() === "disallow" && value === "/") {
+    for (const agent of agents.filter(agent => searchBots.includes(agent))) {
+      fail(robotsFile, `blocks search crawler ${agent} from the whole site`);
+    }
+  }
+}
+
+for (const file of htmlFiles) {
+  const source = fs.readFileSync(file, "utf8");
+  const blocks = [...source.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  if (blocks.length > 1) fail(file, `${blocks.length} JSON-LD blocks; one per page`);
+  for (const [, block] of blocks) {
+    try { JSON.parse(block); } catch (error) { fail(file, `JSON-LD does not parse: ${error.message}`); }
+  }
+  if (!noindex(source) && relative(file) !== "404.html" && relative(file) !== "index.html") {
+    if (!source.includes('"@type":"BreadcrumbList"')) fail(file, "missing BreadcrumbList markup");
+  }
+}
+for (const route of routes) {
+  const file = path.join(root, "routes", route.slug, "index.html");
+  const source = fs.readFileSync(file, "utf8");
+  for (const needle of ['"@type":"Article"', '"author":', '"publisher":']) {
+    if (!source.includes(needle)) fail(file, `Article markup is missing ${needle}`);
+  }
+}
+
+const llmsFile = path.join(root, "llms.txt");
+if (!fs.existsSync(llmsFile)) fail(llmsFile, "missing");
+else {
+  const llms = fs.readFileSync(llmsFile, "utf8");
+  for (const match of llms.matchAll(/\]\(([^)]+)\)/g)) {
+    const page = pageFor(match[1]);
+    if (!page) fail(llmsFile, `${match[1]} is not under ${siteUrl}`);
+    else if (!fs.existsSync(page)) fail(llmsFile, `${match[1]} has no page`);
+  }
+  for (const route of routes) {
+    if (!llms.includes(`${siteUrl}routes/${route.slug}/`)) fail(llmsFile, `does not list ${route.slug}`);
+  }
+}
+
 if (failures.length) {
   console.error(`Site validation failed with ${failures.length} problem${failures.length === 1 ? "" : "s"}:`);
   for (const failure of failures) console.error(`  ${failure}`);
@@ -128,5 +208,5 @@ if (failures.length) {
 
 console.log(
   `Site validation passed: ${htmlFiles.length} HTML pages, ${routes.length} walk pages, ` +
-  `${linkCount} local references, ${imageCount} content images.`
+  `${linkCount} local references, ${imageCount} content images, ${listed.size} sitemap entries.`
 );

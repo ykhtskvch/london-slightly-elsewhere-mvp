@@ -778,6 +778,47 @@ four times over.
 
 ---
 
+### 2.19 Found, not rewritten
+
+A discoverability backlog arrived — search and the AI search crawlers, 39
+items. Checked against the built site and the live domain rather than
+worked through: sitemap, robots, canonical, one h1, unique titles and
+descriptions, the essentials rail, the walked-in-person label, related
+walks, social cards, image sizes and alt — all already there, because the
+build writes them. Every search crawler, and every training crawler, gets
+200 from GitHub with the grey cloud on. Roughly thirty of the items were
+closed before they were opened.
+
+What was added, all in the `<head>` and one text file, no sentence touched:
+
+- **Breadcrumbs in markup only.** `BreadcrumbList` on every indexable page
+  but the homepage; the rail already says "All walks" and a visible strip
+  above every H1 was decided against. The author's call.
+- **A publisher and an author.** `Organization` (Slightly Elsewhere) on
+  the `WebSite` and on every `Article`, with `isPartOf`, `mainEntityOfPage`
+  and the route's card image. The author is `Person` "Yuliya" pointing at
+  About — only what the About page already says in prose. Nothing goes into
+  markup that a reader could not find on the site.
+- **`llms.txt`**, an experiment. The walks, one line each, drafts labelled,
+  generated from `seo.description` so it cannot say anything the page does
+  not. Nothing depends on it; it can be deleted without a trace.
+- **Crawlability is now a build check**, not an audit item. Thirteen ways
+  to break it were tried on a copy and each one failed the validator before
+  it was trusted.
+
+The guardrails that came with the backlog — the factual layer stays small,
+the author's text is not rewritten for keywords, facts and voice stay
+visually apart, a place name is not repeated for effect — were already how
+the site is built, and this change keeps to them by not touching a page
+body at all.
+
+Left open, and not the build's to decide: Search Console needs the author's
+Google account; and whether **training** crawlers (GPTBot, ClaudeBot,
+Google-Extended) stay allowed. They are today, by the absence of a rule
+rather than by a decision. Search crawlers are separate user agents, so
+either answer leaves search alone; the validator refuses only a rule that
+would block those.
+
 ## 3 · What is left
 
 Every page is converted. What remains is copy and one asset job, not layout.

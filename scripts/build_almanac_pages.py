@@ -889,6 +889,55 @@ def social_tags(title, description, path, image="site-redesign.png", og_type="we
     return lines
 
 
+def organization():
+    """The publisher, spelled out in full wherever a page names one. A
+    search engine reads each page on its own, so a bare @id pointing at a
+    node on the homepage resolves to nothing; the node travels instead."""
+    return {
+        "@type": "Organization",
+        "@id": f"{SITE_URL}#organization",
+        "name": "Slightly Elsewhere",
+        "alternateName": SITE_NAME,
+        "url": SITE_URL,
+        "logo": f"{SITE_URL}assets/icon-180.png",
+    }
+
+
+def author():
+    """Only what the About page already says: a first name and where to
+    read more. Nothing the site does not publish in prose goes into markup."""
+    return {"@type": "Person", "name": "Yuliya", "url": f"{SITE_URL}about/"}
+
+
+def breadcrumb_list(trail):
+    """`trail` is [(name, path), ...] from the homepage inwards; `path` is
+    written as shell() takes it. Markup only: the rail already says where
+    a route sits, and a visible strip above every H1 was decided against."""
+    return {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": position, "name": name, "item": f"{SITE_URL}{path}"}
+            for position, (name, path) in enumerate(trail, start=1)
+        ],
+    }
+
+
+def page_breadcrumbs(name, path):
+    return breadcrumb_list([("Home", ""), (name, path)])
+
+
+def ld_script(*nodes):
+    """One <script> per page. Several nodes go in as a @graph so a page
+    never carries two blocks that could disagree about the site."""
+    data = {"@context": "https://schema.org"}
+    data.update(nodes[0] if len(nodes) == 1 else {"@graph": list(nodes)})
+    return (
+        '    <script type="application/ld+json">'
+        + json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+        + "</script>"
+    )
+
+
 def shell(head, body, base, narrow=False, path=None):
     """`path` is where this page sits under the site root, with a trailing
     slash and no leading one: "" for the homepage, "routes/putney/" for a
@@ -991,17 +1040,15 @@ def home(routes, almanac):
         f'    <meta name="description" content="{description}">',
         *social_tags("London, Slightly Elsewhere", description, ""),
         "    <title>London, Slightly Elsewhere</title>",
-        "    <script type=\"application/ld+json\">"
-        + json.dumps({
-            "@context": "https://schema.org",
+        ld_script({
             "@type": "WebSite",
             "name": "London, Slightly Elsewhere",
             "description": "Independent routes for neighbourhood days, green escapes and full days out by public transport.",
             "url": SITE_URL,
             "inLanguage": "en-GB",
             "areaServed": {"@type": "City", "name": "London"},
-        }, ensure_ascii=False, separators=(",", ":"))
-        + "</script>",
+            "publisher": organization(),
+        }),
     ])
 
     cards = "".join(route_card(route, base, heading_level=3) for route in featured)
@@ -1095,6 +1142,7 @@ def index_page(routes, almanac):
             "routes/",
         ),
         "    <title>Walks | London, Slightly Elsewhere</title>",
+        ld_script(page_breadcrumbs("Walks", "routes/")),
     ])
 
     body = (
@@ -1131,6 +1179,7 @@ def finder_page(routes, almanac):
         '    <meta name="description" content="Choose a walk by time, mood and location.">',
         *social_tags("Find a walk", "Choose a walk by time, mood and location.", "find-your-route/"),
         "    <title>Find a walk | London, Slightly Elsewhere</title>",
+        ld_script(page_breadcrumbs("Find a walk", "find-your-route/")),
     ])
     time_choices = [
         ("1-2-hours", "1–2 hours"),
@@ -1203,6 +1252,7 @@ def terms_page(almanac):
             "terms-used-here/",
         ),
         "    <title>Terms used here | London, Slightly Elsewhere</title>",
+        ld_script(page_breadcrumbs(spec["title"], "terms-used-here/")),
     ])
 
     body = (
@@ -1263,8 +1313,14 @@ def legacy_page(path, base, current, almanac, site_path):
         site_path or "",
     )
     head_lines.append(f"    <title>{title.group(1)}</title>")
+    # Same reasoning as the og: block: the breadcrumbs are ours and are
+    # generated, so one lifted from the previous run would be the second copy.
     for ld in re.findall(r'<script type="application/ld\+json">.*?</script>', source, re.S):
-        head_lines.append(f"    {ld}")
+        if '"BreadcrumbList"' not in ld:
+            head_lines.append(f"    {ld}")
+    if site_path:
+        page_name = html.unescape(title.group(1)).replace(TITLE_SUFFIX, "")
+        head_lines.append(ld_script(page_breadcrumbs(page_name, site_path)))
 
     main = re.search(r"<main\b[^>]*>(.*?)</main>", source, re.S)
     assert main, f"{path}: no <main> to convert"
@@ -1323,6 +1379,47 @@ def sitemap(routes):
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         f"{locs}\n</urlset>\n"
     )
+
+
+def llms_txt(routes):
+    """An index for a reader that arrives by language model rather than by
+    link: the walks, one line each, and the fact that not all of them have
+    been walked. An experiment, not something any page depends on; it says
+    nothing the pages do not, and it is built from the same fields, so it
+    cannot drift from them. Same omissions as the sitemap."""
+    def line(route):
+        seo = route["seo"]
+        # The walked descriptions already say so; only a draft needs the label.
+        draft = "" if route_walked(route) else " Draft, not yet walked."
+        return f'- [{seo["shortTitle"]}]({SITE_URL}routes/{route["slug"]}/): {seo["description"]}{draft}'
+
+    london = [route for route in walked_first(routes) if route["routeType"] == "london-day"]
+    days_out = [route for route in walked_first(routes) if route["routeType"] != "london-day"]
+    return "\n".join([
+        f"# {SITE_NAME}",
+        "",
+        "> Independent walks in and around London, walked in person where noted, "
+        "with good stops along the way. A small non-commercial site run by one person.",
+        "",
+        "Each walk is labelled honestly: walked in person, or a draft still to be checked. "
+        "Opening hours and transport details change; verify before going.",
+        "",
+        "## Walks in London",
+        "",
+        *[line(route) for route in london],
+        "",
+        "## Days out by train",
+        "",
+        *[line(route) for route in days_out],
+        "",
+        "## About the site",
+        "",
+        f"- [All walks]({SITE_URL}routes/): every route on one page",
+        f"- [Find a walk]({SITE_URL}find-your-route/): choose by time, mood and location",
+        f"- [About]({SITE_URL}about/): who walks and checks these routes",
+        f"- [Terms used here]({SITE_URL}terms-used-here/): what the site's own words mean",
+        "",
+    ])
 
 
 def robots():
@@ -1511,6 +1608,7 @@ def privacy_page(almanac):
             "privacy/",
         ),
         f"    <title>Privacy{TITLE_SUFFIX}</title>",
+        ld_script(page_breadcrumbs(spec["title"], "privacy/")),
     ])
     body = (
         '      <main id="main">'
@@ -1607,21 +1705,27 @@ def route_head_meta(route):
         ]
     else:
         lines.append('    <meta name="twitter:card" content="summary">')
+    url = f'{SITE_URL}routes/{route["slug"]}/'
     ld = {
-        "@context": "https://schema.org",
         "@type": "Article",
         "headline": seo["title"],
         "description": seo["description"],
-        "url": f'{SITE_URL}routes/{route["slug"]}/',
+        "url": url,
+        "mainEntityOfPage": url,
         "inLanguage": "en-GB",
+        "author": author(),
+        "publisher": organization(),
+        "isPartOf": {"@type": "WebSite", "name": SITE_NAME, "url": SITE_URL},
     }
+    if image.exists():
+        ld["image"] = f'{SITE_URL}assets/og/{route["slug"]}.png'
     if seo.get("contentLocation"):
         ld["contentLocation"] = {"@type": "Place", "name": seo["contentLocation"]}
     lines += [
         f'    <title>{e(seo["shortTitle"] + TITLE_SUFFIX)}</title>',
-        '    <script type="application/ld+json">'
-        + json.dumps(ld, ensure_ascii=False, separators=(",", ":"))
-        + "</script>",
+        ld_script(ld, breadcrumb_list([
+            ("Home", ""), ("Walks", "routes/"), (seo["shortTitle"], f'routes/{route["slug"]}/'),
+        ])),
     ]
     return "\n".join(lines)
 
@@ -2047,7 +2151,8 @@ def main():
 
     (ROOT / "sitemap.xml").write_text(sitemap(routes), encoding="utf-8")
     (ROOT / "robots.txt").write_text(robots(), encoding="utf-8")
-    print(f"Wrote sitemap.xml ({len(routes) + 10} urls) and robots.txt for {SITE_URL}")
+    (ROOT / "llms.txt").write_text(llms_txt(routes), encoding="utf-8")
+    print(f"Wrote sitemap.xml ({len(routes) + 10} urls), robots.txt and llms.txt for {SITE_URL}")
 
     slugs = list(by_slug) if ALMANAC_ROUTES is None else list(ALMANAC_ROUTES)
     for slug in slugs:

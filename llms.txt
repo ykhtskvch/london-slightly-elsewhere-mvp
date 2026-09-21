@@ -1,0 +1,43 @@
+# London, Slightly Elsewhere
+
+> Independent walks in and around London, walked in person where noted, with good stops along the way. A small non-commercial site run by one person.
+
+Each walk is labelled honestly: walked in person, or a draft still to be checked. Opening hours and transport details change; verify before going.
+
+## Walks in London
+
+- [Putney](https://slightlyelsewhere.co.uk/routes/putney/): A personally field-checked Thames evening in Putney with a pub, dinner and optional live music.
+- [Hampstead](https://slightlyelsewhere.co.uk/routes/hampstead/): A field-checked Hampstead route from Hampstead Heath Overground: ponds, Kenwood, hidden cafés and local pub stops.
+- [Woolwich to the Tor](https://slightlyelsewhere.co.uk/routes/woolwich/): A personally field-checked Woolwich walk east along the Thames Path to Thamesmead Tor, returning by Uber Boat, with a separate Charlton extension.
+- [Little Venice to Harlesden](https://slightlyelsewhere.co.uk/routes/little-venice-kensal-green/): A personally field-checked west London walk from Little Venice to Harlesden via the Grand Union Canal, Kensal Green Cemetery, community Kensal Rise, Roundwood Park and Galician food.
+- [Maida Vale After Dark](https://slightlyelsewhere.co.uk/routes/maida-vale-after-dark/): A personally field-checked evening walk through Maida Vale and Little Venice, with Victorian pub interiors, canal reflections and NewsRevue at Canal Cafe Theatre.
+- [Bloomsbury](https://slightlyelsewhere.co.uk/routes/bloomsbury/): A rainy-day Bloomsbury route for books, indoor pauses and old London streets. Draft, not yet walked.
+- [Rotherhithe](https://slightlyelsewhere.co.uk/routes/rotherhithe/): A prototype Rotherhithe route with river walking, dock history and a pub finish. Draft, not yet walked.
+- [Crystal Palace](https://slightlyelsewhere.co.uk/routes/crystal-palace/): A prototype Crystal Palace route for hills, park oddities and a local pub finish. Draft, not yet walked.
+- [Stoke Newington](https://slightlyelsewhere.co.uk/routes/stoke-newington/): A prototype Stoke Newington route with books, cemetery paths and a pub finish. Draft, not yet walked.
+- [Walthamstow](https://slightlyelsewhere.co.uk/routes/walthamstow/): A prototype Walthamstow route from market energy to quieter village streets. Draft, not yet walked.
+- [Clerkenwell](https://slightlyelsewhere.co.uk/routes/clerkenwell/): A prototype Clerkenwell evening route with old streets, pub rooms and an optional proper meal. Draft, not yet walked.
+- [King’s Cross](https://slightlyelsewhere.co.uk/routes/kings-cross/): A prototype King’s Cross route for two: canal infrastructure, a quiet churchyard and a low-pressure pub finish. Draft, not yet walked.
+- [Harringay Green Lanes](https://slightlyelsewhere.co.uk/routes/harringay-green-lanes/): A prototype Harringay Green Lanes route: a Victorian pub, Turkish grills and a lively local street. Draft, not yet walked.
+- [Brixton](https://slightlyelsewhere.co.uk/routes/brixton/): A prototype Brixton route: market grazing, a local pub and an optional Windmill gig. Draft, not yet walked.
+- [Kentish Town](https://slightlyelsewhere.co.uk/routes/kentish-town/): A prototype Kentish Town route: two backstreet pubs and an optional small music room. Draft, not yet walked.
+- [Deptford](https://slightlyelsewhere.co.uk/routes/deptford/): A prototype Deptford route: market-day street life, an old churchyard and a Caribbean finish. Draft, not yet walked.
+- [Kew Without the Gardens](https://slightlyelsewhere.co.uk/routes/kew-old-chiswick/): A prototype west London route from Kew Green to old Chiswick for river air, free gardens and Thai pub dinner. Draft, not yet walked.
+
+## Days out by train
+
+- [Marlow to Hambleden](https://slightlyelsewhere.co.uk/routes/marlow-hambleden/): A prototype full day out from London: a mostly level Thames Path walk from Marlow to Hambleden Lock and village, then back again. Draft, not yet walked.
+- [Chesham to Rickmansworth](https://slightlyelsewhere.co.uk/routes/chesham-rickmansworth/): A prototype 16 km Chess Valley Walk from Chesham to Rickmansworth, using the Metropolitan line at both ends. Draft, not yet walked.
+- [Box Hill, Three Ridges](https://slightlyelsewhere.co.uk/routes/box-hill-headley/): A prototype 15 km circular Box Hill day walk for chalk downs, woodland, panoramic views and a pub near the train home. Draft, not yet walked.
+- [Shoeburyness to Old Leigh](https://slightlyelsewhere.co.uk/routes/shoeburyness-old-leigh/): A prototype coast walk from Shoeburyness to Old Leigh, with a Garrison loop, sea air and a pub finish. Draft, not yet walked.
+- [Theydon Bois to Chingford](https://slightlyelsewhere.co.uk/routes/theydon-bois-chingford/): A prototype Epping Forest traverse from Theydon Bois to Chingford for heathland, woodland and a day with no city centre. Draft, not yet walked.
+- [Ruislip to Harefield](https://slightlyelsewhere.co.uk/routes/ruislip-harefield/): A prototype Ruislip Woods and Lido day walk to Harefield, reached on the Metropolitan line. Draft, not yet walked.
+- [Lea Marshes to Tottenham Hale](https://slightlyelsewhere.co.uk/routes/lea-marshes-tottenham-hale/): A prototype Lea Marshes to Tottenham Hale day walk for wetlands, reservoirs, the River Lea and a café pause. Draft, not yet walked.
+- [Harold Wood to Rainham](https://slightlyelsewhere.co.uk/routes/harold-wood-rainham/): A prototype London Loop day walk from Harold Wood to Rainham, reached directly from Stratford on the Elizabeth line. Draft, not yet walked.
+
+## About the site
+
+- [All walks](https://slightlyelsewhere.co.uk/routes/): every route on one page
+- [Find a walk](https://slightlyelsewhere.co.uk/find-your-route/): choose by time, mood and location
+- [About](https://slightlyelsewhere.co.uk/about/): who walks and checks these routes
+- [Terms used here](https://slightlyelsewhere.co.uk/terms-used-here/): what the site's own words mean
