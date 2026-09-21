@@ -916,12 +916,14 @@ def latest_field_walk(routes):
     """The walked route whose lastChecked names the most recent month, as
     (route, "August 2026"); None when no walked route carries a date."""
     dated = []
-    for route in routes:
+    for index, route in enumerate(routes):
         if not route_walked(route):
             continue
         found = re.search(r"(" + "|".join(MONTHS) + r")\s+(\d{4})", route["editorialControl"].get("lastChecked") or "")
         if found:
-            dated.append(((int(found.group(2)), MONTHS.index(found.group(1))), route, f"{found.group(1)} {found.group(2)}"))
+            # Two walks in one month: the later entry in the data is the
+            # newer one, since routes are added at the end.
+            dated.append(((int(found.group(2)), MONTHS.index(found.group(1)), index), route, f"{found.group(1)} {found.group(2)}"))
     if not dated:
         return None
     _, route, label = max(dated, key=lambda item: item[0])
