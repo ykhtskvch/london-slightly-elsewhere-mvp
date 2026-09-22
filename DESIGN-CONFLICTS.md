@@ -822,8 +822,12 @@ those stay open — was never in question. The validator refuses only a rule
 that would block a search crawler; a future rule against a training one
 would pass it, and would need this paragraph rewritten first.
 
-Left open, and not the build's to decide: Search Console needs the author's
-Google account.
+Search Console: a Domain property for `slightlyelsewhere.co.uk`, verified
+by a TXT record in Cloudflare on 22 September 2026 — the record stays, Google
+rechecks it. The sitemap is submitted (35 URLs; a Domain property wants the
+full `https://` address, a bare `sitemap.xml` is refused) and indexing was
+requested for the homepage, Walks and a walked route. Nothing in the build
+knows about any of this, which is as it should be.
 
 ## 3 · What is left
 
